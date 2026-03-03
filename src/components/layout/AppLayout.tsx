@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { MapPin, Menu, X, Home, Ticket, Phone, Mail, Globe, ClipboardList, FileText, BarChart3, GraduationCap, Building, ArrowRightLeft } from 'lucide-react';
+import { MapPin, Menu, X, Home, Ticket, Phone, Mail, Globe, ClipboardList, FileText, BarChart3, GraduationCap, Building, ArrowRightLeft, Users } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import kenyaCoatOfArms from '@/assets/kenya-coat-of-arms.png';
 
@@ -86,6 +86,16 @@ export function AppLayout({ children }: AppLayoutProps) {
                 <ArrowRightLeft className="w-5 h-5" aria-hidden="true" />
                 <span className="hidden 2xl:inline">Switch to Resolver</span>
               </NavLink>
+              
+              {/* Switch to Elected Representative View */}
+              <NavLink
+                to="/elected"
+                className="ncc-nav-item"
+                aria-label="Switch to Elected Representative View"
+              >
+                <Users className="w-5 h-5" aria-hidden="true" />
+                <span className="hidden 2xl:inline">Elected Rep</span>
+              </NavLink>
             </nav>
 
             {/* Mobile Menu Button */}
@@ -147,6 +157,20 @@ export function AppLayout({ children }: AppLayoutProps) {
                 <div>
                   <span className="block font-semibold">Switch to Resolver</span>
                   <span className="text-sm opacity-80">Go to staff portal</span>
+                </div>
+              </NavLink>
+              
+              {/* Switch to Elected Representative View - Mobile */}
+              <NavLink
+                to="/elected"
+                className="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all hover:bg-white/10"
+                onClick={() => setMobileMenuOpen(false)}
+                aria-label="Switch to Elected Representative View"
+              >
+                <Users className="w-6 h-6" aria-hidden="true" />
+                <div>
+                  <span className="block font-semibold">Elected Representative</span>
+                  <span className="text-sm opacity-80">Go to elected rep view</span>
                 </div>
               </NavLink>
             </div>
