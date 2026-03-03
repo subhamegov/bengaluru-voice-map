@@ -59,7 +59,7 @@ export function AppLayout({ children }: AppLayoutProps) {
             </NavLink>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-1" aria-label="Main navigation">
+            <nav className="hidden xl:flex items-center gap-1" aria-label="Main navigation">
               {navigation.map((item) => (
                 <NavLink
                   key={item.name}
@@ -73,7 +73,7 @@ export function AppLayout({ children }: AppLayoutProps) {
                   aria-label={item.description}
                 >
                   <item.icon className="w-5 h-5" aria-hidden="true" />
-                  <span>{item.name}</span>
+                  <span className="hidden 2xl:inline">{item.name}</span>
                 </NavLink>
               ))}
               
@@ -84,14 +84,14 @@ export function AppLayout({ children }: AppLayoutProps) {
                 aria-label="Switch to Resolver Dashboard"
               >
                 <ArrowRightLeft className="w-5 h-5" aria-hidden="true" />
-                <span>Switch to Resolver</span>
+                <span className="hidden 2xl:inline">Switch to Resolver</span>
               </NavLink>
             </nav>
 
             {/* Mobile Menu Button */}
             <button
               type="button"
-              className="lg:hidden flex items-center justify-center w-11 h-11 rounded-lg hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white transition-colors"
+              className="xl:hidden flex items-center justify-center w-11 h-11 rounded-lg hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white transition-colors"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-expanded={mobileMenuOpen}
               aria-controls="mobile-menu"
@@ -110,7 +110,7 @@ export function AppLayout({ children }: AppLayoutProps) {
         {mobileMenuOpen && (
           <nav
             id="mobile-menu"
-            className="lg:hidden bg-primary/95 backdrop-blur-sm border-t border-white/10 animate-slide-up"
+            className="xl:hidden bg-primary/95 backdrop-blur-sm border-t border-white/10 animate-slide-up"
             aria-label="Mobile navigation"
           >
             <div className="container py-4 space-y-1">
