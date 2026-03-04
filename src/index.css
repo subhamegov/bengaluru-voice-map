@@ -329,3 +329,19 @@
 
 .leaflet-popup-content-wrapper { @apply rounded shadow-lg; }
 .leaflet-popup-content { @apply text-base; }
+
+/* ── 3-state chip system (outside @layer for specificity) ── */
+.chip-default {
+  background-color: hsl(var(--card));
+  color: hsl(var(--foreground));
+  border-color: hsl(var(--border));
+}
+.chip-default:hover {
+  background-color: hsl(var(--muted));
+}
+.chip-active {
+  background-color: hsl(var(--primary)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+  border-color: hsl(var(--primary)) !important;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+}

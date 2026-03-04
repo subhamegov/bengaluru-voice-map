@@ -304,12 +304,11 @@ export function CityMap({
             <button
               key={f.id}
               onClick={() => setActiveFilter(f.id)}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all border"
-              style={
-                isActive
-                  ? { backgroundColor: `hsl(var(--primary))`, color: `hsl(var(--primary-foreground))`, borderColor: `hsl(var(--primary))`, boxShadow: '0 1px 3px 0 rgb(0 0 0 / 0.1)' }
-                  : { backgroundColor: `hsl(var(--card))`, color: `hsl(var(--foreground))`, borderColor: `hsl(var(--border))` }
-              }
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all border
+                ${isActive
+                  ? 'chip-active'
+                  : 'chip-default'
+                }`}
               aria-pressed={isActive}
             >
               <Icon className="w-3.5 h-3.5" aria-hidden="true" />
