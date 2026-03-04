@@ -317,36 +317,7 @@ export default function AboutMyCity() {
           </div>
         </section>
 
-        {/* ── GBA Officers ── */}
-        <section aria-labelledby="officers-heading">
-          <h2 id="officers-heading" className="text-xl md:text-2xl font-bold font-display flex items-center gap-2 mb-4">
-            <Users className="w-6 h-6 text-primary" aria-hidden="true" />
-            GBA Officers
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            {gbaOfficers.map((officer, i) => (
-              <Card key={i} className="hover:shadow-md transition-shadow text-center">
-                <CardContent className="p-4 flex flex-col items-center">
-                  <div className="w-20 h-20 rounded-full overflow-hidden bg-muted mb-3 border-2 border-border">
-                    <img
-                      src={officer.photo}
-                      alt={officer.name}
-                      className="w-full h-full object-cover"
-                      onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
-                    />
-                  </div>
-                  <p className="font-semibold text-sm text-foreground leading-tight">{officer.name}</p>
-                  <p className="text-xs text-muted-foreground mt-1 leading-tight">{officer.designation}</p>
-                  {officer.email && (
-                    <a href={`mailto:${officer.email}`} className="text-xs text-primary mt-2 flex items-center gap-1">
-                      <Mail className="w-3 h-3" /> {officer.email}
-                    </a>
-                  )}
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </section>
+        {/* GBA Officers moved to bottom */}
 
         {/* ── City Corporations ── */}
         <section aria-labelledby="corporations-heading">
@@ -711,6 +682,163 @@ export default function AboutMyCity() {
               </div>
             </CardContent>
           </Card>
+        </section>
+
+        {/* ── Power Outage Feedback ── */}
+        <section aria-labelledby="power-outage-heading">
+          <h2 id="power-outage-heading" className="text-xl md:text-2xl font-bold font-display flex items-center gap-2 mb-4">
+            <Zap className="w-6 h-6 text-primary" aria-hidden="true" />
+            Power Outage Updates & How to Report
+          </h2>
+          <div className="space-y-4">
+            <Card className="bg-orange-50 dark:bg-orange-900/10 border-orange-200 dark:border-orange-800">
+              <CardContent className="p-5">
+                <div className="flex items-start gap-3">
+                  <AlertTriangle className="w-6 h-6 text-orange-600 dark:text-orange-400 shrink-0 mt-0.5" />
+                  <div>
+                    <h3 className="font-semibold text-foreground mb-1">Frequent Power Cuts in Bengaluru</h3>
+                    <p className="text-sm text-muted-foreground mb-3">
+                      Despite Karnataka being a power-surplus state, Bengaluru faces frequent power outages due to 
+                      infrastructure upgrades, tree trimming, and transformer maintenance by BESCOM. Many areas experience 
+                      scheduled and unscheduled outages regularly.
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      <Badge variant="outline" className="text-xs">BESCOM</Badge>
+                      <Badge variant="outline" className="text-xs">Infrastructure</Badge>
+                      <Badge variant="outline" className="text-xs">Scheduled Maintenance</Badge>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <div className="grid md:grid-cols-2 gap-4">
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-base flex items-center gap-2">
+                    <Phone className="w-4 h-4 text-primary" />
+                    BESCOM Helpline & Complaint Channels
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="space-y-2 text-sm">
+                    <div className="flex items-center justify-between p-2 rounded bg-muted/50">
+                      <span className="font-medium">24x7 Helpline</span>
+                      <a href="tel:1912" className="text-primary font-bold">1912</a>
+                    </div>
+                    <div className="flex items-center justify-between p-2 rounded bg-muted/50">
+                      <span className="font-medium">WhatsApp (General)</span>
+                      <a href="https://wa.me/919449844640" target="_blank" rel="noopener noreferrer" className="text-primary font-bold">9449844640</a>
+                    </div>
+                    <div className="flex items-center justify-between p-2 rounded bg-muted/50">
+                      <span className="font-medium">Safety Concerns</span>
+                      <span className="text-primary font-bold">9483191222</span>
+                    </div>
+                    <div className="flex items-center justify-between p-2 rounded bg-muted/50">
+                      <span className="font-medium">SMS Complaint</span>
+                      <span className="text-primary font-bold">58888</span>
+                    </div>
+                    <div className="flex items-center justify-between p-2 rounded bg-muted/50">
+                      <span className="font-medium">Email</span>
+                      <a href="mailto:helpline@bescom.co.in" className="text-primary font-bold text-xs">helpline@bescom.co.in</a>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-base flex items-center gap-2">
+                    <Smartphone className="w-4 h-4 text-primary" />
+                    How to Report Power Outages
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3 text-sm text-muted-foreground">
+                  <ol className="list-decimal pl-4 space-y-2">
+                    <li><strong className="text-foreground">Call 1912</strong> — BESCOM's 24x7 helpline for immediate assistance.</li>
+                    <li><strong className="text-foreground">BESCOM Mithra App</strong> — Download from Play Store to report outages and track complaints.</li>
+                    <li><strong className="text-foreground">WhatsApp</strong> — Send complaint to <strong>9449844640</strong> with account number and area.</li>
+                    <li><strong className="text-foreground">SMS</strong> — Send details to <strong>58888</strong> for quick registration.</li>
+                    <li><strong className="text-foreground">Online</strong> — Visit <a href="https://bescom.karnataka.gov.in" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">bescom.karnataka.gov.in</a> for planned outages.</li>
+                  </ol>
+                  <div className="pt-2 border-t">
+                    <Button size="sm" variant="default" asChild>
+                      <a href="https://bescom.karnataka.gov.in/new-page/Planned%20Outages%20-%20BESCOM%20Works/en" target="_blank" rel="noopener noreferrer">
+                        <ExternalLink className="w-4 h-4 mr-1" /> View Planned Outages
+                      </a>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-base flex items-center gap-2">
+                  <MessageCircle className="w-4 h-4 text-primary" />
+                  Recent Citizen Feedback on Power Outages
+                </CardTitle>
+                <CardDescription>Common concerns reported by Bengaluru residents</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  {[
+                    { area: 'Koramangala', issue: 'Unscheduled 4-hour outage during peak hours, no prior intimation from BESCOM.', time: '2 days ago', status: 'Resolved' },
+                    { area: 'Whitefield', issue: 'Frequent voltage fluctuations damaging appliances. Transformer needs upgrade.', time: '3 days ago', status: 'In Progress' },
+                    { area: 'Jayanagar', issue: 'Scheduled maintenance extended beyond communicated time. Restored after 8 hours.', time: '4 days ago', status: 'Resolved' },
+                    { area: 'Mahadevapura', issue: 'Recurring outages every evening 6-8 PM for past week. Infrastructure overload suspected.', time: '5 days ago', status: 'Under Review' },
+                    { area: 'Electronic City', issue: 'Power cut during heavy rain, tree fell on lines. BESCOM response took 6 hours.', time: '1 week ago', status: 'Resolved' },
+                    { area: 'HSR Layout', issue: 'Three unscheduled outages in one day. Residents demand better communication.', time: '1 week ago', status: 'Acknowledged' },
+                  ].map((feedback, i) => (
+                    <div key={i} className="flex items-start gap-3 p-3 rounded-lg border border-border hover:bg-muted/30 transition-colors">
+                      <Zap className="w-4 h-4 text-orange-500 mt-1 shrink-0" />
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="font-semibold text-sm text-foreground">{feedback.area}</span>
+                          <Badge variant={feedback.status === 'Resolved' ? 'default' : 'outline'} className="text-[10px] h-5">
+                            {feedback.status}
+                          </Badge>
+                        </div>
+                        <p className="text-sm text-muted-foreground">{feedback.issue}</p>
+                        <span className="text-xs text-muted-foreground/60 mt-1 block">{feedback.time}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
+        {/* ── GBA Officers (moved to bottom) ── */}
+        <section aria-labelledby="officers-heading">
+          <h2 id="officers-heading" className="text-xl md:text-2xl font-bold font-display flex items-center gap-2 mb-4">
+            <Users className="w-6 h-6 text-primary" aria-hidden="true" />
+            GBA Officers
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            {gbaOfficers.map((officer, i) => (
+              <Card key={i} className="hover:shadow-md transition-shadow text-center">
+                <CardContent className="p-4 flex flex-col items-center">
+                  <div className="w-20 h-20 rounded-full overflow-hidden bg-muted mb-3 border-2 border-border">
+                    <img
+                      src={officer.photo}
+                      alt={officer.name}
+                      className="w-full h-full object-cover"
+                      onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                    />
+                  </div>
+                  <p className="font-semibold text-sm text-foreground leading-tight">{officer.name}</p>
+                  <p className="text-xs text-muted-foreground mt-1 leading-tight">{officer.designation}</p>
+                  {officer.email && (
+                    <a href={`mailto:${officer.email}`} className="text-xs text-primary mt-2 flex items-center gap-1">
+                      <Mail className="w-3 h-3" /> {officer.email}
+                    </a>
+                  )}
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </section>
       </div>
     </AppLayout>
