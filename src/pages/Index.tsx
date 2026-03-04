@@ -2,9 +2,8 @@ import React, { useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import {
   PenSquare, ArrowRight, Ticket, MapPin, Clock, Shield, Users,
-  Settings2, GraduationCap, BarChart3, ClipboardList, FileText, Building, LayoutDashboard
+  Settings2, GraduationCap, BarChart3, ClipboardList, FileText
 } from 'lucide-react';
-import { UX4GPageHeader } from '@/components/layout/UX4GPageHeader';
 import { AppLayout } from '@/components/layout/AppLayout';
 import { CityMap } from '@/components/map/CityMap';
 import { HappeningsFeed } from '@/components/happenings/HappeningsFeed';
@@ -14,6 +13,7 @@ import { UserPreferencesModal, loadUserPreferences, UserPreferences } from '@/co
 import { Button } from '@/components/ui/button';
 import { getOverviewStats, getAverageSolutionTime } from '@/lib/serviceAnalyticsData';
 import { CITY } from '@/config/city';
+import bengaluruSkyline from '@/assets/bengaluru-skyline.png';
 
 const Index = () => {
   const [selectedLocation, setSelectedLocation] = useState<{ lat: number; lng: number } | null>(null);
@@ -37,23 +37,37 @@ const Index = () => {
 
   return (
     <AppLayout>
-      <UX4GPageHeader
-        icon={LayoutDashboard}
-        title="City at a Glance"
-        description="Stay updated on city performance, services, and opportunities to participate in building a better city."
-        action={
-          <div className="flex flex-wrap gap-3">
+      {/* ── Layer 2: Civic Skyline Banner (emotional layer) ── */}
+      <section className="civic-skyline-banner -mx-4 md:-mx-6 lg:-mx-8 -mt-6 md:-mt-8 mb-0">
+        <div className="skyline-text pt-6 pb-2">
+          <p className="civic-tagline">Namma Karnataka &nbsp;·&nbsp; Namma Bengaluru</p>
+        </div>
+        <img
+          src={bengaluruSkyline}
+          alt="Bengaluru city skyline illustration showing Vidhana Soudha, Lalbagh, and other landmarks"
+          className="skyline-img"
+        />
+      </section>
+
+      {/* ── Layer 3: Citizen Action Strip ── */}
+      <section className="citizen-action-strip -mx-4 md:-mx-6 lg:-mx-8 px-4 md:px-6 lg:px-8 border-b border-border mb-8">
+        <div className="max-w-[1100px]">
+          <h2 className="action-title">Welcome to {CITY.cityName}</h2>
+          <p className="action-description">
+            Report city issues, track requests, and help improve your neighbourhood.
+          </p>
+          <div className="flex flex-wrap gap-3 mt-6">
             <Link to="/report" className="gov-btn-primary">
               <PenSquare className="w-5 h-5" />
-              Report Issue
+              Report an Issue
             </Link>
             <Link to="/my-tickets" className="gov-btn-outline">
               <Ticket className="w-5 h-5" />
-              Track My Reports
+              Track My Requests
             </Link>
           </div>
-        }
-      />
+        </div>
+      </section>
 
       {/* ── Quick Stats (compact row) ── */}
       <section className="mb-8">
@@ -83,27 +97,6 @@ const Index = () => {
             <BarChart3 className="w-4 h-4" />
             View detailed analytics
             <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
-      </section>
-
-      {/* ── Primary Action Card ── */}
-      <section className="mb-8">
-        <div className="gov-card p-5 md:p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-l-4 border-l-primary">
-          <div className="flex items-start gap-3">
-            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-              <PenSquare className="w-5 h-5 text-primary" />
-            </div>
-            <div>
-              <h2 className="text-lg font-bold text-foreground">Report an Issue</h2>
-              <p className="text-sm text-muted-foreground mt-0.5">
-                Tell the city about potholes, garbage, water leaks and other civic issues.
-              </p>
-            </div>
-          </div>
-          <Link to="/report" className="gov-btn-primary whitespace-nowrap">
-            <PenSquare className="w-4 h-4" />
-            Report Issue
           </Link>
         </div>
       </section>

@@ -247,6 +247,43 @@
     background-color: hsl(var(--playing));
   }
 
+  /* ── Civic Skyline Banner ── */
+  .civic-skyline-banner {
+    background-color: #F7F9FB;
+    @apply relative overflow-hidden;
+  }
+
+  .civic-skyline-banner .skyline-text {
+    @apply text-center;
+  }
+
+  .civic-skyline-banner .skyline-text .civic-tagline {
+    @apply text-sm md:text-base font-semibold tracking-widest uppercase;
+    color: hsl(var(--muted-foreground));
+    letter-spacing: 0.15em;
+  }
+
+  .civic-skyline-banner .skyline-img {
+    @apply w-full object-cover;
+    max-height: 180px;
+    opacity: 0.7;
+    mix-blend-mode: multiply;
+  }
+
+  /* ── Citizen Action Strip ── */
+  .citizen-action-strip {
+    @apply bg-background py-8 md:py-10;
+  }
+
+  .citizen-action-strip .action-title {
+    @apply text-3xl md:text-4xl font-bold leading-tight tracking-tight;
+    color: hsl(var(--foreground));
+  }
+
+  .citizen-action-strip .action-description {
+    @apply text-lg text-muted-foreground mt-2 max-w-2xl;
+  }
+
   /* ── Footer ── */
   .gov-footer {
     background-color: hsl(var(--gov-topbar));
