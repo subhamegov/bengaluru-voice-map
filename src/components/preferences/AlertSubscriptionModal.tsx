@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Bell, MapPin, Check, Volume2, Info } from 'lucide-react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import ReactDOM from 'react-dom';
+import { Bell, MapPin, Check, Volume2, Info, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { WARDS } from '@/types/story';
 import { toast } from 'sonner';
 
@@ -48,6 +47,25 @@ export const AlertSubscriptionModal: React.FC<AlertSubscriptionModalProps> = ({ 
     }
   }, [open]);
 
+  // Lock body scroll
+  useEffect(() => {
+    if (open) {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => { document.body.style.overflow = prev; };
+    }
+  }, [open]);
+
+  // ESC to close
+  useEffect(() => {
+    if (!open) return;
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onOpenChange(false);
+    };
+    document.addEventListener('keydown', handler);
+    return () => document.removeEventListener('keydown', handler);
+  }, [open, onOpenChange]);
+
   const handleWardToggle = (wardCode: string) => {
     setSelectedWards(prev => prev.includes(wardCode) ? prev.filter(w => w !== wardCode) : [...prev, wardCode]);
   };
@@ -80,140 +98,176 @@ export const AlertSubscriptionModal: React.FC<AlertSubscriptionModalProps> = ({ 
     return acc;
   }, {} as Record<string, typeof WARDS>);
 
-  return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-lg max-h-[90vh] p-0 gap-0 bg-background">
-        <DialogHeader className="p-6 pb-4 border-b border-border">
-          <DialogTitle className="flex items-center gap-2 text-xl font-bold text-foreground">
-            <Bell className="w-5 h-5 text-primary" />
-            Subscribe to Service Alerts
-          </DialogTitle>
-          <p className="text-sm text-muted-foreground mt-1">
-            Get notified about outages and disruptions in your area
-          </p>
-        </DialogHeader>
+  if (!open) return null;
 
-        <ScrollArea className="max-h-[60vh]">
-          <div className="p-6 space-y-8">
-            {/* Ward Selection */}
-            <div>
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-2">
-                  <MapPin className="w-5 h-5 text-primary" />
-                  <h3 className="font-semibold text-foreground">Your Ward</h3>
-                  <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full">
-                    {selectedWards.length} selected
-                  </span>
-                </div>
-                <Button
-                  variant="ghost" size="sm"
-                  onClick={() => setSelectedWards(selectedWards.length === WARDS.length ? [] : WARDS.map(w => w.code))}
-                  className="text-xs text-muted-foreground hover:text-primary"
-                >
-                  {selectedWards.length === WARDS.length ? 'Clear all' : 'Select all'}
-                </Button>
-              </div>
+  return ReactDOM.createPortal(
+    <div className="fixed inset-0" style={{ zIndex: 9990 }}>
+      {/* Scrim */}
+      <div
+        className="fixed inset-0 bg-black/50"
+        style={{ zIndex: 9990 }}
+        onClick={() => onOpenChange(false)}
+        aria-hidden="true"
+      />
 
-              {/* Voice help prompt */}
-              <div className="mb-4 flex items-start gap-2 p-3 rounded-lg bg-primary/5 border border-primary/10">
-                <Info className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                <div className="text-xs text-muted-foreground flex-1">
-                  <p className="font-medium text-foreground mb-0.5">Not sure which ward you belong to?</p>
-                  <p>
-                    Use the{' '}
-                    <a href="https://play.google.com/store/apps/details?id=com.dishaank" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-medium">Dishaank app</a>
-                    {' '}or visit{' '}
-                    <a href="https://gba.karnataka.gov.in/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-medium">gba.karnataka.gov.in</a>
-                    {' '}to find your ward by location.
-                  </p>
-                </div>
-                <Button
-                  size="sm" variant="ghost" className="shrink-0 h-7 px-2"
-                  aria-label="Read ward help aloud"
-                  onClick={() => speakText('Not sure which ward you belong to? Use the Dishaank app or visit gba.karnataka.gov.in to find your ward by location.')}
-                >
-                  <Volume2 className="w-3.5 h-3.5" />
-                </Button>
-              </div>
+      {/* Sheet */}
+      <div
+        className="fixed inset-x-0 bottom-0 mx-auto flex flex-col bg-white rounded-t-2xl shadow-xl"
+        style={{
+          zIndex: 9991,
+          maxWidth: 720,
+          maxHeight: '85vh',
+        }}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Subscribe to Service Alerts"
+      >
+        {/* Drag handle */}
+        <div className="flex justify-center pt-3 pb-1">
+          <div className="w-10 h-1 rounded-full bg-neutral-300" />
+        </div>
 
-              <div className="space-y-4">
-                {Object.entries(wardsByZone).map(([zone, wards]) => (
-                  <div key={zone}>
-                    <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-2">{zone}</p>
-                    <div className="grid grid-cols-2 gap-2">
-                      {wards.map(ward => (
-                        <label
-                          key={ward.code}
-                          className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all ${
-                            selectedWards.includes(ward.code)
-                              ? 'border-primary bg-primary/5'
-                              : 'border-border hover:border-primary/50 hover:bg-muted/50'
-                          }`}
-                        >
-                          <Checkbox
-                            checked={selectedWards.includes(ward.code)}
-                            onCheckedChange={() => handleWardToggle(ward.code)}
-                            className="data-[state=checked]:bg-primary data-[state=checked]:border-primary"
-                          />
-                          <span className="text-sm font-medium text-foreground">{ward.name}</span>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-                ))}
+        {/* Sticky Header */}
+        <div className="flex items-start justify-between px-6 pt-2 pb-4 border-b border-border shrink-0">
+          <div>
+            <h2 className="flex items-center gap-2 text-xl font-bold text-foreground">
+              <Bell className="w-5 h-5 text-primary" />
+              Subscribe to Service Alerts
+            </h2>
+            <p className="text-sm text-muted-foreground mt-1">
+              Get notified about outages and disruptions in your area
+            </p>
+          </div>
+          <button
+            onClick={() => onOpenChange(false)}
+            className="flex items-center justify-center w-9 h-9 rounded-full hover:bg-muted transition-colors"
+            style={{ zIndex: 9992 }}
+            aria-label="Close"
+          >
+            <X className="w-5 h-5 text-muted-foreground" />
+          </button>
+        </div>
+
+        {/* Scrollable Content */}
+        <div className="flex-1 overflow-y-auto overscroll-contain px-6 py-6 space-y-8">
+          {/* Ward Selection */}
+          <div>
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
+                <MapPin className="w-5 h-5 text-primary" />
+                <h3 className="font-semibold text-foreground">Your Ward</h3>
+                <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full">
+                  {selectedWards.length} selected
+                </span>
               </div>
+              <Button
+                variant="ghost" size="sm"
+                onClick={() => setSelectedWards(selectedWards.length === WARDS.length ? [] : WARDS.map(w => w.code))}
+                className="text-xs text-muted-foreground hover:text-primary"
+              >
+                {selectedWards.length === WARDS.length ? 'Clear all' : 'Select all'}
+              </Button>
             </div>
 
-            {/* Topic Selection */}
-            <div>
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-2">
-                  <Bell className="w-5 h-5 text-secondary" />
-                  <h3 className="font-semibold text-foreground">What to Alert Me About</h3>
-                  <span className="text-xs bg-secondary/10 text-secondary px-2 py-0.5 rounded-full">
-                    {selectedTopics.length} selected
-                  </span>
-                </div>
-                <Button
-                  variant="ghost" size="sm"
-                  onClick={() => setSelectedTopics(selectedTopics.length === ALERT_TOPICS.length ? [] : ALERT_TOPICS.map(t => t.code))}
-                  className="text-xs text-muted-foreground hover:text-secondary"
-                >
-                  {selectedTopics.length === ALERT_TOPICS.length ? 'Clear all' : 'Select all'}
-                </Button>
+            {/* Voice help prompt */}
+            <div className="mb-4 flex items-start gap-2 p-3 rounded-lg bg-primary/5 border border-primary/10">
+              <Info className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+              <div className="text-xs text-muted-foreground flex-1">
+                <p className="font-medium text-foreground mb-0.5">Not sure which ward you belong to?</p>
+                <p>
+                  Use the{' '}
+                  <a href="https://play.google.com/store/apps/details?id=com.dishaank" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-medium">Dishaank app</a>
+                  {' '}or visit{' '}
+                  <a href="https://gba.karnataka.gov.in/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-medium">gba.karnataka.gov.in</a>
+                  {' '}to find your ward by location.
+                </p>
               </div>
+              <Button
+                size="sm" variant="ghost" className="shrink-0 h-7 px-2"
+                aria-label="Read ward help aloud"
+                onClick={() => speakText('Not sure which ward you belong to? Use the Dishaank app or visit gba.karnataka.gov.in to find your ward by location.')}
+              >
+                <Volume2 className="w-3.5 h-3.5" />
+              </Button>
+            </div>
 
-              <div className="grid grid-cols-1 gap-2">
-                {ALERT_TOPICS.map(topic => (
-                  <label
-                    key={topic.code}
-                    className={`flex items-center gap-4 p-4 rounded-lg border cursor-pointer transition-all ${
-                      selectedTopics.includes(topic.code)
-                        ? 'border-secondary bg-secondary/5'
-                        : 'border-border hover:border-secondary/50 hover:bg-muted/50'
-                    }`}
-                  >
-                    <Checkbox
-                      checked={selectedTopics.includes(topic.code)}
-                      onCheckedChange={() => handleTopicToggle(topic.code)}
-                      className="data-[state=checked]:bg-secondary data-[state=checked]:border-secondary"
-                    />
-                    <div className="flex-1">
-                      <p className="font-medium text-foreground">{topic.label}</p>
-                      <p className="text-xs text-muted-foreground">{topic.description}</p>
-                    </div>
-                    {selectedTopics.includes(topic.code) && (
-                      <Check className="w-5 h-5 text-secondary" />
-                    )}
-                  </label>
-                ))}
-              </div>
+            <div className="space-y-4">
+              {Object.entries(wardsByZone).map(([zone, wards]) => (
+                <div key={zone}>
+                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-2">{zone}</p>
+                  <div className="grid grid-cols-2 gap-2">
+                    {wards.map(ward => (
+                      <label
+                        key={ward.code}
+                        className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all ${
+                          selectedWards.includes(ward.code)
+                            ? 'border-primary bg-primary/5'
+                            : 'border-border hover:border-primary/50 hover:bg-muted/50'
+                        }`}
+                      >
+                        <Checkbox
+                          checked={selectedWards.includes(ward.code)}
+                          onCheckedChange={() => handleWardToggle(ward.code)}
+                          className="data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+                        />
+                        <span className="text-sm font-medium text-foreground">{ward.name}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-        </ScrollArea>
 
-        {/* Footer */}
-        <div className="p-6 pt-4 border-t border-border bg-muted/30">
+          {/* Topic Selection */}
+          <div>
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
+                <Bell className="w-5 h-5 text-secondary" />
+                <h3 className="font-semibold text-foreground">What to Alert Me About</h3>
+                <span className="text-xs bg-secondary/10 text-secondary px-2 py-0.5 rounded-full">
+                  {selectedTopics.length} selected
+                </span>
+              </div>
+              <Button
+                variant="ghost" size="sm"
+                onClick={() => setSelectedTopics(selectedTopics.length === ALERT_TOPICS.length ? [] : ALERT_TOPICS.map(t => t.code))}
+                className="text-xs text-muted-foreground hover:text-secondary"
+              >
+                {selectedTopics.length === ALERT_TOPICS.length ? 'Clear all' : 'Select all'}
+              </Button>
+            </div>
+
+            <div className="grid grid-cols-1 gap-2">
+              {ALERT_TOPICS.map(topic => (
+                <label
+                  key={topic.code}
+                  className={`flex items-center gap-4 p-4 rounded-lg border cursor-pointer transition-all ${
+                    selectedTopics.includes(topic.code)
+                      ? 'border-secondary bg-secondary/5'
+                      : 'border-border hover:border-secondary/50 hover:bg-muted/50'
+                  }`}
+                >
+                  <Checkbox
+                    checked={selectedTopics.includes(topic.code)}
+                    onCheckedChange={() => handleTopicToggle(topic.code)}
+                    className="data-[state=checked]:bg-secondary data-[state=checked]:border-secondary"
+                  />
+                  <div className="flex-1">
+                    <p className="font-medium text-foreground">{topic.label}</p>
+                    <p className="text-xs text-muted-foreground">{topic.description}</p>
+                  </div>
+                  {selectedTopics.includes(topic.code) && (
+                    <Check className="w-5 h-5 text-secondary" />
+                  )}
+                </label>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Sticky Footer */}
+        <div className="px-6 py-4 border-t border-border bg-muted/30 shrink-0">
           <div className="flex gap-3">
             <Button variant="outline" className="flex-1" onClick={() => onOpenChange(false)}>
               Cancel
@@ -226,7 +280,8 @@ export const AlertSubscriptionModal: React.FC<AlertSubscriptionModalProps> = ({ 
             Your alert preferences are saved locally on this device
           </p>
         </div>
-      </DialogContent>
-    </Dialog>
+      </div>
+    </div>,
+    document.body
   );
 };
