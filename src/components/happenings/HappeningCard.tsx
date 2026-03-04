@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import { Calendar, MapPin, ExternalLink, Volume2, Building2 } from 'lucide-react';
+import React from 'react';
+import { Calendar, MapPin, Building2, ChevronRight } from 'lucide-react';
 import { Happening, HAPPENING_TYPE_LABELS } from '@/types/happenings';
 import { HAPPENING_TYPE_ICON_COMPONENTS } from '@/lib/iconMaps';
-import { speakText, stopSpeaking } from '@/lib/apiClient';
 import { cn } from '@/lib/utils';
 
 interface HappeningCardProps {
@@ -12,33 +11,13 @@ interface HappeningCardProps {
 }
 
 export function HappeningCard({ happening, className, onClick }: HappeningCardProps) {
-  const [isReading, setIsReading] = useState(false);
-
   const formatDate = (dateString: string): string => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-KE', { 
-      weekday: 'short', 
-      month: 'short', 
-      day: 'numeric' 
+    return date.toLocaleDateString('en-IN', {
+      weekday: 'short',
+      month: 'short',
+      day: 'numeric',
     });
-  };
-
-  const handleReadAloud = async (e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent card click
-    if (isReading) {
-      stopSpeaking();
-      setIsReading(false);
-      return;
-    }
-
-    const textToRead = `${happening.title}. ${happening.summary}. From ${happening.source}.`;
-    setIsReading(true);
-    await speakText(textToRead);
-    setIsReading(false);
-  };
-
-  const handleExternalLink = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent card click
   };
 
   const getTypeColor = () => {
@@ -54,10 +33,10 @@ export function HappeningCard({ happening, className, onClick }: HappeningCardPr
   };
 
   return (
-    <article 
+    <article
       className={cn(
-        'bg-card rounded-xl border border-border p-4 shadow-soft hover:shadow-medium transition-all cursor-pointer',
-        'hover:border-primary/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
+        'gov-card p-4 cursor-pointer group',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
         className
       )}
       aria-labelledby={`happening-title-${happening.id}`}
@@ -71,93 +50,58 @@ export function HappeningCard({ happening, className, onClick }: HappeningCardPr
       tabIndex={0}
       role="button"
     >
-      {/* Type badge and date */}
-      <div className="flex items-start justify-between gap-3 mb-3">
-        <span 
+      {/* Row 1: Badge + Date */}
+      <div className="flex items-center justify-between gap-2 mb-2">
+        <span
           className={cn(
-            'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold border',
+            'inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-semibold border',
             getTypeColor()
           )}
         >
-          {(() => { const Icon = HAPPENING_TYPE_ICON_COMPONENTS[happening.type]; return <Icon className="w-3.5 h-3.5" aria-hidden="true" />; })()}
+          {(() => {
+            const Icon = HAPPENING_TYPE_ICON_COMPONENTS[happening.type];
+            return <Icon className="w-3 h-3" aria-hidden="true" />;
+          })()}
           {HAPPENING_TYPE_LABELS[happening.type]}
         </span>
-        
-        <time 
+
+        <time
           dateTime={happening.date}
           className="flex items-center gap-1 text-xs text-muted-foreground"
         >
-          <Calendar className="w-3.5 h-3.5" aria-hidden="true" />
+          <Calendar className="w-3 h-3" aria-hidden="true" />
           {formatDate(happening.date)}
-          {happening.endDate && ` - ${formatDate(happening.endDate)}`}
         </time>
       </div>
 
-      {/* Title */}
-      <h3 
+      {/* Row 2: Title */}
+      <h3
         id={`happening-title-${happening.id}`}
-        className="font-bold text-foreground mb-2"
+        className="font-semibold text-foreground mb-1 text-sm leading-snug"
       >
         {happening.title}
       </h3>
 
-      {/* Summary */}
-      <p className="text-sm text-muted-foreground leading-relaxed mb-3 line-clamp-2">
+      {/* Row 3: Summary (2-line clamp) */}
+      <p className="text-xs text-muted-foreground leading-relaxed mb-2 line-clamp-2">
         {happening.summary}
       </p>
 
-      {/* Source and ward */}
-      <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground mb-3">
-        <span className="flex items-center gap-1">
-          <Building2 className="w-3.5 h-3.5" aria-hidden="true" />
-          {happening.source}
-        </span>
-        {happening.wardName && (
+      {/* Row 4: Source + Ward + arrow */}
+      <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
           <span className="flex items-center gap-1">
-            <MapPin className="w-3.5 h-3.5" aria-hidden="true" />
-            {happening.wardName} Ward
+            <Building2 className="w-3 h-3" aria-hidden="true" />
+            {happening.source}
           </span>
-        )}
-      </div>
-
-      {/* Actions */}
-      <div className="flex flex-wrap items-center gap-2 pt-3 border-t border-border">
-        {/* Read aloud button */}
-        <button
-          type="button"
-          onClick={handleReadAloud}
-          className={cn(
-            'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors',
-            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
-            isReading
-              ? 'bg-secondary text-secondary-foreground'
-              : 'bg-muted text-foreground hover:bg-muted/80'
+          {happening.wardName && (
+            <span className="flex items-center gap-1">
+              <MapPin className="w-3 h-3" aria-hidden="true" />
+              {happening.wardName}
+            </span>
           )}
-          aria-label={isReading ? 'Stop reading' : 'Read this update aloud'}
-          aria-pressed={isReading}
-        >
-          <Volume2 className="w-4 h-4" aria-hidden="true" />
-          {isReading ? 'Stop' : 'Read aloud'}
-        </button>
-
-        {/* External link */}
-        {happening.link && (
-          <a
-            href={happening.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={handleExternalLink}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium bg-muted text-foreground hover:bg-muted/80 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-          >
-            <ExternalLink className="w-4 h-4" aria-hidden="true" />
-            More details
-          </a>
-        )}
-
-        {/* View details hint */}
-        <span className="ml-auto text-xs text-muted-foreground">
-          Tap for details →
-        </span>
+        </div>
+        <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" aria-hidden="true" />
       </div>
     </article>
   );

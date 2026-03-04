@@ -145,7 +145,17 @@
     min-height: var(--tap-target-min);
   }
 
-  /* ── Action tiles ── */
+  /* ── Task tiles (UX4G compact action grid) ── */
+  .gov-task-tile {
+    @apply flex flex-col items-center justify-center text-center;
+    @apply bg-card rounded-lg border border-border p-4;
+    @apply transition-all duration-200;
+    @apply hover:shadow-md hover:border-primary/30 hover:-translate-y-0.5;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary;
+    min-height: 110px;
+  }
+
+  /* Legacy action tiles (kept for resolver/other pages) */
   .gov-action-tile {
     @apply relative overflow-hidden rounded p-6;
     @apply flex flex-col items-center justify-center text-center;
