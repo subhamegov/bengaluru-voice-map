@@ -48,7 +48,7 @@ export function AppLayout({ children }: AppLayoutProps) {
             </span>
           </div>
           <div className="flex items-center gap-1 sm:gap-2">
-            <a href="#main-content" className="mygov-utility-link hidden sm:inline-flex">
+            <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-background focus:text-foreground focus:p-2">
               Skip to main content
             </a>
             <button className="mygov-utility-btn" aria-label="Change language" title="Language">

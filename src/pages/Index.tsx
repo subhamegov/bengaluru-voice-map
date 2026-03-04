@@ -57,7 +57,7 @@ const Index = () => {
             Report city issues, track requests, and help improve your neighbourhood.
           </p>
           <div className="flex flex-wrap gap-3 mt-6">
-            <Link to="/report" className="gov-btn-primary">
+            <Link to="/report" className="gov-btn-outline">
               <PenSquare className="w-5 h-5" />
               Report an Issue
             </Link>
