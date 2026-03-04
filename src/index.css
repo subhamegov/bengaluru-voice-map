@@ -67,14 +67,46 @@
 }
 
 @layer components {
-  /* ── Government top bar (dark strip) ── */
-  .gov-topbar {
+  /* ── Government top bar (legacy — replaced by mygov-utility-bar) ── */
+  .gov-topbar-legacy {
     background-color: hsl(var(--gov-topbar));
     @apply text-white text-xs py-1.5 px-4;
   }
 
-  /* ── Header — solid white, border bottom, always on top ── */
-  .gov-header {
+  /* ── MyGov-style Utility Bar ── */
+  .mygov-utility-bar {
+    background: linear-gradient(135deg, hsl(222 28% 12%) 0%, hsl(222 20% 18%) 100%);
+    @apply text-white py-1.5 px-4;
+  }
+
+  .mygov-flag {
+    @apply text-base leading-none;
+  }
+
+  .mygov-utility-link {
+    @apply text-xs text-white/70 hover:text-white transition-colors px-2 py-1 rounded;
+    @apply hover:bg-white/10;
+  }
+
+  .mygov-utility-btn {
+    @apply inline-flex items-center gap-1 px-2 py-1.5 rounded-full text-white/80;
+    @apply hover:text-white hover:bg-white/10 transition-all text-xs;
+    min-height: 32px;
+  }
+
+  /* ── Gradient accent bar (saffron → magenta, MyGov style) ── */
+  .mygov-accent-bar {
+    height: 4px;
+    background: linear-gradient(
+      90deg,
+      hsl(25 95% 53%) 0%,
+      hsl(350 80% 55%) 50%,
+      hsl(280 60% 50%) 100%
+    );
+  }
+
+  /* ── Main Header ── */
+  .mygov-header {
     @apply border-b shadow-sm relative;
     background-color: hsl(var(--background));
     border-color: hsl(var(--gov-header-border));
@@ -82,15 +114,16 @@
     isolation: isolate;
   }
 
-  /* ── Tricolour accent bar ── */
-  .gov-accent-bar {
-    @apply h-1;
-    background: linear-gradient(
-      90deg,
-      hsl(25 95% 50%) 33%,
-      hsl(0 0% 100%) 33% 66%,
-      hsl(142 64% 38%) 66%
-    );
+  /* ── Nav items (MyGov style) ── */
+  .mygov-nav-item {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-2 rounded-md text-sm font-medium;
+    @apply text-muted-foreground transition-all duration-150;
+    @apply hover:text-foreground hover:bg-muted;
+  }
+
+  .mygov-nav-item--active {
+    @apply text-primary font-semibold;
+    background-color: hsl(var(--primary) / 0.08);
   }
 
   /* ── Hero ── */
@@ -203,7 +236,7 @@
     @apply w-1 h-8 bg-primary rounded-sm;
   }
 
-  /* ── Nav item ── */
+  /* ── Nav item (legacy — kept for resolver layout) ── */
   .gov-nav-item {
     @apply flex items-center gap-1.5 px-2.5 py-2 rounded text-sm font-medium;
     @apply text-foreground transition-all duration-200;
