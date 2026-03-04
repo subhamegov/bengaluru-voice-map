@@ -16,9 +16,9 @@ const DEPARTMENTS = [
 ];
 
 const WARDS = [
-  'Westlands', 'Kilimani', 'Kileleshwa', 'Lavington', 'Parklands/Highridge',
-  'Karura', 'Karen', 'Langata', 'Nairobi South', 'Upper Hill', 'Starehe',
-  'Kasarani', 'Roysambu', 'Ruaraka', 'Embakasi', 'Dandora', 'Kayole',
+  'Ward 1', 'Ward 2', 'Ward 3', 'Ward 4', 'Ward 5', 'Ward 6',
+  'Ward 7', 'Ward 8', 'Ward 9', 'Ward 10', 'Ward 11', 'Ward 12',
+  'Central',
 ];
 
 export interface AppreciationData {

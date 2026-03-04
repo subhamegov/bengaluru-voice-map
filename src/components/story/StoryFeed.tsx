@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { RefreshCw, Filter, X } from 'lucide-react';
-import { Story, StoryCategory, CATEGORY_LABELS, NAIROBI_WARDS } from '@/types/story';
+import { Story, StoryCategory, CATEGORY_LABELS, WARDS } from '@/types/story';
 import { apiClient } from '@/lib/apiClient';
 import { StoryCard } from './StoryCard';
 import { cn } from '@/lib/utils';
@@ -148,7 +148,7 @@ export function StoryFeed({ className, refreshTrigger }: StoryFeedProps) {
                 className="w-full px-4 py-3 rounded-lg border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
               >
                 <option value="">All wards</option>
-                {NAIROBI_WARDS.map((ward) => (
+                {WARDS.map((ward) => (
                   <option key={ward.code} value={ward.code}>
                     {ward.name}
                   </option>
@@ -177,7 +177,7 @@ export function StoryFeed({ className, refreshTrigger }: StoryFeedProps) {
           )}
           {wardFilter && (
             <span className="inline-flex items-center gap-1 px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium">
-              {NAIROBI_WARDS.find(w => w.code === wardFilter)?.name}
+              {WARDS.find(w => w.code === wardFilter)?.name}
               <button
                 type="button"
                 onClick={() => setWardFilter('')}

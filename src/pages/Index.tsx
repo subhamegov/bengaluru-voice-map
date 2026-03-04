@@ -1,9 +1,9 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { PenSquare, ArrowRight, Ticket, MapPin, Clock, Shield, Users, Settings2, GraduationCap, BarChart3 } from 'lucide-react';
-import nairobiSkyline from '@/assets/nairobi-skyline.jpg';
+import heroSkyline from '@/assets/hero-skyline.jpg';
 import { AppLayout } from '@/components/layout/AppLayout';
-import { NairobiMap } from '@/components/map/NairobiMap';
+import { CityMap } from '@/components/map/NairobiMap';
 import { HappeningsFeed } from '@/components/happenings/HappeningsFeed';
 import { ActiveSurveys } from '@/components/surveys/ActiveSurveys';
 import { findWardByCoords } from '@/lib/happeningsApi';
@@ -34,7 +34,7 @@ const Index = () => {
       <section className="mb-10" aria-labelledby="hero-title">
         <div 
           className="gov-hero p-8 md:p-12 relative bg-cover bg-center rounded-lg"
-          style={{ backgroundImage: `url(${nairobiSkyline})` }}
+          style={{ backgroundImage: `url(${heroSkyline})` }}
         >
           <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/80 to-primary/60 rounded-lg" />
           <div className="max-w-2xl relative z-10">
@@ -172,7 +172,7 @@ const Index = () => {
           Mark a spot on the map to see what's happening nearby or to report an issue in your area.
         </p>
         
-        <NairobiMap
+        <CityMap
           selectedLocation={selectedLocation}
           onLocationSelect={handleLocationSelect}
           onLocationDescriptionChange={handleLocationDescriptionChange}

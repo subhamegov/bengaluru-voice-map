@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Send, FileText, Mic, ChevronDown, ChevronUp, MapPin, AlertCircle, CheckCircle } from 'lucide-react';
 import { VoiceRecorder } from '@/components/voice/VoiceRecorder';
-import { StoryCategory, CATEGORY_LABELS, CATEGORY_DESCRIPTIONS, NAIROBI_WARDS, StorySubmission } from '@/types/story';
+import { StoryCategory, CATEGORY_LABELS, CATEGORY_DESCRIPTIONS, WARDS, StorySubmission } from '@/types/story';
 import { cn } from '@/lib/utils';
 
 interface NewStoryPanelProps {
@@ -295,7 +295,7 @@ export function NewStoryPanel({ selectedLocation, onSubmit, className }: NewStor
             className="w-full px-4 py-3 rounded-lg border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
           >
             <option value="">Select your ward...</option>
-            {NAIROBI_WARDS.map((ward) => (
+            {WARDS.map((ward) => (
               <option key={ward.code} value={ward.code}>
                 {ward.name}
               </option>

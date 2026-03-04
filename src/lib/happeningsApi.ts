@@ -2,7 +2,7 @@
 // Will be replaced with DIGIT MDMS or civic open-data API
 
 import { Happening, ProjectDetails, ProjectComment } from '@/types/happenings';
-import { NAIROBI_WARDS } from '@/types/story';
+import { WARDS } from '@/types/story';
 
 // Helper to generate mock comments
 const generateMockComments = (projectId: string): ProjectComment[] => {
@@ -424,7 +424,7 @@ export function findWardByCoords(lat: number, lng: number): { code: string; name
   let nearestWard = null;
   let minDistance = Infinity;
   
-  for (const ward of NAIROBI_WARDS) {
+  for (const ward of WARDS) {
     const distance = getDistance(lat, lng, ward.center.lat, ward.center.lng);
     if (distance < minDistance) {
       minDistance = distance;

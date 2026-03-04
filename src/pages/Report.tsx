@@ -11,7 +11,7 @@ import { LocationStep, LocationData } from '@/components/report/LocationStep';
 import { ComplaintIntentStep, ComplaintIntent, LinkedProject } from '@/components/report/ComplaintIntentStep';
 import { AppreciationStep, AppreciationData } from '@/components/report/AppreciationStep';
 import { apiClient } from '@/lib/apiClient';
-import { StorySubmission, IssueCategory, NairobiDepartment, CATEGORY_TO_DEPARTMENT, NAIROBI_DEPARTMENTS, DepartmentSelectionSource } from '@/types/story';
+import { StorySubmission, IssueCategory, Department, CATEGORY_TO_DEPARTMENT, DEPARTMENTS, DepartmentSelectionSource } from '@/types/story';
 import { cn } from '@/lib/utils';
 import { Building2, Info } from 'lucide-react';
 import {
@@ -92,7 +92,7 @@ const Report = () => {
   const [beneficiaryPhone, setBeneficiaryPhone] = useState('');
   const [beneficiaryRelationship, setBeneficiaryRelationship] = useState('');
   const [beneficiaryReceiveUpdates, setBeneficiaryReceiveUpdates] = useState(false);
-  const [responsibleDepartment, setResponsibleDepartment] = useState<NairobiDepartment>('To be assigned');
+  const [responsibleDepartment, setResponsibleDepartment] = useState<Department>('To be assigned');
   const [departmentSelectionSource, setDepartmentSelectionSource] = useState<DepartmentSelectionSource>('AUTO');
 
   // Auto-populate contact info from currentUser
@@ -498,7 +498,7 @@ const Report = () => {
                       setResponsibleDepartment(autoMapped);
                       setDepartmentSelectionSource('AUTO');
                     } else {
-                      const dept = value as NairobiDepartment;
+                      const dept = value as Department;
                       setResponsibleDepartment(dept);
                       setDepartmentSelectionSource(dept === autoMapped ? 'AUTO' : 'USER_OVERRIDE');
                     }
@@ -513,7 +513,7 @@ const Report = () => {
                   </SelectTrigger>
                   <SelectContent className="bg-popover">
                     <SelectItem value="Let the system decide">Let the system decide</SelectItem>
-                    {NAIROBI_DEPARTMENTS.map((dept) => (
+                    {DEPARTMENTS.map((dept) => (
                       <SelectItem key={dept} value={dept}>{dept}</SelectItem>
                     ))}
                   </SelectContent>

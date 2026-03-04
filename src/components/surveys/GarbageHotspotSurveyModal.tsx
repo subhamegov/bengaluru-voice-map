@@ -21,7 +21,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { NAIROBI_WARDS } from '@/types/story';
+import { WARDS } from '@/types/story';
 import { toast } from 'sonner';
 
 // Fix Leaflet default marker icon
@@ -126,7 +126,7 @@ export const GarbageHotspotSurveyModal: React.FC<GarbageHotspotSurveyModalProps>
   const [reportCount] = useState(178); // Mock ward report count
 
   // Get ward center for map
-  const selectedWard = NAIROBI_WARDS.find(w => w.code === ward);
+  const selectedWard = WARDS.find(w => w.code === ward);
   const mapCenter: [number, number] = selectedWard 
     ? [selectedWard.center.lat, selectedWard.center.lng] 
     : [-1.2864, 36.8172];
@@ -228,7 +228,7 @@ export const GarbageHotspotSurveyModal: React.FC<GarbageHotspotSurveyModalProps>
                 <SelectValue placeholder="Select your ward" />
               </SelectTrigger>
               <SelectContent className="bg-popover">
-                {NAIROBI_WARDS.map((w) => (
+                {WARDS.map((w) => (
                   <SelectItem key={w.code} value={w.code}>
                     {w.name}
                   </SelectItem>

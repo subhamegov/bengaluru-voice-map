@@ -62,7 +62,7 @@ import {
 } from '@/lib/resolverIssuesData';
 
 const DEPARTMENTS = ['All', 'Environment', 'Water & Sewerage', 'Works', 'Public Health', 'Mobility & ICT'];
-const WARDS = ['All', 'Parklands', 'Kilimani', 'Umoja I', 'Kayole North', 'Karen', 'Ngara', 'Pipeline', 'Kawangware', 'Nairobi Central', 'Zimmerman', 'Roysambu', 'Ruaraka', 'Highridge', 'Mugumo-ini'];
+const WARDS = ['All', 'Ward 1', 'Ward 2', 'Ward 3', 'Ward 4', 'Ward 5', 'Ward 6', 'Ward 7', 'Ward 8', 'Ward 9', 'Ward 10', 'Ward 11', 'Ward 12', 'Central'];
 const STATUSES = ['All', 'Open', 'Assigned', 'In Progress', 'Awaiting Response', 'Reopened', 'Closed'];
 const CATEGORIES = ['All', 'Garbage Collection', 'Illegal Dumping', 'Street Cleaning', 'Pollution', 'Noise Pollution', 'Pothole', 'Water Leak', 'Sewer Blockage', 'Street Light', 'Traffic Light', 'Food Safety', 'Blocked Drain', 'Road Damage', 'Pest Control'];
 
@@ -627,7 +627,7 @@ function IssueDetailDialog({ issue, onClose }: IssueDetailDialogProps) {
               </div>
               <div className="space-y-1">
                 <Label className="text-xs text-muted-foreground">Sub-County</Label>
-                <p className="text-sm font-medium">{issue.subCounty || 'Nairobi Central'}</p>
+                <p className="text-sm font-medium">{issue.subCounty || 'Zone A'}</p>
               </div>
               <div className="space-y-1">
                 <Label className="text-xs text-muted-foreground">Ward</Label>

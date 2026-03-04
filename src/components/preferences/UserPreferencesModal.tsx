@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { NAIROBI_WARDS, ISSUE_CATEGORIES, IssueCategory } from '@/types/story';
+import { WARDS, ISSUE_CATEGORIES, IssueCategory } from '@/types/story';
 import { toast } from 'sonner';
 
 export interface UserPreferences {
@@ -85,10 +85,10 @@ export const UserPreferencesModal: React.FC<UserPreferencesModalProps> = ({
   };
 
   const handleSelectAllWards = () => {
-    if (selectedWards.length === NAIROBI_WARDS.length) {
+    if (selectedWards.length === WARDS.length) {
       setSelectedWards([]);
     } else {
-      setSelectedWards(NAIROBI_WARDS.map(w => w.code));
+      setSelectedWards(WARDS.map(w => w.code));
     }
   };
 
@@ -114,13 +114,13 @@ export const UserPreferencesModal: React.FC<UserPreferencesModalProps> = ({
   };
 
   // Group wards by subcounty
-  const wardsBySubcounty = NAIROBI_WARDS.reduce((acc, ward) => {
+  const wardsBySubcounty = WARDS.reduce((acc, ward) => {
     if (!acc[ward.subcounty]) {
       acc[ward.subcounty] = [];
     }
     acc[ward.subcounty].push(ward);
     return acc;
-  }, {} as Record<string, typeof NAIROBI_WARDS>);
+  }, {} as Record<string, typeof WARDS>);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -153,7 +153,7 @@ export const UserPreferencesModal: React.FC<UserPreferencesModalProps> = ({
                   onClick={handleSelectAllWards}
                   className="text-xs text-muted-foreground hover:text-primary"
                 >
-                  {selectedWards.length === NAIROBI_WARDS.length ? 'Clear all' : 'Select all'}
+                  {selectedWards.length === WARDS.length ? 'Clear all' : 'Select all'}
                 </Button>
               </div>
 

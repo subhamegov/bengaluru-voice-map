@@ -109,9 +109,6 @@ export type Department =
   | 'Mobility and ICT Infrastructure'
   | 'To be assigned';
 
-/** @deprecated Use Department instead */
-export type NairobiDepartment = Department;
-
 export const DEPARTMENTS: Department[] = [
   'Environment',
   'Water and Sewerage',
@@ -119,9 +116,6 @@ export const DEPARTMENTS: Department[] = [
   'Public Health',
   'Mobility and ICT Infrastructure',
 ];
-
-/** @deprecated Use DEPARTMENTS instead */
-export const NAIROBI_DEPARTMENTS = DEPARTMENTS;
 
 export const CATEGORY_TO_DEPARTMENT: Record<IssueCategory, Department> = {
   roads: 'Works',
@@ -168,21 +162,21 @@ export interface Ward {
   center: { lat: number; lng: number };
 }
 
-// City wards (sample data)
-export const NAIROBI_WARDS: Ward[] = [
-  { code: 'westlands', name: 'Westlands', subcounty: 'Westlands', center: { lat: -1.2673, lng: 36.8058 } },
-  { code: 'parklands', name: 'Parklands/Highridge', subcounty: 'Westlands', center: { lat: -1.2621, lng: 36.8135 } },
-  { code: 'kilimani', name: 'Kilimani', subcounty: 'Dagoretti North', center: { lat: -1.2892, lng: 36.7865 } },
-  { code: 'karen', name: 'Karen', subcounty: 'Lang\'ata', center: { lat: -1.3196, lng: 36.7128 } },
-  { code: 'langata', name: 'Lang\'ata', subcounty: 'Lang\'ata', center: { lat: -1.3550, lng: 36.7600 } },
-  { code: 'kibera', name: 'Kibera', subcounty: 'Kibra', center: { lat: -1.3133, lng: 36.7833 } },
-  { code: 'embakasi_central', name: 'Embakasi Central', subcounty: 'Embakasi Central', center: { lat: -1.3100, lng: 36.8900 } },
-  { code: 'ruaraka', name: 'Ruaraka', subcounty: 'Ruaraka', center: { lat: -1.2450, lng: 36.8750 } },
-  { code: 'kasarani', name: 'Kasarani', subcounty: 'Kasarani', center: { lat: -1.2208, lng: 36.8956 } },
-  { code: 'roysambu', name: 'Roysambu', subcounty: 'Roysambu', center: { lat: -1.2167, lng: 36.8833 } },
-  { code: 'mathare', name: 'Mathare', subcounty: 'Mathare', center: { lat: -1.2633, lng: 36.8583 } },
-  { code: 'starehe', name: 'Starehe', subcounty: 'Starehe', center: { lat: -1.2833, lng: 36.8333 } },
-  { code: 'nairobi_central', name: 'Nairobi Central', subcounty: 'Starehe', center: { lat: -1.2864, lng: 36.8172 } },
+// City wards (sample data — replace with real MDMS ward data)
+export const WARDS: Ward[] = [
+  { code: 'ward_01', name: 'Ward 1', subcounty: 'Zone A', center: { lat: 28.6139, lng: 77.2090 } },
+  { code: 'ward_02', name: 'Ward 2', subcounty: 'Zone A', center: { lat: 28.6200, lng: 77.2150 } },
+  { code: 'ward_03', name: 'Ward 3', subcounty: 'Zone B', center: { lat: 28.6300, lng: 77.2200 } },
+  { code: 'ward_04', name: 'Ward 4', subcounty: 'Zone B', center: { lat: 28.6350, lng: 77.2100 } },
+  { code: 'ward_05', name: 'Ward 5', subcounty: 'Zone C', center: { lat: 28.6400, lng: 77.2300 } },
+  { code: 'ward_06', name: 'Ward 6', subcounty: 'Zone C', center: { lat: 28.6450, lng: 77.2250 } },
+  { code: 'ward_07', name: 'Ward 7', subcounty: 'Zone D', center: { lat: 28.6500, lng: 77.2100 } },
+  { code: 'ward_08', name: 'Ward 8', subcounty: 'Zone D', center: { lat: 28.6550, lng: 77.2050 } },
+  { code: 'ward_09', name: 'Ward 9', subcounty: 'Zone E', center: { lat: 28.6600, lng: 77.2180 } },
+  { code: 'ward_10', name: 'Ward 10', subcounty: 'Zone E', center: { lat: 28.6650, lng: 77.2120 } },
+  { code: 'ward_11', name: 'Ward 11', subcounty: 'Zone F', center: { lat: 28.6700, lng: 77.2200 } },
+  { code: 'ward_12', name: 'Ward 12', subcounty: 'Zone F', center: { lat: 28.6750, lng: 77.2280 } },
+  { code: 'central', name: 'Central', subcounty: 'Zone A', center: { lat: 28.6139, lng: 77.2090 } },
 ];
 
 export const ISSUE_CATEGORIES: { code: IssueCategory; label: string; icon: string; description: string; serviceCode: string }[] = [

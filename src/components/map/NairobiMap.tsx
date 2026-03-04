@@ -132,7 +132,7 @@ export { MAP_FILTERS };
 export type { MapFilterId, ProjectCategory };
 
 
-interface NairobiMapProps {
+interface CityMapProps {
   selectedLocation: { lat: number; lng: number } | null;
   onLocationSelect: (location: { lat: number; lng: number }) => void;
   onLocationDescriptionChange?: (description: string) => void;
@@ -235,13 +235,13 @@ function UseMyLocationButton({ onLocationSelect }: { onLocationSelect: (location
   );
 }
 
-export function NairobiMap({ 
+export function CityMap({ 
   selectedLocation, 
   onLocationSelect,
   onLocationDescriptionChange,
   showHappenings = true,
   className 
-}: NairobiMapProps) {
+}: CityMapProps) {
   const [isMapReady, setIsMapReady] = useState(false);
   const [showGuide, setShowGuide] = useState(true);
   const [happenings, setHappenings] = useState<Happening[]>([]);

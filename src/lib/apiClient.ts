@@ -1,7 +1,7 @@
 // API Client for Citizen Engagement Portal
 // Designed to be swapped with real DIGIT PGR endpoints later
 
-import { Story, StorySubmission, StoryCategory, IssueCategory, TicketStatus, NAIROBI_WARDS, TicketUpdate, WorkflowHistoryItem, WorkflowAction, TicketRemark } from '@/types/story';
+import { Story, StorySubmission, StoryCategory, IssueCategory, TicketStatus, WARDS, TicketUpdate, WorkflowHistoryItem, WorkflowAction, TicketRemark } from '@/types/story';
 import { CITY } from '@/config/city';
 
 // In-memory storage for mock data
@@ -17,7 +17,7 @@ let stories: Story[] = [
     description: 'There is a dangerous pothole near the main intersection. Several cars have been damaged. It is about 30cm deep and growing larger after the recent rains.',
     lat: -1.2864,
     lng: 36.8172,
-    wardCode: 'nairobi_central',
+    wardCode: 'central',
     wardName: 'Central',
     createdAt: '2025-06-01T14:33:00.000Z',
     updatedAt: '2025-06-05T17:20:00.000Z',
@@ -197,7 +197,7 @@ function generateTicketId(): string {
 }
 
 function findWardByCode(code?: string) {
-  return NAIROBI_WARDS.find(w => w.code === code);
+  return WARDS.find(w => w.code === code);
 }
 
 // Simulated network delay
@@ -429,7 +429,7 @@ export const apiClient = {
    */
   async getWards(): Promise<{ name: string; code: string; }[]> {
     await delay(200);
-    return NAIROBI_WARDS;
+    return WARDS;
   },
 
   async transcribeAudio(audioBlob: Blob): Promise<string> {
