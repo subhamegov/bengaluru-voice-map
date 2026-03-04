@@ -2,8 +2,9 @@ import React, { useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import {
   PenSquare, ArrowRight, Ticket, MapPin, Clock, Shield, Users,
-  Settings2, GraduationCap, BarChart3, ClipboardList, FileText, Building
+  Settings2, GraduationCap, BarChart3, ClipboardList, FileText, Building, LayoutDashboard
 } from 'lucide-react';
+import { UX4GPageHeader } from '@/components/layout/UX4GPageHeader';
 import { AppLayout } from '@/components/layout/AppLayout';
 import { CityMap } from '@/components/map/CityMap';
 import { HappeningsFeed } from '@/components/happenings/HappeningsFeed';
@@ -36,39 +37,23 @@ const Index = () => {
 
   return (
     <AppLayout>
-      {/* ── Civic Header Band (replaces hero image) ── */}
-      <section className="gov-hero p-6 md:p-8 rounded-lg mb-8" aria-labelledby="hero-title">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 max-w-5xl">
-          <div className="flex items-center gap-4">
-            <img
-              src={CITY.emblemAsset}
-              alt={CITY.emblemAlt}
-              className="w-14 h-14 md:w-16 md:h-16 object-contain brightness-200"
-            />
-            <div>
-              <h1 id="hero-title" className="text-xl md:text-2xl font-bold leading-tight">
-                {CITY.authorityName}
-              </h1>
-              <p className="text-sm text-white/80 mt-0.5">
-                {selectedWard
-                  ? `${selectedWard.name} ${CITY.adminUnitLabel} • ${CITY.cityName}`
-                  : CITY.portalCitizenTitle}
-              </p>
-            </div>
-          </div>
-
+      <UX4GPageHeader
+        icon={LayoutDashboard}
+        title="City at a Glance"
+        description="Stay updated on city performance, services, and opportunities to participate in building a better city."
+        action={
           <div className="flex flex-wrap gap-3">
-            <Link to="/report" className="gov-btn-secondary">
+            <Link to="/report" className="gov-btn-primary">
               <PenSquare className="w-5 h-5" />
               Report Issue
             </Link>
-            <Link to="/my-tickets" className="gov-btn-outline border-white text-white hover:bg-white hover:text-primary">
+            <Link to="/my-tickets" className="gov-btn-outline">
               <Ticket className="w-5 h-5" />
               Track My Reports
             </Link>
           </div>
-        </div>
-      </section>
+        }
+      />
 
       {/* ── Quick Stats (compact row) ── */}
       <section className="mb-8">

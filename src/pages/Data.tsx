@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { AppLayout } from '@/components/layout/AppLayout';
+import { UX4GPageHeader } from '@/components/layout/UX4GPageHeader';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ServiceAnalytics } from '@/components/data/ServiceAnalytics';
 import { BarChart3, TrendingUp } from 'lucide-react';
@@ -10,17 +11,11 @@ export default function Data() {
   return (
     <AppLayout>
       <div className="space-y-6">
-        {/* Page Header */}
-        <div className="gov-section-header">
-          <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-foreground">
-              Data & Analytics
-            </h1>
-            <p className="text-muted-foreground mt-1">
-              Aggregate complaint analytics and service performance metrics
-            </p>
-          </div>
-        </div>
+        <UX4GPageHeader
+          icon={BarChart3}
+          title="Data & Analytics"
+          description="Aggregate complaint analytics and service performance metrics."
+        />
 
         {/* Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">

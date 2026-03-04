@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Search, Ticket, ArrowRight, Filter, LayoutGrid, LayoutList } from 'lucide-react';
+import { Search, Ticket, ArrowRight, Filter, LayoutGrid, LayoutList, Volume2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { AppLayout } from '@/components/layout/AppLayout';
+import { UX4GPageHeader } from '@/components/layout/UX4GPageHeader';
 import { TicketTable } from '@/components/tickets/TicketTable';
 import { TicketCard } from '@/components/tickets/TicketCard';
 import { TicketDrawer } from '@/components/tickets/TicketDrawer';
@@ -139,19 +140,11 @@ const MyTickets = () => {
 
   return (
     <AppLayout>
-      {/* Hero */}
-      <section className="mb-6" aria-labelledby="tickets-hero-title">
-        <div className="gov-hero gov-hero-pattern p-6 md:p-8 rounded-lg">
-          <div className="max-w-3xl">
-            <h1 id="tickets-hero-title" className="text-2xl md:text-3xl font-bold mb-2 text-white drop-shadow-md">
-              My Tickets
-            </h1>
-            <p className="text-base text-white font-medium drop-shadow-sm">
-              Track, manage, and communicate on your submitted reports.
-            </p>
-          </div>
-        </div>
-      </section>
+      <UX4GPageHeader
+        icon={Ticket}
+        title="My Tickets"
+        description="Track, manage, and communicate on your submitted reports."
+      />
 
       {/* Stats Cards */}
       <div className="grid grid-cols-2 md:grid-cols-6 gap-3 mb-6">

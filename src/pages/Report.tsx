@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, Check, FileText, Mic, Heart, User, ChevronDown, Users } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, FileText, Mic, Heart, User, ChevronDown, Users, MessageSquarePlus } from 'lucide-react';
 import { AppLayout } from '@/components/layout/AppLayout';
+import { UX4GPageHeader } from '@/components/layout/UX4GPageHeader';
 import { ReportStepper } from '@/components/report/ReportStepper';
 import { CategoryPicker } from '@/components/report/CategoryPicker';
 import { PhotoUpload } from '@/components/report/PhotoUpload';
@@ -309,15 +310,11 @@ const Report = () => {
 
   return (
     <AppLayout>
-      {/* Header */}
-      <div className="mb-6">
-        <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
-          Share Your Voice
-        </h1>
-        <p className="text-muted-foreground">
-          Help us build a better city together.
-        </p>
-      </div>
+      <UX4GPageHeader
+        icon={MessageSquarePlus}
+        title="Share Your Voice"
+        description="Help us build a better city together by reporting issues or sharing feedback."
+      />
 
       {/* Stepper */}
       <ReportStepper steps={STEPS} currentStep={currentStep} className="mb-8" />

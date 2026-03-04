@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { AppLayout } from '@/components/layout/AppLayout';
+import { UX4GPageHeader } from '@/components/layout/UX4GPageHeader';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -155,84 +156,71 @@ export default function AboutMyCity() {
   return (
     <AppLayout>
       <div className="space-y-8 md:space-y-12">
-        {/* Hero Section */}
-        <section className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary via-primary/95 to-primary/90 text-primary-foreground p-6 md:p-10">
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0djItSDI0di0yaDEyek0zNiAyNHYySDI0di0yaDEyeiIvPjwvZz48L2c+PC9zdmc+')] opacity-50" />
-          
-          <div className="relative z-10">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
-              <div>
-                <h1 className="text-2xl md:text-4xl font-bold font-display mb-2">
-                  City at a Glance
-                </h1>
-                <p className="text-primary-foreground/80 text-sm md:text-base max-w-xl">
-                  Stay updated on city performance, services, and opportunities to participate in building a better city.
-                </p>
-              </div>
-              
-              <div className="flex items-center gap-2">
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  onClick={() => speakText('Bengaluru at a Glance. Stay updated on city performance, services, and opportunities to participate.')}
-                  aria-label="Read aloud"
-                >
-                  <Volume2 className="w-4 h-4 mr-1" />
-                  Read Aloud
-                </Button>
-              </div>
-            </div>
+        <UX4GPageHeader
+          icon={Building2}
+          title="City at a Glance"
+          description="Stay updated on city performance, services, and opportunities to participate in building a better city."
+          action={
+            <Button
+              variant="outline"
+              size="sm"
+              className="gap-2 h-9"
+              onClick={() => speakText('Bengaluru at a Glance. Stay updated on city performance, services, and opportunities to participate.')}
+              aria-label="Read aloud"
+            >
+              <Volume2 className="w-4 h-4" />
+              Read Aloud
+            </Button>
+          }
+        />
 
-            {/* Sub-county filter */}
-            <div className="mb-6">
-              <label className="text-sm text-primary-foreground/70 mb-2 block">Show my area:</label>
-              <Select value={selectedSubCounty} onValueChange={setSelectedSubCounty}>
-                <SelectTrigger className="w-full md:w-64 bg-white/10 border-white/20 text-primary-foreground">
-                  <SelectValue placeholder="Select sub-county" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Sub-Counties</SelectItem>
-                  {BENGALURU_ZONES.map((sc) => (
-                    <SelectItem key={sc.name} value={sc.name}>{sc.name}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+        {/* Sub-county filter & Metrics */}
+        <section className="space-y-4">
+          <div>
+            <label className="text-sm text-muted-foreground mb-2 block">Show my area:</label>
+            <Select value={selectedSubCounty} onValueChange={setSelectedSubCounty}>
+              <SelectTrigger className="w-full md:w-64">
+                <SelectValue placeholder="Select sub-county" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Sub-Counties</SelectItem>
+                {BENGALURU_ZONES.map((sc) => (
+                  <SelectItem key={sc.name} value={sc.name}>{sc.name}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
 
-            {/* Metric Cards */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-              <Card className="bg-white/10 border-white/20 text-primary-foreground">
-                <CardContent className="p-4">
-                  <Users className="w-6 h-6 mb-2 text-secondary" aria-hidden="true" />
-                  <p className="text-2xl md:text-3xl font-bold">{cityMetrics.population}</p>
-                  <p className="text-xs md:text-sm text-primary-foreground/70">Residents served</p>
-                </CardContent>
-              </Card>
-              
-              <Card className="bg-white/10 border-white/20 text-primary-foreground">
-                <CardContent className="p-4">
-                  <Building2 className="w-6 h-6 mb-2 text-secondary" aria-hidden="true" />
-                  <p className="text-2xl md:text-3xl font-bold">{cityMetrics.activeProjects}</p>
-                  <p className="text-xs md:text-sm text-primary-foreground/70">Active projects across {cityMetrics.subCounties} zones</p>
-                </CardContent>
-              </Card>
-              
-              <Card className="bg-white/10 border-white/20 text-primary-foreground">
-                <CardContent className="p-4">
-                  <Clock className="w-6 h-6 mb-2 text-secondary" aria-hidden="true" />
-                  <p className="text-2xl md:text-3xl font-bold">{cityMetrics.avgResponseTime}</p>
-                  <p className="text-xs md:text-sm text-primary-foreground/70">Avg. service response</p>
-                </CardContent>
-              </Card>
-              
-              <Card className="bg-white/10 border-white/20 text-primary-foreground">
-                <CardContent className="p-4">
-                  <Droplets className="w-6 h-6 mb-2 text-secondary" aria-hidden="true" />
-                  <p className="text-2xl md:text-3xl font-bold">{cityMetrics.waterUptime}%</p>
-                  <p className="text-xs md:text-sm text-primary-foreground/70">Water supply operational</p>
-                </CardContent>
-              </Card>
-            </div>
+          {/* Metric Cards */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+            <Card>
+              <CardContent className="p-4">
+                <Users className="w-6 h-6 mb-2 text-primary" aria-hidden="true" />
+                <p className="text-2xl md:text-3xl font-bold text-foreground">{cityMetrics.population}</p>
+                <p className="text-xs md:text-sm text-muted-foreground">Residents served</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-4">
+                <Building2 className="w-6 h-6 mb-2 text-primary" aria-hidden="true" />
+                <p className="text-2xl md:text-3xl font-bold text-foreground">{cityMetrics.activeProjects}</p>
+                <p className="text-xs md:text-sm text-muted-foreground">Active projects across {cityMetrics.subCounties} zones</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-4">
+                <Clock className="w-6 h-6 mb-2 text-primary" aria-hidden="true" />
+                <p className="text-2xl md:text-3xl font-bold text-foreground">{cityMetrics.avgResponseTime}</p>
+                <p className="text-xs md:text-sm text-muted-foreground">Avg. service response</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-4">
+                <Droplets className="w-6 h-6 mb-2 text-primary" aria-hidden="true" />
+                <p className="text-2xl md:text-3xl font-bold text-foreground">{cityMetrics.waterUptime}%</p>
+                <p className="text-xs md:text-sm text-muted-foreground">Water supply operational</p>
+              </CardContent>
+            </Card>
           </div>
         </section>
 

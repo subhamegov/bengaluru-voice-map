@@ -13,20 +13,6 @@ export const PolicyFeedbackSection: React.FC = () => {
 
   return (
     <section className="space-y-6">
-      {/* Header */}
-      <div>
-        <div className="flex items-center gap-3 mb-2">
-          <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-            <FileText className="w-5 h-5 text-primary" />
-          </div>
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground font-display">
-            Provide Policy Feedback
-          </h2>
-        </div>
-        <p className="text-muted-foreground text-lg">
-          Share your views on draft laws, regulations, and county plans before they're finalized.
-        </p>
-      </div>
 
       {/* Stats */}
       <div className="flex items-center gap-6 p-4 bg-primary/5 rounded-xl">

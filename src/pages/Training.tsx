@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { AppLayout } from '@/components/layout/AppLayout';
+import { UX4GPageHeader } from '@/components/layout/UX4GPageHeader';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -70,23 +71,17 @@ export default function Training() {
   return (
     <AppLayout>
       <div className="max-w-5xl mx-auto space-y-8">
-        {/* Header */}
-        <header className="space-y-2">
-          <div className="flex items-center justify-between flex-wrap gap-4">
-            <div>
-              <h1 className="text-3xl md:text-4xl font-bold text-foreground font-display">
-                Training & Help Centre
-              </h1>
-              <p className="text-lg text-muted-foreground mt-2">
-                Short modules to help citizens and staff use digital services with confidence.
-              </p>
-            </div>
-            <Button variant="outline" size="sm" className="gap-2" disabled>
+        <UX4GPageHeader
+          icon={BookOpen}
+          title="Training & Help Centre"
+          description="Short modules to help citizens and staff use digital services with confidence."
+          action={
+            <Button variant="outline" size="sm" className="gap-2 h-9" disabled>
               <Volume2 className="w-4 h-4" />
               Read Aloud
             </Button>
-          </div>
-        </header>
+          }
+        />
 
         {/* Search & Filters */}
         <section className="space-y-4">
