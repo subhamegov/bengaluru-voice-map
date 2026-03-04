@@ -89,21 +89,21 @@ const quickLinks = [
   { name: 'GBA GIS Viewer', url: 'https://bbmp.gov.in', icon: Globe },
 ];
 
-// Mobile App Links from bbmp.gov.in
+// Mobile App Links from bbmp.gov.in - with actual logos
 const mobileApps = [
-  { name: 'Property GPS', url: 'https://play.google.com/store/apps/details?id=com.bbmp.propertygps', icon: MapPin },
-  { name: 'Namma Bengaluru [Sahaaya 2.0]', url: 'https://play.google.com/store/apps/details?id=com.nammabengaluruNew.org', icon: MessageCircle },
-  { name: 'Fix Pothole', url: 'https://play.google.com/store/apps/details?id=com.indigo.bbmp.fixpothole', icon: AlertTriangle },
-  { name: 'Dishaank', url: 'https://play.google.com/store/apps/details?id=com.dishaank', icon: Map },
+  { name: 'Property GPS', url: 'https://play.google.com/store/apps/details?id=com.bbmp.propertygps', logo: 'https://bbmp.gov.in/gps.png' },
+  { name: 'Namma Bengaluru [Sahaaya 2.0]', url: 'https://play.google.com/store/apps/details?id=com.nammabengaluruNew.org', logo: 'https://bbmp.gov.in/nammabengaluru.png' },
+  { name: 'Fix Pothole', url: 'https://play.google.com/store/apps/details?id=com.indigo.bbmp.fixpothole', logo: 'https://bbmp.gov.in/pothole.png' },
+  { name: 'Dishaank', url: 'https://play.google.com/store/apps/details?id=com.dishaank', logo: 'https://bbmp.gov.in/dishaank.png' },
 ];
 
-// Important Links from bbmp.gov.in
+// Important Links from bbmp.gov.in - with actual logo images
 const importantLinks = [
-  { name: 'Guarantee Schemes', url: 'https://sevasindhugs.karnataka.gov.in/', icon: Shield },
-  { name: 'Brand Bengaluru', url: 'https://brandbengaluru.karnataka.gov.in/', icon: Globe },
-  { name: 'Janaspandana iPGRS', url: 'https://ipgrs.karnataka.gov.in/', icon: MessageCircle },
-  { name: 'Janasevaka', url: 'https://www.janasevaka.karnataka.gov.in/', icon: Users },
-  { name: 'Seva Sindhu', url: 'https://sevasindhuservices.karnataka.gov.in/', icon: Globe },
+  { name: 'Guarantee Schemes', url: 'https://sevasindhugs.karnataka.gov.in/', logo: 'https://bbmp.gov.in/guaranteeschemes.png' },
+  { name: 'Brand Bengaluru', url: 'https://brandbengaluru.karnataka.gov.in/', logo: 'https://bbmp.gov.in/brand_bengaluru.png' },
+  { name: 'Janaspandana iPGRS', url: 'https://ipgrs.karnataka.gov.in/', logo: 'https://bbmp.gov.in/Janaspandana.png' },
+  { name: 'Janasevaka', url: 'https://www.janasevaka.karnataka.gov.in/', logo: 'https://bbmp.gov.in/janasevaka.png' },
+  { name: 'Seva Sindhu', url: 'https://sevasindhuservices.karnataka.gov.in/', logo: 'https://bbmp.gov.in/sevasindhu.png' },
 ];
 
 // Latest Updates
@@ -423,6 +423,33 @@ export default function AboutMyCity() {
                 ))}
               </SelectContent>
             </Select>
+            <div className="mt-2 flex items-start gap-2 p-3 rounded-lg bg-primary/5 border border-primary/10">
+              <Info className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+              <div className="text-xs text-muted-foreground">
+                <p className="font-medium text-foreground mb-0.5">Not sure which zone you belong to?</p>
+                <p>
+                  With the new Greater Bengaluru Authority restructuring, ward and zone boundaries have changed. 
+                  Visit{' '}
+                  <a href="https://gba.karnataka.gov.in/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-medium">
+                    gba.karnataka.gov.in
+                  </a>{' '}
+                  to check your new city corporation and ward, or use the{' '}
+                  <a href="https://play.google.com/store/apps/details?id=com.dishaank" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-medium">
+                    Dishaank app
+                  </a>{' '}
+                  to find your zone by location.
+                </p>
+              </div>
+              <Button
+                size="sm"
+                variant="ghost"
+                className="shrink-0 h-7 px-2"
+                aria-label="Read zone help aloud"
+                onClick={() => speakText('Not sure which zone you belong to? With the new Greater Bengaluru Authority restructuring, ward and zone boundaries have changed. Visit gba.karnataka.gov.in to check your new city corporation and ward.')}
+              >
+                <Volume2 className="w-3.5 h-3.5" />
+              </Button>
+            </div>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
             <Card>
@@ -569,7 +596,9 @@ export default function AboutMyCity() {
                 rel="noopener noreferrer"
                 className="gov-task-tile group"
               >
-                <app.icon className="w-8 h-8 text-primary mb-2" />
+                <div className="w-16 h-16 mb-2 flex items-center justify-center">
+                  <img src={app.logo} alt={app.name} className="max-w-full max-h-full object-contain rounded-lg" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                </div>
                 <span className="text-sm font-semibold text-foreground">{app.name}</span>
                 <span className="text-xs text-muted-foreground mt-1">Download on Play Store</span>
               </a>
@@ -583,7 +612,7 @@ export default function AboutMyCity() {
             <Shield className="w-6 h-6 text-primary" aria-hidden="true" />
             Important Links
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {importantLinks.map((link, i) => (
               <a
                 key={i}
@@ -592,7 +621,14 @@ export default function AboutMyCity() {
                 rel="noopener noreferrer"
                 className="gov-task-tile group"
               >
-                <link.icon className="w-7 h-7 text-primary mb-2" />
+                <div className="w-16 h-16 mb-2 flex items-center justify-center">
+                  <img
+                    src={link.logo}
+                    alt={link.name}
+                    className="max-w-full max-h-full object-contain"
+                    onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                  />
+                </div>
                 <span className="text-sm font-semibold text-foreground">{link.name}</span>
               </a>
             ))}
