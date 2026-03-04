@@ -1,4 +1,4 @@
-// DIGIT PGR-ready data structures for Nairobi County Citizen Engagement
+// DIGIT PGR-ready data structures for Citizen Engagement
 
 export type IssueCategory = 'roads' | 'water' | 'waste' | 'streetlights' | 'noise' | 'other';
 export type StoryCategory = 'complaint' | 'idea' | 'appreciation';
@@ -57,7 +57,7 @@ export interface Story {
   wardName?: string;
   createdAt: string;
   updatedAt?: string;
-  source: 'NAIROBI_ENGAGEMENT';
+  source: 'CITIZEN_ENGAGEMENT';
   
   // Contact info
   reporterName?: string;
@@ -101,7 +101,7 @@ export interface TicketUpdate {
 
 export type DepartmentSelectionSource = 'AUTO' | 'USER_OVERRIDE';
 
-export type NairobiDepartment = 
+export type Department = 
   | 'Environment'
   | 'Water and Sewerage'
   | 'Works'
@@ -109,7 +109,10 @@ export type NairobiDepartment =
   | 'Mobility and ICT Infrastructure'
   | 'To be assigned';
 
-export const NAIROBI_DEPARTMENTS: NairobiDepartment[] = [
+/** @deprecated Use Department instead */
+export type NairobiDepartment = Department;
+
+export const DEPARTMENTS: Department[] = [
   'Environment',
   'Water and Sewerage',
   'Works',
@@ -117,7 +120,10 @@ export const NAIROBI_DEPARTMENTS: NairobiDepartment[] = [
   'Mobility and ICT Infrastructure',
 ];
 
-export const CATEGORY_TO_DEPARTMENT: Record<IssueCategory, NairobiDepartment> = {
+/** @deprecated Use DEPARTMENTS instead */
+export const NAIROBI_DEPARTMENTS = DEPARTMENTS;
+
+export const CATEGORY_TO_DEPARTMENT: Record<IssueCategory, Department> = {
   roads: 'Works',
   water: 'Water and Sewerage',
   waste: 'Environment',
@@ -150,7 +156,7 @@ export interface StorySubmission {
   reporterPhone?: string;
   shareContactWithDepartment?: boolean;
   serviceRating?: number;
-  responsibleDepartment?: NairobiDepartment;
+  responsibleDepartment?: Department;
   departmentSelectionSource?: DepartmentSelectionSource;
   beneficiary?: BeneficiaryInfo;
 }
@@ -162,7 +168,7 @@ export interface Ward {
   center: { lat: number; lng: number };
 }
 
-// Nairobi County wards (sample data)
+// City wards (sample data)
 export const NAIROBI_WARDS: Ward[] = [
   { code: 'westlands', name: 'Westlands', subcounty: 'Westlands', center: { lat: -1.2673, lng: 36.8058 } },
   { code: 'parklands', name: 'Parklands/Highridge', subcounty: 'Westlands', center: { lat: -1.2621, lng: 36.8135 } },

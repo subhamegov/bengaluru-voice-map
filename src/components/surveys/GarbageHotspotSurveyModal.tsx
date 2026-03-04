@@ -187,7 +187,7 @@ export const GarbageHotspotSurveyModal: React.FC<GarbageHotspotSurveyModalProps>
             <p className="text-sm text-muted-foreground mb-6">
               <span className="font-semibold text-info">{reportCount + 1}</span> reports so far in {selectedWard?.name || 'your ward'}.
             </p>
-            <Button onClick={onClose} className="ncc-btn-primary">
+            <Button onClick={onClose} className="gov-btn-primary">
               Close
             </Button>
           </div>

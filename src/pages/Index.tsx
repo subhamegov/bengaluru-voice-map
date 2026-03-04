@@ -10,7 +10,7 @@ import { findWardByCoords } from '@/lib/happeningsApi';
 import { UserPreferencesModal, loadUserPreferences, UserPreferences } from '@/components/preferences/UserPreferencesModal';
 import { Button } from '@/components/ui/button';
 import { getOverviewStats, getAverageSolutionTime } from '@/lib/serviceAnalyticsData';
-import { brand } from '@/lib/brandConfig';
+import { CITY } from '@/config/city';
 
 const Index = () => {
   const [selectedLocation, setSelectedLocation] = useState<{ lat: number; lng: number } | null>(null);
@@ -42,11 +42,11 @@ const Index = () => {
               Welcome to
             </p>
             <h1 id="hero-title" className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
-              {brand.name}
-              <span className="block text-secondary">{brand.tagline}</span>
+              {CITY.authorityName}
+              <span className="block">{CITY.portalCitizenTitle}</span>
             </h1>
             <p className="text-lg text-white/90 mb-8 leading-relaxed">
-              {brand.heroSubtitle}
+              {CITY.heroSubtitle}
             </p>
             <div className="flex flex-wrap gap-4">
               <Link
@@ -54,7 +54,7 @@ const Index = () => {
                 className="gov-btn-secondary"
               >
                 <PenSquare className="w-5 h-5" />
-                {brand.heroCta}
+                {CITY.heroCta}
               </Link>
               <Link
                 to="/data"

@@ -481,7 +481,7 @@ export default function TrainingModulePage() {
             )}
 
             {showQuizResults && (
-              <div className={`ncc-card p-4 flex items-center gap-3 ${
+              <div className={`gov-card p-4 flex items-center gap-3 ${
                 lastQuizScore !== null && lastQuizScore >= module.passingScore 
                   ? 'bg-success/10 border-success' 
                   : 'bg-destructive/10 border-destructive'

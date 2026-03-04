@@ -63,7 +63,7 @@ export const CURRENT_RESOLVER = {
 export const ALL_COUNTY_ISSUES: ResolverIssue[] = [
   // Assigned to current resolver
   {
-    id: 'NCC-2025-0501',
+    id: 'ULB-2025-0501',
     category: 'Garbage Collection',
     citizenTitle: 'Garbage not collected for 3 days',
     description: 'The garbage collection truck has not come to our estate for 3 days. Waste is piling up.',
@@ -87,7 +87,7 @@ export const ALL_COUNTY_ISSUES: ResolverIssue[] = [
     reopenCount: 0,
   },
   {
-    id: 'NCC-2025-0498',
+    id: 'ULB-2025-0498',
     category: 'Illegal Dumping',
     citizenTitle: 'Construction waste dumped on roadside',
     description: 'Someone has dumped construction debris on the roadside near the market.',
@@ -110,7 +110,7 @@ export const ALL_COUNTY_ISSUES: ResolverIssue[] = [
     reopenCount: 0,
   },
   {
-    id: 'NCC-2025-0495',
+    id: 'ULB-2025-0495',
     category: 'Street Cleaning',
     citizenTitle: 'Market area very dirty',
     description: 'The market area has not been cleaned properly. There are food scraps everywhere.',
@@ -133,7 +133,7 @@ export const ALL_COUNTY_ISSUES: ResolverIssue[] = [
     reopenCount: 0,
   },
   {
-    id: 'NCC-2025-0490',
+    id: 'ULB-2025-0490',
     category: 'Garbage Collection',
     citizenTitle: 'Skip bins overflowing',
     description: 'The communal skip bins in our area are overflowing.',
@@ -157,7 +157,7 @@ export const ALL_COUNTY_ISSUES: ResolverIssue[] = [
   },
   // Closed by current resolver
   {
-    id: 'NCC-2025-0485',
+    id: 'ULB-2025-0485',
     category: 'Noise Pollution',
     citizenTitle: 'Loud music from bar at night',
     description: 'A bar near our residential area plays very loud music until 3 AM.',
@@ -181,7 +181,7 @@ export const ALL_COUNTY_ISSUES: ResolverIssue[] = [
   },
   // Assigned to department (Environment) but not specifically to current resolver
   {
-    id: 'NCC-2025-0500',
+    id: 'ULB-2025-0500',
     category: 'Pollution',
     citizenTitle: 'Smoke from factory affecting residents',
     description: 'A factory nearby is emitting thick black smoke.',
@@ -205,10 +205,10 @@ export const ALL_COUNTY_ISSUES: ResolverIssue[] = [
   },
   // Other departments - for Search Issues
   {
-    id: 'NCC-2025-0499',
+    id: 'ULB-2025-0499',
     category: 'Pothole',
     citizenTitle: 'Large pothole on main road',
-    description: 'There is a very large pothole on Waiyaki Way causing accidents.',
+    description: 'There is a very large pothole on the main road causing accidents.',
     subCounty: 'Westlands',
     ward: 'Parklands',
     zone: 'Zone A',
@@ -228,7 +228,7 @@ export const ALL_COUNTY_ISSUES: ResolverIssue[] = [
     reopenCount: 0,
   },
   {
-    id: 'NCC-2025-0497',
+    id: 'ULB-2025-0497',
     category: 'Water Leak',
     citizenTitle: 'Burst pipe flooding street',
     description: 'A water pipe has burst and is flooding the entire street.',
@@ -251,7 +251,7 @@ export const ALL_COUNTY_ISSUES: ResolverIssue[] = [
     reopenCount: 0,
   },
   {
-    id: 'NCC-2025-0496',
+    id: 'ULB-2025-0496',
     category: 'Sewer Blockage',
     citizenTitle: 'Sewage overflowing into compound',
     description: 'The sewer line is blocked and sewage is flowing into our compound.',
@@ -274,7 +274,7 @@ export const ALL_COUNTY_ISSUES: ResolverIssue[] = [
     reopenCount: 0,
   },
   {
-    id: 'NCC-2025-0494',
+    id: 'ULB-2025-0494',
     category: 'Street Light',
     citizenTitle: 'Street lights not working',
     description: 'All street lights on our road have been off for a week.',
@@ -297,7 +297,7 @@ export const ALL_COUNTY_ISSUES: ResolverIssue[] = [
     reopenCount: 0,
   },
   {
-    id: 'NCC-2025-0493',
+    id: 'ULB-2025-0493',
     category: 'Traffic Light',
     citizenTitle: 'Traffic light not working at junction',
     description: 'The traffic light at the main junction has been faulty.',
@@ -320,7 +320,7 @@ export const ALL_COUNTY_ISSUES: ResolverIssue[] = [
     reopenCount: 0,
   },
   {
-    id: 'NCC-2025-0492',
+    id: 'ULB-2025-0492',
     category: 'Food Safety',
     citizenTitle: 'Restaurant selling expired food',
     description: 'I bought food from a restaurant and got sick. They are selling expired products.',
@@ -343,7 +343,7 @@ export const ALL_COUNTY_ISSUES: ResolverIssue[] = [
     reopenCount: 0,
   },
   {
-    id: 'NCC-2025-0491',
+    id: 'ULB-2025-0491',
     category: 'Blocked Drain',
     citizenTitle: 'Storm drain blocked causing flooding',
     description: 'The storm drain on our street is completely blocked.',
@@ -366,7 +366,7 @@ export const ALL_COUNTY_ISSUES: ResolverIssue[] = [
     reopenCount: 0,
   },
   {
-    id: 'NCC-2025-0489',
+    id: 'ULB-2025-0489',
     category: 'Road Damage',
     citizenTitle: 'Road surface badly damaged after rain',
     description: 'Heavy rains have damaged the road surface. Vehicles are getting stuck.',
@@ -389,7 +389,7 @@ export const ALL_COUNTY_ISSUES: ResolverIssue[] = [
     reopenCount: 0,
   },
   {
-    id: 'NCC-2025-0488',
+    id: 'ULB-2025-0488',
     category: 'Pest Control',
     citizenTitle: 'Rat infestation in market',
     description: 'There is a serious rat problem in the local market area.',

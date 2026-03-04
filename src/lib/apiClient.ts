@@ -1,168 +1,169 @@
-// API Client for Nairobi County Citizen Engagement
+// API Client for Citizen Engagement Portal
 // Designed to be swapped with real DIGIT PGR endpoints later
 
-import { Story, StorySubmission, StoryCategory, IssueCategory, TicketStatus, NAIROBI_WARDS, TicketUpdate, WorkflowHistoryItem, TicketRemark } from '@/types/story';
+import { Story, StorySubmission, StoryCategory, IssueCategory, TicketStatus, NAIROBI_WARDS, TicketUpdate, WorkflowHistoryItem, WorkflowAction, TicketRemark } from '@/types/story';
+import { CITY } from '@/config/city';
 
 // In-memory storage for mock data
 let stories: Story[] = [
   {
     id: '1',
-    ticketId: 'NRB-2025-000123',
-    tenantId: 'ke.nairobi',
+    ticketId: `${CITY.issueIdPrefix}-2025-000123`,
+    tenantId: 'default',
     category: 'complaint',
     issueCategory: 'roads',
     serviceCode: 'ROAD_MAINTENANCE',
-    title: 'Large pothole on Kenyatta Avenue',
-    description: 'There is a dangerous pothole near the intersection with Uhuru Highway. Several cars have been damaged. It is about 30cm deep and growing larger after the recent rains.',
+    title: 'Large pothole on Main Avenue',
+    description: 'There is a dangerous pothole near the main intersection. Several cars have been damaged. It is about 30cm deep and growing larger after the recent rains.',
     lat: -1.2864,
     lng: 36.8172,
     wardCode: 'nairobi_central',
-    wardName: 'Nairobi Central',
+    wardName: 'Central',
     createdAt: '2025-06-01T14:33:00.000Z',
     updatedAt: '2025-06-05T17:20:00.000Z',
-    source: 'NAIROBI_ENGAGEMENT',
+    source: 'CITIZEN_ENGAGEMENT',
     status: 'in_progress',
     priority: 'HIGH',
-    assignedTo: 'James Ochieng',
+    assignedTo: 'James O.',
     assignedDepartment: 'Roads Department',
-    citizen: { name: 'John Mwangi', mobileNumber: '0712345678' },
+    citizen: { name: 'John M.', mobileNumber: '0712345678' },
     sla: { dueInHours: 72, remaining: 48, deadline: new Date(Date.now() + 48 * 60 * 60 * 1000).toISOString() },
     slaDeadline: new Date(Date.now() + 48 * 60 * 60 * 1000).toISOString(),
     serviceRating: 3,
     attachments: [{ fileStoreId: 'att1', fileName: 'pothole.jpg' }],
     history: [
-      { id: 'h1', performedBy: 'John Mwangi', performedByRole: 'citizen', action: 'CREATE', timestamp: '2025-06-01T14:33:00.000Z', note: 'Report submitted via mobile app' },
-      { id: 'h2', performedBy: 'County Dispatch', performedByRole: 'system', action: 'ASSIGN', timestamp: '2025-06-02T09:15:00.000Z', note: 'Assigned to Roads Department' },
-      { id: 'h3', performedBy: 'James Ochieng', performedByRole: 'officer', action: 'IN_PROGRESS', timestamp: '2025-06-03T10:00:00.000Z', note: 'Site inspection scheduled' },
-      { id: 'h4', performedBy: 'James Ochieng', performedByRole: 'officer', action: 'REQUEST_INFO', timestamp: '2025-06-03T12:45:00.000Z', note: 'Requested additional photos of damage extent' },
+      { id: 'h1', performedBy: 'John M.', performedByRole: 'citizen', action: 'CREATE', timestamp: '2025-06-01T14:33:00.000Z', note: 'Report submitted via mobile app' },
+      { id: 'h2', performedBy: 'Dispatch', performedByRole: 'system', action: 'ASSIGN', timestamp: '2025-06-02T09:15:00.000Z', note: 'Assigned to Roads Department' },
+      { id: 'h3', performedBy: 'James O.', performedByRole: 'officer', action: 'IN_PROGRESS', timestamp: '2025-06-03T10:00:00.000Z', note: 'Site inspection scheduled' },
+      { id: 'h4', performedBy: 'James O.', performedByRole: 'officer', action: 'REQUEST_INFO', timestamp: '2025-06-03T12:45:00.000Z', note: 'Requested additional photos of damage extent' },
     ],
     remarks: [
-      { id: 'r1', by: 'James Ochieng', byRole: 'officer', text: 'Visited the site. Damage is extensive, will require full patch.', timestamp: '2025-06-03T11:30:00.000Z' },
-      { id: 'r2', by: 'John Mwangi', byRole: 'citizen', text: 'Thank you for the update. Another car got damaged yesterday.', timestamp: '2025-06-04T08:15:00.000Z' },
-      { id: 'r3', by: 'James Ochieng', byRole: 'officer', text: 'Work crew scheduled for Monday. Area will be cordoned off.', timestamp: '2025-06-05T14:00:00.000Z' },
+      { id: 'r1', by: 'James O.', byRole: 'officer', text: 'Visited the site. Damage is extensive, will require full patch.', timestamp: '2025-06-03T11:30:00.000Z' },
+      { id: 'r2', by: 'John M.', byRole: 'citizen', text: 'Thank you for the update. Another car got damaged yesterday.', timestamp: '2025-06-04T08:15:00.000Z' },
+      { id: 'r3', by: 'James O.', byRole: 'officer', text: 'Work crew scheduled for Monday. Area will be cordoned off.', timestamp: '2025-06-05T14:00:00.000Z' },
     ],
     updates: [
       { id: 'u1', message: 'Issue received and logged.', author: 'System', authorType: 'staff', createdAt: '2025-06-01T14:33:00.000Z' },
-      { id: 'u2', message: 'Assigned to Roads Department for repair.', author: 'County Dispatch', authorType: 'staff', createdAt: '2025-06-02T09:15:00.000Z' },
+      { id: 'u2', message: 'Assigned to Roads Department for repair.', author: 'Dispatch', authorType: 'staff', createdAt: '2025-06-02T09:15:00.000Z' },
     ],
   },
   {
     id: '2',
-    ticketId: 'NRB-2025-000124',
-    tenantId: 'ke.nairobi',
+    ticketId: `${CITY.issueIdPrefix}-2025-000124`,
+    tenantId: 'default',
     category: 'complaint',
     issueCategory: 'waste',
     serviceCode: 'WASTE_MANAGEMENT',
     title: 'Garbage not collected for 1 week',
-    description: 'The garbage collection truck has not come to our street in Westlands for over a week. The bins are overflowing and there is a bad smell attracting pests.',
+    description: 'The garbage collection truck has not come to our street for over a week. The bins are overflowing and there is a bad smell attracting pests.',
     lat: -1.2673,
     lng: 36.8058,
     wardCode: 'westlands',
     wardName: 'Westlands',
     createdAt: '2025-06-03T10:20:00.000Z',
     updatedAt: '2025-06-04T11:00:00.000Z',
-    source: 'NAIROBI_ENGAGEMENT',
+    source: 'CITIZEN_ENGAGEMENT',
     status: 'assigned',
     priority: 'MEDIUM',
-    assignedTo: 'Mary Wanjiku',
+    assignedTo: 'Mary W.',
     assignedDepartment: 'Waste Management',
-    citizen: { name: 'Sarah Kimani', mobileNumber: '0723456789' },
+    citizen: { name: 'Sarah K.', mobileNumber: '0723456789' },
     sla: { dueInHours: 48, remaining: 24, deadline: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString() },
     slaDeadline: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
     serviceRating: 2,
     history: [
-      { id: 'h1', performedBy: 'Sarah Kimani', performedByRole: 'citizen', action: 'CREATE', timestamp: '2025-06-03T10:20:00.000Z' },
+      { id: 'h1', performedBy: 'Sarah K.', performedByRole: 'citizen', action: 'CREATE', timestamp: '2025-06-03T10:20:00.000Z' },
       { id: 'h2', performedBy: 'System', performedByRole: 'system', action: 'ASSIGN', timestamp: '2025-06-04T11:00:00.000Z', note: 'Auto-assigned to Waste Management' },
     ],
     remarks: [
-      { id: 'r1', by: 'Mary Wanjiku', byRole: 'officer', text: 'Collection vehicle was under repair. Service resuming tomorrow.', timestamp: '2025-06-05T09:00:00.000Z' },
+      { id: 'r1', by: 'Mary W.', byRole: 'officer', text: 'Collection vehicle was under repair. Service resuming tomorrow.', timestamp: '2025-06-05T09:00:00.000Z' },
     ],
   },
   {
     id: '3',
-    ticketId: 'NRB-2025-000125',
-    tenantId: 'ke.nairobi',
+    ticketId: `${CITY.issueIdPrefix}-2025-000125`,
+    tenantId: 'default',
     category: 'appreciation',
     title: 'Thank you for fixing the water pipe!',
-    description: 'The burst water pipe in Kilimani was fixed very quickly. We are grateful to the workers who came even on Sunday. Great service!',
+    description: 'The burst water pipe was fixed very quickly. We are grateful to the workers who came even on Sunday. Great service!',
     lat: -1.2892,
     lng: 36.7865,
     wardCode: 'kilimani',
     wardName: 'Kilimani',
     createdAt: '2025-06-02T16:00:00.000Z',
     updatedAt: '2025-06-02T16:00:00.000Z',
-    source: 'NAIROBI_ENGAGEMENT',
+    source: 'CITIZEN_ENGAGEMENT',
     status: 'resolved',
     priority: 'LOW',
-    citizen: { name: 'Peter Ouma', mobileNumber: '0734567890' },
+    citizen: { name: 'Peter O.', mobileNumber: '0734567890' },
     satisfactionRating: 5,
     history: [
-      { id: 'h1', performedBy: 'Peter Ouma', performedByRole: 'citizen', action: 'CREATE', timestamp: '2025-06-02T16:00:00.000Z', note: 'Appreciation submitted' },
+      { id: 'h1', performedBy: 'Peter O.', performedByRole: 'citizen', action: 'CREATE', timestamp: '2025-06-02T16:00:00.000Z', note: 'Appreciation submitted' },
       { id: 'h2', performedBy: 'System', performedByRole: 'system', action: 'RESOLVE', timestamp: '2025-06-02T16:00:00.000Z', note: 'Auto-resolved (appreciation)' },
     ],
   },
   {
     id: '4',
-    ticketId: 'NRB-2025-000126',
-    tenantId: 'ke.nairobi',
+    ticketId: `${CITY.issueIdPrefix}-2025-000126`,
+    tenantId: 'default',
     category: 'complaint',
     issueCategory: 'streetlights',
     serviceCode: 'STREET_LIGHTING',
-    title: 'Street light not working near Karen shopping center',
-    description: 'The street light near Karen shopping center has been off for 3 weeks. It is very dark and unsafe at night. Multiple residents have complained.',
+    title: 'Street light not working near shopping center',
+    description: 'The street light near the shopping center has been off for 3 weeks. It is very dark and unsafe at night. Multiple residents have complained.',
     lat: -1.3196,
     lng: 36.7128,
     wardCode: 'karen',
     wardName: 'Karen',
     createdAt: '2025-06-04T08:00:00.000Z',
-    source: 'NAIROBI_ENGAGEMENT',
+    source: 'CITIZEN_ENGAGEMENT',
     status: 'new',
     priority: 'MEDIUM',
-    citizen: { name: 'Grace Njeri', mobileNumber: '0745678901' },
+    citizen: { name: 'Grace N.', mobileNumber: '0745678901' },
     sla: { dueInHours: 120, remaining: 96, deadline: new Date(Date.now() + 96 * 60 * 60 * 1000).toISOString() },
     slaDeadline: new Date(Date.now() + 96 * 60 * 60 * 1000).toISOString(),
     history: [
-      { id: 'h1', performedBy: 'Grace Njeri', performedByRole: 'citizen', action: 'CREATE', timestamp: '2025-06-04T08:00:00.000Z' },
+      { id: 'h1', performedBy: 'Grace N.', performedByRole: 'citizen', action: 'CREATE', timestamp: '2025-06-04T08:00:00.000Z' },
     ],
   },
   {
     id: '5',
-    ticketId: 'NRB-2025-000127',
-    tenantId: 'ke.nairobi',
+    ticketId: `${CITY.issueIdPrefix}-2025-000127`,
+    tenantId: 'default',
     category: 'complaint',
     issueCategory: 'water',
     serviceCode: 'WATER_SUPPLY',
     title: 'Water supply interrupted for 3 days',
-    description: 'No water supply in Parklands area for the past 3 days. This is affecting many households and businesses. Urgent attention needed.',
+    description: 'No water supply in the area for the past 3 days. This is affecting many households and businesses. Urgent attention needed.',
     lat: -1.2621,
     lng: 36.8135,
     wardCode: 'parklands',
     wardName: 'Parklands/Highridge',
     createdAt: '2025-06-01T06:00:00.000Z',
     updatedAt: '2025-06-02T10:00:00.000Z',
-    source: 'NAIROBI_ENGAGEMENT',
+    source: 'CITIZEN_ENGAGEMENT',
     status: 'escalated',
     priority: 'URGENT',
-    assignedTo: 'David Kamau',
+    assignedTo: 'David K.',
     assignedDepartment: 'Water Services',
-    citizen: { name: 'Michael Otieno', mobileNumber: '0756789012' },
+    citizen: { name: 'Michael O.', mobileNumber: '0756789012' },
     sla: { dueInHours: 24, remaining: -48, deadline: new Date(Date.now() - 48 * 60 * 60 * 1000).toISOString() },
     slaDeadline: new Date(Date.now() - 48 * 60 * 60 * 1000).toISOString(),
     isOverdue: true,
     history: [
-      { id: 'h1', performedBy: 'Michael Otieno', performedByRole: 'citizen', action: 'CREATE', timestamp: '2025-06-01T06:00:00.000Z' },
+      { id: 'h1', performedBy: 'Michael O.', performedByRole: 'citizen', action: 'CREATE', timestamp: '2025-06-01T06:00:00.000Z' },
       { id: 'h2', performedBy: 'System', performedByRole: 'system', action: 'ASSIGN', timestamp: '2025-06-01T08:00:00.000Z' },
-      { id: 'h3', performedBy: 'Michael Otieno', performedByRole: 'citizen', action: 'ESCALATE', timestamp: '2025-06-02T10:00:00.000Z', note: 'Expected service time exceeded, escalated by citizen' },
+      { id: 'h3', performedBy: 'Michael O.', performedByRole: 'citizen', action: 'ESCALATE', timestamp: '2025-06-02T10:00:00.000Z', note: 'Expected service time exceeded, escalated by citizen' },
     ],
     remarks: [
-      { id: 'r1', by: 'David Kamau', byRole: 'officer', text: 'Main pipeline burst detected. Emergency repair team deployed.', timestamp: '2025-06-02T12:00:00.000Z' },
-      { id: 'r2', by: 'Michael Otieno', byRole: 'citizen', text: 'Still no water. Situation is critical.', timestamp: '2025-06-03T07:00:00.000Z' },
+      { id: 'r1', by: 'David K.', byRole: 'officer', text: 'Main pipeline burst detected. Emergency repair team deployed.', timestamp: '2025-06-02T12:00:00.000Z' },
+      { id: 'r2', by: 'Michael O.', byRole: 'citizen', text: 'Still no water. Situation is critical.', timestamp: '2025-06-03T07:00:00.000Z' },
     ],
   },
   {
     id: '6',
-    ticketId: 'NRB-2025-000128',
-    tenantId: 'ke.nairobi',
+    ticketId: `${CITY.issueIdPrefix}-2025-000128`,
+    tenantId: 'default',
     category: 'complaint',
     issueCategory: 'noise',
     serviceCode: 'ENVIRONMENTAL',
@@ -173,14 +174,14 @@ let stories: Story[] = [
     wardCode: 'kilimani',
     wardName: 'Kilimani',
     createdAt: '2025-06-05T22:00:00.000Z',
-    source: 'NAIROBI_ENGAGEMENT',
+    source: 'CITIZEN_ENGAGEMENT',
     status: 'new',
     priority: 'LOW',
-    citizen: { name: 'Anne Wairimu', mobileNumber: '0767890123' },
+    citizen: { name: 'Anne W.', mobileNumber: '0767890123' },
     sla: { dueInHours: 168, remaining: 144, deadline: new Date(Date.now() + 144 * 60 * 60 * 1000).toISOString() },
     slaDeadline: new Date(Date.now() + 144 * 60 * 60 * 1000).toISOString(),
     history: [
-      { id: 'h1', performedBy: 'Anne Wairimu', performedByRole: 'citizen', action: 'CREATE', timestamp: '2025-06-05T22:00:00.000Z' },
+      { id: 'h1', performedBy: 'Anne W.', performedByRole: 'citizen', action: 'CREATE', timestamp: '2025-06-05T22:00:00.000Z' },
     ],
   },
 ];
@@ -192,7 +193,7 @@ function generateId(): string {
 function generateTicketId(): string {
   const year = new Date().getFullYear();
   const num = Math.floor(Math.random() * 900000) + 100000;
-  return `NRB-${year}-${num}`;
+  return `${CITY.issueIdPrefix}-${year}-${num}`;
 }
 
 function findWardByCode(code?: string) {
@@ -226,7 +227,7 @@ export const apiClient = {
     const story: Story = {
       id: generateId(),
       ticketId: generateTicketId(),
-      tenantId: 'ke.nairobi',
+      tenantId: 'default',
       category: submission.category,
       issueCategory: submission.issueCategory,
       title: submission.title,
@@ -241,7 +242,7 @@ export const apiClient = {
       wardCode: submission.wardCode,
       wardName: ward?.name,
       createdAt: new Date().toISOString(),
-      source: 'NAIROBI_ENGAGEMENT',
+      source: 'CITIZEN_ENGAGEMENT',
       reporterName: submission.reporterName,
       reporterPhone: submission.reporterPhone,
       citizen: submission.reporterName ? { name: submission.reporterName, mobileNumber: submission.reporterPhone } : undefined,
@@ -254,7 +255,7 @@ export const apiClient = {
         { id: generateId(), performedBy: submission.reporterName || 'Citizen', performedByRole: 'citizen', action: 'CREATE', timestamp: new Date().toISOString(), note: 'Report submitted' }
       ],
       updates: [
-        { id: generateId(), message: 'Your report has been received. Thank you for helping improve Nairobi.', author: 'System', authorType: 'staff', createdAt: new Date().toISOString() }
+        { id: generateId(), message: 'Your report has been received. Thank you for helping improve our city.', author: 'System', authorType: 'staff', createdAt: new Date().toISOString() }
       ],
     };
     
@@ -263,198 +264,200 @@ export const apiClient = {
   },
 
   /**
-   * Get stories with optional filters (maps to DIGIT PGR /_search)
+   * Get all stories (maps to DIGIT PGR /_search)
    */
-  async getStories(filters?: {
-    category?: StoryCategory;
-    issueCategory?: IssueCategory;
-    wardCode?: string;
-    status?: TicketStatus;
-    limit?: number;
-  }): Promise<Story[]> {
-    await delay(300);
-    
-    let result = [...stories];
-    
-    if (filters?.category) {
-      result = result.filter(s => s.category === filters.category);
+  async getStories(categoryOrFilters?: StoryCategory | { category?: StoryCategory; issueCategory?: IssueCategory; wardCode?: string; status?: TicketStatus; limit?: number; }, issueCategory?: IssueCategory, status?: TicketStatus, searchTerm?: string): Promise<Story[]> {
+    await delay(500);
+
+    let filteredStories = [...stories];
+
+    // Support both calling conventions
+    if (typeof categoryOrFilters === 'object' && categoryOrFilters !== null && categoryOrFilters !== undefined) {
+      const filters = categoryOrFilters;
+      if (filters.category) filteredStories = filteredStories.filter(s => s.category === filters.category);
+      if (filters.issueCategory) filteredStories = filteredStories.filter(s => s.issueCategory === filters.issueCategory);
+      if (filters.wardCode) filteredStories = filteredStories.filter(s => s.wardCode === filters.wardCode);
+      if (filters.status) filteredStories = filteredStories.filter(s => s.status === filters.status);
+      if (filters.limit) filteredStories = filteredStories.slice(0, filters.limit);
+    } else {
+      const category = categoryOrFilters as StoryCategory | undefined;
+      if (category) filteredStories = filteredStories.filter(s => s.category === category);
+      if (issueCategory) filteredStories = filteredStories.filter(s => s.issueCategory === issueCategory);
+      if (status) filteredStories = filteredStories.filter(s => s.status === status);
+      if (searchTerm) {
+        const lower = searchTerm.toLowerCase();
+        filteredStories = filteredStories.filter(s =>
+          s.title.toLowerCase().includes(lower) ||
+          s.description?.toLowerCase().includes(lower) ||
+          s.ticketId.toLowerCase().includes(lower)
+        );
+      }
     }
 
-    if (filters?.issueCategory) {
-      result = result.filter(s => s.issueCategory === filters.issueCategory);
-    }
-    
-    if (filters?.wardCode) {
-      result = result.filter(s => s.wardCode === filters.wardCode);
-    }
-
-    if (filters?.status) {
-      result = result.filter(s => s.status === filters.status);
-    }
-    
-    if (filters?.limit) {
-      result = result.slice(0, filters.limit);
-    }
-    
-    return result;
+    return filteredStories;
   },
 
   /**
-   * Get user's tickets
+   * Get stories reported by the current user (maps to DIGIT PGR /_search)
    */
-  async getMyTickets(phone?: string): Promise<Story[]> {
-    await delay(300);
-    // Return all tickets for demo purposes
-    return [...stories];
+  async getMyTickets(): Promise<Story[]> {
+    await delay(500);
+    // In a real implementation, this would filter by the current user's ID
+    return stories.filter(story => story.source === 'CITIZEN_ENGAGEMENT');
   },
 
   /**
-   * Get a single story by ID
+   * Get a single story by ID (maps to DIGIT PGR /_search)
    */
-  async getStory(id: string): Promise<Story | null> {
-    await delay(200);
-    return stories.find(s => s.id === id) || null;
+  async getStory(id: string): Promise<Story | undefined> {
+    await delay(500);
+    return stories.find(story => story.id === id);
   },
 
   /**
-   * Get story by ticket ID
+   * Get a single story by ticketId (maps to DIGIT PGR /_search)
    */
-  async getStoryByTicketId(ticketId: string): Promise<Story | null> {
-    await delay(200);
-    return stories.find(s => s.ticketId === ticketId) || null;
+  async getStoryByTicketId(ticketId: string): Promise<Story | undefined> {
+    await delay(500);
+    return stories.find(story => story.ticketId === ticketId);
   },
 
   /**
-   * Add comment/remark to a ticket
+   * Add a comment to a story (maps to DIGIT PGR /_update)
    */
-  async addComment(storyId: string, message: string): Promise<TicketUpdate> {
-    await delay(300);
-    const update: TicketUpdate = {
-      id: generateId(),
-      message,
-      author: 'Citizen',
-      authorType: 'citizen',
-      createdAt: new Date().toISOString(),
-    };
-    
-    const story = stories.find(s => s.id === storyId);
+  async addComment(ticketId: string, message: string, author: string = 'Citizen', authorType: 'citizen' | 'staff' = 'citizen'): Promise<Story | undefined> {
+    await delay(500);
+    const story = stories.find(story => story.ticketId === ticketId);
     if (story) {
-      story.updates = [...(story.updates || []), update];
-      // Also add to remarks
-      const remark: TicketRemark = {
+      const newUpdate: TicketUpdate = {
         id: generateId(),
-        by: story.citizen?.name || 'Citizen',
-        byRole: 'citizen',
-        text: message,
-        timestamp: new Date().toISOString(),
+        message,
+        author,
+        authorType,
+        createdAt: new Date().toISOString()
       };
-      story.remarks = [...(story.remarks || []), remark];
+      story.updates = [...(story.updates || []), newUpdate];
+      return story;
     }
-    
-    return update;
+    return undefined;
   },
 
-  /**
-   * Add remark to a ticket (staff or citizen)
-   */
-  async addRemark(storyId: string, text: string, byRole: 'citizen' | 'officer', byName?: string): Promise<TicketRemark> {
-    await delay(300);
-    const story = stories.find(s => s.id === storyId);
-    const remark: TicketRemark = {
-      id: generateId(),
-      by: byName || (byRole === 'citizen' ? story?.citizen?.name || 'Citizen' : 'County Officer'),
-      byRole,
-      text,
-      timestamp: new Date().toISOString(),
-    };
-    
+  async addRemark(ticketId: string, text: string, by: string = 'Citizen', byRole: 'citizen' | 'officer' = 'citizen'): Promise<Story | undefined> {
+    await delay(500);
+    const story = stories.find(story => story.ticketId === ticketId);
     if (story) {
-      story.remarks = [...(story.remarks || []), remark];
-      story.updatedAt = new Date().toISOString();
+      const newRemark: TicketRemark = {
+        id: generateId(),
+        text,
+        by,
+        byRole,
+        timestamp: new Date().toISOString()
+      };
+      story.remarks = [...(story.remarks || []), newRemark];
+      return story;
     }
-    
-    return remark;
+    return undefined;
   },
 
   /**
-   * Update ticket status
+   * Update the status of a ticket (maps to DIGIT PGR /_update)
    */
-  async updateStatus(storyId: string, status: TicketStatus, note?: string): Promise<Story | null> {
-    await delay(300);
-    const story = stories.find(s => s.id === storyId);
+  async updateStatus(ticketId: string, status: TicketStatus, performedBy: string, performedByRole: 'citizen' | 'officer' | 'system', note?: string): Promise<Story | undefined> {
+    await delay(500);
+    const story = stories.find(story => story.ticketId === ticketId);
     if (story) {
       story.status = status;
-      story.updatedAt = new Date().toISOString();
-      
-      const actionMap: Record<TicketStatus, import('@/types/story').WorkflowAction> = {
+      const actionMap: Record<TicketStatus, WorkflowAction> = {
         new: 'CREATE',
         assigned: 'ASSIGN',
         in_progress: 'IN_PROGRESS',
         resolved: 'RESOLVE',
         escalated: 'ESCALATE',
       };
-      
       const historyItem: WorkflowHistoryItem = {
         id: generateId(),
-        performedBy: 'County Officer',
-        performedByRole: 'officer',
+        performedBy,
+        performedByRole,
         action: actionMap[status],
         timestamp: new Date().toISOString(),
-        note,
+        note
       };
       story.history = [...(story.history || []), historyItem];
+      return story;
     }
-    return story || null;
+    return undefined;
   },
 
   /**
-   * Escalate a ticket
+   * Escalate a ticket (maps to DIGIT PGR /_update)
    */
-  async escalateTicket(storyId: string, reason: string): Promise<Story | null> {
-    await delay(300);
-    const story = stories.find(s => s.id === storyId);
+  async escalateTicket(ticketId: string, note: string, performedBy: string = 'Citizen', performedByRole: 'citizen' | 'officer' | 'system' = 'citizen'): Promise<Story | undefined> {
+    await delay(500);
+    const story = stories.find(story => story.ticketId === ticketId);
     if (story) {
+      story.priority = 'URGENT';
       story.status = 'escalated';
-      story.updatedAt = new Date().toISOString();
-      story.history = [...(story.history || []), {
+      const historyItem: WorkflowHistoryItem = {
         id: generateId(),
-        performedBy: story.citizen?.name || 'Citizen',
-        performedByRole: 'citizen',
+        performedBy,
+        performedByRole,
         action: 'ESCALATE',
         timestamp: new Date().toISOString(),
-        note: reason,
-      }];
-      story.updates = [...(story.updates || []), {
-        id: generateId(),
-        message: `Ticket escalated: ${reason}`,
-        author: 'Citizen',
-        authorType: 'citizen',
-        createdAt: new Date().toISOString(),
-      }];
+        note: note || 'Ticket escalated'
+      };
+      story.history = [...(story.history || []), historyItem];
+      return story;
     }
-    return story || null;
+    return undefined;
   },
 
   /**
-   * Rate satisfaction after resolution
+   * Rate satisfaction with a resolved ticket
    */
-  async rateSatisfaction(storyId: string, rating: number): Promise<Story | null> {
-    await delay(200);
-    const story = stories.find(s => s.id === storyId);
+  async rateSatisfaction(ticketId: string, rating: number): Promise<Story | undefined> {
+    await delay(500);
+    const story = stories.find(story => story.ticketId === ticketId);
     if (story) {
       story.satisfactionRating = rating;
+      return story;
     }
-    return story || null;
+    return undefined;
   },
 
   /**
-   * Get wards list
+   * Get wards (maps to DIGIT /location/_search)
    */
-  async getWards() {
-    await delay(100);
+  async getWards(): Promise<{ name: string; code: string; }[]> {
+    await delay(200);
     return NAIROBI_WARDS;
   },
+
+  async transcribeAudio(audioBlob: Blob): Promise<string> {
+    console.log('Audio transcription placeholder - audio size:', audioBlob.size);
+    return '[Voice message - transcription coming soon]';
+  },
+
+  speakText: async (text: string, lang: string = 'en-US'): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      if (!('speechSynthesis' in window)) {
+        reject(new Error('Speech synthesis not supported'));
+        return;
+      }
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = lang;
+      utterance.rate = 0.9;
+      utterance.onend = () => resolve();
+      utterance.onerror = (e) => reject(e);
+      window.speechSynthesis.speak(utterance);
+    });
+  }
 };
+
+export function stopSpeaking(): void {
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+  }
+}
 
 // Placeholder for future speech-to-text integration
 export async function transcribeAudio(audioBlob: Blob): Promise<string> {
@@ -466,30 +469,14 @@ export async function transcribeAudio(audioBlob: Blob): Promise<string> {
 export function speakText(text: string, lang: string = 'en-US'): Promise<void> {
   return new Promise((resolve, reject) => {
     if (!('speechSynthesis' in window)) {
-      console.warn('Text-to-speech not supported');
-      resolve();
+      reject(new Error('Speech synthesis not supported'));
       return;
     }
-    
-    window.speechSynthesis.cancel();
-    
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = lang;
     utterance.rate = 0.9;
-    utterance.pitch = 1;
-    
     utterance.onend = () => resolve();
-    utterance.onerror = (e) => {
-      console.error('Speech synthesis error:', e);
-      resolve();
-    };
-    
+    utterance.onerror = (e) => reject(e);
     window.speechSynthesis.speak(utterance);
   });
-}
-
-export function stopSpeaking(): void {
-  if ('speechSynthesis' in window) {
-    window.speechSynthesis.cancel();
-  }
 }
