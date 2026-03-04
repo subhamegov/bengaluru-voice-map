@@ -129,7 +129,7 @@ export function MyComplaintsSummary() {
 
   if (isLoading) {
     return (
-      <Card className="ncc-card">
+      <Card className="gov-card">
         <CardContent className="p-6">
           <div className="h-32 flex items-center justify-center">
             <div className="animate-pulse text-muted-foreground">Loading your data...</div>
@@ -141,7 +141,7 @@ export function MyComplaintsSummary() {
 
   if (myTickets.length === 0) {
     return (
-      <Card className="ncc-card border-primary/20 bg-primary/5">
+      <Card className="gov-card border-primary/20 bg-primary/5">
         <CardContent className="p-6">
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
@@ -168,7 +168,7 @@ export function MyComplaintsSummary() {
   return (
     <div className="space-y-6">
       {/* My Tickets Summary */}
-      <Card className="ncc-card border-primary/20">
+      <Card className="gov-card border-primary/20">
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -248,7 +248,7 @@ export function MyComplaintsSummary() {
 
       {/* Similar Complaints Section */}
       {similarComplaints.length > 0 && (
-        <Card className="ncc-card">
+        <Card className="gov-card">
           <CardHeader className="pb-3">
             <div className="flex items-center gap-2">
               <Users className="w-5 h-5 text-muted-foreground" />

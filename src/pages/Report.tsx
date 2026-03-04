@@ -315,7 +315,7 @@ const Report = () => {
           Share Your Voice
         </h1>
         <p className="text-muted-foreground">
-          Help us build a better Nairobi together.
+          Help us build a better city together.
         </p>
       </div>
 

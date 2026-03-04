@@ -78,7 +78,7 @@ export default function Training() {
                 Training & Help Centre
               </h1>
               <p className="text-lg text-muted-foreground mt-2">
-                Short modules to help citizens and county staff use Nairobi's digital services with confidence.
+                Short modules to help citizens and staff use digital services with confidence.
               </p>
             </div>
             <Button variant="outline" size="sm" className="gap-2" disabled>
@@ -146,7 +146,7 @@ export default function Training() {
         {/* Module Cards */}
         <section aria-label="Training modules">
           {filteredModules.length === 0 ? (
-            <div className="ncc-card p-8 text-center">
+            <div className="gov-card p-8 text-center">
               <BookOpen className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
               <p className="text-lg text-muted-foreground">No modules found matching your criteria.</p>
               <Button
@@ -184,7 +184,7 @@ interface ModuleCardProps {
 
 function ModuleCard({ module, status }: ModuleCardProps) {
   return (
-    <article className="ncc-card p-6 hover:shadow-md transition-shadow">
+    <article className="gov-card p-6 hover:shadow-md transition-shadow">
       <div className="flex flex-col md:flex-row md:items-center gap-4">
         <div className="flex-1 space-y-2">
           <div className="flex flex-wrap items-center gap-2">

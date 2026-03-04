@@ -11,7 +11,7 @@ export default function Data() {
     <AppLayout>
       <div className="space-y-6">
         {/* Page Header */}
-        <div className="ncc-section-header">
+        <div className="gov-section-header">
           <div>
             <h1 className="text-2xl md:text-3xl font-bold text-foreground">
               Data & Analytics

@@ -46,7 +46,7 @@ export function OverviewCards({ timeRange, subCounty }: OverviewCardsProps) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       {cards.map((card) => (
-        <Card key={card.label} className="ncc-card">
+        <Card key={card.label} className="gov-card">
           <CardContent className="p-6">
             <div className="flex items-start justify-between">
               <div className="space-y-2">

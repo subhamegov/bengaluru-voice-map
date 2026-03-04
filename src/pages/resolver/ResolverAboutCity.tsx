@@ -102,7 +102,7 @@ export default function ResolverAboutCity() {
                 About My City
               </h1>
               <p className="text-lg text-muted-foreground mt-2">
-                Quick reference guide to Nairobi County's services, responsibilities, and outcomes.
+                Quick reference guide to city services, responsibilities, and outcomes.
               </p>
             </div>
             <Button variant="outline" size="sm" className="gap-2">
@@ -114,7 +114,7 @@ export default function ResolverAboutCity() {
 
         {/* Section A: City Snapshot Metrics */}
         <section>
-          <div className="ncc-section-header">
+          <div className="gov-section-header">
             <h2 className="text-xl font-bold text-foreground">City-Level Snapshot</h2>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
@@ -141,7 +141,7 @@ export default function ResolverAboutCity() {
 
         {/* Section B: Service Charter */}
         <section>
-          <div className="ncc-section-header">
+          <div className="gov-section-header">
             <h2 className="text-xl font-bold text-foreground">City Service Charter Reference</h2>
           </div>
           <Card className="bg-gradient-to-r from-primary/5 to-secondary/5 border-primary/20">
@@ -149,7 +149,7 @@ export default function ResolverAboutCity() {
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                 <div>
                   <h3 className="text-lg font-semibold text-foreground">
-                    Nairobi Citizen Service Charter (2025)
+                    Citizen Service Charter
                   </h3>
                   <p className="text-sm text-muted-foreground mt-1">
                     Official document outlining citizen rights and service standards
@@ -181,7 +181,7 @@ export default function ResolverAboutCity() {
 
         {/* Section C: Departments */}
         <section>
-          <div className="ncc-section-header">
+          <div className="gov-section-header">
             <h2 className="text-xl font-bold text-foreground">Roles & Responsibilities</h2>
           </div>
           <p className="text-muted-foreground mb-4">
@@ -225,7 +225,7 @@ export default function ResolverAboutCity() {
 
         {/* Section D: Service Updates */}
         <section>
-          <div className="ncc-section-header">
+          <div className="gov-section-header">
             <h2 className="text-xl font-bold text-foreground">Service Updates</h2>
           </div>
           <div className="grid md:grid-cols-2 gap-4">
@@ -261,7 +261,7 @@ export default function ResolverAboutCity() {
 
         {/* Section E: Quick Help */}
         <section>
-          <div className="ncc-section-header">
+          <div className="gov-section-header">
             <h2 className="text-xl font-bold text-foreground">Quick Help / FAQs</h2>
           </div>
           <div className="relative mb-4">
@@ -293,7 +293,7 @@ export default function ResolverAboutCity() {
 
         {/* Section F: City Events */}
         <section>
-          <div className="ncc-section-header">
+          <div className="gov-section-header">
             <h2 className="text-xl font-bold text-foreground">City Events & Public Meetings</h2>
           </div>
           <div className="grid md:grid-cols-2 gap-4">

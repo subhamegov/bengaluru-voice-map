@@ -106,7 +106,7 @@ export default function ResolverTraining() {
                 Training Module
               </h1>
               <p className="text-lg text-muted-foreground mt-2">
-                Upskill yourself with structured, easy-to-follow training content designed for Nairobi County resolvers.
+                Upskill yourself with structured, easy-to-follow training content designed for resolvers.
               </p>
             </div>
             <Button variant="outline" size="sm" className="gap-2">

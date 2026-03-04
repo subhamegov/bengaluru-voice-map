@@ -103,7 +103,7 @@ export function TicketRemarks({ remarks, onAddRemark, disabled }: TicketRemarksP
             <Button
               onClick={handleSubmit}
               disabled={!newRemark.trim() || isSubmitting}
-              className="ncc-btn-primary"
+              className="gov-btn-primary"
             >
               <Send className="w-4 h-4 mr-2" />
               Send Message

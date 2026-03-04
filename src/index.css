@@ -2,109 +2,108 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans:wght@400;500;600;700&display=swap');
 
-/* Nairobi City County Design Language
-   Inspired by nairobi.go.ke - Modern Government Portal */
+/* UX4G Government Design System
+   Clean, accessible, professional government portal */
 
 @layer base {
   :root {
-    /* Nairobi County Official Colors - Green & Gold */
+    /* UX4G Palette - Deep Blue + Saffron */
     --background: 0 0% 100%;
-    --foreground: 220 20% 15%;
+    --foreground: 222 20% 14%;
 
     --card: 0 0% 100%;
-    --card-foreground: 220 20% 15%;
+    --card-foreground: 222 20% 14%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 20% 15%;
+    --popover-foreground: 222 20% 14%;
 
-    /* Primary: Nairobi Green - Official County Green */
-    --primary: 145 75% 28%;
+    /* Primary: Deep Indigo Blue */
+    --primary: 231 48% 40%;
     --primary-foreground: 0 0% 100%;
 
-    /* Secondary: Gold/Orange - Accent Color */
-    --secondary: 38 95% 50%;
-    --secondary-foreground: 220 20% 15%;
+    /* Secondary: Saffron / Orange */
+    --secondary: 25 95% 50%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 220 15% 96%;
-    --muted-foreground: 220 10% 45%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 10% 46%;
 
-    /* Accent: Deep Blue - For navigation and accents */
-    --accent: 215 85% 25%;
-    --accent-foreground: 0 0% 100%;
+    /* Accent: Lighter blue-gray */
+    --accent: 220 14% 96%;
+    --accent-foreground: 222 20% 14%;
 
-    --destructive: 0 75% 50%;
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    /* Success: Vibrant Green */
-    --success: 145 70% 35%;
+    /* Success: Green */
+    --success: 142 64% 38%;
     --success-foreground: 0 0% 100%;
 
-    /* Warning: Orange */
-    --warning: 30 90% 55%;
-    --warning-foreground: 220 20% 15%;
+    /* Warning: Amber */
+    --warning: 38 92% 50%;
+    --warning-foreground: 222 20% 14%;
 
     /* Info: Blue */
-    --info: 205 85% 45%;
+    --info: 210 79% 46%;
     --info-foreground: 0 0% 100%;
 
-    --border: 220 15% 90%;
-    --input: 220 15% 92%;
-    --ring: 145 75% 28%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 231 48% 40%;
 
-    --radius: 0.625rem;
+    --radius: 0.5rem;
 
-    /* Custom tokens for accessibility */
-    --focus-ring: 145 75% 40%;
+    /* Custom tokens */
+    --focus-ring: 231 48% 48%;
     --tap-target-min: 44px;
 
     /* Category colors */
-    --complaint: 0 75% 45%;
-    --idea: 205 85% 40%;
-    --appreciation: 145 70% 35%;
+    --complaint: 0 72% 45%;
+    --idea: 210 79% 40%;
+    --appreciation: 142 64% 38%;
 
     /* Recording states */
     --recording: 0 80% 50%;
-    --playing: 205 85% 45%;
+    --playing: 210 79% 45%;
 
-    /* Nairobi specific tokens */
-    --header-gradient-start: 145 75% 22%;
-    --header-gradient-end: 145 60% 30%;
-    --hero-overlay: 220 20% 10%;
+    /* Gov-specific tokens */
+    --gov-topbar: 222 28% 12%;
+    --gov-header-border: 220 13% 87%;
   }
 
   .dark {
-    --background: 220 20% 10%;
-    --foreground: 0 0% 95%;
+    --background: 222 28% 8%;
+    --foreground: 210 20% 95%;
 
-    --card: 220 20% 14%;
-    --card-foreground: 0 0% 95%;
+    --card: 222 25% 12%;
+    --card-foreground: 210 20% 95%;
 
-    --popover: 220 20% 14%;
-    --popover-foreground: 0 0% 95%;
+    --popover: 222 25% 12%;
+    --popover-foreground: 210 20% 95%;
 
-    --primary: 145 65% 40%;
+    --primary: 231 48% 55%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 38 90% 55%;
-    --secondary-foreground: 220 20% 10%;
+    --secondary: 25 90% 55%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 220 15% 20%;
-    --muted-foreground: 220 10% 65%;
+    --muted: 222 20% 18%;
+    --muted-foreground: 220 10% 62%;
 
-    --accent: 215 70% 45%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 222 20% 18%;
+    --accent-foreground: 210 20% 95%;
 
-    --destructive: 0 70% 55%;
+    --destructive: 0 68% 55%;
     --destructive-foreground: 0 0% 100%;
 
-    --success: 145 60% 45%;
+    --success: 142 58% 45%;
     --success-foreground: 0 0% 100%;
 
-    --border: 220 15% 25%;
-    --input: 220 15% 22%;
-    --ring: 145 65% 40%;
+    --border: 222 20% 22%;
+    --input: 222 20% 20%;
+    --ring: 231 48% 55%;
   }
 }
 
@@ -120,7 +119,7 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Open Sans', system-ui, sans-serif;
+    font-family: 'Noto Sans', 'Inter', system-ui, sans-serif;
     line-height: 1.6;
   }
 
@@ -138,7 +137,7 @@
   }
 
   /* Large touch targets */
-  button, 
+  button,
   [role="button"],
   a,
   input,
@@ -147,9 +146,9 @@
     min-height: var(--tap-target-min);
   }
 
-  /* Heading hierarchy - Modern Government Portal Style */
+  /* Heading hierarchy */
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Poppins', system-ui, sans-serif;
+    font-family: 'Inter', system-ui, sans-serif;
     font-weight: 700;
   }
 
@@ -169,7 +168,7 @@
     @apply text-lg md:text-xl font-semibold;
   }
 
-  /* Modern link styles */
+  /* Link styles */
   a {
     @apply no-underline text-primary transition-colors;
   }
@@ -180,61 +179,67 @@
 }
 
 @layer components {
-  /* Nairobi County Header Gradient */
-  .ncc-header {
-    background: linear-gradient(135deg, hsl(var(--header-gradient-start)) 0%, hsl(var(--header-gradient-end)) 100%);
-    @apply text-white shadow-lg;
+  /* Government Top Bar (dark strip) */
+  .gov-topbar {
+    background-color: hsl(var(--gov-topbar));
+    @apply text-white text-xs py-1.5 px-4;
   }
 
-  /* Gold accent bar */
-  .ncc-accent-bar {
-    @apply h-1 bg-gradient-to-r from-secondary via-secondary/80 to-secondary;
+  /* Government Header - White background with bottom border */
+  .gov-header {
+    @apply bg-background border-b shadow-sm;
+    border-color: hsl(var(--gov-header-border));
   }
 
-  /* Hero section with high contrast gradient overlay */
-  .ncc-hero {
-    @apply relative text-white;
-    @apply rounded-2xl overflow-hidden;
-    background: linear-gradient(135deg, hsl(145 75% 20%) 0%, hsl(145 70% 25%) 40%, hsl(215 85% 20%) 100%);
+  /* Accent bar - tricolor or primary */
+  .gov-accent-bar {
+    @apply h-1;
+    background: linear-gradient(90deg, hsl(25 95% 50%) 33%, hsl(0 0% 100%) 33% 66%, hsl(142 64% 38%) 66%);
   }
 
-  .ncc-hero-pattern {
-    background-image: 
-      radial-gradient(circle at 20% 50%, hsl(var(--secondary) / 0.2) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, hsl(0 0% 100% / 0.05) 0%, transparent 40%);
+  /* Hero section */
+  .gov-hero {
+    @apply relative text-white overflow-hidden;
+    background: linear-gradient(135deg, hsl(231 48% 30%) 0%, hsl(231 48% 40%) 50%, hsl(210 79% 35%) 100%);
   }
 
-  /* Modern card styles */
-  .ncc-card {
-    @apply bg-card rounded-xl border border-border shadow-sm;
-    @apply transition-all duration-300;
+  .gov-hero-pattern {
+    background-image:
+      radial-gradient(circle at 20% 50%, hsl(var(--secondary) / 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, hsl(0 0% 100% / 0.04) 0%, transparent 40%);
+  }
+
+  /* Card styles */
+  .gov-card {
+    @apply bg-card rounded-lg border border-border shadow-sm;
+    @apply transition-all duration-200;
     @apply hover:shadow-md hover:border-primary/20;
   }
 
-  .ncc-card-elevated {
-    @apply ncc-card shadow-lg hover:shadow-xl;
+  .gov-card-elevated {
+    @apply gov-card shadow-md hover:shadow-lg;
   }
 
-  /* Action buttons - Nairobi style */
-  .ncc-btn-primary {
+  /* Buttons */
+  .gov-btn-primary {
     @apply inline-flex items-center justify-center gap-2 px-6 py-3;
     @apply bg-primary text-primary-foreground font-semibold rounded-lg;
     @apply transition-all duration-200;
-    @apply hover:bg-primary/90 hover:shadow-lg hover:-translate-y-0.5;
+    @apply hover:bg-primary/90 hover:shadow-md;
     @apply focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary;
     min-height: var(--tap-target-min);
   }
 
-  .ncc-btn-secondary {
+  .gov-btn-secondary {
     @apply inline-flex items-center justify-center gap-2 px-6 py-3;
     @apply bg-secondary text-secondary-foreground font-semibold rounded-lg;
     @apply transition-all duration-200;
-    @apply hover:bg-secondary/90 hover:shadow-lg hover:-translate-y-0.5;
+    @apply hover:bg-secondary/90 hover:shadow-md;
     @apply focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-secondary;
     min-height: var(--tap-target-min);
   }
 
-  .ncc-btn-outline {
+  .gov-btn-outline {
     @apply inline-flex items-center justify-center gap-2 px-6 py-3;
     @apply bg-transparent border-2 border-primary text-primary font-semibold rounded-lg;
     @apply transition-all duration-200;
@@ -243,67 +248,67 @@
     min-height: var(--tap-target-min);
   }
 
-  /* Quick action tiles */
-  .ncc-action-tile {
-    @apply relative overflow-hidden rounded-xl p-6;
+  /* Action tiles */
+  .gov-action-tile {
+    @apply relative overflow-hidden rounded-lg p-6;
     @apply flex flex-col items-center justify-center text-center;
-    @apply transition-all duration-300;
-    @apply hover:shadow-xl hover:-translate-y-1;
+    @apply transition-all duration-200;
+    @apply hover:shadow-lg hover:-translate-y-0.5;
   }
 
-  .ncc-action-tile-primary {
-    @apply ncc-action-tile bg-gradient-to-br from-primary to-primary/80 text-primary-foreground;
+  .gov-action-tile-primary {
+    @apply gov-action-tile bg-primary text-primary-foreground;
   }
 
-  .ncc-action-tile-secondary {
-    @apply ncc-action-tile bg-gradient-to-br from-secondary to-secondary/80 text-secondary-foreground;
+  .gov-action-tile-secondary {
+    @apply gov-action-tile bg-secondary text-secondary-foreground;
   }
 
-  .ncc-action-tile-accent {
-    @apply ncc-action-tile bg-gradient-to-br from-accent to-accent/80 text-accent-foreground;
+  .gov-action-tile-accent {
+    @apply gov-action-tile bg-accent text-accent-foreground border border-border;
   }
 
   /* Status badges */
-  .ncc-badge {
+  .gov-badge {
     @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium;
   }
 
-  .ncc-badge-success {
-    @apply ncc-badge bg-success/15 text-success;
+  .gov-badge-success {
+    @apply gov-badge bg-success/15 text-success;
   }
 
-  .ncc-badge-warning {
-    @apply ncc-badge bg-warning/15 text-warning;
+  .gov-badge-warning {
+    @apply gov-badge bg-warning/15 text-warning;
   }
 
-  .ncc-badge-info {
-    @apply ncc-badge bg-info/15 text-info;
+  .gov-badge-info {
+    @apply gov-badge bg-info/15 text-info;
   }
 
-  .ncc-badge-error {
-    @apply ncc-badge bg-destructive/15 text-destructive;
+  .gov-badge-error {
+    @apply gov-badge bg-destructive/15 text-destructive;
   }
 
   /* Section headers */
-  .ncc-section-header {
+  .gov-section-header {
     @apply flex items-center gap-3 mb-6;
   }
 
-  .ncc-section-header::before {
+  .gov-section-header::before {
     content: '';
     @apply w-1 h-8 bg-primary rounded-full;
   }
 
   /* Navigation item */
-  .ncc-nav-item {
+  .gov-nav-item {
     @apply flex items-center gap-1.5 px-2.5 py-2 rounded-lg text-sm font-medium;
-    @apply transition-all duration-200;
-    @apply hover:bg-white/10;
+    @apply text-foreground transition-all duration-200;
+    @apply hover:bg-primary/10 hover:text-primary;
   }
 
-  .ncc-nav-item-active {
-    @apply ncc-nav-item bg-secondary text-secondary-foreground;
-    @apply hover:bg-secondary/90;
+  .gov-nav-item-active {
+    @apply gov-nav-item bg-primary text-primary-foreground;
+    @apply hover:bg-primary/90 hover:text-primary-foreground;
   }
 
   /* Category badges */
@@ -340,7 +345,7 @@
 
   /* Map container */
   .map-container {
-    @apply rounded-xl overflow-hidden border-2 border-border shadow-lg;
+    @apply rounded-lg overflow-hidden border-2 border-border shadow-md;
     min-height: 300px;
   }
 
@@ -371,8 +376,9 @@
   }
 
   /* Footer styles */
-  .ncc-footer {
-    @apply bg-gradient-to-b from-foreground to-foreground/95 text-background py-12;
+  .gov-footer {
+    background-color: hsl(var(--gov-topbar));
+    @apply text-white py-12;
   }
 }
 
@@ -413,7 +419,7 @@
 
 /* Leaflet map overrides */
 .leaflet-container {
-  font-family: 'Open Sans', system-ui, sans-serif;
+  font-family: 'Noto Sans', 'Inter', system-ui, sans-serif;
   @apply rounded-lg;
 }
 

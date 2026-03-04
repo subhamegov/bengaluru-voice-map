@@ -15,7 +15,7 @@ export function ComplaintsByDepartmentPie() {
   const data = getComplaintsByDepartment();
 
   return (
-    <Card className="ncc-card">
+    <Card className="gov-card">
       <CardHeader className="pb-2">
         <div className="flex items-center gap-2">
           <CardTitle className="text-lg">Complaints by Department</CardTitle>

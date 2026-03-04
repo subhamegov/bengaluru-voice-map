@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Menu, X, Home, ClipboardList, Search, BarChart3, AlertTriangle, Users, ClipboardCheck, Bell, HelpCircle, User, GraduationCap, Building, ArrowRightLeft } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { brand } from '@/lib/brandConfig';
 import kenyaCoatOfArms from '@/assets/kenya-coat-of-arms.png';
 import { Button } from '@/components/ui/button';
 import {
@@ -32,34 +33,30 @@ export function ResolverLayout({ children }: ResolverLayoutProps) {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      {/* Skip to main content link for screen readers */}
-      <a href="#main-content" className="skip-link">
-        Skip to main content
-      </a>
+      <a href="#main-content" className="skip-link">Skip to main content</a>
 
-      {/* Top accent bar - slightly different color for staff portal */}
-      <div className="h-1 bg-gradient-to-r from-accent via-primary to-accent" />
+      {/* Top bar */}
+      <div className="gov-topbar">
+        <div className="container flex items-center justify-between">
+          <span className="font-medium">{brand.resolverPortalTitle}</span>
+          <span className="hidden sm:inline text-white/70">{brand.name}</span>
+        </div>
+      </div>
+
+      {/* Accent bar */}
+      <div className="gov-accent-bar" />
 
       {/* Header */}
-      <header className="ncc-header sticky top-0 z-40">
+      <header className="gov-header sticky top-0 z-40">
         <div className="container">
           <div className="flex items-center justify-between h-16 md:h-20">
-            {/* Logo / Title */}
             <NavLink to="/resolver" className="flex items-center gap-3 hover:opacity-90 transition-opacity">
-              <div className="relative">
-                <img
-                  src={kenyaCoatOfArms}
-                  alt="Kenya Coat of Arms"
-                  className="w-12 h-12 md:w-14 md:h-14 object-contain drop-shadow-lg"
-                />
-              </div>
+              <img src={kenyaCoatOfArms} alt={brand.emblemAlt} className="w-12 h-12 md:w-14 md:h-14 object-contain" />
               <div>
-                <h1 className="text-lg md:text-xl font-bold leading-tight tracking-tight font-display">
-                  Nairobi City County
+                <h1 className="text-lg md:text-xl font-bold leading-tight tracking-tight font-display text-foreground">
+                  {brand.resolverPortalTitle}
                 </h1>
-                <p className="text-xs md:text-sm text-white/80 font-medium">
-                  Resolver Dashboard
-                </p>
+                <p className="text-xs md:text-sm text-muted-foreground font-medium">{brand.name}</p>
               </div>
             </NavLink>
 
@@ -71,10 +68,7 @@ export function ResolverLayout({ children }: ResolverLayoutProps) {
                   to={item.href}
                   end={item.href === '/resolver'}
                   className={({ isActive }) =>
-                    cn(
-                      'ncc-nav-item',
-                      isActive && 'ncc-nav-item-active'
-                    )
+                    cn('gov-nav-item', isActive && 'gov-nav-item-active')
                   }
                   aria-label={item.description}
                 >
@@ -82,11 +76,10 @@ export function ResolverLayout({ children }: ResolverLayoutProps) {
                   <span className="hidden 2xl:inline">{item.name}</span>
                 </NavLink>
               ))}
-              
-              {/* Switch to Citizen Portal */}
+
               <NavLink
                 to="/"
-                className="ncc-nav-item ml-2 border-l border-white/20 pl-3"
+                className="gov-nav-item ml-2 border-l border-border pl-3"
                 aria-label="Switch to Citizen Portal"
               >
                 <ArrowRightLeft className="w-5 h-5" aria-hidden="true" />
@@ -96,36 +89,16 @@ export function ResolverLayout({ children }: ResolverLayoutProps) {
 
             {/* Right side actions */}
             <div className="flex items-center gap-2">
-              {/* Notifications */}
-              <Button
-                variant="ghost"
-                size="icon"
-                className="text-white hover:bg-white/10 relative"
-                aria-label="Notifications"
-              >
+              <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground hover:bg-muted relative" aria-label="Notifications">
                 <Bell className="w-5 h-5" />
                 <span className="absolute top-1 right-1 w-2 h-2 bg-secondary rounded-full" />
               </Button>
-
-              {/* Help */}
-              <Button
-                variant="ghost"
-                size="icon"
-                className="text-white hover:bg-white/10 hidden md:flex"
-                aria-label="Help"
-              >
+              <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground hover:bg-muted hidden md:flex" aria-label="Help">
                 <HelpCircle className="w-5 h-5" />
               </Button>
-
-              {/* Profile */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="text-white hover:bg-white/10"
-                    aria-label="Profile menu"
-                  >
+                  <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground hover:bg-muted" aria-label="Profile menu">
                     <User className="w-5 h-5" />
                   </Button>
                 </DropdownMenuTrigger>
@@ -136,20 +109,14 @@ export function ResolverLayout({ children }: ResolverLayoutProps) {
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              {/* Mobile Menu Button */}
               <button
                 type="button"
-                className="xl:hidden flex items-center justify-center w-11 h-11 rounded-lg hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white transition-colors"
+                className="xl:hidden flex items-center justify-center w-11 h-11 rounded-lg text-foreground hover:bg-muted transition-colors"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 aria-expanded={mobileMenuOpen}
-                aria-controls="mobile-menu"
                 aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
               >
-                {mobileMenuOpen ? (
-                  <X className="w-6 h-6" aria-hidden="true" />
-                ) : (
-                  <Menu className="w-6 h-6" aria-hidden="true" />
-                )}
+                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
             </div>
           </div>
@@ -157,11 +124,7 @@ export function ResolverLayout({ children }: ResolverLayoutProps) {
 
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
-          <nav
-            id="mobile-menu"
-            className="xl:hidden bg-primary/95 backdrop-blur-sm border-t border-white/10 animate-slide-up"
-            aria-label="Mobile navigation"
-          >
+          <nav className="xl:hidden bg-primary text-primary-foreground border-t animate-slide-up" aria-label="Mobile navigation">
             <div className="container py-4 space-y-1">
               {navigation.map((item) => (
                 <NavLink
@@ -170,13 +133,11 @@ export function ResolverLayout({ children }: ResolverLayoutProps) {
                   end={item.href === '/resolver'}
                   className={({ isActive }) =>
                     cn(
-                      'flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all',
-                      'hover:bg-white/10',
-                      isActive && 'bg-secondary text-secondary-foreground'
+                      'flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all hover:bg-white/10',
+                      isActive && 'bg-white/20 font-bold'
                     )
                   }
                   onClick={() => setMobileMenuOpen(false)}
-                  aria-label={item.description}
                 >
                   <item.icon className="w-6 h-6" aria-hidden="true" />
                   <div>
@@ -185,13 +146,11 @@ export function ResolverLayout({ children }: ResolverLayoutProps) {
                   </div>
                 </NavLink>
               ))}
-              
-              {/* Switch to Citizen Portal - Mobile */}
+
               <NavLink
                 to="/"
                 className="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all hover:bg-white/10 mt-4 border-t border-white/10 pt-4"
                 onClick={() => setMobileMenuOpen(false)}
-                aria-label="Switch to Citizen Portal"
               >
                 <ArrowRightLeft className="w-6 h-6" aria-hidden="true" />
                 <div>
@@ -209,10 +168,10 @@ export function ResolverLayout({ children }: ResolverLayoutProps) {
         {children}
       </main>
 
-      {/* Simplified Footer for Staff Portal */}
-      <footer className="bg-muted border-t border-border py-4">
-        <div className="container text-center text-sm text-muted-foreground">
-          <p>© {new Date().getFullYear()} Nairobi City County — Resolver Portal</p>
+      {/* Footer */}
+      <footer className="gov-footer py-4">
+        <div className="container text-center text-sm text-white/50">
+          <p>{brand.copyright(new Date().getFullYear())} — {brand.resolverPortalTitle}</p>
         </div>
       </footer>
     </div>
