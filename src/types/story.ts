@@ -179,13 +179,13 @@ export const WARDS: Ward[] = [
   { code: 'central', name: 'Central', subcounty: 'Zone A', center: { lat: 28.6139, lng: 77.2090 } },
 ];
 
-export const ISSUE_CATEGORIES: { code: IssueCategory; label: string; icon: string; description: string; serviceCode: string }[] = [
-  { code: 'roads', label: 'Roads & Potholes', icon: '🛣️', description: 'Potholes, road damage, traffic issues', serviceCode: 'ROAD_MAINTENANCE' },
-  { code: 'water', label: 'Water & Sewage', icon: '💧', description: 'Leaks, blockages, water supply', serviceCode: 'WATER_SUPPLY' },
-  { code: 'waste', label: 'Waste & Garbage', icon: '🗑️', description: 'Garbage collection, dumping', serviceCode: 'WASTE_MANAGEMENT' },
-  { code: 'streetlights', label: 'Streetlights', icon: '💡', description: 'Broken or missing lights', serviceCode: 'STREET_LIGHTING' },
-  { code: 'noise', label: 'Noise & Pollution', icon: '🔊', description: 'Noise complaints, air quality', serviceCode: 'ENVIRONMENTAL' },
-  { code: 'other', label: 'Other Issues', icon: '📋', description: 'Other service requests', serviceCode: 'GENERAL' },
+export const ISSUE_CATEGORIES: { code: IssueCategory; label: string; description: string; serviceCode: string }[] = [
+  { code: 'roads', label: 'Roads & Potholes', description: 'Potholes, road damage, traffic issues', serviceCode: 'ROAD_MAINTENANCE' },
+  { code: 'water', label: 'Water & Sewage', description: 'Leaks, blockages, water supply', serviceCode: 'WATER_SUPPLY' },
+  { code: 'waste', label: 'Waste & Garbage', description: 'Garbage collection, dumping', serviceCode: 'WASTE_MANAGEMENT' },
+  { code: 'streetlights', label: 'Streetlights', description: 'Broken or missing lights', serviceCode: 'STREET_LIGHTING' },
+  { code: 'noise', label: 'Noise & Pollution', description: 'Noise complaints, air quality', serviceCode: 'ENVIRONMENTAL' },
+  { code: 'other', label: 'Other Issues', description: 'Other service requests', serviceCode: 'GENERAL' },
 ];
 
 export const CATEGORY_LABELS: Record<StoryCategory, string> = {
@@ -215,13 +215,13 @@ export const PRIORITY_LABELS: Record<TicketPriority, { label: string; color: str
   URGENT: { label: 'Urgent', color: 'text-red-600' },
 };
 
-export const WORKFLOW_ACTION_LABELS: Record<WorkflowAction, { label: string; icon: string }> = {
-  CREATE: { label: 'Created', icon: '📝' },
-  ASSIGN: { label: 'Assigned', icon: '👤' },
-  IN_PROGRESS: { label: 'In Progress', icon: '🔧' },
-  REQUEST_INFO: { label: 'Info Requested', icon: '❓' },
-  RESOLVE: { label: 'Resolved', icon: '✅' },
-  ESCALATE: { label: 'Escalated', icon: '⚠️' },
-  CLOSE: { label: 'Closed', icon: '🔒' },
-  REOPEN: { label: 'Reopened', icon: '🔓' },
+export const WORKFLOW_ACTION_LABELS: Record<WorkflowAction, { label: string }> = {
+  CREATE: { label: 'Created' },
+  ASSIGN: { label: 'Assigned' },
+  IN_PROGRESS: { label: 'In Progress' },
+  REQUEST_INFO: { label: 'Info Requested' },
+  RESOLVE: { label: 'Resolved' },
+  ESCALATE: { label: 'Escalated' },
+  CLOSE: { label: 'Closed' },
+  REOPEN: { label: 'Reopened' },
 };

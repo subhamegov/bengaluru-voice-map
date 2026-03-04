@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send, User, Building2 } from 'lucide-react';
+import { Send, User, Building2, Paperclip } from 'lucide-react';
 import { TicketRemark } from '@/types/story';
 import { cn } from '@/lib/utils';
 import { format, parseISO } from 'date-fns';
@@ -78,7 +78,7 @@ export function TicketRemarks({ remarks, onAddRemark, disabled }: TicketRemarksP
                         key={att.fileStoreId}
                         className="text-xs text-primary underline cursor-pointer"
                       >
-                        📎 {att.fileName}
+                        <Paperclip className="w-3 h-3 inline mr-1" />{att.fileName}
                       </span>
                     ))}
                   </div>

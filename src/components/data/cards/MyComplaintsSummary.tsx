@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Story, ISSUE_CATEGORIES } from '@/types/story';
+import { ISSUE_CATEGORY_ICONS } from '@/lib/iconMaps';
 import { apiClient } from '@/lib/apiClient';
 import { cn } from '@/lib/utils';
 import { InfoTooltip } from '../ServiceAnalytics';
@@ -24,7 +25,6 @@ const CATEGORY_TO_DEPARTMENT: Record<string, string> = {
 interface SimilarComplaint {
   category: string;
   categoryLabel: string;
-  icon: string;
   myCount: number;
   othersCount: number;
   totalCount: number;
@@ -117,7 +117,6 @@ export function MyComplaintsSummary() {
       return {
         category: categoryCode || 'other',
         categoryLabel: categoryInfo?.label || 'Other',
-        icon: categoryInfo?.icon || '📋',
         myCount,
         othersCount,
         totalCount: myCount + othersCount,
@@ -265,7 +264,10 @@ export function MyComplaintsSummary() {
                 >
                   {/* Header with icon, title, and badge */}
                   <div className="flex items-start gap-3 mb-4">
-                    <span className="text-2xl flex-shrink-0 leading-none">{similar.icon}</span>
+                    {(() => {
+                      const Icon = ISSUE_CATEGORY_ICONS[similar.category as keyof typeof ISSUE_CATEGORY_ICONS] || ISSUE_CATEGORY_ICONS.other;
+                      return <Icon className="w-6 h-6 text-primary flex-shrink-0" aria-hidden="true" />;
+                    })()}
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-foreground leading-tight">{similar.categoryLabel}</h4>
                       <p className="text-xs text-muted-foreground mt-0.5">

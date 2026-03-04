@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, useMapEvents, useMap } from 'react-leaflet';
 import L from 'leaflet';
-import { MapPin, Mic, MicOff, Navigation, ChevronDown, HardHat, Check } from 'lucide-react';
+import { MapPin, Mic, MicOff, Navigation, ChevronDown, HardHat, Check, Building2, FileText } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { NAIROBI_SUBCOUNTIES, getWardsBySubCounty, getZonesByWard, reverseGeocodeToWard, Ward, Zone } from '@/lib/nairobiAdminData';
 import { Badge } from '@/components/ui/badge';
@@ -528,13 +528,13 @@ export function LocationStep({ location, onLocationChange, intent, linkedProject
           <h4 className="font-medium text-foreground text-sm">Location Summary</h4>
           <div className="text-sm text-muted-foreground space-y-1">
             {location.coordinates && (
-              <p>📍 Map pin: {location.coordinates.lat.toFixed(4)}, {location.coordinates.lng.toFixed(4)}</p>
+              <p className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5" /> Map pin: {location.coordinates.lat.toFixed(4)}, {location.coordinates.lng.toFixed(4)}</p>
             )}
             {location.admin.subCounty && location.admin.wardCode && (
-              <p>🏛️ {location.admin.ward}, {location.admin.subCounty}{location.admin.zone ? ` (${location.admin.zone})` : ''}</p>
+              <p className="flex items-center gap-1"><Building2 className="w-3.5 h-3.5" /> {location.admin.ward}, {location.admin.subCounty}{location.admin.zone ? ` (${location.admin.zone})` : ''}</p>
             )}
             {location.description && (
-              <p>📝 {location.description}</p>
+              <p className="flex items-center gap-1"><FileText className="w-3.5 h-3.5" /> {location.description}</p>
             )}
           </div>
         </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Users, MessageSquare, Ticket, ClipboardList, TrendingUp } from 'lucide-react';
+import { Users, MessageSquare, Ticket, ClipboardList, TrendingUp, Check } from 'lucide-react';
 import { ProjectEngagement } from '@/types/happenings';
 import { cn } from '@/lib/utils';
 
@@ -59,7 +59,7 @@ export function EngagementSummary({
               : 'bg-background border border-border hover:bg-muted'
           )}
         >
-          {isFollowing ? '✓ Following' : 'Follow Project'}
+          {isFollowing ? <><Check className="w-4 h-4" /> Following</> : 'Follow Project'}
         </button>
       </div>
       

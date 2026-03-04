@@ -99,14 +99,7 @@ export const HAPPENING_TYPE_LABELS: Record<HappeningType, string> = {
   COMMUNITY: 'Community Activity',
 };
 
-export const HAPPENING_TYPE_ICONS: Record<HappeningType, string> = {
-  INFRASTRUCTURE: '🚧',
-  EVENT: '📅',
-  NOTICE: '📢',
-  SERVICE: '🏛️',
-  EMERGENCY: '⚠️',
-  COMMUNITY: '🤝',
-};
+// Icon components are in src/lib/iconMaps.tsx — HAPPENING_TYPE_ICON_COMPONENTS
 
 export const PROJECT_STATUS_LABELS: Record<ProjectStatus, string> = {
   PLANNED: 'Planned',

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Eye, AlertTriangle, Clock, ChevronUp, ChevronDown } from 'lucide-react';
 import { Story, STATUS_LABELS, ISSUE_CATEGORIES, TicketStatus } from '@/types/story';
+import { ISSUE_CATEGORY_ICONS } from '@/lib/iconMaps';
 import { cn } from '@/lib/utils';
 import { formatDistanceToNow, parseISO, isPast } from 'date-fns';
 import {
@@ -135,9 +136,7 @@ export function TicketTable({
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center gap-2">
-                      {issueCat && (
-                        <span className="text-lg" aria-hidden="true">{issueCat.icon}</span>
-                      )}
+                      {issueCat && (() => { const Icon = ISSUE_CATEGORY_ICONS[issueCat.code]; return <Icon className="w-5 h-5 text-primary" aria-hidden="true" />; })()}
                       <span className="text-sm">{issueCat?.label || 'General'}</span>
                     </div>
                   </TableCell>

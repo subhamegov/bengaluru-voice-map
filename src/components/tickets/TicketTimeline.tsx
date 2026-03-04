@@ -1,6 +1,7 @@
 import React from 'react';
 import { Check, Circle, Clock } from 'lucide-react';
 import { WorkflowHistoryItem, WORKFLOW_ACTION_LABELS, WorkflowAction } from '@/types/story';
+import { WORKFLOW_ACTION_ICONS } from '@/lib/iconMaps';
 import { cn } from '@/lib/utils';
 import { format, parseISO } from 'date-fns';
 
@@ -44,7 +45,7 @@ export function TicketTimeline({ history, currentStatus }: TicketTimelineProps) 
                   {status === 'completed' ? (
                     <Check className="w-5 h-5" />
                   ) : (
-                    <span>{actionInfo.icon}</span>
+                    React.createElement(WORKFLOW_ACTION_ICONS[step], { className: 'w-5 h-5' })
                   )}
                 </div>
                 <span className={cn(
@@ -85,7 +86,7 @@ export function TicketTimeline({ history, currentStatus }: TicketTimelineProps) 
                     'w-8 h-8 rounded-full flex items-center justify-center text-sm',
                     isEscalated ? 'bg-red-100 text-red-600' : 'bg-primary/10 text-primary'
                   )}>
-                    {actionInfo.icon}
+                    {React.createElement(WORKFLOW_ACTION_ICONS[item.action], { className: 'w-4 h-4' })}
                   </div>
                   {index < history.length - 1 && (
                     <div className="w-0.5 h-full bg-border flex-1 mt-1" />

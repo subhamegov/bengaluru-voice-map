@@ -6,6 +6,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { WARDS, ISSUE_CATEGORIES, IssueCategory } from '@/types/story';
+import { ISSUE_CATEGORY_ICONS } from '@/lib/iconMaps';
 import { toast } from 'sonner';
 
 export interface UserPreferences {
@@ -21,15 +22,12 @@ interface UserPreferencesModalProps {
 
 const STORAGE_KEY = 'nairobi_citizen_preferences';
 
-// Topic definitions with friendly labels
-const TOPICS = [
-  { code: 'roads' as IssueCategory, label: 'Roads & Potholes', icon: '🛣️', description: 'Road repairs, potholes, traffic' },
-  { code: 'water' as IssueCategory, label: 'Water & Sewage', icon: '💧', description: 'Water supply, leaks, sewage' },
-  { code: 'waste' as IssueCategory, label: 'Waste & Garbage', icon: '🗑️', description: 'Collection, dumping sites' },
-  { code: 'streetlights' as IssueCategory, label: 'Streetlights', icon: '💡', description: 'Lighting repairs, outages' },
-  { code: 'noise' as IssueCategory, label: 'Noise & Environment', icon: '🔊', description: 'Noise, air quality' },
-  { code: 'other' as IssueCategory, label: 'General Updates', icon: '📋', description: 'Events, notices, services' },
-];
+// Use ISSUE_CATEGORIES from types + icons from iconMaps
+const TOPICS = ISSUE_CATEGORIES.map(cat => ({
+  code: cat.code,
+  label: cat.label,
+  description: cat.description,
+}));
 
 export const loadUserPreferences = (): UserPreferences => {
   try {
@@ -224,7 +222,7 @@ export const UserPreferencesModal: React.FC<UserPreferencesModalProps> = ({
                       onCheckedChange={() => handleTopicToggle(topic.code)}
                       className="data-[state=checked]:bg-secondary data-[state=checked]:border-secondary"
                     />
-                    <span className="text-2xl" aria-hidden="true">{topic.icon}</span>
+                    {(() => { const Icon = ISSUE_CATEGORY_ICONS[topic.code]; return <Icon className="w-6 h-6 text-primary" aria-hidden="true" />; })()}
                     <div className="flex-1">
                       <p className="font-medium text-foreground">{topic.label}</p>
                       <p className="text-xs text-muted-foreground">{topic.description}</p>

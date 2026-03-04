@@ -9,8 +9,10 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { 
   Users, Building2, Clock, Droplets, Calendar, MapPin, ExternalLink, 
   Share2, CalendarPlus, AlertTriangle, Zap, Trash2, Search, Phone,
-  MessageCircle, Volume2, Mic, Info, ChevronRight, HelpCircle
+  MessageCircle, Volume2, Mic, Info, ChevronRight, HelpCircle,
+  Banknote, Landmark, TreePine, CircleDot
 } from 'lucide-react';
+import { EVENT_TYPE_ICONS, StatusDot } from '@/lib/iconMaps';
 import { NAIROBI_SUBCOUNTIES } from '@/lib/nairobiAdminData';
 
 // Mock city metrics data
@@ -122,10 +124,10 @@ const faqData = [
   },
 ];
 
-const statusColors: Record<string, { bg: string; text: string; icon: string }> = {
-  normal: { bg: 'bg-green-100 dark:bg-green-900/30', text: 'text-green-700 dark:text-green-400', icon: '🟢' },
-  partial: { bg: 'bg-orange-100 dark:bg-orange-900/30', text: 'text-orange-700 dark:text-orange-400', icon: '🟠' },
-  outage: { bg: 'bg-red-100 dark:bg-red-900/30', text: 'text-red-700 dark:text-red-400', icon: '🔴' },
+const statusColors: Record<string, { bg: string; text: string; status: 'normal' | 'partial' | 'outage' }> = {
+  normal: { bg: 'bg-green-100 dark:bg-green-900/30', text: 'text-green-700 dark:text-green-400', status: 'normal' },
+  partial: { bg: 'bg-orange-100 dark:bg-orange-900/30', text: 'text-orange-700 dark:text-orange-400', status: 'partial' },
+  outage: { bg: 'bg-red-100 dark:bg-red-900/30', text: 'text-red-700 dark:text-red-400', status: 'outage' },
 };
 
 export default function AboutMyCity() {
@@ -262,11 +264,12 @@ export default function AboutMyCity() {
                 <CardContent className="p-4 md:p-5">
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex-1">
-                      <Badge variant="outline" className="mb-2 text-xs">
-                        {event.type === 'budget' && '💰 Budget'}
-                        {event.type === 'meeting' && '🏛️ Meeting'}
-                        {event.type === 'event' && '🌱 Event'}
-                        {event.type === 'forum' && '🎤 Forum'}
+                      <Badge variant="outline" className="mb-2 text-xs flex items-center gap-1 w-fit">
+                        {(() => { const Icon = EVENT_TYPE_ICONS[event.type]; return Icon ? <Icon className="w-3.5 h-3.5" /> : null; })()}
+                        {event.type === 'budget' && 'Budget'}
+                        {event.type === 'meeting' && 'Meeting'}
+                        {event.type === 'event' && 'Event'}
+                        {event.type === 'forum' && 'Forum'}
                       </Badge>
                       <h3 className="font-semibold text-base md:text-lg mb-2">{event.title}</h3>
                       
@@ -339,7 +342,7 @@ export default function AboutMyCity() {
                         <IconComponent className={`w-5 h-5 ${statusStyle.text}`} aria-hidden="true" />
                         <span className="font-semibold text-sm">{update.category}</span>
                       </div>
-                      <span aria-label={`Status: ${update.status}`}>{statusStyle.icon}</span>
+                      <span aria-label={`Status: ${update.status}`}><StatusDot status={statusStyle.status} /></span>
                     </div>
                     
                     <p className="text-sm text-foreground/80 mb-3">{update.message}</p>
@@ -364,9 +367,9 @@ export default function AboutMyCity() {
           
           {/* Status Legend */}
           <div className="flex items-center justify-center gap-6 mt-4 text-sm text-muted-foreground">
-            <span className="flex items-center gap-1">🟢 Normal</span>
-            <span className="flex items-center gap-1">🟠 Partial disruption</span>
-            <span className="flex items-center gap-1">🔴 Outage</span>
+            <span className="flex items-center gap-1"><StatusDot status="normal" /> Normal</span>
+            <span className="flex items-center gap-1"><StatusDot status="partial" /> Partial disruption</span>
+            <span className="flex items-center gap-1"><StatusDot status="outage" /> Outage</span>
           </div>
         </section>
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Clock, AlertTriangle, Send, MapPin, Star } from 'lucide-react';
 import { Story, STATUS_LABELS, ISSUE_CATEGORIES } from '@/types/story';
+import { ISSUE_CATEGORY_ICONS } from '@/lib/iconMaps';
 import { StarRating } from '@/components/report/StarRating';
 import { apiClient } from '@/lib/apiClient';
 import { cn } from '@/lib/utils';
@@ -71,7 +72,10 @@ export function TicketDetails({ ticket, onClose, onUpdate }: TicketDetailsProps)
         <div className="flex items-start justify-between p-4 border-b border-border">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              {issueCat && <span className="text-xl">{issueCat.icon}</span>}
+              {issueCat && (() => {
+                const Icon = ISSUE_CATEGORY_ICONS[issueCat.code];
+                return <Icon className="w-5 h-5 text-primary" aria-hidden="true" />;
+              })()}
               <span className="text-xs font-mono text-muted-foreground">{ticket.ticketId}</span>
               <span className={cn(
                 'px-2 py-0.5 rounded-full text-xs font-medium text-white',
@@ -172,7 +176,7 @@ export function TicketDetails({ ticket, onClose, onUpdate }: TicketDetailsProps)
                   onClick={() => setShowEscalate(true)}
                   className="text-sm text-destructive hover:underline"
                 >
-                  ⚠️ Escalate this ticket
+                  <AlertTriangle className="w-4 h-4 mr-1" /> Escalate this ticket
                 </button>
               ) : (
                 <div className="p-3 bg-destructive/10 border border-destructive/30 rounded-lg space-y-2">

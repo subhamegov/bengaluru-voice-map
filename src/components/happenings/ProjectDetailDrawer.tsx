@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { 
   Calendar, MapPin, Building2, Banknote, Volume2, ExternalLink, 
-  MessageSquare, Ticket, ClipboardList, Share2, X
+  MessageSquare, Ticket, ClipboardList, Share2, X, Check
 } from 'lucide-react';
 import {
   Drawer,
@@ -14,11 +14,11 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { 
   Happening, 
   HAPPENING_TYPE_LABELS, 
-  HAPPENING_TYPE_ICONS,
   PROJECT_STATUS_LABELS,
   PROJECT_STATUS_COLORS,
   ProjectComment
 } from '@/types/happenings';
+import { HAPPENING_TYPE_ICON_COMPONENTS } from '@/lib/iconMaps';
 import { ProjectTimeline } from './ProjectTimeline';
 import { EngagementSummary } from './EngagementSummary';
 import { CommunityFeedback } from './CommunityFeedback';
@@ -107,7 +107,7 @@ export function ProjectDetailDrawer({ happening, open, onOpenChange }: ProjectDe
                   'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold border',
                   getTypeColor()
                 )}>
-                  <span aria-hidden="true">{HAPPENING_TYPE_ICONS[happening.type]}</span>
+                  {(() => { const Icon = HAPPENING_TYPE_ICON_COMPONENTS[happening.type]; return <Icon className="w-3.5 h-3.5" aria-hidden="true" />; })()}
                   {HAPPENING_TYPE_LABELS[happening.type]}
                 </span>
                 {details?.status && (
@@ -325,7 +325,7 @@ export function ProjectDetailDrawer({ happening, open, onOpenChange }: ProjectDe
                       : 'bg-muted text-foreground hover:bg-muted/80'
                   )}
                 >
-                  {isFollowing ? '✓ Following' : 'Follow Project'}
+                  {isFollowing ? <><Check className="w-4 h-4" /> Following</> : 'Follow Project'}
                 </button>
 
                 <button

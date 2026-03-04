@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, MapPin, Clock, AlertTriangle, User, Phone, FileText, Paperclip, ChevronRight } from 'lucide-react';
 import { Story, STATUS_LABELS, ISSUE_CATEGORIES, PRIORITY_LABELS, TicketStatus } from '@/types/story';
+import { ISSUE_CATEGORY_ICONS } from '@/lib/iconMaps';
 import { TicketTimeline } from './TicketTimeline';
 import { TicketRemarks } from './TicketRemarks';
 import { StarRating } from '@/components/report/StarRating';
@@ -89,7 +90,7 @@ export function TicketDrawer({ ticket, open, onClose, onUpdate }: TicketDrawerPr
         <div className="flex items-start justify-between gap-3">
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 flex-wrap mb-1">
-              {issueCat && <span className="text-xl">{issueCat.icon}</span>}
+              {issueCat && (() => { const Icon = ISSUE_CATEGORY_ICONS[issueCat.code]; return <Icon className="w-5 h-5 text-primary" aria-hidden="true" />; })()}
               <span className="font-mono text-sm text-primary font-medium">{ticket.ticketId}</span>
               <span className={cn(
                 'px-2 py-0.5 rounded-full text-xs font-semibold',

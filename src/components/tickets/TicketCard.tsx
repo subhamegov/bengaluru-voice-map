@@ -1,6 +1,7 @@
 import React from 'react';
-import { Clock, AlertTriangle, MessageSquare, ChevronRight } from 'lucide-react';
+import { Clock, AlertTriangle, MessageSquare, ChevronRight, MapPin } from 'lucide-react';
 import { Story, STATUS_LABELS, ISSUE_CATEGORIES } from '@/types/story';
+import { ISSUE_CATEGORY_ICONS } from '@/lib/iconMaps';
 import { cn } from '@/lib/utils';
 import { formatDistanceToNow, isPast, parseISO } from 'date-fns';
 
@@ -37,9 +38,10 @@ export function TicketCard({ ticket, onViewDetails, className }: TicketCardProps
       <div className="flex items-start justify-between gap-3 mb-3">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
-            {issueCat && (
-              <span className="text-lg" aria-hidden="true">{issueCat.icon}</span>
-            )}
+            {issueCat && (() => {
+              const Icon = ISSUE_CATEGORY_ICONS[issueCat.code];
+              return <Icon className="w-5 h-5 text-primary" aria-hidden="true" />;
+            })()}
             <span className="text-xs font-mono text-muted-foreground">
               {ticket.ticketId}
             </span>
@@ -86,8 +88,8 @@ export function TicketCard({ ticket, onViewDetails, className }: TicketCardProps
       </div>
 
       {ticket.wardName && (
-        <p className="text-xs text-muted-foreground mt-2">
-          📍 {ticket.wardName}
+        <p className="text-xs text-muted-foreground mt-2 flex items-center gap-1">
+          <MapPin className="w-3 h-3" /> {ticket.wardName}
         </p>
       )}
     </article>

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Mic, MicOff, Check } from 'lucide-react';
+import { COMPLAINT_INTENT_ICONS, type ComplaintIntentType } from '@/lib/iconMaps';
 import { cn } from '@/lib/utils';
 
-export type ComplaintIntent = 'service' | 'project' | 'feedback' | 'appreciation';
+export type ComplaintIntent = ComplaintIntentType;
 
 export interface LinkedProject {
   id: string;
@@ -20,31 +21,27 @@ interface ComplaintIntentStepProps {
   wardCode?: string;
 }
 
-const INTENT_OPTIONS = [
+const INTENT_OPTIONS: { id: ComplaintIntent; title: string; description: string; examples: string }[] = [
   {
-    id: 'service' as ComplaintIntent,
-    icon: '🧾',
+    id: 'service',
     title: 'Report a Service Issue',
     description: 'Help us fix problems with water, waste, street lighting, traffic, or other county services.',
     examples: 'e.g., "Garbage not collected", "Streetlight not working"'
   },
   {
-    id: 'project' as ComplaintIntent,
-    icon: '🚧',
+    id: 'project',
     title: 'Share Project Feedback',
     description: 'Share your experience or feedback about an ongoing or completed county project.',
     examples: 'e.g., "Construction update needed", "Great progress on road works"'
   },
   {
-    id: 'feedback' as ComplaintIntent,
-    icon: '💬',
+    id: 'feedback',
     title: 'Give Us a Suggestion',
     description: 'Share ideas or general comments to help improve our community.',
     examples: 'e.g., "Idea for better waste bins", "Suggestion for park improvements"'
   },
   {
-    id: 'appreciation' as ComplaintIntent,
-    icon: '🌟',
+    id: 'appreciation',
     title: 'Provide Appreciation',
     description: 'Recognize excellent service or a staff member who helped you.',
     examples: 'e.g., "Great job by the waste collection team!", "Thank you for quick response"'
@@ -80,7 +77,6 @@ export const ComplaintIntentStep: React.FC<ComplaintIntentStepProps> = ({
       const transcript = event.results[0][0].transcript.toLowerCase();
       setVoiceTranscript(transcript);
 
-      // Auto-detect intent from voice
       if (transcript.includes('appreciate') || transcript.includes('thank') || transcript.includes('great job') || transcript.includes('well done') || transcript.includes('excellent')) {
         onIntentChange('appreciation');
       } else if (transcript.includes('project') || transcript.includes('construction') || transcript.includes('building')) {
@@ -88,7 +84,6 @@ export const ComplaintIntentStep: React.FC<ComplaintIntentStepProps> = ({
       } else if (transcript.includes('feedback') || transcript.includes('suggestion') || transcript.includes('idea')) {
         onIntentChange('feedback');
       } else {
-        // Default to service complaint
         onIntentChange('service');
       }
     };
@@ -146,47 +141,51 @@ export const ComplaintIntentStep: React.FC<ComplaintIntentStepProps> = ({
 
       {/* Intent Options */}
       <div className="grid gap-4">
-        {INTENT_OPTIONS.map((option) => (
-          <button
-            key={option.id}
-            onClick={() => {
-              onIntentChange(option.id);
-              // Clear linked project when changing intent
-              if (option.id !== 'project') {
-                onLinkedProjectChange(null);
-              }
-            }}
-            className={cn(
-              'w-full text-left p-5 rounded-xl border-2 transition-all',
-              'focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2',
-              intent === option.id
-                ? 'border-primary bg-primary/5'
-                : 'border-border bg-card hover:border-primary/40'
-            )}
-            role="button"
-            aria-pressed={intent === option.id}
-          >
-            <div className="flex items-start gap-4">
-              <span className="text-3xl" aria-hidden="true">{option.icon}</span>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2">
-                  <h3 className="font-semibold text-foreground text-lg">
-                    {option.title}
-                  </h3>
-                  {intent === option.id && (
-                    <Check className="w-5 h-5 text-primary flex-shrink-0" />
-                  )}
+        {INTENT_OPTIONS.map((option) => {
+          const IconComponent = COMPLAINT_INTENT_ICONS[option.id];
+          return (
+            <button
+              key={option.id}
+              onClick={() => {
+                onIntentChange(option.id);
+                if (option.id !== 'project') {
+                  onLinkedProjectChange(null);
+                }
+              }}
+              className={cn(
+                'w-full text-left p-5 rounded-xl border-2 transition-all',
+                'focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2',
+                intent === option.id
+                  ? 'border-primary bg-primary/5'
+                  : 'border-border bg-card hover:border-primary/40'
+              )}
+              role="button"
+              aria-pressed={intent === option.id}
+            >
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <IconComponent className="w-6 h-6 text-primary" aria-hidden="true" />
                 </div>
-                <p className="text-muted-foreground mt-1">
-                  {option.description}
-                </p>
-                <p className="text-sm text-muted-foreground/70 mt-2 italic">
-                  {option.examples}
-                </p>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2">
+                    <h3 className="font-semibold text-foreground text-lg">
+                      {option.title}
+                    </h3>
+                    {intent === option.id && (
+                      <Check className="w-5 h-5 text-primary flex-shrink-0" />
+                    )}
+                  </div>
+                  <p className="text-muted-foreground mt-1">
+                    {option.description}
+                  </p>
+                  <p className="text-sm text-muted-foreground/70 mt-2 italic">
+                    {option.examples}
+                  </p>
+                </div>
               </div>
-            </div>
-          </button>
-        ))}
+            </button>
+          );
+        })}
       </div>
 
       {/* Info message for project intent */}

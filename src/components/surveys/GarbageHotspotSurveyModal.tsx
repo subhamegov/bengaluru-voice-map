@@ -294,8 +294,8 @@ export const GarbageHotspotSurveyModal: React.FC<GarbageHotspotSurveyModalProps>
               </MapContainer>
             </div>
             {pinLocation && (
-              <p className="text-xs text-muted-foreground">
-                📍 Location: {pinLocation.lat.toFixed(5)}, {pinLocation.lng.toFixed(5)}
+              <p className="text-xs text-muted-foreground flex items-center gap-1">
+                <MapPin className="w-3 h-3" /> Location: {pinLocation.lat.toFixed(5)}, {pinLocation.lng.toFixed(5)}
               </p>
             )}
           </div>

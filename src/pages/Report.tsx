@@ -389,7 +389,7 @@ const Report = () => {
               {appreciationData.audioRecording && (
                 <div className="flex justify-between py-2 border-b border-border">
                   <span className="text-muted-foreground">Voice Note</span>
-                  <span className="text-foreground font-medium">🎤 Recording attached</span>
+                  <span className="text-foreground font-medium flex items-center gap-1"><Mic className="w-4 h-4" /> Recording attached</span>
                 </div>
               )}
             </div>
@@ -757,7 +757,7 @@ const Report = () => {
               <div className="py-2 border-b border-border">
                 <span className="text-muted-foreground block mb-1">Description</span>
                 <span className="text-foreground">
-                  {inputMode === 'text' ? description : '🎤 Voice recording attached'}
+                  {inputMode === 'text' ? description : <span className="flex items-center gap-1"><Mic className="w-4 h-4" /> Voice recording attached</span>}
                 </span>
               </div>
             </div>

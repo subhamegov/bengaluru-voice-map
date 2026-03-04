@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Calendar, MapPin, ExternalLink, Volume2, Building2 } from 'lucide-react';
-import { Happening, HAPPENING_TYPE_LABELS, HAPPENING_TYPE_ICONS } from '@/types/happenings';
+import { Happening, HAPPENING_TYPE_LABELS } from '@/types/happenings';
+import { HAPPENING_TYPE_ICON_COMPONENTS } from '@/lib/iconMaps';
 import { speakText, stopSpeaking } from '@/lib/apiClient';
 import { cn } from '@/lib/utils';
 
@@ -78,7 +79,7 @@ export function HappeningCard({ happening, className, onClick }: HappeningCardPr
             getTypeColor()
           )}
         >
-          <span aria-hidden="true">{HAPPENING_TYPE_ICONS[happening.type]}</span>
+          {(() => { const Icon = HAPPENING_TYPE_ICON_COMPONENTS[happening.type]; return <Icon className="w-3.5 h-3.5" aria-hidden="true" />; })()}
           {HAPPENING_TYPE_LABELS[happening.type]}
         </span>
         
