@@ -83,6 +83,18 @@ export const KPI_DEFINITIONS = {
   complaintsByChannel: "Aggregate of all complaints grouped by the source they originate from – web/mobile/IVR/call centre/etc.",
 };
 
+// UX4G Government of India Chart Palette
+export const UX4G_CHART_PALETTE = {
+  deepIndigo: '#4C3D8F',
+  mediumPurple: '#7B68AE',
+  lavender: '#B4A7D6',
+  lightLavender: '#D4CCE6',
+  softCoral: '#E8A598',
+  palePeach: '#F5D5C8',
+  mint: '#A8D8B8',
+  sage: '#C5DFC0',
+};
+
 // Base total for consistent data across charts (for 30days, all locations)
 const BASE_TOTAL = 6250;
 
@@ -148,37 +160,37 @@ export function getComplaintsBySource(): SourceData[] {
 // Status data - totals: 6,250
 export function getComplaintsByStatus(): StatusData[] {
   return [
-    { status: 'Open', count: 230, color: 'hsl(205, 85%, 45%)' },
-    { status: 'Assigned', count: 390, color: 'hsl(270, 60%, 50%)' },
-    { status: 'In Progress', count: 310, color: 'hsl(38, 95%, 50%)' },
-    { status: 'Resolved', count: 1780, color: 'hsl(145, 70%, 35%)' },
-    { status: 'Closed', count: 3250, color: 'hsl(145, 75%, 28%)' },
-    { status: 'Reopened', count: 150, color: 'hsl(0, 75%, 50%)' },
-    { status: 'Rejected', count: 85, color: 'hsl(0, 0%, 45%)' },
-    { status: 'Reassign Requested', count: 55, color: 'hsl(30, 90%, 55%)' },
+    { status: 'Open', count: 230, color: '#4C3D8F' },
+    { status: 'Assigned', count: 390, color: '#7B68AE' },
+    { status: 'In Progress', count: 310, color: '#B4A7D6' },
+    { status: 'Resolved', count: 1780, color: '#A8D8B8' },
+    { status: 'Closed', count: 3250, color: '#C5DFC0' },
+    { status: 'Reopened', count: 150, color: '#E8A598' },
+    { status: 'Rejected', count: 85, color: '#D4CCE6' },
+    { status: 'Reassign Requested', count: 55, color: '#F5D5C8' },
   ];
 }
 
 // Department data - totals: 6,250
 export function getComplaintsByDepartment(): DepartmentData[] {
   return [
-    { department: 'Environment', count: 2050, color: 'hsl(145, 70%, 35%)' },
-    { department: 'Water and Sewerage', count: 1650, color: 'hsl(205, 85%, 45%)' },
-    { department: 'Works', count: 1350, color: 'hsl(38, 95%, 50%)' },
-    { department: 'Public Health', count: 750, color: 'hsl(270, 60%, 50%)' },
-    { department: 'Mobility and ICT Infrastructure', count: 450, color: 'hsl(0, 75%, 50%)' },
+    { department: 'Environment', count: 2050, color: '#4C3D8F' },
+    { department: 'Water and Sewerage', count: 1650, color: '#7B68AE' },
+    { department: 'Works', count: 1350, color: '#B4A7D6' },
+    { department: 'Public Health', count: 750, color: '#E8A598' },
+    { department: 'Mobility and ICT Infrastructure', count: 450, color: '#A8D8B8' },
   ];
 }
 
 // Channel data - totals: 6,250
 export function getComplaintsByChannel(): ChannelData[] {
   return [
-    { channel: 'Mobile App', count: 2200, color: 'hsl(145, 70%, 35%)' },
-    { channel: 'Web', count: 1400, color: 'hsl(205, 85%, 45%)' },
-    { channel: 'Call Centre/IVR', count: 1200, color: 'hsl(38, 95%, 50%)' },
-    { channel: 'WhatsApp', count: 800, color: 'hsl(145, 75%, 40%)' },
-    { channel: 'Walk-in', count: 450, color: 'hsl(0, 75%, 50%)' },
-    { channel: 'USSD', count: 200, color: 'hsl(270, 60%, 50%)' },
+    { channel: 'Mobile App', count: 2200, color: '#4C3D8F' },
+    { channel: 'Web', count: 1400, color: '#7B68AE' },
+    { channel: 'Call Centre/IVR', count: 1200, color: '#B4A7D6' },
+    { channel: 'WhatsApp', count: 800, color: '#E8A598' },
+    { channel: 'Walk-in', count: 450, color: '#A8D8B8' },
+    { channel: 'USSD', count: 200, color: '#D4CCE6' },
   ];
 }
 

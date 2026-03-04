@@ -56,25 +56,25 @@ export function CumulativeLineChart({ timeRange }: CumulativeLineChartProps) {
                 type="monotone"
                 dataKey="total"
                 name="Total Complaints"
-                stroke="hsl(var(--primary))"
+                stroke="#4C3D8F"
                 strokeWidth={2}
-                dot={{ fill: 'hsl(var(--primary))' }}
+                dot={{ fill: '#4C3D8F' }}
               />
               <Line
                 type="monotone"
                 dataKey="closed"
                 name="Closed"
-                stroke="hsl(var(--success))"
+                stroke="#7B68AE"
                 strokeWidth={2}
-                dot={{ fill: 'hsl(var(--success))' }}
+                dot={{ fill: '#7B68AE' }}
               />
               <Line
                 type="monotone"
                 dataKey="reopened"
                 name="Reopened"
-                stroke="hsl(var(--destructive))"
+                stroke="#E8A598"
                 strokeWidth={2}
-                dot={{ fill: 'hsl(var(--destructive))' }}
+                dot={{ fill: '#E8A598' }}
               />
             </LineChart>
           </ResponsiveContainer>

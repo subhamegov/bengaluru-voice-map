@@ -56,7 +56,7 @@ export function TopComplaintsChart() {
               <Bar
                 dataKey="count"
                 name="Complaints"
-                fill="hsl(var(--info))"
+                fill="#4C3D8F"
                 radius={[0, 4, 4, 0]}
               />
             </BarChart>

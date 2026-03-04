@@ -196,8 +196,8 @@ const DEPARTMENT_DATA: DepartmentData[] = [
 ];
 
 const chartConfig = {
-  complaints: { label: 'Total Complaints', color: 'hsl(var(--primary))' },
-  closed: { label: 'Closed', color: 'hsl(var(--success))' },
+  complaints: { label: 'Total Complaints', color: '#4C3D8F' },
+  closed: { label: 'Closed', color: '#7B68AE' },
 };
 
 interface DepartmentRatingsDetailProps {

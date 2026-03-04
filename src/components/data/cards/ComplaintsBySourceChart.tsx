@@ -52,7 +52,7 @@ export function ComplaintsBySourceChart() {
               <Bar
                 dataKey="count"
                 name="Complaints"
-                fill="hsl(var(--primary))"
+                fill="#4C3D8F"
                 radius={[4, 4, 0, 0]}
               />
             </BarChart>

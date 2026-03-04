@@ -55,9 +55,9 @@ export function UniqueCitizensChart({ timeRange }: UniqueCitizensChartProps) {
                 type="monotone"
                 dataKey="count"
                 name="Unique Citizens"
-                stroke="hsl(var(--secondary))"
+                stroke="#7B68AE"
                 strokeWidth={2}
-                dot={{ fill: 'hsl(var(--secondary))' }}
+                dot={{ fill: '#7B68AE' }}
               />
             </LineChart>
           </ResponsiveContainer>
