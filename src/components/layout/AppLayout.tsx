@@ -66,7 +66,7 @@ export function AppLayout({ children }: AppLayoutProps) {
       <div className="mygov-accent-bar" />
 
       {/* ── Main Header ── */}
-      <header className="mygov-header sticky top-0 z-50">
+      <header className="mygov-header sticky top-0 z-50 bg-background/95 backdrop-blur-sm">
         <div className="container">
           {/* Top row: emblem + name + search + profile */}
           <div className="flex items-center justify-between h-16 md:h-[72px]">
@@ -90,35 +90,6 @@ export function AppLayout({ children }: AppLayoutProps) {
                 </p>
               </div>
             </NavLink>
-
-            {/* Desktop right: search + profile */}
-            <div className="hidden lg:flex items-center gap-2">
-              <button className="mygov-header-icon-btn" aria-label="Search">
-                <Search className="w-5 h-5" />
-              </button>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <button className="mygov-profile-btn" aria-label="User profile">
-                    <User className="w-5 h-5" />
-                  </button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-48">
-                  <DropdownMenuItem>Sign In</DropdownMenuItem>
-                  <DropdownMenuItem>Register</DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>
-                    <NavLink to="/resolver" className="flex items-center gap-2 w-full">
-                      <ArrowRightLeft className="w-4 h-4" /> Resolver Portal
-                    </NavLink>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <NavLink to="/elected" className="flex items-center gap-2 w-full">
-                      <Users className="w-4 h-4" /> Elected Rep
-                    </NavLink>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
 
             {/* Mobile Menu Button */}
             <button

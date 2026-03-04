@@ -108,7 +108,7 @@ const Index = () => {
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
           {[
-            { icon: PenSquare, label: 'Report Issue', desc: 'Potholes, garbage, leaks', href: '/report' },
+            { icon: PenSquare, label: 'Share Your Voice', desc: 'Potholes, garbage, leaks', href: '/report' },
             { icon: Ticket, label: 'My Reports', desc: 'Track complaint progress', href: '/my-tickets' },
             { icon: GraduationCap, label: 'Training & Help', desc: 'Learn how to use portal', href: '/training' },
             { icon: ClipboardList, label: 'Active Surveys', desc: 'Participate in surveys', href: '/surveys' },
