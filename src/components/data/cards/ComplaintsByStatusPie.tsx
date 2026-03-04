@@ -28,7 +28,7 @@ export function ComplaintsByStatusPie() {
   const data = getComplaintsByStatus().filter(item => item.status !== 'Closed');
 
   return (
-    <Card className="ncc-card">
+    <Card className="gov-card">
       <CardHeader className="pb-2">
         <div className="flex items-center gap-2">
           <CardTitle className="text-lg">Open Complaints by Status</CardTitle>

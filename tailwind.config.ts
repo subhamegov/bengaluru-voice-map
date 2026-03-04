@@ -17,11 +17,10 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ["Open Sans", "system-ui", "sans-serif"],
-        display: ["Poppins", "system-ui", "sans-serif"],
+        sans: ["Noto Sans", "Inter", "system-ui", "sans-serif"],
+        display: ["Inter", "system-ui", "sans-serif"],
       },
       fontSize: {
-        // Accessible font sizes
         xs: ["0.875rem", { lineHeight: "1.4" }],
         sm: ["1rem", { lineHeight: "1.5" }],
         base: ["1.125rem", { lineHeight: "1.6" }],
@@ -32,7 +31,7 @@ export default {
         "4xl": ["3rem", { lineHeight: "1.1" }],
       },
       spacing: {
-        "tap": "44px", // Minimum touch target
+        "tap": "44px",
         "18": "4.5rem",
         "22": "5.5rem",
       },
@@ -83,6 +82,10 @@ export default {
         appreciation: "hsl(var(--appreciation))",
         recording: "hsl(var(--recording))",
         playing: "hsl(var(--playing))",
+        info: {
+          DEFAULT: "hsl(var(--info))",
+          foreground: "hsl(var(--info-foreground))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -92,9 +95,9 @@ export default {
         "2xl": "1rem",
       },
       boxShadow: {
-        "soft": "0 2px 8px -2px hsl(var(--foreground) / 0.1)",
-        "medium": "0 4px 16px -4px hsl(var(--foreground) / 0.15)",
-        "strong": "0 8px 32px -8px hsl(var(--foreground) / 0.2)",
+        "soft": "0 1px 4px -1px hsl(var(--foreground) / 0.08)",
+        "medium": "0 2px 8px -2px hsl(var(--foreground) / 0.12)",
+        "strong": "0 4px 16px -4px hsl(var(--foreground) / 0.15)",
       },
       keyframes: {
         "accordion-down": {

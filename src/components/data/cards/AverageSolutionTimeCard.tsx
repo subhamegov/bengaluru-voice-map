@@ -8,7 +8,7 @@ export function AverageSolutionTimeCard() {
   const timeData = getAverageSolutionTime();
 
   return (
-    <Card className="ncc-card">
+    <Card className="gov-card">
       <CardHeader className="pb-2">
         <div className="flex items-center gap-2">
           <CardTitle className="text-lg">Average Solution Time</CardTitle>

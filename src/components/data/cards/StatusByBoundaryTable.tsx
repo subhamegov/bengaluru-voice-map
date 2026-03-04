@@ -76,7 +76,7 @@ export function StatusByBoundaryTable() {
   );
 
   return (
-    <Card className="ncc-card">
+    <Card className="gov-card">
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between flex-wrap gap-4">
           <CardTitle className="text-lg">Complaint Status by Boundary / Department</CardTitle>

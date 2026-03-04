@@ -141,7 +141,7 @@ const MyTickets = () => {
     <AppLayout>
       {/* Hero */}
       <section className="mb-6" aria-labelledby="tickets-hero-title">
-        <div className="ncc-hero ncc-hero-pattern p-6 md:p-8">
+        <div className="gov-hero gov-hero-pattern p-6 md:p-8 rounded-lg">
           <div className="max-w-3xl">
             <h1 id="tickets-hero-title" className="text-2xl md:text-3xl font-bold mb-2 text-white drop-shadow-md">
               My Tickets
@@ -254,7 +254,7 @@ const MyTickets = () => {
       {isLoading ? (
         <div className="space-y-4">
           {viewMode === 'table' ? (
-            <div className="ncc-card h-64 animate-pulse" />
+            <div className="gov-card h-64 animate-pulse" />
           ) : (
             <div className="grid gap-4 md:grid-cols-2">
               {[1, 2, 3].map((i) => (
@@ -264,7 +264,7 @@ const MyTickets = () => {
           )}
         </div>
       ) : filteredTickets.length === 0 ? (
-        <div className="ncc-card text-center py-16 px-8">
+        <div className="gov-card text-center py-16 px-8">
           <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mx-auto mb-4">
             <Ticket className="w-8 h-8 text-muted-foreground" />
           </div>
@@ -275,7 +275,7 @@ const MyTickets = () => {
               : 'You haven\'t submitted any reports yet. Start by reporting an issue in your area.'}
           </p>
           {!searchQuery && filterStatus === 'all' && (
-            <Link to="/report" className="ncc-btn-primary inline-flex">
+            <Link to="/report" className="gov-btn-primary inline-flex">
               Report an Issue
               <ArrowRight className="w-5 h-5" />
             </Link>

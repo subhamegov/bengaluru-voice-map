@@ -10,6 +10,7 @@ import { findWardByCoords } from '@/lib/happeningsApi';
 import { UserPreferencesModal, loadUserPreferences, UserPreferences } from '@/components/preferences/UserPreferencesModal';
 import { Button } from '@/components/ui/button';
 import { getOverviewStats, getAverageSolutionTime } from '@/lib/serviceAnalyticsData';
+import { brand } from '@/lib/brandConfig';
 
 const Index = () => {
   const [selectedLocation, setSelectedLocation] = useState<{ lat: number; lng: number } | null>(null);
@@ -29,36 +30,35 @@ const Index = () => {
 
   return (
     <AppLayout>
-      {/* Hero Section - Nairobi Style */}
+      {/* Hero Section */}
       <section className="mb-10" aria-labelledby="hero-title">
         <div 
-          className="ncc-hero p-8 md:p-12 relative bg-cover bg-center"
+          className="gov-hero p-8 md:p-12 relative bg-cover bg-center rounded-lg"
           style={{ backgroundImage: `url(${nairobiSkyline})` }}
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/80 to-primary/60" />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/80 to-primary/60 rounded-lg" />
           <div className="max-w-2xl relative z-10">
             <p className="text-secondary font-semibold mb-2 uppercase tracking-wide text-sm">
               Welcome to
             </p>
             <h1 id="hero-title" className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
-              Nairobi City County
-              <span className="block text-secondary">Citizen Portal</span>
+              {brand.name}
+              <span className="block text-secondary">{brand.tagline}</span>
             </h1>
             <p className="text-lg text-white/90 mb-8 leading-relaxed">
-              Report issues, track progress, and discover what's happening in your ward. 
-              Your voice matters in building a better Nairobi.
+              {brand.heroSubtitle}
             </p>
             <div className="flex flex-wrap gap-4">
               <Link
                 to="/report"
-                className="ncc-btn-secondary"
+                className="gov-btn-secondary"
               >
                 <PenSquare className="w-5 h-5" />
-                Report an Issue
+                {brand.heroCta}
               </Link>
               <Link
                 to="/data"
-                className="ncc-btn-outline border-white text-white hover:bg-white hover:text-primary"
+                className="gov-btn-outline border-white text-white hover:bg-white hover:text-primary"
               >
                 <Ticket className="w-5 h-5" />
                 Track My Reports
@@ -70,7 +70,7 @@ const Index = () => {
 
       {/* Preferences Banner */}
       <section className="mb-6">
-        <div className="ncc-card p-4 flex items-center justify-between">
+        <div className="gov-card p-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Settings2 className="w-5 h-5 text-primary" />
             <div>
@@ -96,7 +96,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Quick Stats - Consistent with Dashboard */}
+      {/* Quick Stats */}
       <section className="mb-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {(() => {
@@ -106,9 +106,9 @@ const Index = () => {
               { icon: MapPin, label: 'Total Complaints', value: stats.totalComplaints.toLocaleString(), color: 'text-primary' },
               { icon: Clock, label: 'Avg Resolution', value: avgTime.avg, unit: 'wks', color: 'text-secondary' },
               { icon: Shield, label: 'On-Time Resolution', value: `${stats.slaAchievementPercent}%`, color: 'text-success' },
-              { icon: Users, label: 'Completion Rate', value: `${stats.completionRatePercent}%`, color: 'text-accent' },
+              { icon: Users, label: 'Completion Rate', value: `${stats.completionRatePercent}%`, color: 'text-accent-foreground' },
             ].map((stat, i) => (
-              <div key={i} className="ncc-card p-5 flex flex-col items-center justify-center text-center h-[140px]">
+              <div key={i} className="gov-card p-5 flex flex-col items-center justify-center text-center h-[140px]">
                 <stat.icon className={`w-7 h-7 mb-3 ${stat.color}`} />
                 <div className="flex items-baseline gap-1 justify-center">
                   <span className="text-2xl font-bold text-foreground">{stat.value}</span>
@@ -130,13 +130,13 @@ const Index = () => {
 
       {/* Quick Actions */}
       <section className="mb-10">
-        <div className="ncc-section-header">
+        <div className="gov-section-header">
           <h2 className="text-2xl font-bold text-foreground">Quick Actions</h2>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           <Link
             to="/report"
-            className="ncc-action-tile-primary min-h-[140px]"
+            className="gov-action-tile-primary min-h-[140px]"
           >
             <PenSquare className="w-10 h-10 mb-3" />
             <span className="font-bold text-lg">Report Issue</span>
@@ -144,7 +144,7 @@ const Index = () => {
           </Link>
           <Link
             to="/my-tickets"
-            className="ncc-action-tile-secondary min-h-[140px]"
+            className="gov-action-tile-secondary min-h-[140px]"
           >
             <Ticket className="w-10 h-10 mb-3" />
             <span className="font-bold text-lg">My Tickets</span>
@@ -152,7 +152,7 @@ const Index = () => {
           </Link>
           <Link
             to="/training"
-            className="ncc-action-tile-accent min-h-[140px] col-span-2 md:col-span-1"
+            className="gov-action-tile-accent min-h-[140px] col-span-2 md:col-span-1"
           >
             <GraduationCap className="w-10 h-10 mb-3" />
             <span className="font-bold text-lg">Training & Help</span>
@@ -163,7 +163,7 @@ const Index = () => {
 
       {/* Map Section */}
       <section className="mb-10" aria-labelledby="map-section-title">
-        <div className="ncc-section-header">
+        <div className="gov-section-header">
           <h2 id="map-section-title" className="text-2xl font-bold text-foreground">
             Select Your Location
           </h2>
@@ -190,12 +190,12 @@ const Index = () => {
         />
       </section>
 
-      {/* Active Surveys - Citizen Voice */}
+      {/* Active Surveys */}
       <ActiveSurveys />
 
       {/* CTA Section */}
       <section 
-        className="ncc-hero p-8 md:p-10"
+        className="gov-hero p-8 md:p-10 rounded-lg"
         aria-labelledby="cta-title"
       >
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
@@ -209,14 +209,14 @@ const Index = () => {
               </h2>
               <p className="text-white/90 max-w-lg">
                 Potholes, garbage, broken streetlights, water leaks — report any issue and 
-                help Nairobi County respond faster to your community's needs.
+                help your city respond faster to your community's needs.
               </p>
             </div>
           </div>
           
           <Link
             to="/report"
-            className="ncc-btn-secondary whitespace-nowrap"
+            className="gov-btn-secondary whitespace-nowrap"
           >
             <span>Report Now</span>
             <ArrowRight className="w-5 h-5" aria-hidden="true" />

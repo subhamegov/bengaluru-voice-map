@@ -209,7 +209,7 @@ export function DepartmentRatingsDetail({ className }: DepartmentRatingsDetailPr
 
   return (
     <>
-      <Card className={cn("ncc-card", className)}>
+      <Card className={cn("gov-card", className)}>
         <CardHeader className="pb-3">
           <div className="flex items-center gap-2">
             <Star className="w-5 h-5 text-secondary" />
@@ -328,7 +328,7 @@ export function DepartmentRatingsDetail({ className }: DepartmentRatingsDetailPr
                 <TabsContent value="summary" className="space-y-6 mt-4">
                   {/* Row 1: Complaints Overview */}
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <Card className="ncc-card">
+                    <Card className="gov-card">
                       <CardHeader className="pb-2">
                         <CardTitle className="text-sm font-medium">Total Complaints</CardTitle>
                       </CardHeader>
@@ -338,7 +338,7 @@ export function DepartmentRatingsDetail({ className }: DepartmentRatingsDetailPr
                       </CardContent>
                     </Card>
 
-                    <Card className="ncc-card">
+                    <Card className="gov-card">
                       <CardHeader className="pb-2">
                         <CardTitle className="text-sm font-medium">Closed Complaints</CardTitle>
                       </CardHeader>
@@ -348,7 +348,7 @@ export function DepartmentRatingsDetail({ className }: DepartmentRatingsDetailPr
                       </CardContent>
                     </Card>
 
-                    <Card className="ncc-card">
+                    <Card className="gov-card">
                       <CardHeader className="pb-2">
                         <CardTitle className="text-sm font-medium">On-Time Resolution</CardTitle>
                       </CardHeader>
@@ -385,7 +385,7 @@ export function DepartmentRatingsDetail({ className }: DepartmentRatingsDetailPr
                   {/* Row 2: Charts */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {/* Top Complaint Types */}
-                    <Card className="ncc-card">
+                    <Card className="gov-card">
                       <CardHeader className="pb-2">
                         <CardTitle className="text-sm font-medium">Top Complaint Types</CardTitle>
                       </CardHeader>
@@ -414,7 +414,7 @@ export function DepartmentRatingsDetail({ className }: DepartmentRatingsDetailPr
                     </Card>
 
                     {/* Monthly Trend */}
-                    <Card className="ncc-card">
+                    <Card className="gov-card">
                       <CardHeader className="pb-2">
                         <CardTitle className="text-sm font-medium">Monthly Trend</CardTitle>
                       </CardHeader>
@@ -448,7 +448,7 @@ export function DepartmentRatingsDetail({ className }: DepartmentRatingsDetailPr
                   </div>
 
                   {/* Row 3: Appreciations */}
-                  <Card className="ncc-card">
+                  <Card className="gov-card">
                     <CardHeader className="pb-2">
                       <div className="flex items-center gap-2">
                         <Heart className="w-4 h-4 text-rose-500 fill-rose-500" />

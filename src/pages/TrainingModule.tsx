@@ -247,7 +247,7 @@ export default function TrainingModulePage() {
         </Link>
 
         {/* Header */}
-        <header className="ncc-card p-6 space-y-4">
+        <header className="gov-card p-6 space-y-4">
           <div className="flex items-start justify-between flex-wrap gap-4">
             <div className="space-y-2">
               <h1 className="text-2xl md:text-3xl font-bold text-foreground font-display">
@@ -351,7 +351,7 @@ export default function TrainingModulePage() {
                       <AccordionItem
                         key={faq.id}
                         value={faq.id}
-                        className="ncc-card px-4 border-0"
+                        className="gov-card px-4 border-0"
                       >
                         <AccordionTrigger
                           className="hover:no-underline py-4"
@@ -397,7 +397,7 @@ export default function TrainingModulePage() {
                   <button
                     key={video.id}
                     onClick={() => handleVideoClick(video.id)}
-                    className="ncc-card p-4 text-left hover:shadow-md transition-shadow group"
+                    className="gov-card p-4 text-left hover:shadow-md transition-shadow group"
                   >
                     <div className="aspect-video bg-muted rounded-lg mb-3 flex items-center justify-center relative overflow-hidden">
                       <div className="absolute inset-0 bg-primary/10 group-hover:bg-primary/20 transition-colors" />
@@ -430,7 +430,7 @@ export default function TrainingModulePage() {
                 {filteredDownloads.map((dl) => (
                   <div
                     key={dl.id}
-                    className="ncc-card p-4 flex items-center justify-between gap-4"
+                    className="gov-card p-4 flex items-center justify-between gap-4"
                   >
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
@@ -466,7 +466,7 @@ export default function TrainingModulePage() {
           {/* Quiz Tab */}
           <TabsContent value="quiz" className="space-y-6">
             {quizPassed && !showQuizResults && (
-              <div className="ncc-card p-4 bg-success/10 border-success flex items-center gap-3">
+              <div className="gov-card p-4 bg-success/10 border-success flex items-center gap-3">
                 <CheckCircle2 className="w-5 h-5 text-success flex-shrink-0" />
                 <div>
                   <p className="font-medium text-success">Quiz Passed!</p>
@@ -515,7 +515,7 @@ export default function TrainingModulePage() {
 
             <div className="space-y-6">
               {module.quiz.map((question, qIndex) => (
-                <div key={question.id} className="ncc-card p-5 space-y-4">
+                <div key={question.id} className="gov-card p-5 space-y-4">
                   <div className="flex items-start gap-3">
                     <span className="w-7 h-7 rounded-full bg-primary/10 text-primary flex items-center justify-center text-sm font-semibold flex-shrink-0">
                       {qIndex + 1}
@@ -593,7 +593,7 @@ export default function TrainingModulePage() {
               </div>
             )}
 
-            <div className="ncc-card p-4 bg-muted/50">
+            <div className="gov-card p-4 bg-muted/50">
               <p className="text-sm text-muted-foreground text-center">
                 <strong>Passing Score:</strong> {module.passingScore}% • 
                 <strong className="ml-2">Questions:</strong> {module.quiz.length} • 
@@ -605,7 +605,7 @@ export default function TrainingModulePage() {
 
         {/* Mark as completed */}
         {progress.status !== 'completed' && (
-          <div className="ncc-card p-6 text-center">
+          <div className="gov-card p-6 text-center">
             {quizPassed ? (
               <>
                 <p className="text-muted-foreground mb-4">
@@ -631,7 +631,7 @@ export default function TrainingModulePage() {
         )}
 
         {progress.status === 'completed' && (
-          <div className="ncc-card p-6 text-center bg-success/10 border-success">
+          <div className="gov-card p-6 text-center bg-success/10 border-success">
             <CheckCircle2 className="w-8 h-8 text-success mx-auto mb-2" />
             <p className="font-medium text-success">
               You've completed this training module!

@@ -74,7 +74,7 @@ export function TicketTable({
   );
 
   return (
-    <div className="ncc-card overflow-hidden">
+    <div className="gov-card overflow-hidden">
       <div className="overflow-x-auto">
         <Table>
           <TableHeader>

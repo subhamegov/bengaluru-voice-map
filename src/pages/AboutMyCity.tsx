@@ -161,10 +161,10 @@ export default function AboutMyCity() {
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
               <div>
                 <h1 className="text-2xl md:text-4xl font-bold font-display mb-2">
-                  Nairobi at a Glance
+                  City at a Glance
                 </h1>
                 <p className="text-primary-foreground/80 text-sm md:text-base max-w-xl">
-                  Stay updated on city performance, services, and opportunities to participate in building a better Nairobi.
+                  Stay updated on city performance, services, and opportunities to participate in building a better city.
                 </p>
               </div>
               
@@ -240,7 +240,7 @@ export default function AboutMyCity() {
             <div>
               <h2 id="events-heading" className="text-xl md:text-2xl font-bold font-display flex items-center gap-2">
                 <Calendar className="w-6 h-6 text-primary" aria-hidden="true" />
-                What's Happening in Nairobi
+                What's Happening
               </h2>
               <p className="text-muted-foreground text-sm mt-1">Public meetings, events, and participation opportunities</p>
             </div>
