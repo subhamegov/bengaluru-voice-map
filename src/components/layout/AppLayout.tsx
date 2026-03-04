@@ -2,8 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { MapPin, Menu, X, Home, Ticket, Phone, Mail, Globe, ClipboardList, FileText, BarChart3, GraduationCap, Building, ArrowRightLeft, Users } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { brand } from '@/lib/brandConfig';
-import kenyaCoatOfArms from '@/assets/kenya-coat-of-arms.png';
+import { CITY } from '@/config/city';
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -25,14 +24,13 @@ export function AppLayout({ children }: AppLayoutProps) {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      {/* Skip to main content */}
       <a href="#main-content" className="skip-link">Skip to main content</a>
 
       {/* Top bar */}
       <div className="gov-topbar">
         <div className="container flex items-center justify-between">
-          <span className="font-medium">{brand.name}</span>
-          <span className="hidden sm:inline text-white/70">{brand.tagline}</span>
+          <span className="font-medium">{CITY.authorityName}</span>
+          <span className="hidden sm:inline text-white/70">{CITY.tagline}</span>
         </div>
       </div>
 
@@ -43,19 +41,18 @@ export function AppLayout({ children }: AppLayoutProps) {
       <header className="gov-header sticky top-0 z-40">
         <div className="container">
           <div className="flex items-center justify-between h-16 md:h-20">
-            {/* Logo */}
             <NavLink to="/" className="flex items-center gap-3 hover:opacity-90 transition-opacity">
               <img
-                src={kenyaCoatOfArms}
-                alt={brand.emblemAlt}
+                src={CITY.emblemAsset}
+                alt={CITY.emblemAlt}
                 className="w-12 h-12 md:w-14 md:h-14 object-contain"
               />
               <div>
                 <h1 className="text-lg md:text-xl font-bold leading-tight tracking-tight font-display text-foreground">
-                  {brand.name}
+                  {CITY.authorityName}
                 </h1>
                 <p className="text-xs md:text-sm text-muted-foreground font-medium">
-                  {brand.tagline}
+                  {CITY.portalCitizenTitle}
                 </p>
               </div>
             </NavLink>
@@ -76,7 +73,6 @@ export function AppLayout({ children }: AppLayoutProps) {
                 </NavLink>
               ))}
 
-              {/* Switch to Resolver Portal */}
               <NavLink
                 to="/resolver"
                 className="gov-nav-item ml-2 border-l border-border pl-3"
@@ -86,7 +82,6 @@ export function AppLayout({ children }: AppLayoutProps) {
                 <span className="hidden 2xl:inline">Switch to Resolver</span>
               </NavLink>
 
-              {/* Switch to Elected Representative View */}
               <NavLink
                 to="/elected"
                 className="gov-nav-item"
@@ -100,7 +95,7 @@ export function AppLayout({ children }: AppLayoutProps) {
             {/* Mobile Menu Button */}
             <button
               type="button"
-              className="xl:hidden flex items-center justify-center w-11 h-11 rounded-lg text-foreground hover:bg-muted transition-colors"
+              className="xl:hidden flex items-center justify-center w-11 h-11 rounded text-foreground hover:bg-muted transition-colors"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-expanded={mobileMenuOpen}
               aria-controls="mobile-menu"
@@ -121,7 +116,7 @@ export function AppLayout({ children }: AppLayoutProps) {
                   to={item.href}
                   className={({ isActive }) =>
                     cn(
-                      'flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all hover:bg-white/10',
+                      'flex items-center gap-3 px-4 py-3 rounded font-medium transition-all hover:bg-white/10',
                       isActive && 'bg-white/20 font-bold'
                     )
                   }
@@ -137,7 +132,7 @@ export function AppLayout({ children }: AppLayoutProps) {
 
               <NavLink
                 to="/resolver"
-                className="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all hover:bg-white/10 mt-4 border-t border-white/10 pt-4"
+                className="flex items-center gap-3 px-4 py-3 rounded font-medium transition-all hover:bg-white/10 mt-4 border-t border-white/10 pt-4"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <ArrowRightLeft className="w-6 h-6" aria-hidden="true" />
@@ -149,7 +144,7 @@ export function AppLayout({ children }: AppLayoutProps) {
 
               <NavLink
                 to="/elected"
-                className="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all hover:bg-white/10"
+                className="flex items-center gap-3 px-4 py-3 rounded font-medium transition-all hover:bg-white/10"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <Users className="w-6 h-6" aria-hidden="true" />
@@ -174,13 +169,13 @@ export function AppLayout({ children }: AppLayoutProps) {
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             <div className="space-y-4">
               <div className="flex items-center gap-3">
-                <img src={kenyaCoatOfArms} alt={brand.emblemAlt} className="w-12 h-12 object-contain brightness-200" />
+                <img src={CITY.emblemAsset} alt={CITY.emblemAlt} className="w-12 h-12 object-contain brightness-200" />
                 <div>
-                  <p className="font-bold text-lg font-display">{brand.name}</p>
-                  <p className="text-sm opacity-80">{brand.tagline}</p>
+                  <p className="font-bold text-lg font-display">{CITY.authorityName}</p>
+                  <p className="text-sm opacity-80">{CITY.portalCitizenTitle}</p>
                 </div>
               </div>
-              <p className="text-sm opacity-75 max-w-xs">{brand.footerTagline}</p>
+              <p className="text-sm opacity-75 max-w-xs">{CITY.footerTagline}</p>
             </div>
 
             <div className="space-y-4">
@@ -202,16 +197,16 @@ export function AppLayout({ children }: AppLayoutProps) {
               <ul className="space-y-3 text-sm">
                 <li className="flex items-center gap-3 opacity-80">
                   <Phone className="w-4 h-4 text-secondary" />
-                  <span>{brand.phone}</span>
+                  <span>{CITY.helpline}</span>
                 </li>
                 <li className="flex items-center gap-3 opacity-80">
                   <Mail className="w-4 h-4 text-secondary" />
-                  <span>{brand.email}</span>
+                  <span>{CITY.email}</span>
                 </li>
                 <li className="flex items-center gap-3 opacity-80">
                   <Globe className="w-4 h-4 text-secondary" />
-                  <a href={brand.website} target="_blank" rel="noopener noreferrer" className="hover:text-secondary min-h-0">
-                    {brand.website}
+                  <a href={CITY.website} target="_blank" rel="noopener noreferrer" className="hover:text-secondary min-h-0">
+                    {CITY.website}
                   </a>
                 </li>
               </ul>
@@ -219,7 +214,7 @@ export function AppLayout({ children }: AppLayoutProps) {
           </div>
 
           <div className="pt-8 border-t border-white/10 text-center">
-            <p className="text-sm opacity-60">{brand.copyright(new Date().getFullYear())}</p>
+            <p className="text-sm opacity-60">{CITY.copyright(new Date().getFullYear())}</p>
           </div>
         </div>
       </footer>

@@ -2,8 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Menu, X, Home, ClipboardList, Search, BarChart3, AlertTriangle, Users, ClipboardCheck, Bell, HelpCircle, User, GraduationCap, Building, ArrowRightLeft } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { brand } from '@/lib/brandConfig';
-import kenyaCoatOfArms from '@/assets/kenya-coat-of-arms.png';
+import { CITY } from '@/config/city';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -38,8 +37,8 @@ export function ResolverLayout({ children }: ResolverLayoutProps) {
       {/* Top bar */}
       <div className="gov-topbar">
         <div className="container flex items-center justify-between">
-          <span className="font-medium">{brand.resolverPortalTitle}</span>
-          <span className="hidden sm:inline text-white/70">{brand.name}</span>
+          <span className="font-medium">{CITY.portalStaffTitle}</span>
+          <span className="hidden sm:inline text-white/70">{CITY.authorityName}</span>
         </div>
       </div>
 
@@ -51,12 +50,12 @@ export function ResolverLayout({ children }: ResolverLayoutProps) {
         <div className="container">
           <div className="flex items-center justify-between h-16 md:h-20">
             <NavLink to="/resolver" className="flex items-center gap-3 hover:opacity-90 transition-opacity">
-              <img src={kenyaCoatOfArms} alt={brand.emblemAlt} className="w-12 h-12 md:w-14 md:h-14 object-contain" />
+              <img src={CITY.emblemAsset} alt={CITY.emblemAlt} className="w-12 h-12 md:w-14 md:h-14 object-contain" />
               <div>
                 <h1 className="text-lg md:text-xl font-bold leading-tight tracking-tight font-display text-foreground">
-                  {brand.resolverPortalTitle}
+                  {CITY.portalStaffTitle}
                 </h1>
-                <p className="text-xs md:text-sm text-muted-foreground font-medium">{brand.name}</p>
+                <p className="text-xs md:text-sm text-muted-foreground font-medium">{CITY.authorityName}</p>
               </div>
             </NavLink>
 
@@ -111,7 +110,7 @@ export function ResolverLayout({ children }: ResolverLayoutProps) {
 
               <button
                 type="button"
-                className="xl:hidden flex items-center justify-center w-11 h-11 rounded-lg text-foreground hover:bg-muted transition-colors"
+                className="xl:hidden flex items-center justify-center w-11 h-11 rounded text-foreground hover:bg-muted transition-colors"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 aria-expanded={mobileMenuOpen}
                 aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
@@ -133,7 +132,7 @@ export function ResolverLayout({ children }: ResolverLayoutProps) {
                   end={item.href === '/resolver'}
                   className={({ isActive }) =>
                     cn(
-                      'flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all hover:bg-white/10',
+                      'flex items-center gap-3 px-4 py-3 rounded font-medium transition-all hover:bg-white/10',
                       isActive && 'bg-white/20 font-bold'
                     )
                   }
@@ -149,7 +148,7 @@ export function ResolverLayout({ children }: ResolverLayoutProps) {
 
               <NavLink
                 to="/"
-                className="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all hover:bg-white/10 mt-4 border-t border-white/10 pt-4"
+                className="flex items-center gap-3 px-4 py-3 rounded font-medium transition-all hover:bg-white/10 mt-4 border-t border-white/10 pt-4"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <ArrowRightLeft className="w-6 h-6" aria-hidden="true" />
@@ -171,7 +170,7 @@ export function ResolverLayout({ children }: ResolverLayoutProps) {
       {/* Footer */}
       <footer className="gov-footer py-4">
         <div className="container text-center text-sm text-white/50">
-          <p>{brand.copyright(new Date().getFullYear())} — {brand.resolverPortalTitle}</p>
+          <p>{CITY.copyright(new Date().getFullYear())} — {CITY.portalStaffTitle}</p>
         </div>
       </footer>
     </div>

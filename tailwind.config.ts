@@ -17,8 +17,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ["Noto Sans", "Inter", "system-ui", "sans-serif"],
-        display: ["Inter", "system-ui", "sans-serif"],
+        sans: ["Noto Sans", "Noto Sans Devanagari", "Inter", "system-ui", "-apple-system", "sans-serif"],
+        display: ["Inter", "Noto Sans", "system-ui", "sans-serif"],
       },
       fontSize: {
         xs: ["0.875rem", { lineHeight: "1.4" }],
@@ -91,8 +91,8 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
-        xl: "0.75rem",
-        "2xl": "1rem",
+        xl: "0.5rem",
+        "2xl": "0.625rem",
       },
       boxShadow: {
         "soft": "0 1px 4px -1px hsl(var(--foreground) / 0.08)",
