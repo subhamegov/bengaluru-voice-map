@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker, useMapEvents, useMap } from 'react-lea
 import L from 'leaflet';
 import { MapPin, Mic, MicOff, Navigation, ChevronDown, HardHat, Check, Building2, FileText } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { NAIROBI_SUBCOUNTIES, getWardsBySubCounty, getZonesByWard, reverseGeocodeToWard, Ward, Zone } from '@/lib/nairobiAdminData';
+import { BENGALURU_ZONES, getWardsBySubCounty, getZonesByWard, reverseGeocodeToWard, Ward, Zone } from '@/lib/bengaluruAdminData';
 import { Badge } from '@/components/ui/badge';
 import { ComplaintIntent, LinkedProject } from './ComplaintIntentStep';
 import 'leaflet/dist/leaflet.css';
@@ -45,31 +45,31 @@ interface LocationStepProps {
 const MOCK_PROJECTS: LinkedProject[] = [
   {
     id: 'PRJ-001',
-    title: 'Transformer Upgrade – Kilimani Ward',
-    category: 'Power',
+    title: 'Stormwater Drain Desilting – HSR Layout',
+    category: 'Drains & SWD',
     status: 'Ongoing',
-    agency: 'Kenya Power'
+    agency: 'BBMP SWD Division'
   },
   {
     id: 'PRJ-002',
-    title: 'Drainage Rehabilitation – Westlands',
-    category: 'Water & Sanitation',
-    status: 'Completed',
-    agency: 'Nairobi County Works Dept.'
+    title: 'Road Resurfacing – 80 Feet Road, Koramangala',
+    category: 'Roads & Infrastructure',
+    status: 'Ongoing',
+    agency: 'BBMP Roads Division'
   },
   {
     id: 'PRJ-003',
-    title: 'Road Resurfacing – Ngong Road',
-    category: 'Roads & Infrastructure',
-    status: 'Ongoing',
-    agency: 'KURA'
+    title: 'Cauvery Pipeline Extension – JP Nagar',
+    category: 'Water Supply',
+    status: 'Planned',
+    agency: 'BWSSB'
   },
   {
     id: 'PRJ-004',
-    title: 'Street Lighting Installation – CBD',
-    category: 'Power',
-    status: 'Planned',
-    agency: 'Nairobi County Lighting Dept.'
+    title: 'LED Streetlight Replacement – Malleshwaram',
+    category: 'Streetlights',
+    status: 'Completed',
+    agency: 'BBMP Electrical Division'
   }
 ];
 
@@ -245,7 +245,7 @@ export function LocationStep({ location, onLocationChange, intent, linkedProject
     
     recognition.continuous = false;
     recognition.interimResults = true;
-    recognition.lang = 'en-KE';
+    recognition.lang = 'en-IN';
 
     recognition.onstart = () => {
       setIsVoiceRecording(true);
@@ -290,7 +290,7 @@ export function LocationStep({ location, onLocationChange, intent, linkedProject
   };
 
   // Nairobi center coordinates
-  const NAIROBI_CENTER: [number, number] = [-1.2921, 36.8219];
+  const BENGALURU_CENTER: [number, number] = [12.9716, 77.5946];
 
   return (
     <div className="space-y-6">
@@ -316,10 +316,10 @@ export function LocationStep({ location, onLocationChange, intent, linkedProject
         <div 
           className="relative rounded-xl overflow-hidden border border-border"
           role="application"
-          aria-label="Map of Nairobi. Use this to select where the issue is."
+          aria-label="Map of Bengaluru. Use this to select where the issue is."
         >
           <MapContainer
-            center={location.coordinates ? [location.coordinates.lat, location.coordinates.lng] : NAIROBI_CENTER}
+            center={location.coordinates ? [location.coordinates.lat, location.coordinates.lng] : BENGALURU_CENTER}
             zoom={12}
             style={{ height: '280px', width: '100%' }}
             className="z-0"
@@ -365,7 +365,7 @@ export function LocationStep({ location, onLocationChange, intent, linkedProject
           Option 2: Describe with your voice
         </h3>
         <p className="text-sm text-muted-foreground">
-          Speak a description of the location, for example: "Near KICC main gate" or "Along Juja Road, opposite Pangani Girls."
+          Speak a description of the location, for example: "Near Lalbagh main gate" or "Opposite Forum Mall, Koramangala."
         </p>
 
         <button
@@ -437,7 +437,7 @@ export function LocationStep({ location, onLocationChange, intent, linkedProject
             aria-describedby="subcounty-help"
           >
             <option value="">Select sub-county...</option>
-            {NAIROBI_SUBCOUNTIES.map((sc) => (
+            {BENGALURU_ZONES.map((sc) => (
               <option key={sc.name} value={sc.name}>
                 {sc.name}
               </option>
@@ -512,7 +512,7 @@ export function LocationStep({ location, onLocationChange, intent, linkedProject
             type="text"
             value={location.description}
             onChange={(e) => handleDescriptionChange(e.target.value)}
-            placeholder="e.g., Near KICC, opposite the main entrance"
+            placeholder="e.g., Near Lalbagh West Gate, opposite SBI branch"
             className="w-full px-4 py-3 rounded-lg border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
             aria-describedby="landmark-help"
           />

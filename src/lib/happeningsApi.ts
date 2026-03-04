@@ -1,78 +1,89 @@
-// Mock API for government and community happenings
+// Mock API for government and community happenings — Bengaluru / BBMP context
 // Will be replaced with DIGIT MDMS or civic open-data API
 
 import { Happening, ProjectDetails, ProjectComment } from '@/types/happenings';
-import { WARDS } from '@/types/story';
 
-// Helper to generate mock comments
-const generateMockComments = (projectId: string): ProjectComment[] => {
-  const comments: ProjectComment[] = [
-    {
-      id: `${projectId}_c1`,
-      author: 'Mary Wanjiku',
-      authorType: 'citizen',
-      text: 'Finally! We have been experiencing frequent outages for months. Hope this will be completed on time.',
-      timestamp: '2025-12-08T14:30:00Z',
-      affectedAs: 'Resident nearby',
-      helpfulCount: 12
-    },
-    {
-      id: `${projectId}_c2`,
-      author: 'Nairobi County Project Team',
-      authorType: 'official',
-      text: 'Thank you for your feedback. The contractor is on schedule and we expect minimal disruptions during the upgrade work.',
-      timestamp: '2025-12-07T09:15:00Z',
-      helpfulCount: 8
-    },
-    {
-      id: `${projectId}_c3`,
-      author: 'John Kamau',
-      authorType: 'citizen',
-      text: 'My business has lost revenue due to power cuts. Can the county provide compensation or at least ensure this is fast-tracked?',
-      timestamp: '2025-12-05T16:45:00Z',
-      affectedAs: 'Business owner',
-      helpfulCount: 24
-    }
-  ];
-  return comments;
-};
+// Bengaluru ward list for findWardByCoords
+interface SimpleWard {
+  code: string;
+  name: string;
+  subcounty: string;
+  center: { lat: number; lng: number };
+}
 
-// Category to type mapping for projects
-const CATEGORY_TYPE_MAP: Record<string, Happening['type']> = {
-  traffic: 'INFRASTRUCTURE',
-  health: 'SERVICE',
-  safety: 'NOTICE',
-  water: 'SERVICE',
-  waste: 'SERVICE',
-  power: 'INFRASTRUCTURE',
-};
+const WARDS: SimpleWard[] = [
+  { code: 'JAYANAGAR', name: 'Jayanagar', subcounty: 'South Zone', center: { lat: 12.9250, lng: 77.5938 } },
+  { code: 'KORAMANGALA', name: 'Koramangala', subcounty: 'Bommanahalli Zone', center: { lat: 12.9352, lng: 77.6245 } },
+  { code: 'INDIRANAGAR', name: 'Indiranagar', subcounty: 'East Zone', center: { lat: 12.9784, lng: 77.6408 } },
+  { code: 'MALLESHWARAM', name: 'Malleshwaram', subcounty: 'North Zone', center: { lat: 13.0035, lng: 77.5700 } },
+  { code: 'WHITEFIELD', name: 'Whitefield', subcounty: 'Mahadevapura Zone', center: { lat: 12.9698, lng: 77.7500 } },
+  { code: 'HSR_LAYOUT', name: 'HSR Layout', subcounty: 'Bommanahalli Zone', center: { lat: 12.9116, lng: 77.6389 } },
+  { code: 'BTM_LAYOUT', name: 'BTM Layout', subcounty: 'South Zone', center: { lat: 12.9166, lng: 77.6101 } },
+  { code: 'RAJAJINAGAR', name: 'Rajajinagar', subcounty: 'West Zone', center: { lat: 12.9900, lng: 77.5550 } },
+  { code: 'HEBBAL', name: 'Hebbal', subcounty: 'North Zone', center: { lat: 13.0358, lng: 77.5970 } },
+  { code: 'YELAHANKA', name: 'Yelahanka', subcounty: 'Yelahanka Zone', center: { lat: 13.1007, lng: 77.5963 } },
+  { code: 'BASAVANAGUDI', name: 'Basavanagudi', subcounty: 'South Zone', center: { lat: 12.9432, lng: 77.5730 } },
+  { code: 'MARATHAHALLI', name: 'Marathahalli', subcounty: 'Mahadevapura Zone', center: { lat: 12.9591, lng: 77.7009 } },
+  { code: 'ELECTRONIC_CITY', name: 'Electronic City', subcounty: 'Bommanahalli Zone', center: { lat: 12.8450, lng: 77.6600 } },
+  { code: 'SHIVAJINAGAR', name: 'Shivajinagar', subcounty: 'East Zone', center: { lat: 12.9850, lng: 77.6050 } },
+  { code: 'VIJAYANAGAR', name: 'Vijayanagar', subcounty: 'West Zone', center: { lat: 12.9700, lng: 77.5370 } },
+];
 
-// Helper to generate project details for infrastructure projects
+// Helper to generate mock comments (Indian names)
+const generateMockComments = (projectId: string): ProjectComment[] => [
+  {
+    id: `${projectId}_c1`,
+    author: 'Lakshmi Devi',
+    authorType: 'citizen',
+    text: 'Finally! We have been facing this problem for months. Hope this will be completed on time.',
+    timestamp: '2026-02-08T14:30:00Z',
+    affectedAs: 'Resident nearby',
+    helpfulCount: 12,
+  },
+  {
+    id: `${projectId}_c2`,
+    author: 'BBMP Project Monitoring Cell',
+    authorType: 'official',
+    text: 'Thank you for your feedback. The contractor is on schedule and we expect minimal disruptions during the work.',
+    timestamp: '2026-02-07T09:15:00Z',
+    helpfulCount: 8,
+  },
+  {
+    id: `${projectId}_c3`,
+    author: 'Suresh Kumar',
+    authorType: 'citizen',
+    text: 'My business has been affected. Can the authorities ensure this is fast-tracked?',
+    timestamp: '2026-02-05T16:45:00Z',
+    affectedAs: 'Business owner',
+    helpfulCount: 24,
+  },
+];
+
 const generateProjectDetails = (projectId: string, title: string): ProjectDetails => ({
   status: 'WORKS_ONGOING',
-  budget: 'KES 15M',
-  financialYear: 'FY 2025/26',
-  expectedEndDate: '2026-02-28',
-  fullDescription: `This project involves comprehensive infrastructure upgrades to improve service delivery in the area. ${title} is part of Nairobi County's commitment to enhancing quality of life for all residents. The works are being carried out by certified contractors under strict supervision to ensure quality and timely completion.`,
+  budget: '₹2.5 Cr',
+  financialYear: 'FY 2025-26',
+  expectedEndDate: '2026-06-30',
+  fullDescription: `This project involves comprehensive infrastructure upgrades to improve service delivery. ${title} is part of BBMP's commitment to enhancing quality of life for all residents of Bengaluru.`,
   timeline: [
-    { stage: 'Project identified in ward planning', status: 'DONE', date: '2025-03-15', note: 'Community consultation completed' },
-    { stage: 'Technical design & feasibility completed', status: 'DONE', date: '2025-05-10', note: 'Environmental assessment approved' },
-    { stage: 'Budget approved in County Assembly', status: 'DONE', date: '2025-06-30' },
-    { stage: 'Procurement and contractor selection', status: 'DONE', date: '2025-09-01', note: 'Contract awarded to ABC Construction Ltd.' },
-    { stage: 'Works ongoing on site', status: 'IN_PROGRESS', date: '2025-11-10', note: 'Phase 1 of 3 underway' },
+    { stage: 'Project identified in ward planning', status: 'DONE', date: '2025-08-15', note: 'Ward committee consultation completed' },
+    { stage: 'Technical design & feasibility completed', status: 'DONE', date: '2025-10-10', note: 'DPR approved by Chief Engineer' },
+    { stage: 'Budget approved in council', status: 'DONE', date: '2025-11-30' },
+    { stage: 'Tender floated & contractor selected', status: 'DONE', date: '2026-01-01', note: 'e-Procurement portal tender' },
+    { stage: 'Works ongoing on site', status: 'IN_PROGRESS', date: '2026-02-10', note: 'Phase 1 underway' },
     { stage: 'Testing & commissioning', status: 'PENDING', date: null },
-    { stage: 'Project completion & monitoring', status: 'PENDING', date: null }
+    { stage: 'Project completion & monitoring', status: 'PENDING', date: null },
   ],
   relatedTickets: [
-    { id: 'NRB-2024-001234', summary: 'Frequent service interruptions reported' },
-    { id: 'NRB-2024-001567', summary: 'Quality concerns from local businesses' }
+    { id: 'BBMP-2025-001234', summary: 'Frequent disruptions reported by residents' },
+    { id: 'BBMP-2025-001567', summary: 'Quality concerns from local businesses' },
   ],
   relatedSurveys: [
-    { id: 'survey_001', title: 'Street Lighting Improvement Drive' }
+    { id: 'survey_001', title: 'Citizen Satisfaction Survey – Ward Infrastructure' },
   ],
   publicUpdates: [
-    { date: '2025-11-20', text: 'Contractor has mobilised and works have started. Residents advised to follow safety signage.' },
-    { date: '2025-12-05', text: 'Phase 1 nearing completion. Temporary disruptions expected during final installations.' }
+    { date: '2026-02-20', text: 'Contractor has mobilised. Residents advised to follow safety signage.' },
+    { date: '2026-03-01', text: 'Phase 1 nearing completion. Temporary traffic diversions expected.' },
   ],
   comments: generateMockComments(projectId),
   engagement: {
@@ -80,338 +91,82 @@ const generateProjectDetails = (projectId: string, title: string): ProjectDetail
     followersThisWeek: 12,
     comments: 24,
     linkedComplaints: 7,
-    surveyResponses: 318
-  }
+    surveyResponses: 318,
+  },
 });
 
-// Convert map projects to happenings format with full project details
+// ── Bengaluru seed project markers (25–40 realistic entries) ──
+// Sourced conceptually from public tender / project patterns
 const projectsAsHappenings: Happening[] = [
-  // Traffic projects
-  { 
-    id: 'proj_t1', wardCode: 'kilimani', wardName: 'Kilimani', 
-    title: 'Mbagathi Way Traffic Lights', 
-    summary: 'New traffic signal installation at Mbagathi Way intersection. Expect improved traffic flow once complete.', 
-    source: 'Nairobi County Roads', date: '2025-12-01', type: 'INFRASTRUCTURE', 
-    lat: -1.2985, lng: 36.8150, isActive: true,
-    projectDetails: generateProjectDetails('proj_t1', 'Mbagathi Way Traffic Lights')
-  },
-  { 
-    id: 'proj_t2', wardCode: 'kilimani', wardName: 'Kilimani', 
-    title: 'Hospital Road Expansion', 
-    summary: 'Road widening project to ease congestion near Kenyatta National Hospital.', 
-    source: 'Nairobi County Roads', date: '2025-12-05', type: 'INFRASTRUCTURE', 
-    lat: -1.2890, lng: 36.8180, isActive: true,
-    projectDetails: generateProjectDetails('proj_t2', 'Hospital Road Expansion')
-  },
-  { 
-    id: 'proj_t3', wardCode: 'kilimani', wardName: 'Kilimani', 
-    title: 'Kenyatta Hospital Junction', 
-    summary: 'Roundabout construction to improve traffic management at the busy hospital junction.', 
-    source: 'Nairobi County Roads', date: '2025-11-28', type: 'INFRASTRUCTURE', 
-    lat: -1.3010, lng: 36.8090, isActive: true,
-    projectDetails: generateProjectDetails('proj_t3', 'Kenyatta Hospital Junction')
-  },
-  
-  // Health projects
-  { 
-    id: 'proj_h1', wardCode: 'kilimani', wardName: 'Kilimani', 
-    title: 'Upper Hill Clinic Upgrade', 
-    summary: 'Medical facility renovation to expand services and improve patient care capacity.', 
-    source: 'Nairobi County Health', date: '2025-12-02', type: 'SERVICE', 
-    lat: -1.2930, lng: 36.8250, isActive: true,
-    projectDetails: generateProjectDetails('proj_h1', 'Upper Hill Clinic Upgrade')
-  },
-  { 
-    id: 'proj_h2', wardCode: 'kilimani', wardName: 'Kilimani', 
-    title: 'Community Health Center', 
-    summary: 'New primary care facility planned to serve Upper Hill residents.', 
-    source: 'Nairobi County Health', date: '2025-12-10', type: 'SERVICE', 
-    lat: -1.2870, lng: 36.8300, isActive: true,
-    projectDetails: { ...generateProjectDetails('proj_h2', 'Community Health Center'), status: 'FUNDED' }
-  },
-  { 
-    id: 'proj_h3', wardCode: 'kilimani', wardName: 'Kilimani', 
-    title: 'Mobile Clinic Station', 
-    summary: 'Weekly mobile health services now available every Tuesday and Thursday.', 
-    source: 'Nairobi County Health', date: '2025-11-25', type: 'SERVICE', 
-    lat: -1.2960, lng: 36.8120, isActive: true,
-    projectDetails: { ...generateProjectDetails('proj_h3', 'Mobile Clinic Station'), status: 'COMPLETED' }
-  },
-  
-  // Safety projects
-  { 
-    id: 'proj_s1', wardCode: 'kilimani', wardName: 'Kilimani', 
-    title: 'CCTV Installation Phase 2', 
-    summary: 'Security camera network expansion covering major streets and junctions in Upper Hill.', 
-    source: 'Nairobi County Security', date: '2025-12-03', type: 'NOTICE', 
-    lat: -1.2900, lng: 36.8200, isActive: true,
-    projectDetails: generateProjectDetails('proj_s1', 'CCTV Installation Phase 2')
-  },
-  { 
-    id: 'proj_s2', wardCode: 'kilimani', wardName: 'Kilimani', 
-    title: 'Street Lighting Upgrade', 
-    summary: 'LED streetlight installation to improve night-time visibility and safety.', 
-    source: 'Nairobi County Energy', date: '2025-12-01', type: 'INFRASTRUCTURE', 
-    lat: -1.2950, lng: 36.8280, isActive: true,
-    projectDetails: generateProjectDetails('proj_s2', 'Street Lighting Upgrade')
-  },
-  { 
-    id: 'proj_s3', wardCode: 'kilimani', wardName: 'Kilimani', 
-    title: 'Police Patrol Post', 
-    summary: 'New community police booth established for faster emergency response.', 
-    source: 'Kenya Police Service', date: '2025-11-20', type: 'NOTICE', 
-    lat: -1.2880, lng: 36.8150, isActive: true,
-    projectDetails: { ...generateProjectDetails('proj_s3', 'Police Patrol Post'), status: 'COMPLETED' }
-  },
-  
-  // Water projects
-  { 
-    id: 'proj_w1', wardCode: 'kilimani', wardName: 'Kilimani', 
-    title: 'Water Pipeline Repair', 
-    summary: 'Main pipe replacement to address frequent water supply interruptions in the area.', 
-    source: 'Nairobi Water Company', date: '2025-12-04', type: 'SERVICE', 
-    lat: -1.2940, lng: 36.8170, isActive: true,
-    projectDetails: generateProjectDetails('proj_w1', 'Water Pipeline Repair')
-  },
-  { 
-    id: 'proj_w2', wardCode: 'kilimani', wardName: 'Kilimani', 
-    title: 'Community Borehole', 
-    summary: 'New borehole drilling to provide alternative water source during shortages.', 
-    source: 'Nairobi Water Company', date: '2025-12-08', type: 'SERVICE', 
-    lat: -1.2910, lng: 36.8260, isActive: true,
-    projectDetails: { ...generateProjectDetails('proj_w2', 'Community Borehole'), status: 'PROCUREMENT' }
-  },
-  { 
-    id: 'proj_w3', wardCode: 'kilimani', wardName: 'Kilimani', 
-    title: 'Rainwater Harvesting', 
-    summary: 'Public water collection tanks installed for community use during dry season.', 
-    source: 'Nairobi County Environment', date: '2025-11-22', type: 'SERVICE', 
-    lat: -1.2970, lng: 36.8230, isActive: true,
-    projectDetails: { ...generateProjectDetails('proj_w3', 'Rainwater Harvesting'), status: 'COMPLETED' }
-  },
-  
-  // Waste projects
-  { 
-    id: 'proj_g1', wardCode: 'kilimani', wardName: 'Kilimani', 
-    title: 'Garbage Collection Point', 
-    summary: 'New designated waste disposal area with scheduled collection twice weekly.', 
-    source: 'Nairobi County Environment', date: '2025-12-02', type: 'SERVICE', 
-    lat: -1.2925, lng: 36.8190, isActive: true,
-    projectDetails: generateProjectDetails('proj_g1', 'Garbage Collection Point')
-  },
-  { 
-    id: 'proj_g2', wardCode: 'kilimani', wardName: 'Kilimani', 
-    title: 'Recycling Center', 
-    summary: 'Community recycling facility planned to promote waste separation and recycling.', 
-    source: 'Nairobi County Environment', date: '2025-12-12', type: 'SERVICE', 
-    lat: -1.2895, lng: 36.8240, isActive: true,
-    projectDetails: { ...generateProjectDetails('proj_g2', 'Recycling Center'), status: 'PLANNED' }
-  },
-  { 
-    id: 'proj_g3', wardCode: 'kilimani', wardName: 'Kilimani', 
-    title: 'Street Cleaning Initiative', 
-    summary: 'Regular cleanup program with daily sweeping of major streets and walkways.', 
-    source: 'Nairobi County Environment', date: '2025-12-01', type: 'SERVICE', 
-    lat: -1.2955, lng: 36.8160, isActive: true,
-    projectDetails: generateProjectDetails('proj_g3', 'Street Cleaning Initiative')
-  },
-  
-  // Power projects
-  { 
-    id: 'proj_p1', wardCode: 'kilimani', wardName: 'Kilimani', 
-    title: 'Transformer Upgrade', 
-    summary: 'Power capacity increase to reduce outages and improve supply reliability.', 
-    source: 'Kenya Power', date: '2025-12-03', type: 'INFRASTRUCTURE', 
-    lat: -1.2915, lng: 36.8210, isActive: true,
-    projectDetails: {
-      status: 'WORKS_ONGOING',
-      budget: 'KES 15M',
-      financialYear: 'FY 2025/26',
-      expectedEndDate: '2026-02-28',
-      fullDescription: 'Upgrade of distribution transformers and lines to reduce frequent outages and improve power reliability in Kilimani Ward. This project addresses long-standing power quality issues affecting both residential and commercial areas. The work includes installation of new high-capacity transformers, replacement of aging power lines, and modernization of the distribution network.',
-      timeline: [
-        { stage: 'Project identified in ward planning', status: 'DONE', date: '2025-03-15', note: 'Community feedback highlighted frequent outages' },
-        { stage: 'Technical design & feasibility completed', status: 'DONE', date: '2025-05-10', note: 'Load analysis and equipment specifications finalized' },
-        { stage: 'Budget approved in County Assembly', status: 'DONE', date: '2025-06-30' },
-        { stage: 'Procurement and contractor selection', status: 'DONE', date: '2025-09-01', note: 'Contract signed with XYZ Electrical Ltd.' },
-        { stage: 'Works ongoing on site', status: 'IN_PROGRESS', date: '2025-11-10', note: 'Transformer installation at 3 of 5 sites complete' },
-        { stage: 'Testing & commissioning', status: 'PENDING', date: null },
-        { stage: 'Project completion & monitoring', status: 'PENDING', date: null }
-      ],
-      relatedTickets: [
-        { id: 'NRB-2024-001234', summary: 'Frequent power outages in Kilimani' },
-        { id: 'NRB-2024-001567', summary: 'Voltage fluctuations affecting businesses' }
-      ],
-      relatedSurveys: [
-        { id: 'survey_001', title: 'Street Lighting Improvement Drive' }
-      ],
-      publicUpdates: [
-        { date: '2025-11-20', text: 'Contractor has mobilised and works have started on Argwings Kodhek Road.' },
-        { date: '2025-12-05', text: 'Planned outage notice shared with affected estates for transformer replacement.' }
-      ],
-      comments: [
-        {
-          id: 'proj_p1_c1',
-          author: 'Mary Wanjiku',
-          authorType: 'citizen',
-          text: 'Finally! We have been experiencing frequent outages for months. My fridge keeps getting damaged due to power surges. Hope this will be completed on time.',
-          timestamp: '2025-12-08T14:30:00Z',
-          affectedAs: 'Resident nearby',
-          helpfulCount: 12
-        },
-        {
-          id: 'proj_p1_c2',
-          author: 'Kenya Power Project Team',
-          authorType: 'official',
-          text: 'Thank you for your patience. The contractor is on schedule and we expect minimal disruptions during the upgrade work. Affected residents will receive SMS notices before any planned outages.',
-          timestamp: '2025-12-07T09:15:00Z',
-          helpfulCount: 8
-        },
-        {
-          id: 'proj_p1_c3',
-          author: 'John Kamau',
-          authorType: 'citizen',
-          text: 'My business has lost significant revenue due to power cuts. The generator costs are eating into my profits. Can the county ensure this is fast-tracked?',
-          timestamp: '2025-12-05T16:45:00Z',
-          affectedAs: 'Business owner',
-          helpfulCount: 24
-        }
-      ],
-      engagement: {
-        followers: 132,
-        followersThisWeek: 12,
-        comments: 24,
-        linkedComplaints: 7,
-        surveyResponses: 318
-      }
-    }
-  },
-  { 
-    id: 'proj_p2', wardCode: 'kilimani', wardName: 'Kilimani', 
-    title: 'Solar Streetlights', 
-    summary: 'Renewable energy lighting installed along major walkways and parks.', 
-    source: 'Nairobi County Energy', date: '2025-11-18', type: 'INFRASTRUCTURE', 
-    lat: -1.2945, lng: 36.8140, isActive: true,
-    projectDetails: { ...generateProjectDetails('proj_p2', 'Solar Streetlights'), status: 'COMPLETED' }
-  },
-  { 
-    id: 'proj_p3', wardCode: 'kilimani', wardName: 'Kilimani', 
-    title: 'Underground Cabling', 
-    summary: 'Power line undergrounding project to reduce outages from weather and accidents.', 
-    source: 'Kenya Power', date: '2025-12-15', type: 'INFRASTRUCTURE', 
-    lat: -1.2875, lng: 36.8270, isActive: true,
-    projectDetails: { ...generateProjectDetails('proj_p3', 'Underground Cabling'), status: 'PROCUREMENT' }
-  },
+  // Road Resurfacing
+  { id: 'blr_r1', wardCode: 'KORAMANGALA', wardName: 'Koramangala', title: 'Resurfacing of 80 Feet Road – Koramangala', summary: 'Hot-mix resurfacing of 80 Feet Road from Sony Signal to St. John\'s Hospital junction. Expect lane closures.', source: 'BBMP Roads Infrastructure – Public Works (e-Procurement Ref: BBMP/RD/2025-26/PKG-12)', date: '2026-01-15', type: 'INFRASTRUCTURE', lat: 12.9352, lng: 77.6220, isActive: true, projectDetails: generateProjectDetails('blr_r1', 'Resurfacing of 80 Feet Road') },
+  { id: 'blr_r2', wardCode: 'JAYANAGAR', wardName: 'Jayanagar', title: 'Road Rehabilitation – 11th Main, Jayanagar 4th Block', summary: 'Milling and relaying of bituminous road with footpath reconstruction.', source: 'BBMP Roads Division – South Zone (Tender: BBMP/SZ/RD/2025/018)', date: '2026-02-01', type: 'INFRASTRUCTURE', lat: 12.9270, lng: 77.5830, isActive: true, projectDetails: generateProjectDetails('blr_r2', 'Road Rehabilitation – 11th Main') },
+  { id: 'blr_r3', wardCode: 'MARATHAHALLI', wardName: 'Marathahalli', title: 'Marathahalli–Silk Board Flyover Approach Road Repair', summary: 'Repair of approach road surface and crash barriers on Marathahalli-Silk Board corridor.', source: 'BBMP Major Roads – e-Procurement Portal', date: '2025-12-20', type: 'INFRASTRUCTURE', lat: 12.9570, lng: 77.7010, isActive: true, projectDetails: { ...generateProjectDetails('blr_r3', 'Flyover Approach Road Repair'), status: 'WORKS_ONGOING' } },
+
+  // Stormwater Drain
+  { id: 'blr_sd1', wardCode: 'HSR_LAYOUT', wardName: 'HSR Layout', title: 'Stormwater Drain Desilting – HSR Layout Sector 7', summary: 'Desilting and repair of primary SWD running through HSR Layout Sector 7 to prevent monsoon flooding.', source: 'BBMP SWD Division (Ref: BBMP/SWD/BN/2025/009)', date: '2026-01-20', type: 'INFRASTRUCTURE', lat: 12.9100, lng: 77.6380, isActive: true, projectDetails: generateProjectDetails('blr_sd1', 'SWD Desilting – HSR Layout') },
+  { id: 'blr_sd2', wardCode: 'INDIRANAGAR', wardName: 'Indiranagar', title: 'Raja Kaluve Rehabilitation – Indiranagar', summary: 'Widening and retaining wall construction for the raja kaluve (major drain) along CMH Road.', source: 'BBMP SWD – East Zone (Public Works Notice)', date: '2026-02-10', type: 'INFRASTRUCTURE', lat: 12.9780, lng: 77.6400, isActive: true, projectDetails: generateProjectDetails('blr_sd2', 'Raja Kaluve Rehabilitation') },
+  { id: 'blr_sd3', wardCode: 'BTM_LAYOUT', wardName: 'BTM Layout', title: 'SWD Widening – Madiwala to Silk Board', summary: 'Major drain widening from Madiwala lake outlet to Silk Board junction.', source: 'BBMP SWD (Tender: BBMP/SWD/SZ/2025/015)', date: '2025-11-15', type: 'INFRASTRUCTURE', lat: 12.9180, lng: 77.6120, isActive: true, projectDetails: { ...generateProjectDetails('blr_sd3', 'SWD Widening – Madiwala'), status: 'WORKS_ONGOING' } },
+
+  // Junction Improvements
+  { id: 'blr_ji1', wardCode: 'SHIVAJINAGAR', wardName: 'Shivajinagar', title: 'Signal Junction Improvement – Mekhri Circle', summary: 'Geometric improvement and signal upgrade at Mekhri Circle to reduce congestion.', source: 'BBMP Traffic Engineering Cell / Bengaluru Traffic Police', date: '2026-02-15', type: 'INFRASTRUCTURE', lat: 13.0050, lng: 77.5850, isActive: true, projectDetails: generateProjectDetails('blr_ji1', 'Mekhri Circle Junction Improvement') },
+  { id: 'blr_ji2', wardCode: 'BASAVANAGUDI', wardName: 'Basavanagudi', title: 'Lalbagh West Gate Junction Redesign', summary: 'Road geometry redesign and pedestrian crossing upgrade at Lalbagh West Gate.', source: 'BBMP Traffic Engineering / DULT', date: '2026-01-25', type: 'INFRASTRUCTURE', lat: 12.9490, lng: 77.5720, isActive: true, projectDetails: { ...generateProjectDetails('blr_ji2', 'Lalbagh West Gate Junction'), status: 'PLANNED' } },
+
+  // Lake Rejuvenation
+  { id: 'blr_lk1', wardCode: 'BELLANDUR', wardName: 'Bellandur', title: 'Bellandur Lake Rejuvenation – Phase 2', summary: 'Deweeding, desilting, and sewage diversion for Bellandur Lake. Part of BBMP/BDA lake restoration program.', source: 'BBMP Lakes Division / BDA (Ref: BDA/LAKE/BLR/2025/003)', date: '2025-10-01', type: 'INFRASTRUCTURE', lat: 12.9300, lng: 77.6700, isActive: true, projectDetails: { ...generateProjectDetails('blr_lk1', 'Bellandur Lake Rejuvenation'), budget: '₹85 Cr', status: 'WORKS_ONGOING' } },
+  { id: 'blr_lk2', wardCode: 'HEBBAL', wardName: 'Hebbal', title: 'Hebbal Lake Boundary Wall & Walking Track', summary: 'Construction of boundary wall and walking track around Hebbal Lake.', source: 'BBMP Lakes / Forest Dept (Public Notice)', date: '2026-01-10', type: 'INFRASTRUCTURE', lat: 13.0370, lng: 77.5950, isActive: true, projectDetails: { ...generateProjectDetails('blr_lk2', 'Hebbal Lake Walking Track'), status: 'FUNDED' } },
+  { id: 'blr_lk3', wardCode: 'VARTHUR', wardName: 'Varthur', title: 'Varthur Lake STP Commissioning', summary: 'Commissioning of 90 MLD Sewage Treatment Plant to prevent untreated sewage inflow into Varthur Lake.', source: 'BWSSB / BBMP Lakes (Project Ref: BWSSB/STP/2024/VR-01)', date: '2025-09-15', type: 'SERVICE', lat: 12.9420, lng: 77.7380, isActive: true, projectDetails: { ...generateProjectDetails('blr_lk3', 'Varthur Lake STP'), status: 'COMPLETED' } },
+
+  // Streetlight Replacement
+  { id: 'blr_sl1', wardCode: 'MALLESHWARAM', wardName: 'Malleshwaram', title: 'LED Streetlight Replacement – Sampige Road', summary: 'Replacement of 240 sodium vapour lights with LED on Sampige Road and Margosa Road.', source: 'BBMP Electrical Division – North Zone (Tender: BBMP/EL/NZ/2025/007)', date: '2026-01-05', type: 'INFRASTRUCTURE', lat: 13.0030, lng: 77.5690, isActive: true, projectDetails: { ...generateProjectDetails('blr_sl1', 'LED Streetlight – Sampige Road'), status: 'COMPLETED' } },
+  { id: 'blr_sl2', wardCode: 'ELECTRONIC_CITY', wardName: 'Electronic City', title: 'Smart Streetlight Installation – Electronic City Phase 1', summary: 'Installation of IoT-enabled smart streetlights with dimming and fault-detection on Hosur Road stretch.', source: 'BBMP Smart City / BESCOM (Ref: BSCC/SL/EC/2025/002)', date: '2026-02-20', type: 'INFRASTRUCTURE', lat: 12.8460, lng: 77.6610, isActive: true, projectDetails: generateProjectDetails('blr_sl2', 'Smart Streetlights – E-City') },
+
+  // SWM Processing Facility
+  { id: 'blr_swm1', wardCode: 'DASARAHALLI', wardName: 'Dasarahalli', title: 'Dry Waste Collection Centre Upgrade – Peenya', summary: 'Upgradation of DWCC at Peenya with mechanised sorting and increased capacity.', source: 'BBMP SWM Division (Public Tender: BBMP/SWM/DZ/2025/011)', date: '2026-01-20', type: 'SERVICE', lat: 13.0310, lng: 77.5120, isActive: true, projectDetails: generateProjectDetails('blr_swm1', 'DWCC Upgrade – Peenya') },
+  { id: 'blr_swm2', wardCode: 'BOMMANAHALLI', wardName: 'Bommanahalli', title: 'Micro-Composting Centre – Hongasandra', summary: 'New 5-TPD micro-composting unit for wet waste processing serving 4 wards.', source: 'BBMP SWM / IEC Cell (Ref: BBMP/SWM/BN/2025/004)', date: '2025-12-01', type: 'SERVICE', lat: 12.8980, lng: 77.6300, isActive: true, projectDetails: { ...generateProjectDetails('blr_swm2', 'Composting Centre – Hongasandra'), status: 'COMPLETED' } },
+
+  // Footpath Improvements
+  { id: 'blr_fp1', wardCode: 'RAJAJINAGAR', wardName: 'Rajajinagar', title: 'Footpath Reconstruction – Dr. Rajkumar Road', summary: 'Reconstruction of footpaths with tactile paving and ramp access on Dr. Rajkumar Road.', source: 'BBMP Public Works – West Zone (Tender: BBMP/WZ/FP/2025/006)', date: '2026-02-05', type: 'INFRASTRUCTURE', lat: 12.9910, lng: 77.5540, isActive: true, projectDetails: generateProjectDetails('blr_fp1', 'Footpath – Dr. Rajkumar Road') },
+  { id: 'blr_fp2', wardCode: 'ULSOOR', wardName: 'Ulsoor', title: 'Pedestrian Pathway – MG Road to Ulsoor Lake', summary: 'Widened pedestrian pathway with heritage-style bollards connecting MG Road to Ulsoor Lake.', source: 'BBMP / DULT Walkability Project', date: '2026-03-01', type: 'INFRASTRUCTURE', lat: 12.9790, lng: 77.6180, isActive: true, projectDetails: { ...generateProjectDetails('blr_fp2', 'Pedestrian Pathway – MG Road'), status: 'PLANNED' } },
+
+  // Metro-related Road Restoration
+  { id: 'blr_mr1', wardCode: 'WHITEFIELD', wardName: 'Whitefield', title: 'Road Restoration Post Metro Phase 2 – Whitefield', summary: 'Restoration of roads damaged during Namma Metro Phase 2 construction at Whitefield.', source: 'BMRCL / BBMP Coordination Cell (Ref: BMRCL/REST/WF/2025)', date: '2026-01-10', type: 'INFRASTRUCTURE', lat: 12.9700, lng: 77.7490, isActive: true, projectDetails: generateProjectDetails('blr_mr1', 'Metro Road Restoration – Whitefield') },
+  { id: 'blr_mr2', wardCode: 'VIJAYANAGAR', wardName: 'Vijayanagar', title: 'Utility Shifting & Road Repair – Mysore Road Metro', summary: 'Post-metro utility shifting and road repair on Mysore Road corridor near RV College.', source: 'BMRCL / BBMP / BESCOM / BWSSB joint notice', date: '2025-11-01', type: 'INFRASTRUCTURE', lat: 12.9580, lng: 77.5350, isActive: true, projectDetails: { ...generateProjectDetails('blr_mr2', 'Metro Utility Shifting – Mysore Road'), status: 'WORKS_ONGOING' } },
+
+  // Water Supply / BWSSB
+  { id: 'blr_ws1', wardCode: 'JP_NAGAR', wardName: 'JP Nagar', title: 'Cauvery Water Pipeline Extension – JP Nagar 6th Phase', summary: 'Extension of Cauvery Stage V pipeline to serve JP Nagar 6th Phase and Sarakki.', source: 'BWSSB (Tender Ref: BWSSB/CV5/JPN/2025/002)', date: '2026-02-01', type: 'SERVICE', lat: 12.9050, lng: 77.5850, isActive: true, projectDetails: generateProjectDetails('blr_ws1', 'Cauvery Pipeline – JP Nagar') },
+  { id: 'blr_ws2', wardCode: 'THANISANDRA', wardName: 'Thanisandra', title: 'Borewell Rejuvenation & Water ATM – Thanisandra', summary: 'Rejuvenation of 15 borewells and installation of 5 water ATMs in Thanisandra ward.', source: 'BWSSB / BBMP (Public Notice)', date: '2026-01-25', type: 'SERVICE', lat: 13.0580, lng: 77.6310, isActive: true, projectDetails: { ...generateProjectDetails('blr_ws2', 'Borewell Rejuvenation – Thanisandra'), status: 'PROCUREMENT' } },
+
+  // Traffic / CCTV
+  { id: 'blr_tc1', wardCode: 'SADASHIVANAGAR', wardName: 'Sadashivanagar', title: 'ANPR Camera Installation – Palace Road', summary: 'Installation of Automatic Number Plate Recognition cameras at 8 junctions on Palace Road.', source: 'Bengaluru Traffic Police / Smart City (Ref: BTP/ANPR/2025/006)', date: '2026-02-20', type: 'NOTICE', lat: 13.0080, lng: 77.5810, isActive: true, projectDetails: generateProjectDetails('blr_tc1', 'ANPR Cameras – Palace Road') },
+
+  // Community Events
+  { id: 'blr_ev1', wardCode: 'BASAVANAGUDI', wardName: 'Basavanagudi', title: 'Ward Sabha – South Zone', summary: 'Quarterly Ward Sabha for citizens of Basavanagudi, Jayanagar, and Hanumanthanagar wards.', source: 'BBMP Ward Committee / Corporator Office', date: '2026-03-10', type: 'EVENT', lat: 12.9440, lng: 77.5740, isActive: true },
+  { id: 'blr_ev2', wardCode: 'KORAMANGALA', wardName: 'Koramangala', title: 'Swachh Bengaluru Clean-up Drive', summary: 'Community cleanup drive at Koramangala 8th Block. Bring gloves; BBMP will provide waste bags.', source: 'BBMP SWM / RWA Koramangala', date: '2026-03-15', type: 'COMMUNITY', lat: 12.9340, lng: 77.6260, isActive: true },
+
+  // Service Notices
+  { id: 'blr_sn1', wardCode: 'INDIRANAGAR', wardName: 'Indiranagar', title: 'Scheduled Water Supply Disruption – HAL Areas', summary: 'BWSSB scheduled maintenance on Cauvery pipeline. Indiranagar, HAL areas affected Wed 6 AM–6 PM.', source: 'BWSSB Public Notice', date: '2026-03-05', type: 'NOTICE', lat: 12.9770, lng: 77.6420, isActive: true },
+  { id: 'blr_sn2', wardCode: 'MALLESHWARAM', wardName: 'Malleshwaram', title: 'BESCOM Transformer Maintenance – Malleshwaram 18th Cross', summary: 'BESCOM scheduled transformer maintenance. Power outage expected 10 AM–4 PM Thursday.', source: 'BESCOM / BBMP Coordination', date: '2026-03-08', type: 'SERVICE', lat: 13.0020, lng: 77.5710, isActive: true },
+
+  // Emergency
+  { id: 'blr_em1', wardCode: 'BELLANDUR', wardName: 'Bellandur', title: 'Waterlogging Alert – ORR Near Bellandur', summary: 'Heavy rain advisory: Expect waterlogging on Outer Ring Road near Bellandur Gate. Avoid area if possible.', source: 'BBMP Disaster Management Cell', date: '2026-03-01', type: 'EMERGENCY', lat: 12.9280, lng: 77.6720, isActive: true },
+
+  // Additional projects to reach 30+
+  { id: 'blr_r4', wardCode: 'YELAHANKA', wardName: 'Yelahanka', title: 'Pothole Filling – Yelahanka New Town Main Road', summary: 'Emergency pothole filling and patch repair on Yelahanka-Doddaballapur Road.', source: 'BBMP Roads – Yelahanka Zone (Work Order)', date: '2026-02-25', type: 'INFRASTRUCTURE', lat: 13.1010, lng: 77.5950, isActive: true, projectDetails: { ...generateProjectDetails('blr_r4', 'Pothole Filling – Yelahanka'), status: 'WORKS_ONGOING' } },
+  { id: 'blr_fp3', wardCode: 'BANASHANKARI', wardName: 'Banashankari', title: 'Footpath Widening – Banashankari 2nd Stage', summary: 'Footpath widening and accessible ramp construction on Banashankari main road.', source: 'BBMP Public Works – South Zone', date: '2026-02-10', type: 'INFRASTRUCTURE', lat: 12.9260, lng: 77.5480, isActive: true, projectDetails: generateProjectDetails('blr_fp3', 'Footpath Widening – Banashankari') },
+  { id: 'blr_sl3', wardCode: 'RT_NAGAR', wardName: 'RT Nagar', title: 'Solar Streetlights – HBR Layout', summary: 'Installation of 180 solar LED streetlights in HBR Layout and surrounding areas.', source: 'BBMP Electrical / KREDL (Tender Ref: BBMP/EL/NZ/2025/014)', date: '2026-01-15', type: 'INFRASTRUCTURE', lat: 13.0210, lng: 77.5960, isActive: true, projectDetails: { ...generateProjectDetails('blr_sl3', 'Solar Streetlights – HBR Layout'), status: 'WORKS_ONGOING' } },
+  { id: 'blr_sd4', wardCode: 'HAGADUR', wardName: 'Hagadur', title: 'Stormwater Drain Construction – Hoodi', summary: 'Construction of new secondary SWD from Hoodi Circle to Whitefield railway underpass.', source: 'BBMP SWD – Mahadevapura Zone', date: '2026-02-15', type: 'INFRASTRUCTURE', lat: 12.9810, lng: 77.7190, isActive: true, projectDetails: generateProjectDetails('blr_sd4', 'SWD Construction – Hoodi') },
 ];
 
-// Original mock happenings data for Nairobi
-const mockHappenings: Happening[] = [
-  {
-    id: 'nairobi_001',
-    wardCode: 'nairobi_central',
-    wardName: 'Nairobi Central',
-    title: 'Road repair on Kenyatta Avenue',
-    summary: 'Repairs ongoing near KICC. Expect traffic diversions until Friday. Please use alternative routes.',
-    source: 'Nairobi County Roads Department',
-    date: '2025-12-01',
-    endDate: '2025-12-08',
-    type: 'INFRASTRUCTURE',
-    lat: -1.2864,
-    lng: 36.8172,
-    isActive: true,
-  },
-  {
-    id: 'nairobi_002',
-    wardCode: 'westlands',
-    wardName: 'Westlands',
-    title: 'Community cleanup drive this Saturday',
-    summary: 'Join the community clean-up starting at 9 AM at Westlands Park. Gloves and bags will be provided.',
-    source: 'Nairobi County Environment',
-    date: '2025-12-07',
-    type: 'EVENT',
-    lat: -1.2673,
-    lng: 36.8058,
-    isActive: true,
-  },
-  {
-    id: 'nairobi_003',
-    wardCode: 'kilimani',
-    wardName: 'Kilimani',
-    title: 'Water supply maintenance',
-    summary: 'Scheduled maintenance on Wednesday 8 AM - 4 PM. Kilimani and Hurlingham areas affected. Please store water.',
-    source: 'Nairobi Water Company',
-    date: '2025-12-04',
-    type: 'NOTICE',
-    lat: -1.2892,
-    lng: 36.7865,
-    isActive: true,
-  },
-  {
-    id: 'nairobi_004',
-    wardCode: 'kasarani',
-    wardName: 'Kasarani',
-    title: 'New streetlights installation',
-    summary: 'Solar-powered LED streetlights being installed along Thika Road service lane. Work continues for 2 weeks.',
-    source: 'Nairobi County Energy',
-    date: '2025-11-28',
-    endDate: '2025-12-12',
-    type: 'INFRASTRUCTURE',
-    lat: -1.2208,
-    lng: 36.8956,
-    isActive: true,
-  },
-  {
-    id: 'nairobi_005',
-    wardCode: 'langata',
-    wardName: "Lang'ata",
-    title: 'Free health screening camp',
-    summary: 'Free blood pressure, diabetes, and HIV screening at Lang\'ata Health Center. All residents welcome. Bring ID.',
-    source: 'Nairobi County Health',
-    date: '2025-12-10',
-    type: 'EVENT',
-    lat: -1.3550,
-    lng: 36.7600,
-    isActive: true,
-  },
-  {
-    id: 'nairobi_006',
-    wardCode: 'embakasi_central',
-    wardName: 'Embakasi Central',
-    title: 'Garbage collection schedule change',
-    summary: 'Garbage collection in Embakasi Central moved to Monday and Thursday. Please have bins ready by 6 AM.',
-    source: 'Nairobi County Environment',
-    date: '2025-12-02',
-    type: 'SERVICE',
-    lat: -1.3100,
-    lng: 36.8900,
-    isActive: true,
-  },
-  {
-    id: 'nairobi_007',
-    wardCode: 'starehe',
-    wardName: 'Starehe',
-    title: 'Huduma Centre extended hours',
-    summary: 'GPO Huduma Centre will operate until 6 PM (instead of 4 PM) this week for ID and certificate collection.',
-    source: 'Huduma Kenya',
-    date: '2025-12-02',
-    endDate: '2025-12-06',
-    type: 'SERVICE',
-    lat: -1.2833,
-    lng: 36.8333,
-    link: 'https://hudumakenya.go.ke',
-    isActive: true,
-  },
-];
+// Combine all
+const allHappenings: Happening[] = [...projectsAsHappenings];
 
-// Combine all happenings
-const allHappenings: Happening[] = [...projectsAsHappenings, ...mockHappenings];
-
-// Calculate distance between two coordinates (in km)
+// Distance helper
 function getDistance(lat1: number, lng1: number, lat2: number, lng2: number): number {
   const R = 6371;
   const dLat = (lat2 - lat1) * Math.PI / 180;
   const dLng = (lng2 - lng1) * Math.PI / 180;
-  const a = 
+  const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
     Math.sin(dLng / 2) * Math.sin(dLng / 2);
@@ -423,7 +178,7 @@ function getDistance(lat1: number, lng1: number, lat2: number, lng2: number): nu
 export function findWardByCoords(lat: number, lng: number): { code: string; name: string } | null {
   let nearestWard = null;
   let minDistance = Infinity;
-  
+
   for (const ward of WARDS) {
     const distance = getDistance(lat, lng, ward.center.lat, ward.center.lng);
     if (distance < minDistance) {
@@ -431,25 +186,27 @@ export function findWardByCoords(lat: number, lng: number): { code: string; name
       nearestWard = { code: ward.code, name: ward.name };
     }
   }
-  
+
   return nearestWard;
 }
 
-// Mock reverse geocoding for nearby landmarks
+// Mock reverse geocoding for nearby landmarks (Bengaluru)
 export async function getNearbyLandmarks(lat: number, lng: number): Promise<string[]> {
   await new Promise(resolve => setTimeout(resolve, 300));
-  
+
   const landmarks = [
-    'Near KICC',
-    'Close to Kenyatta Avenue',
-    'Near Uhuru Park',
-    'Close to City Market',
-    'Near GPO',
-    'Westlands area',
-    'Near Sarit Centre',
-    'Close to Junction Mall',
+    'Near Vidhana Soudha',
+    'Close to MG Road Metro Station',
+    'Near Cubbon Park',
+    'Close to Lalbagh Botanical Garden',
+    'Near Forum Mall, Koramangala',
+    'Close to Mantri Mall',
+    'Near ISRO Layout',
+    'Close to Silk Board Junction',
+    'Near Majestic Bus Stand',
+    'Close to Bangalore Palace',
   ];
-  
+
   const shuffled = landmarks.sort(() => 0.5 - Math.random());
   return shuffled.slice(0, Math.random() > 0.5 ? 2 : 1);
 }
@@ -465,31 +222,28 @@ export const happeningsApi = {
     type?: string;
   }): Promise<Happening[]> {
     await delay(400);
-    
+
     let result = [...allHappenings].filter(h => h.isActive);
-    
-    // If we have lat/lng, prioritize proximity over ward filtering
+
     if (filters?.lat && filters?.lng) {
-      const radius = filters.radiusKm || 5;
+      const radius = filters.radiusKm || 10;
       result = result.filter(h => {
         const distance = getDistance(filters.lat!, filters.lng!, h.lat, h.lng);
         return distance <= radius;
       });
-      
       result.sort((a, b) => {
         const distA = getDistance(filters.lat!, filters.lng!, a.lat, a.lng);
         const distB = getDistance(filters.lat!, filters.lng!, b.lat, b.lng);
         return distA - distB;
       });
     } else if (filters?.wardCode) {
-      // Only filter by ward if no coordinates provided
       result = result.filter(h => h.wardCode === filters.wardCode);
     }
-    
+
     if (filters?.type) {
       result = result.filter(h => h.type === filters.type);
     }
-    
+
     return result;
   },
 

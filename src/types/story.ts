@@ -1,6 +1,6 @@
 // DIGIT PGR-ready data structures for Citizen Engagement
 
-export type IssueCategory = 'roads' | 'water' | 'waste' | 'streetlights' | 'noise' | 'other';
+export type IssueCategory = 'roads' | 'water' | 'waste' | 'streetlights' | 'encroachment' | 'traffic' | 'construction' | 'safety' | 'other';
 export type StoryCategory = 'complaint' | 'idea' | 'appreciation';
 export type TicketStatus = 'new' | 'assigned' | 'in_progress' | 'resolved' | 'escalated';
 export type TicketPriority = 'LOW' | 'MEDIUM' | 'HIGH' | 'URGENT';
@@ -122,7 +122,10 @@ export const CATEGORY_TO_DEPARTMENT: Record<IssueCategory, Department> = {
   water: 'Water and Sewerage',
   waste: 'Environment',
   streetlights: 'Mobility and ICT Infrastructure',
-  noise: 'Public Health',
+  encroachment: 'Works',
+  traffic: 'Mobility and ICT Infrastructure',
+  construction: 'Works',
+  safety: 'Public Health',
   other: 'To be assigned',
 };
 
@@ -164,27 +167,30 @@ export interface Ward {
 
 // City wards (sample data — replace with real MDMS ward data)
 export const WARDS: Ward[] = [
-  { code: 'ward_01', name: 'Ward 1', subcounty: 'Zone A', center: { lat: 28.6139, lng: 77.2090 } },
-  { code: 'ward_02', name: 'Ward 2', subcounty: 'Zone A', center: { lat: 28.6200, lng: 77.2150 } },
-  { code: 'ward_03', name: 'Ward 3', subcounty: 'Zone B', center: { lat: 28.6300, lng: 77.2200 } },
-  { code: 'ward_04', name: 'Ward 4', subcounty: 'Zone B', center: { lat: 28.6350, lng: 77.2100 } },
-  { code: 'ward_05', name: 'Ward 5', subcounty: 'Zone C', center: { lat: 28.6400, lng: 77.2300 } },
-  { code: 'ward_06', name: 'Ward 6', subcounty: 'Zone C', center: { lat: 28.6450, lng: 77.2250 } },
-  { code: 'ward_07', name: 'Ward 7', subcounty: 'Zone D', center: { lat: 28.6500, lng: 77.2100 } },
-  { code: 'ward_08', name: 'Ward 8', subcounty: 'Zone D', center: { lat: 28.6550, lng: 77.2050 } },
-  { code: 'ward_09', name: 'Ward 9', subcounty: 'Zone E', center: { lat: 28.6600, lng: 77.2180 } },
-  { code: 'ward_10', name: 'Ward 10', subcounty: 'Zone E', center: { lat: 28.6650, lng: 77.2120 } },
-  { code: 'ward_11', name: 'Ward 11', subcounty: 'Zone F', center: { lat: 28.6700, lng: 77.2200 } },
-  { code: 'ward_12', name: 'Ward 12', subcounty: 'Zone F', center: { lat: 28.6750, lng: 77.2280 } },
-  { code: 'central', name: 'Central', subcounty: 'Zone A', center: { lat: 28.6139, lng: 77.2090 } },
+  { code: 'JAYANAGAR', name: 'Jayanagar', subcounty: 'South Zone', center: { lat: 12.9250, lng: 77.5938 } },
+  { code: 'KORAMANGALA', name: 'Koramangala', subcounty: 'Bommanahalli Zone', center: { lat: 12.9352, lng: 77.6245 } },
+  { code: 'INDIRANAGAR', name: 'Indiranagar', subcounty: 'East Zone', center: { lat: 12.9784, lng: 77.6408 } },
+  { code: 'MALLESHWARAM', name: 'Malleshwaram', subcounty: 'North Zone', center: { lat: 13.0035, lng: 77.5700 } },
+  { code: 'WHITEFIELD', name: 'Whitefield', subcounty: 'Mahadevapura Zone', center: { lat: 12.9698, lng: 77.7500 } },
+  { code: 'HSR_LAYOUT', name: 'HSR Layout', subcounty: 'Bommanahalli Zone', center: { lat: 12.9116, lng: 77.6389 } },
+  { code: 'BTM_LAYOUT', name: 'BTM Layout', subcounty: 'South Zone', center: { lat: 12.9166, lng: 77.6101 } },
+  { code: 'RAJAJINAGAR', name: 'Rajajinagar', subcounty: 'West Zone', center: { lat: 12.9900, lng: 77.5550 } },
+  { code: 'HEBBAL', name: 'Hebbal', subcounty: 'North Zone', center: { lat: 13.0358, lng: 77.5970 } },
+  { code: 'YELAHANKA', name: 'Yelahanka', subcounty: 'Yelahanka Zone', center: { lat: 13.1007, lng: 77.5963 } },
+  { code: 'BASAVANAGUDI', name: 'Basavanagudi', subcounty: 'South Zone', center: { lat: 12.9432, lng: 77.5730 } },
+  { code: 'MARATHAHALLI', name: 'Marathahalli', subcounty: 'Mahadevapura Zone', center: { lat: 12.9591, lng: 77.7009 } },
+  { code: 'SHIVAJINAGAR', name: 'Shivajinagar', subcounty: 'East Zone', center: { lat: 12.9850, lng: 77.6050 } },
 ];
 
 export const ISSUE_CATEGORIES: { code: IssueCategory; label: string; description: string; serviceCode: string }[] = [
-  { code: 'roads', label: 'Roads & Potholes', description: 'Potholes, road damage, traffic issues', serviceCode: 'ROAD_MAINTENANCE' },
-  { code: 'water', label: 'Water & Sewage', description: 'Leaks, blockages, water supply', serviceCode: 'WATER_SUPPLY' },
-  { code: 'waste', label: 'Waste & Garbage', description: 'Garbage collection, dumping', serviceCode: 'WASTE_MANAGEMENT' },
-  { code: 'streetlights', label: 'Streetlights', description: 'Broken or missing lights', serviceCode: 'STREET_LIGHTING' },
-  { code: 'noise', label: 'Noise & Pollution', description: 'Noise complaints, air quality', serviceCode: 'ENVIRONMENTAL' },
+  { code: 'roads', label: 'Potholes / Road Damage', description: 'Potholes, road damage, footpath issues', serviceCode: 'ROAD_MAINTENANCE' },
+  { code: 'waste', label: 'Garbage / Solid Waste', description: 'Garbage not collected, illegal dumping', serviceCode: 'WASTE_MANAGEMENT' },
+  { code: 'streetlights', label: 'Streetlights', description: 'Broken, flickering, or missing lights', serviceCode: 'STREET_LIGHTING' },
+  { code: 'water', label: 'Water / Sewerage / Drainage', description: 'Leaks, blockages, Cauvery supply', serviceCode: 'WATER_SUPPLY' },
+  { code: 'encroachment', label: 'Encroachment', description: 'Footpath or public land encroachment', serviceCode: 'ENCROACHMENT' },
+  { code: 'traffic', label: 'Traffic Signal / Signage', description: 'Faulty signals, missing signs', serviceCode: 'TRAFFIC' },
+  { code: 'construction', label: 'Construction Nuisance', description: 'Debris, dust, illegal construction', serviceCode: 'CONSTRUCTION' },
+  { code: 'safety', label: 'Public Safety', description: 'CCTV, dark spots, unsafe areas', serviceCode: 'SAFETY' },
   { code: 'other', label: 'Other Issues', description: 'Other service requests', serviceCode: 'GENERAL' },
 ];
 
@@ -196,7 +202,7 @@ export const CATEGORY_LABELS: Record<StoryCategory, string> = {
 
 export const CATEGORY_DESCRIPTIONS: Record<StoryCategory, string> = {
   complaint: 'Something that needs fixing or attention',
-  idea: 'A suggestion to improve our county',
+  idea: 'A suggestion to improve our city',
   appreciation: 'Something good that happened',
 };
 

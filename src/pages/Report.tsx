@@ -442,7 +442,7 @@ const Report = () => {
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder="e.g., Large pothole on Kenyatta Avenue"
+                placeholder="e.g., Large pothole on MG Road near Trinity Circle"
                 className="w-full px-4 py-3 rounded-lg border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
                 maxLength={100}
               />

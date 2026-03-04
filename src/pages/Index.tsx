@@ -5,7 +5,7 @@ import {
   Settings2, GraduationCap, BarChart3, ClipboardList, FileText, Building
 } from 'lucide-react';
 import { AppLayout } from '@/components/layout/AppLayout';
-import { CityMap } from '@/components/map/NairobiMap';
+import { CityMap } from '@/components/map/CityMap';
 import { HappeningsFeed } from '@/components/happenings/HappeningsFeed';
 import { ActiveSurveys } from '@/components/surveys/ActiveSurveys';
 import { findWardByCoords } from '@/lib/happeningsApi';

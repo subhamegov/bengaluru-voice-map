@@ -8,7 +8,7 @@ import {
   FilePen, UserCheck, Wrench, HelpCircle, CheckCircle2, AlertTriangle, Lock, LockOpen,
   Construction, Calendar, Megaphone, Landmark, AlertOctagon, Handshake,
   FileWarning, MessageSquare, Star, CircleDot,
-  Banknote, TreePine, Mic,
+  Banknote, TreePine, Mic, TrafficCone, Shield, Building,
   type LucideIcon,
 } from 'lucide-react';
 import type { IssueCategory, WorkflowAction } from '@/types/story';
@@ -21,7 +21,10 @@ export const ISSUE_CATEGORY_ICONS: Record<IssueCategory, LucideIcon> = {
   water: Droplets,
   waste: Trash2,
   streetlights: Lightbulb,
-  noise: Volume2,
+  encroachment: Building,
+  traffic: TrafficCone,
+  construction: Construction,
+  safety: Shield,
   other: ClipboardList,
 };
 

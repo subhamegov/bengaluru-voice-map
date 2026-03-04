@@ -263,24 +263,15 @@ export function getStatusByBoundary(dimension: 'ward' | 'department'): StatusByB
 
 // Sub-counties for filter
 export const SUB_COUNTIES = [
-  { value: 'all', label: 'All Nairobi' },
-  { value: 'westlands', label: 'Westlands' },
-  { value: 'dagoretti-north', label: 'Dagoretti North' },
-  { value: 'dagoretti-south', label: 'Dagoretti South' },
-  { value: 'langata', label: 'Lang\'ata' },
-  { value: 'kibra', label: 'Kibra' },
-  { value: 'roysambu', label: 'Roysambu' },
-  { value: 'kasarani', label: 'Kasarani' },
-  { value: 'ruaraka', label: 'Ruaraka' },
-  { value: 'embakasi-south', label: 'Embakasi South' },
-  { value: 'embakasi-north', label: 'Embakasi North' },
-  { value: 'embakasi-central', label: 'Embakasi Central' },
-  { value: 'embakasi-east', label: 'Embakasi East' },
-  { value: 'embakasi-west', label: 'Embakasi West' },
-  { value: 'makadara', label: 'Makadara' },
-  { value: 'kamukunji', label: 'Kamukunji' },
-  { value: 'starehe', label: 'Starehe' },
-  { value: 'mathare', label: 'Mathare' },
+  { value: 'all', label: 'All Bengaluru' },
+  { value: 'south', label: 'South Zone' },
+  { value: 'west', label: 'West Zone' },
+  { value: 'east', label: 'East Zone' },
+  { value: 'north', label: 'North Zone' },
+  { value: 'mahadevapura', label: 'Mahadevapura Zone' },
+  { value: 'bommanahalli', label: 'Bommanahalli Zone' },
+  { value: 'dasarahalli', label: 'Dasarahalli Zone' },
+  { value: 'yelahanka', label: 'Yelahanka Zone' },
 ];
 
 export const TIME_RANGES = [

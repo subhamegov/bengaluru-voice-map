@@ -49,7 +49,7 @@ export interface TrainingModule {
 export type ModuleStatus = 'not_started' | 'in_progress' | 'completed';
 
 // Storage keys
-const PROGRESS_KEY = 'ncc_training_progress';
+const PROGRESS_KEY = 'bbmp_training_progress';
 
 export interface QuizAttempt {
   answers: Record<string, number>; // questionId -> selectedIndex

@@ -157,7 +157,7 @@ export default function ResolverAboutCity() {
                 </div>
                 <Button className="gap-2" asChild>
                   <a
-                    href="https://nairobi.go.ke/wp-content/uploads/NCCG_Service_Charter_2025.pdf"
+                    href="https://bbmp.gov.in/service-charter"
                     target="_blank"
                     rel="noopener noreferrer"
                   >

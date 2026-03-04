@@ -13,15 +13,15 @@ import {
   Banknote, Landmark, TreePine, CircleDot
 } from 'lucide-react';
 import { EVENT_TYPE_ICONS, StatusDot } from '@/lib/iconMaps';
-import { NAIROBI_SUBCOUNTIES } from '@/lib/nairobiAdminData';
+import { BENGALURU_ZONES } from '@/lib/bengaluruAdminData';
 
 // Mock city metrics data
 const cityMetrics = {
-  population: '4.3 million',
-  activeProjects: 127,
-  subCounties: 17,
-  avgResponseTime: '2.8 days',
-  waterUptime: 96,
+  population: '1.3 crore',
+  activeProjects: 198,
+  subCounties: 8,
+  avgResponseTime: '3.2 days',
+  waterUptime: 92,
 };
 
 // Mock events data
@@ -31,7 +31,7 @@ const upcomingEvents = [
     title: 'Public Budget Hearing – FY 2025/26',
     date: '15 Dec 2024',
     time: '10:00 AM – 1:00 PM',
-    venue: 'Charter Hall, City Hall Way',
+    venue: 'BBMP Head Office, Hudson Circle',
     type: 'budget',
   },
   {
@@ -39,7 +39,7 @@ const upcomingEvents = [
     title: 'Ward Development Committee Meeting',
     date: '18 Dec 2024',
     time: '2:00 PM – 4:00 PM',
-    venue: 'Westlands Sub-County Office',
+    venue: 'Jayanagar Community Hall',
     type: 'meeting',
   },
   {
@@ -47,7 +47,7 @@ const upcomingEvents = [
     title: 'Environmental Clean-up Day',
     date: '21 Dec 2024',
     time: '7:00 AM – 12:00 PM',
-    venue: 'Uhuru Gardens, Lang\'ata',
+    venue: 'Cubbon Park, MG Road',
     type: 'event',
   },
   {
@@ -55,7 +55,7 @@ const upcomingEvents = [
     title: 'Public Participation Forum – Health Services',
     date: '28 Dec 2024',
     time: '9:00 AM – 12:00 PM',
-    venue: 'Pumwani Maternity Hospital',
+    venue: 'Bowring Hospital, Shivajinagar',
     type: 'forum',
   },
 ];
@@ -66,7 +66,7 @@ const serviceUpdates = [
     id: 1,
     category: 'Water Supply',
     status: 'partial',
-    message: 'Temporary outage in Upper Hill – restoration expected by 8 PM.',
+    message: 'Temporary outage in Koramangala – restoration expected by 8 PM.',
     icon: Droplets,
     lastUpdated: '2 hours ago',
   },
@@ -74,7 +74,7 @@ const serviceUpdates = [
     id: 2,
     category: 'Electricity',
     status: 'partial',
-    message: 'Scheduled transformer upgrade in Kilimani, 3–5 PM today.',
+    message: 'Scheduled transformer maintenance in Indiranagar, 3–5 PM today.',
     icon: Zap,
     lastUpdated: '4 hours ago',
   },
@@ -82,7 +82,7 @@ const serviceUpdates = [
     id: 3,
     category: 'Garbage Collection',
     status: 'outage',
-    message: 'Collection delays in Lang\'ata due to truck repairs. Expected resumption tomorrow.',
+    message: 'Collection delays in Mahadevapura Zone due to vehicle repairs. Expected resumption tomorrow.',
     icon: Trash2,
     lastUpdated: '1 hour ago',
   },
@@ -90,7 +90,7 @@ const serviceUpdates = [
     id: 4,
     category: 'Roads & Traffic',
     status: 'normal',
-    message: 'All major roads operational. Minor works on Ngong Road near Junction.',
+    message: 'All major roads operational. Minor works on Outer Ring Road near Silk Board.',
     icon: Building2,
     lastUpdated: '30 mins ago',
   },
@@ -100,27 +100,27 @@ const serviceUpdates = [
 const faqData = [
   {
     question: 'Where do I pay parking fees?',
-    answer: 'Parking fees can be paid via M-Pesa (Paybill 222000), at any City Hall cashier point, or through the Nairobi City County e-services portal. You can also use the JijiPay mobile app.',
+    answer: 'Property tax can be paid online at bbmptax.karnataka.gov.in, at BBMP zonal offices, or at designated bank branches. Use SAS (Self Assessment Scheme) for calculation.',
   },
   {
     question: 'How do I apply for a business permit?',
-    answer: 'Business permits can be applied for online through the Nairobi City County e-services portal. Visit https://eservices.nairobi.go.ke, create an account, and follow the Single Business Permit application process. Physical applications can be made at City Hall.',
+    answer: 'Trade licences can be applied for online at bbmp.gov.in/trade-licence. Create an account and follow the application process. Physical applications at BBMP zonal offices. Processing takes 3-5 working days.',
   },
   {
     question: 'Who collects garbage in my ward?',
-    answer: 'Garbage collection is managed by the Environment department in partnership with licensed private collectors. Contact your ward administrator or call 1553 to find out your specific collection schedule and service provider.',
+    answer: 'Garbage collection is managed by BBMP SWM Division through auto-tippers and marshals. Contact your ward health officer or call BBMP helpline 080-22660000 for your collection schedule.',
   },
   {
     question: 'How can I attend county meetings?',
-    answer: 'County Assembly sessions are open to the public. Check the County Assembly calendar for session dates. Public participation forums are advertised on the official website and local radio. You can also follow @NairobiAssembly on social media for updates.',
+    answer: 'BBMP council meetings are open to public. Ward Sabha meetings are held quarterly. Check bbmp.gov.in for schedules. Follow @ABORBBMP on social media for updates.',
   },
   {
     question: 'How do I report a water leak or burst pipe?',
-    answer: 'Report water leaks to Nairobi Water & Sewerage Company via their hotline 0800 723 372, or through this portal by selecting "Water" category when reporting an issue. Emergency leaks should be called in directly.',
+    answer: 'Report water leaks to BWSSB via their helpline 1916, or through this portal by selecting "Water" category. Emergency leaks should be called in directly to BWSSB control room.',
   },
   {
     question: 'Where can I get my land rates clearance certificate?',
-    answer: 'Land rates clearance certificates are issued at City Hall, Lands department (Ground Floor). Ensure your rates are fully paid before applying. Processing takes 3-5 working days.',
+    answer: 'Khata transfer and property documents are handled at the respective BBMP zonal office Revenue section. Ensure property tax is fully paid. Processing takes 15-30 working days.',
   },
 ];
 
@@ -139,7 +139,7 @@ export default function AboutMyCity() {
   const speakText = (text: string) => {
     if ('speechSynthesis' in window) {
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'en-KE';
+      utterance.lang = 'en-IN';
       utterance.rate = 0.9;
       window.speechSynthesis.speak(utterance);
     }
@@ -174,7 +174,7 @@ export default function AboutMyCity() {
                 <Button
                   variant="secondary"
                   size="sm"
-                  onClick={() => speakText('Nairobi at a Glance. Stay updated on city performance, services, and opportunities to participate.')}
+                  onClick={() => speakText('Bengaluru at a Glance. Stay updated on city performance, services, and opportunities to participate.')}
                   aria-label="Read aloud"
                 >
                   <Volume2 className="w-4 h-4 mr-1" />
@@ -192,7 +192,7 @@ export default function AboutMyCity() {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All Sub-Counties</SelectItem>
-                  {NAIROBI_SUBCOUNTIES.map((sc) => (
+                  {BENGALURU_ZONES.map((sc) => (
                     <SelectItem key={sc.name} value={sc.name}>{sc.name}</SelectItem>
                   ))}
                 </SelectContent>
@@ -213,7 +213,7 @@ export default function AboutMyCity() {
                 <CardContent className="p-4">
                   <Building2 className="w-6 h-6 mb-2 text-secondary" aria-hidden="true" />
                   <p className="text-2xl md:text-3xl font-bold">{cityMetrics.activeProjects}</p>
-                  <p className="text-xs md:text-sm text-primary-foreground/70">Active projects across {cityMetrics.subCounties} sub-counties</p>
+                  <p className="text-xs md:text-sm text-primary-foreground/70">Active projects across {cityMetrics.subCounties} zones</p>
                 </CardContent>
               </Card>
               
