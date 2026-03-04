@@ -123,11 +123,16 @@
   /* ── Buttons ── */
   .gov-btn-primary {
     @apply inline-flex items-center justify-center gap-2 px-6 py-3;
-    @apply bg-primary text-primary-foreground font-semibold rounded;
+    @apply font-semibold rounded;
     @apply transition-all duration-200;
-    @apply hover:bg-primary/90 hover:shadow-md;
-    @apply focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary;
+    @apply focus-visible:ring-2 focus-visible:ring-offset-2;
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
     min-height: var(--tap-target-min);
+  }
+  .gov-btn-primary:hover {
+    background-color: hsl(var(--primary) / 0.9);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
   }
 
   .gov-btn-secondary {
