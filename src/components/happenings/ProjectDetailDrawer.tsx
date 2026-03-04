@@ -97,7 +97,7 @@ export function ProjectDetailDrawer({ happening, open, onOpenChange }: ProjectDe
 
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
-      <DrawerContent className="max-h-[90vh]">
+      <DrawerContent className="max-h-[90vh] overflow-hidden flex flex-col">
         <DrawerHeader className="border-b border-border pb-4">
           <div className="flex items-start justify-between gap-4">
             <div className="flex-1">
@@ -152,7 +152,7 @@ export function ProjectDetailDrawer({ happening, open, onOpenChange }: ProjectDe
           </div>
         </DrawerHeader>
 
-        <ScrollArea className="flex-1 px-4 py-4">
+        <ScrollArea className="flex-1 overflow-y-auto px-4 py-4" style={{ maxHeight: 'calc(90vh - 140px)' }}>
           <div className="space-y-6 pb-6">
             {/* Engagement Summary */}
             {details?.engagement && (
