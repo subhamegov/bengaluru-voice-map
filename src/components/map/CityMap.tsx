@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react'
 import { MapContainer, TileLayer, Marker, Popup, Tooltip, useMapEvents, useMap, GeoJSON as GeoJSONLayer } from 'react-leaflet';
 import L from 'leaflet';
 import {
-  MapPin, Mic, MicOff, AlertCircle, Locate,
+  MapPin, Mic, MicOff, AlertCircle, Locate, Eye, EyeOff,
   Car, Droplets, Trash2, Zap, Lightbulb, Shield, Construction,
   LayoutGrid, Search, Filter, Layers, ChevronDown, ExternalLink
 } from 'lucide-react';
@@ -14,7 +14,7 @@ import { happeningsApi } from '@/lib/happeningsApi';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { fetchOSMWards, type WardFeatureCollection } from '@/services/osmWards';
-import { loadDefaultWardPref } from '@/services/wardPreferences';
+import { loadWardPref, type WardPref } from '@/services/wardPreferences';
 import 'leaflet/dist/leaflet.css';
 
 // Fix for default marker icons
@@ -228,14 +228,24 @@ export function CityMap({
   const [showFilters, setShowFilters] = useState(false);
   const [wardGeoJSON, setWardGeoJSON] = useState<WardFeatureCollection | null>(null);
   const [currentLocation, setCurrentLocation] = useState<{ lat: number; lng: number } | null>(null);
+  const [wardPref, setWardPref] = useState<WardPref>(() => loadWardPref());
+  const [showSavedPins, setShowSavedPins] = useState(true);
   const mapRef = useRef<L.Map | null>(null);
 
   // Resolve which ward to focus on
   const effectiveDefaultWardId = externalDefaultWardId !== undefined
     ? externalDefaultWardId
-    : loadDefaultWardPref().defaultWardId;
+    : wardPref.defaultWardId;
 
-  // Bengaluru center — Vidhana Soudha / MG Road area
+  // Reload ward prefs when map mounts (picks up changes from preferences modal)
+  useEffect(() => {
+    setWardPref(loadWardPref());
+  }, []);
+
+  // If >6 saved wards, hide pins by default
+  const tooManyPins = wardPref.selectedWardIds.length > 6;
+
+  // Bengaluru center
   const bengaluruCenter: [number, number] = [12.9716, 77.5946];
 
   useEffect(() => {
@@ -383,12 +393,72 @@ export function CityMap({
     return () => clearTimeout(t);
   }, []);
 
+  // Compute centroids for saved ward pins
+  const savedWardCentroids = useMemo(() => {
+    if (!wardGeoJSON) return [];
+    return wardPref.selectedWardIds.map(id => {
+      const feature = wardGeoJSON.features.find(f => f.properties.ward_id === id);
+      if (!feature) return null;
+      try {
+        const layer = L.geoJSON(feature);
+        const center = layer.getBounds().getCenter();
+        const name = feature.properties.ward_name;
+        return { id, name, lat: center.lat, lng: center.lng, isDefault: id === effectiveDefaultWardId };
+      } catch { return null; }
+    }).filter(Boolean) as { id: string; name: string; lat: number; lng: number; isDefault: boolean }[];
+  }, [wardGeoJSON, wardPref.selectedWardIds, effectiveDefaultWardId]);
+
+  // Pan to a ward
+  const panToWard = useCallback((wardId: string) => {
+    if (!mapRef.current || !wardGeoJSON) return;
+    const feature = wardGeoJSON.features.find(f => f.properties.ward_id === wardId);
+    if (feature) {
+      try {
+        const layer = L.geoJSON(feature);
+        const bounds = layer.getBounds();
+        if (bounds.isValid()) mapRef.current.fitBounds(bounds, { padding: [40, 40], maxZoom: 15 });
+      } catch {}
+    }
+  }, [wardGeoJSON]);
+
   return (
     <div className={className}>
       <div className="sr-only" id="map-description">
         Interactive map of Bengaluru. Tap to select a location, press Enter to mark the center, or say "Mark here."
         Civic project locations are shown as colored markers.
       </div>
+
+      {/* Saved localities bar */}
+      {savedWardCentroids.length > 0 && (
+        <div className="flex flex-wrap items-center gap-2 mb-3 text-xs">
+          {effectiveDefaultWardId && (
+            <button
+              onClick={() => panToWard(effectiveDefaultWardId)}
+              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary/10 text-primary font-medium hover:bg-primary/20 transition-colors"
+            >
+              <MapPin className="w-3 h-3" />
+              {wardPref.defaultWardName || 'Default ward'}
+            </button>
+          )}
+          {wardPref.selectedWardIds.length > 0 && (
+            <span className="text-muted-foreground">
+              Following:{' '}
+              {wardPref.selectedWardNames.slice(0, 2).map((name, i) => (
+                <button
+                  key={wardPref.selectedWardIds[i]}
+                  onClick={() => panToWard(wardPref.selectedWardIds[i])}
+                  className="text-foreground hover:text-primary underline-offset-2 hover:underline"
+                >
+                  {name}{i < Math.min(1, wardPref.selectedWardNames.length - 1) ? ', ' : ''}
+                </button>
+              ))}
+              {wardPref.selectedWardNames.length > 2 && (
+                <span className="text-muted-foreground"> (+{wardPref.selectedWardNames.length - 2})</span>
+              )}
+            </span>
+          )}
+        </div>
+      )}
 
       {/* Category Filter Pills */}
       <div className="flex flex-wrap gap-2 mb-3" role="group" aria-label="Map category filters">
@@ -493,7 +563,39 @@ export function CityMap({
             />
           )}
 
-          {/* User selected location */}
+          {/* Saved ward pins */}
+          {(!tooManyPins || showSavedPins) && savedWardCentroids.map(w => (
+            <Marker
+              key={`ward-pin-${w.id}`}
+              position={[w.lat, w.lng]}
+              icon={new L.DivIcon({
+                className: 'saved-ward-pin',
+                html: w.isDefault
+                  ? `<div class="you-are-here-wrapper"><div class="you-are-here-pulse"></div><div class="you-are-here-dot" style="background:hsl(var(--primary))"></div></div>`
+                  : `<div style="width:12px;height:12px;background:hsl(var(--primary));border:2px solid white;border-radius:50%;box-shadow:0 1px 4px rgba(0,0,0,0.3);"></div>`,
+                iconSize: w.isDefault ? [40, 40] : [12, 12],
+                iconAnchor: w.isDefault ? [20, 20] : [6, 6],
+              })}
+            >
+              <Tooltip direction="top" offset={[0, w.isDefault ? -14 : -6]} permanent={false}>
+                {w.name}{w.isDefault ? ' (Default)' : ''}
+              </Tooltip>
+            </Marker>
+          ))}
+
+          {/* Toggle for >6 saved wards */}
+          {tooManyPins && (
+            <div className="leaflet-top leaflet-left" style={{ pointerEvents: 'auto', marginTop: 10, marginLeft: 10 }}>
+              <button
+                type="button"
+                onClick={() => setShowSavedPins(p => !p)}
+                className="bg-card text-foreground text-xs px-2.5 py-1.5 rounded-lg shadow-md border border-border hover:bg-muted z-[1000]"
+              >
+                {showSavedPins ? <><EyeOff className="w-3 h-3 inline mr-1" />Hide</> : <><Eye className="w-3 h-3 inline mr-1" />Show</>} saved localities ({wardPref.selectedWardIds.length})
+              </button>
+            </div>
+          )}
+
           {selectedLocation && (
             <Marker position={[selectedLocation.lat, selectedLocation.lng]} icon={userMarkerIcon}>
               <Popup><strong>Your selected location</strong></Popup>

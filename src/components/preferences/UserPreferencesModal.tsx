@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { X, MapPin, Bell, Check, Search, Navigation } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -8,7 +8,7 @@ import { WARDS, ISSUE_CATEGORIES, IssueCategory } from '@/types/story';
 import { ISSUE_CATEGORY_ICONS } from '@/lib/iconMaps';
 import { toast } from 'sonner';
 import { fetchOSMWards, getWardList, type WardFeatureCollection } from '@/services/osmWards';
-import { loadDefaultWardPref, saveDefaultWardPref, type DefaultWardPref } from '@/services/wardPreferences';
+import { loadWardPref, saveWardPref, type WardPref } from '@/services/wardPreferences';
 
 export interface UserPreferences {
   subscribedWards: string[];
@@ -36,7 +36,6 @@ export const loadUserPreferences = (): UserPreferences => {
   } catch (e) {
     console.error('Failed to load preferences:', e);
   }
-  // Default: all topics selected
   return { subscribedWards: [], preferredTopics: ISSUE_CATEGORIES.map(c => c.code) };
 };
 
@@ -57,6 +56,8 @@ export const UserPreferencesModal: React.FC<UserPreferencesModalProps> = ({
   const [selectedTopics, setSelectedTopics] = useState<IssueCategory[]>([]);
   const [osmWards, setOsmWards] = useState<{ id: string; name: string }[]>([]);
   const [osmLoading, setOsmLoading] = useState(false);
+  // Multi-ward selection
+  const [selectedOsmWardIds, setSelectedOsmWardIds] = useState<string[]>([]);
   const [defaultWardId, setDefaultWardId] = useState<string | null>(null);
   const [defaultWardSearch, setDefaultWardSearch] = useState('');
 
@@ -65,9 +66,9 @@ export const UserPreferencesModal: React.FC<UserPreferencesModalProps> = ({
       const saved = loadUserPreferences();
       setSelectedWards(saved.subscribedWards);
       setSelectedTopics(saved.preferredTopics);
-      const wp = loadDefaultWardPref();
+      const wp = loadWardPref();
       setDefaultWardId(wp.defaultWardId);
-      // fetch OSM wards
+      setSelectedOsmWardIds(wp.selectedWardIds);
       setOsmLoading(true);
       fetchOSMWards().then(fc => {
         setOsmWards(getWardList(fc));
@@ -99,6 +100,26 @@ export const UserPreferencesModal: React.FC<UserPreferencesModalProps> = ({
     return () => document.removeEventListener('keydown', handler);
   }, [open, onOpenChange]);
 
+  const handleOsmWardToggle = (wardId: string) => {
+    setSelectedOsmWardIds(prev => {
+      if (prev.includes(wardId)) {
+        const next = prev.filter(id => id !== wardId);
+        // If removing the default ward, clear default
+        if (defaultWardId === wardId) setDefaultWardId(next[0] ?? null);
+        return next;
+      }
+      return [...prev, wardId];
+    });
+  };
+
+  const handleSetDefault = (wardId: string) => {
+    setDefaultWardId(wardId);
+    // Ensure it's also selected
+    if (!selectedOsmWardIds.includes(wardId)) {
+      setSelectedOsmWardIds(prev => [...prev, wardId]);
+    }
+  };
+
   const handleWardToggle = (wardCode: string) => {
     setSelectedWards(prev =>
       prev.includes(wardCode) ? prev.filter(w => w !== wardCode) : [...prev, wardCode]
@@ -125,15 +146,17 @@ export const UserPreferencesModal: React.FC<UserPreferencesModalProps> = ({
       preferredTopics: selectedTopics,
     };
     saveUserPreferences(preferences);
-    // Save default ward preference
-    const selectedOsmWard = osmWards.find(w => w.id === defaultWardId);
-    saveDefaultWardPref({
-      defaultWardId: defaultWardId,
-      defaultWardName: selectedOsmWard?.name ?? null,
-    });
+    // Save ward pref with multiple localities
+    const wardPref: WardPref = {
+      defaultWardId,
+      defaultWardName: osmWards.find(w => w.id === defaultWardId)?.name ?? null,
+      selectedWardIds: selectedOsmWardIds,
+      selectedWardNames: selectedOsmWardIds.map(id => osmWards.find(w => w.id === id)?.name ?? id),
+    };
+    saveWardPref(wardPref);
     onSave?.(preferences);
     toast.success('Preferences saved successfully', {
-      description: `Following ${selectedWards.length} ward(s) and ${selectedTopics.length} topic(s)`,
+      description: `Following ${selectedOsmWardIds.length} locality/ies and ${selectedTopics.length} topic(s)`,
     });
     onOpenChange(false);
   };
@@ -159,11 +182,7 @@ export const UserPreferencesModal: React.FC<UserPreferencesModalProps> = ({
       {/* Sheet */}
       <div
         className="fixed inset-x-0 bottom-0 mx-auto flex flex-col bg-white rounded-t-2xl shadow-xl"
-        style={{
-          zIndex: 9991,
-          maxWidth: 720,
-          maxHeight: '85vh',
-        }}
+        style={{ zIndex: 9991, maxWidth: 720, maxHeight: '85vh' }}
         role="dialog"
         aria-modal="true"
         aria-label="My Preferences"
@@ -196,19 +215,26 @@ export const UserPreferencesModal: React.FC<UserPreferencesModalProps> = ({
 
         {/* Scrollable Content */}
         <div className="flex-1 overflow-y-auto overscroll-contain px-6 py-6 space-y-8">
-          {/* Default Ward Selection (OSM) */}
+          {/* Saved Localities (OSM multi-select) */}
           <div>
             <div className="flex items-center gap-2 mb-2">
               <Navigation className="w-5 h-5 text-primary" />
-              <h3 className="text-foreground" style={{ fontSize: 20, fontWeight: 600, lineHeight: '28px' }}>Default Ward</h3>
+              <h3 className="text-foreground" style={{ fontSize: 20, fontWeight: 600, lineHeight: '28px' }}>My Localities</h3>
+              {selectedOsmWardIds.length > 0 && (
+                <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full">
+                  {selectedOsmWardIds.length} saved
+                </span>
+              )}
             </div>
-            <p className="text-xs text-muted-foreground mb-3">Used to focus the map by default</p>
+            <p className="text-xs text-muted-foreground mb-3">
+              Select wards to pin on the map. Mark one as your default ward to auto-focus.
+            </p>
 
             {osmLoading ? (
               <div className="p-4 text-sm text-muted-foreground">Loading ward boundaries…</div>
             ) : osmWards.length === 0 ? (
               <div className="p-4 text-sm text-muted-foreground bg-muted rounded-lg">
-                Ward boundaries are unavailable right now. You can still use other preferences.
+                Ward boundaries are unavailable right now.
               </div>
             ) : (
               <div>
@@ -221,36 +247,45 @@ export const UserPreferencesModal: React.FC<UserPreferencesModalProps> = ({
                     className="pl-9 h-9 text-sm"
                   />
                 </div>
-                <div className="max-h-[180px] overflow-y-auto border border-border rounded-lg">
-                  {/* Clear option */}
-                  <button
-                    type="button"
-                    onClick={() => setDefaultWardId(null)}
-                    className={`w-full text-left px-3 py-2 text-sm transition-colors ${
-                      defaultWardId === null ? 'bg-primary/10 text-primary font-medium' : 'hover:bg-muted'
-                    }`}
-                  >
-                    No default ward
-                  </button>
-                  {filteredOsmWards.map(w => (
-                    <button
-                      key={w.id}
-                      type="button"
-                      onClick={() => setDefaultWardId(w.id)}
-                      className={`w-full text-left px-3 py-2 text-sm transition-colors border-t border-border ${
-                        defaultWardId === w.id ? 'bg-primary/10 text-primary font-medium' : 'hover:bg-muted text-foreground'
-                      }`}
-                    >
-                      {w.name}
-                      {defaultWardId === w.id && <Check className="inline w-4 h-4 ml-2" />}
-                    </button>
-                  ))}
+                <div className="max-h-[220px] overflow-y-auto border border-border rounded-lg">
+                  {filteredOsmWards.map(w => {
+                    const isSelected = selectedOsmWardIds.includes(w.id);
+                    const isDefault = defaultWardId === w.id;
+                    return (
+                      <div
+                        key={w.id}
+                        className={`flex items-center gap-3 px-3 py-2 text-sm border-b border-border last:border-b-0 transition-colors ${
+                          isSelected ? 'bg-primary/5' : 'hover:bg-muted'
+                        }`}
+                      >
+                        <Checkbox
+                          checked={isSelected}
+                          onCheckedChange={() => handleOsmWardToggle(w.id)}
+                          className="data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+                        />
+                        <span className="flex-1 text-foreground">{w.name}</span>
+                        {isSelected && (
+                          <button
+                            type="button"
+                            onClick={() => handleSetDefault(w.id)}
+                            className={`text-xs px-2 py-0.5 rounded-full border transition-colors ${
+                              isDefault
+                                ? 'bg-primary text-primary-foreground border-primary'
+                                : 'border-border text-muted-foreground hover:border-primary hover:text-primary'
+                            }`}
+                          >
+                            {isDefault ? '★ Default' : 'Set default'}
+                          </button>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             )}
           </div>
 
-          {/* Ward Selection */}
+          {/* Ward Selection (existing sub-county wards) */}
           <div>
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
@@ -260,12 +295,7 @@ export const UserPreferencesModal: React.FC<UserPreferencesModalProps> = ({
                   {selectedWards.length} selected
                 </span>
               </div>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={handleSelectAllWards}
-                className="text-xs text-muted-foreground hover:text-primary"
-              >
+              <Button variant="ghost" size="sm" onClick={handleSelectAllWards} className="text-xs text-muted-foreground hover:text-primary">
                 {selectedWards.length === WARDS.length ? 'Clear all' : 'Select all'}
               </Button>
             </div>
@@ -310,12 +340,7 @@ export const UserPreferencesModal: React.FC<UserPreferencesModalProps> = ({
                   {selectedTopics.length} selected
                 </span>
               </div>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={handleSelectAllTopics}
-                className="text-xs text-muted-foreground hover:text-secondary"
-              >
+              <Button variant="ghost" size="sm" onClick={handleSelectAllTopics} className="text-xs text-muted-foreground hover:text-secondary">
                 {selectedTopics.length === TOPICS.length ? 'Clear all' : 'Select all'}
               </Button>
             </div>
@@ -352,17 +377,10 @@ export const UserPreferencesModal: React.FC<UserPreferencesModalProps> = ({
         {/* Sticky Footer */}
         <div className="px-6 py-4 border-t border-border bg-muted/30 shrink-0">
           <div className="flex gap-3">
-            <Button
-              variant="outline"
-              className="flex-1"
-              onClick={() => onOpenChange(false)}
-            >
+            <Button variant="outline" className="flex-1" onClick={() => onOpenChange(false)}>
               Cancel
             </Button>
-            <Button
-              className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground"
-              onClick={handleSave}
-            >
+            <Button className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground" onClick={handleSave}>
               Save Preferences
             </Button>
           </div>
