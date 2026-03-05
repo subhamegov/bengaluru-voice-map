@@ -585,7 +585,7 @@ export function CityMap({
         </button>
 
         {/* Results count */}
-        <div className="absolute top-3 left-3 z-[1000] bg-card/90 backdrop-blur-sm px-2.5 py-1 rounded-lg border border-border text-xs text-muted-foreground">
+        <div className="absolute top-3 right-3 z-[1000] bg-card/90 backdrop-blur-sm px-2.5 py-1 rounded-lg border border-border text-xs text-muted-foreground">
           {filteredHappenings.length} projects shown
         </div>
       </div>
