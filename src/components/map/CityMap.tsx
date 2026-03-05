@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents, useMap, GeoJSON as GeoJSONLayer, Circle } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, Tooltip, useMapEvents, useMap, GeoJSON as GeoJSONLayer } from 'react-leaflet';
 import L from 'leaflet';
 import {
   MapPin, Navigation, Mic, MicOff, AlertCircle, Locate,
@@ -536,26 +536,26 @@ export function CityMap({
             );
           })}
 
-          {/* Current location indicator */}
+          {/* "You are here" pulsing location indicator */}
           {currentLocation && (
-            <>
-              <Circle
-                center={[currentLocation.lat, currentLocation.lng]}
-                radius={80}
-                pathOptions={{ color: 'hsl(231, 48%, 48%)', fillColor: 'hsl(231, 48%, 48%)', fillOpacity: 0.25, weight: 2 }}
-              />
-              <Marker
-                position={[currentLocation.lat, currentLocation.lng]}
-                icon={new L.DivIcon({
-                  className: 'current-location-marker',
-                  html: `<div style="width:14px;height:14px;background:hsl(231,48%,48%);border:3px solid white;border-radius:50%;box-shadow:0 0 8px rgba(59,91,219,0.5);"></div>`,
-                  iconSize: [14, 14],
-                  iconAnchor: [7, 7],
-                })}
-              >
-                <Popup><strong>Your current location</strong></Popup>
-              </Marker>
-            </>
+            <Marker
+              position={[currentLocation.lat, currentLocation.lng]}
+              icon={new L.DivIcon({
+                className: 'you-are-here-marker',
+                html: `
+                  <div class="you-are-here-wrapper">
+                    <div class="you-are-here-pulse"></div>
+                    <div class="you-are-here-dot"></div>
+                  </div>
+                `,
+                iconSize: [40, 40],
+                iconAnchor: [20, 20],
+              })}
+            >
+              <Tooltip direction="top" offset={[0, -14]} permanent={false}>
+                You are here
+              </Tooltip>
+            </Marker>
           )}
         </MapContainer>
 
