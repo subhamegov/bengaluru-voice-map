@@ -1,9 +1,6 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useRef, useEffect, useCallback } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
-import { ThumbsUp, MessageSquare } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { useMapTiles } from '@/hooks/use-map-tiles';
 import { Proposal, getCategoryColor, getCategoryLabel } from '@/types/proposal';
 import 'leaflet/dist/leaflet.css';
@@ -14,8 +11,7 @@ interface Props {
   onSupport: (id: string) => void;
 }
 
-function createProposalIcon(color: string, isDefault: boolean) {
-  const size = isDefault ? 32 : 24;
+function createProposalIcon(color: string, size = 24) {
   return new L.DivIcon({
     className: 'proposal-marker',
     html: `<div style="
@@ -29,7 +25,58 @@ function createProposalIcon(color: string, isDefault: boolean) {
   });
 }
 
-export function ProposalMap({ proposals, onView, onSupport }: Props) {
+const STATUS_LABEL: Record<string, string> = {
+  draft: 'Draft', open: 'Open', under_review: 'Under Review', approved: 'Approved', rejected: 'Rejected',
+};
+
+// Use refs for callbacks so Marker children don't re-render on parent state change
+function StablePopup({ proposal, onView, onSupport }: { proposal: Proposal; onView: (p: Proposal) => void; onSupport: (id: string) => void }) {
+  const onViewRef = useRef(onView);
+  const onSupportRef = useRef(onSupport);
+  onViewRef.current = onView;
+  onSupportRef.current = onSupport;
+
+  return (
+    <Popup maxWidth={280} autoPan={false}>
+      <div className="space-y-2 p-1">
+        <h4 className="font-semibold text-sm leading-tight">{proposal.title}</h4>
+        <div className="flex flex-wrap gap-1">
+          <span
+            className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium"
+            style={{ background: getCategoryColor(proposal.category), color: 'white' }}
+          >
+            {getCategoryLabel(proposal.category)}
+          </span>
+          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-muted text-muted-foreground">
+            {STATUS_LABEL[proposal.status] ?? proposal.status}
+          </span>
+        </div>
+        <div className="flex items-center gap-3 text-xs text-muted-foreground">
+          <span>👍 {proposal.supportCount}</span>
+          <span>💬 {proposal.commentCount}</span>
+        </div>
+        <div className="flex gap-1 pt-1">
+          <button
+            className="text-xs px-3 py-1.5 rounded font-medium text-primary-foreground"
+            style={{ background: 'hsl(231 48% 40%)' }}
+            onClick={(e) => { e.stopPropagation(); onViewRef.current(proposal); }}
+          >
+            View Details
+          </button>
+          <button
+            className="text-xs px-3 py-1.5 rounded border border-border text-foreground hover:bg-muted disabled:opacity-50"
+            onClick={(e) => { e.stopPropagation(); onSupportRef.current(proposal.id); }}
+            disabled={proposal.supportedByUser}
+          >
+            {proposal.supportedByUser ? 'Supported' : 'Support'}
+          </button>
+        </div>
+      </div>
+    </Popup>
+  );
+}
+
+export const ProposalMap = React.memo(function ProposalMap({ proposals, onView, onSupport }: Props) {
   const tiles = useMapTiles();
 
   const center: [number, number] = useMemo(() => {
@@ -44,7 +91,7 @@ export function ProposalMap({ proposals, onView, onSupport }: Props) {
     proposals.forEach(p => {
       const key = p.category;
       if (!map.has(key)) {
-        map.set(key, createProposalIcon(getCategoryColor(p.category), false));
+        map.set(key, createProposalIcon(getCategoryColor(p.category)));
       }
     });
     return map;
@@ -58,42 +105,12 @@ export function ProposalMap({ proposals, onView, onSupport }: Props) {
           <Marker
             key={p.id}
             position={[p.lat, p.lng]}
-            icon={icons.get(p.category) ?? createProposalIcon('#6B7280', false)}
+            icon={icons.get(p.category) ?? createProposalIcon('#6B7280')}
           >
-            <Popup maxWidth={280}>
-              <div className="space-y-2 p-1">
-                <h4 className="font-semibold text-sm">{p.title}</h4>
-                <div className="flex flex-wrap gap-1">
-                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium" style={{ background: getCategoryColor(p.category), color: 'white' }}>
-                    {getCategoryLabel(p.category)}
-                  </span>
-                </div>
-                <div className="flex items-center gap-3 text-xs text-gray-500">
-                  <span className="flex items-center gap-0.5">👍 {p.supportCount}</span>
-                  <span className="flex items-center gap-0.5">💬 {p.commentCount}</span>
-                  <span>{p.status}</span>
-                </div>
-                <div className="flex gap-1 pt-1">
-                  <button
-                    className="text-xs px-2 py-1 rounded bg-primary text-white hover:opacity-90"
-                    style={{ background: 'hsl(231 48% 40%)', color: 'white' }}
-                    onClick={() => onView(p)}
-                  >
-                    View Details
-                  </button>
-                  <button
-                    className="text-xs px-2 py-1 rounded border hover:bg-gray-100 disabled:opacity-50"
-                    onClick={() => onSupport(p.id)}
-                    disabled={p.supportedByUser}
-                  >
-                    {p.supportedByUser ? 'Supported' : 'Support'}
-                  </button>
-                </div>
-              </div>
-            </Popup>
+            <StablePopup proposal={p} onView={onView} onSupport={onSupport} />
           </Marker>
         ))}
       </MapContainer>
     </div>
   );
-}
+});
