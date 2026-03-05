@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import ReactDOM from 'react-dom';
-import { X, MapPin, Bell, Check } from 'lucide-react';
+import { X, MapPin, Bell, Check, Search, Navigation } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Input } from '@/components/ui/input';
 import { WARDS, ISSUE_CATEGORIES, IssueCategory } from '@/types/story';
 import { ISSUE_CATEGORY_ICONS } from '@/lib/iconMaps';
 import { toast } from 'sonner';
+import { fetchOSMWards, getWardList, type WardFeatureCollection } from '@/services/osmWards';
+import { loadDefaultWardPref, saveDefaultWardPref, type DefaultWardPref } from '@/services/wardPreferences';
 
 export interface UserPreferences {
   subscribedWards: string[];
@@ -52,14 +55,30 @@ export const UserPreferencesModal: React.FC<UserPreferencesModalProps> = ({
 }) => {
   const [selectedWards, setSelectedWards] = useState<string[]>([]);
   const [selectedTopics, setSelectedTopics] = useState<IssueCategory[]>([]);
+  const [osmWards, setOsmWards] = useState<{ id: string; name: string }[]>([]);
+  const [osmLoading, setOsmLoading] = useState(false);
+  const [defaultWardId, setDefaultWardId] = useState<string | null>(null);
+  const [defaultWardSearch, setDefaultWardSearch] = useState('');
 
   useEffect(() => {
     if (open) {
       const saved = loadUserPreferences();
       setSelectedWards(saved.subscribedWards);
       setSelectedTopics(saved.preferredTopics);
+      const wp = loadDefaultWardPref();
+      setDefaultWardId(wp.defaultWardId);
+      // fetch OSM wards
+      setOsmLoading(true);
+      fetchOSMWards().then(fc => {
+        setOsmWards(getWardList(fc));
+        setOsmLoading(false);
+      });
     }
   }, [open]);
+
+  const filteredOsmWards = osmWards.filter(w =>
+    w.name.toLowerCase().includes(defaultWardSearch.toLowerCase())
+  );
 
   // Lock body scroll when open
   useEffect(() => {
@@ -106,6 +125,12 @@ export const UserPreferencesModal: React.FC<UserPreferencesModalProps> = ({
       preferredTopics: selectedTopics,
     };
     saveUserPreferences(preferences);
+    // Save default ward preference
+    const selectedOsmWard = osmWards.find(w => w.id === defaultWardId);
+    saveDefaultWardPref({
+      defaultWardId: defaultWardId,
+      defaultWardName: selectedOsmWard?.name ?? null,
+    });
     onSave?.(preferences);
     toast.success('Preferences saved successfully', {
       description: `Following ${selectedWards.length} ward(s) and ${selectedTopics.length} topic(s)`,
@@ -171,6 +196,60 @@ export const UserPreferencesModal: React.FC<UserPreferencesModalProps> = ({
 
         {/* Scrollable Content */}
         <div className="flex-1 overflow-y-auto overscroll-contain px-6 py-6 space-y-8">
+          {/* Default Ward Selection (OSM) */}
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <Navigation className="w-5 h-5 text-primary" />
+              <h3 className="text-foreground" style={{ fontSize: 20, fontWeight: 600, lineHeight: '28px' }}>Default Ward</h3>
+            </div>
+            <p className="text-xs text-muted-foreground mb-3">Used to focus the map by default</p>
+
+            {osmLoading ? (
+              <div className="p-4 text-sm text-muted-foreground">Loading ward boundaries…</div>
+            ) : osmWards.length === 0 ? (
+              <div className="p-4 text-sm text-muted-foreground bg-muted rounded-lg">
+                Ward boundaries are unavailable right now. You can still use other preferences.
+              </div>
+            ) : (
+              <div>
+                <div className="relative mb-2">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  <Input
+                    value={defaultWardSearch}
+                    onChange={e => setDefaultWardSearch(e.target.value)}
+                    placeholder="Search wards…"
+                    className="pl-9 h-9 text-sm"
+                  />
+                </div>
+                <div className="max-h-[180px] overflow-y-auto border border-border rounded-lg">
+                  {/* Clear option */}
+                  <button
+                    type="button"
+                    onClick={() => setDefaultWardId(null)}
+                    className={`w-full text-left px-3 py-2 text-sm transition-colors ${
+                      defaultWardId === null ? 'bg-primary/10 text-primary font-medium' : 'hover:bg-muted'
+                    }`}
+                  >
+                    No default ward
+                  </button>
+                  {filteredOsmWards.map(w => (
+                    <button
+                      key={w.id}
+                      type="button"
+                      onClick={() => setDefaultWardId(w.id)}
+                      className={`w-full text-left px-3 py-2 text-sm transition-colors border-t border-border ${
+                        defaultWardId === w.id ? 'bg-primary/10 text-primary font-medium' : 'hover:bg-muted text-foreground'
+                      }`}
+                    >
+                      {w.name}
+                      {defaultWardId === w.id && <Check className="inline w-4 h-4 ml-2" />}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
           {/* Ward Selection */}
           <div>
             <div className="flex items-center justify-between mb-4">

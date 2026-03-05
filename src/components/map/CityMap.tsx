@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents, useMap, CircleMarker, LayersControl } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMapEvents, useMap, GeoJSON as GeoJSONLayer } from 'react-leaflet';
 import L from 'leaflet';
 import {
   MapPin, Navigation, Mic, MicOff, AlertCircle, Locate,
@@ -12,6 +12,8 @@ import { Happening } from '@/types/happenings';
 import { happeningsApi } from '@/lib/happeningsApi';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { fetchOSMWards, type WardFeatureCollection } from '@/services/osmWards';
+import { loadDefaultWardPref } from '@/services/wardPreferences';
 import 'leaflet/dist/leaflet.css';
 
 // Fix for default marker icons
@@ -191,6 +193,8 @@ interface CityMapProps {
   onLocationDescriptionChange?: (description: string) => void;
   showHappenings?: boolean;
   className?: string;
+  /** Externally-set default ward to focus on */
+  defaultWardId?: string | null;
 }
 
 export function CityMap({
@@ -199,6 +203,7 @@ export function CityMap({
   onLocationDescriptionChange,
   showHappenings = true,
   className,
+  defaultWardId: externalDefaultWardId,
 }: CityMapProps) {
   const [isMapReady, setIsMapReady] = useState(false);
   const [showGuide, setShowGuide] = useState(true);
@@ -210,7 +215,13 @@ export function CityMap({
   const [statusFilter, setStatusFilter] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [showFilters, setShowFilters] = useState(false);
+  const [wardGeoJSON, setWardGeoJSON] = useState<WardFeatureCollection | null>(null);
   const mapRef = useRef<L.Map | null>(null);
+
+  // Resolve which ward to focus on
+  const effectiveDefaultWardId = externalDefaultWardId !== undefined
+    ? externalDefaultWardId
+    : loadDefaultWardPref().defaultWardId;
 
   // Bengaluru center — Vidhana Soudha / MG Road area
   const bengaluruCenter: [number, number] = [12.9716, 77.5946];
@@ -225,6 +236,62 @@ export function CityMap({
       happeningsApi.getAllHappeningsForMap().then(setHappenings);
     }
   }, [showHappenings]);
+
+  // Fetch OSM ward boundaries
+  useEffect(() => {
+    fetchOSMWards().then(fc => {
+      if (fc.features.length > 0) setWardGeoJSON(fc);
+    });
+  }, []);
+
+  // Fit map to selected ward when data is ready
+  useEffect(() => {
+    if (!mapRef.current || !wardGeoJSON || !effectiveDefaultWardId) return;
+    const feature = wardGeoJSON.features.find(
+      f => f.properties.ward_id === effectiveDefaultWardId
+    );
+    if (feature) {
+      try {
+        const layer = L.geoJSON(feature);
+        const bounds = layer.getBounds();
+        if (bounds.isValid()) {
+          mapRef.current.fitBounds(bounds, { padding: [40, 40], maxZoom: 15 });
+        }
+      } catch {}
+    }
+  }, [wardGeoJSON, effectiveDefaultWardId, isMapReady]);
+
+  // Ward boundary style
+  const wardStyle = useCallback((feature: any) => {
+    const isSelected = feature?.properties?.ward_id === effectiveDefaultWardId;
+    return {
+      color: isSelected ? 'hsl(231, 48%, 40%)' : 'hsl(220, 13%, 70%)',
+      weight: isSelected ? 3 : 1,
+      fillColor: isSelected ? 'hsl(231, 48%, 40%)' : 'transparent',
+      fillOpacity: isSelected ? 0.08 : 0,
+      dashArray: isSelected ? '' : '4 4',
+    };
+  }, [effectiveDefaultWardId]);
+
+  const onEachWard = useCallback((feature: any, layer: L.Layer) => {
+    if (feature?.properties?.ward_name) {
+      (layer as any).bindTooltip(feature.properties.ward_name, {
+        permanent: false,
+        direction: 'center',
+        className: 'text-xs',
+      });
+    }
+    (layer as any).on('mouseover', (e: any) => {
+      e.target.setStyle({ weight: 2, color: 'hsl(231, 48%, 40%)' });
+    });
+    (layer as any).on('mouseout', (e: any) => {
+      const isSelected = feature?.properties?.ward_id === effectiveDefaultWardId;
+      e.target.setStyle({
+        weight: isSelected ? 3 : 1,
+        color: isSelected ? 'hsl(231, 48%, 40%)' : 'hsl(220, 13%, 70%)',
+      });
+    });
+  }, [effectiveDefaultWardId]);
 
   const handleDismissGuide = () => {
     setShowGuide(false);
@@ -386,6 +453,16 @@ export function CityMap({
           <MapInteractionHandler onLocationSelect={onLocationSelect} mapRef={mapRef} />
           <MapCenterButton center={bengaluruCenter} />
           <UseMyLocationButton onLocationSelect={onLocationSelect} />
+
+          {/* Ward boundaries */}
+          {wardGeoJSON && (
+            <GeoJSONLayer
+              key={effectiveDefaultWardId || 'all-wards'}
+              data={wardGeoJSON}
+              style={wardStyle}
+              onEachFeature={onEachWard}
+            />
+          )}
 
           {/* User selected location */}
           {selectedLocation && (

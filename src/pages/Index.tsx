@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import {
   PenSquare, ArrowRight, Ticket, MapPin, Clock, Shield, Users,
-  Settings2, GraduationCap, BarChart3, ClipboardList, FileText
+  Settings2, GraduationCap, BarChart3, ClipboardList, FileText, Navigation
 } from 'lucide-react';
 import { AppLayout } from '@/components/layout/AppLayout';
 import { CityMap } from '@/components/map/CityMap';
@@ -15,6 +15,7 @@ import { UserPreferencesModal, loadUserPreferences, UserPreferences } from '@/co
 import { Button } from '@/components/ui/button';
 import { getOverviewStats, getAverageSolutionTime } from '@/lib/serviceAnalyticsData';
 import { CITY } from '@/config/city';
+import { loadDefaultWardPref } from '@/services/wardPreferences';
 import bengaluruSkyline from '@/assets/bengaluru-skyline.png';
 
 const Index = () => {
@@ -23,6 +24,7 @@ const Index = () => {
   const [selectedWard, setSelectedWard] = useState<{ code: string; name: string } | null>(null);
   const [preferencesOpen, setPreferencesOpen] = useState(false);
   const [userPreferences, setUserPreferences] = useState<UserPreferences>(loadUserPreferences);
+  const [defaultWardPref, setDefaultWardPref] = useState(loadDefaultWardPref);
 
   const handleLocationSelect = useCallback((location: { lat: number; lng: number }) => {
     setSelectedLocation(location);
@@ -167,6 +169,23 @@ const Index = () => {
             Select Your Location
           </h2>
         </div>
+
+        {/* Selected ward pill */}
+        {defaultWardPref.defaultWardName && (
+          <div className="flex items-center gap-2 mb-3">
+            <span className="inline-flex items-center gap-1.5 text-xs font-medium bg-primary/10 text-primary px-3 py-1.5 rounded-full border border-primary/20">
+              <Navigation className="w-3 h-3" />
+              Selected ward: {defaultWardPref.defaultWardName}
+            </span>
+            <button
+              onClick={() => setPreferencesOpen(true)}
+              className="text-xs text-primary hover:underline"
+            >
+              Change
+            </button>
+          </div>
+        )}
+
         <p className="text-sm text-muted-foreground mb-4">
           Mark a spot on the map to see nearby updates or report an issue in your area.
         </p>
@@ -175,6 +194,7 @@ const Index = () => {
           onLocationSelect={handleLocationSelect}
           onLocationDescriptionChange={handleLocationDescriptionChange}
           showHappenings={true}
+          defaultWardId={defaultWardPref.defaultWardId}
         />
       </section>
 
@@ -223,7 +243,10 @@ const Index = () => {
       <UserPreferencesModal
         open={preferencesOpen}
         onOpenChange={setPreferencesOpen}
-        onSave={setUserPreferences}
+        onSave={(prefs) => {
+          setUserPreferences(prefs);
+          setDefaultWardPref(loadDefaultWardPref());
+        }}
       />
     </AppLayout>
   );
