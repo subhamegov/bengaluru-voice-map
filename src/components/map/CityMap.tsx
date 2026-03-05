@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react'
 import { MapContainer, TileLayer, Marker, Popup, Tooltip, useMapEvents, useMap, GeoJSON as GeoJSONLayer } from 'react-leaflet';
 import L from 'leaflet';
 import {
-  MapPin, Navigation, Mic, MicOff, AlertCircle, Locate,
+  MapPin, Mic, MicOff, AlertCircle, Locate,
   Car, Droplets, Trash2, Zap, Lightbulb, Shield, Construction,
   LayoutGrid, Search, Filter, Layers, ChevronDown, ExternalLink
 } from 'lucide-react';
@@ -140,21 +140,13 @@ function MapInteractionHandler({
   return null;
 }
 
-function MapCenterButton({ center }: { center: [number, number] }) {
-  const map = useMap();
-  return (
-    <button
-      type="button"
-      onClick={() => map.setView(center, 12, { animate: true })}
-      className="absolute top-20 right-3 z-[1000] bg-card text-foreground p-2.5 rounded-lg shadow-md hover:bg-muted focus-visible:ring-2 focus-visible:ring-primary border border-border"
-      aria-label="Center map on Bengaluru"
-    >
-      <Navigation className="w-5 h-5" aria-hidden="true" />
-    </button>
-  );
-}
-
-function UseMyLocationButton({ onLocationSelect }: { onLocationSelect: (loc: { lat: number; lng: number }) => void }) {
+function UseMyLocationButton({ 
+  onLocationSelect,
+  onCurrentLocation 
+}: { 
+  onLocationSelect: (loc: { lat: number; lng: number }) => void;
+  onCurrentLocation: (loc: { lat: number; lng: number }) => void;
+}) {
   const map = useMap();
   const [isLocating, setIsLocating] = useState(false);
 
@@ -163,8 +155,10 @@ function UseMyLocationButton({ onLocationSelect }: { onLocationSelect: (loc: { l
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(
         (pos) => {
-          map.setView([pos.coords.latitude, pos.coords.longitude], 15, { animate: true });
-          onLocationSelect({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+          const loc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+          map.setView([loc.lat, loc.lng], 15, { animate: true });
+          onLocationSelect(loc);
+          onCurrentLocation(loc);
           setIsLocating(false);
         },
         () => setIsLocating(false),
@@ -178,8 +172,8 @@ function UseMyLocationButton({ onLocationSelect }: { onLocationSelect: (loc: { l
       type="button"
       onClick={handleLocate}
       disabled={isLocating}
-      className="absolute top-32 right-3 z-[1000] bg-card text-foreground p-2.5 rounded-lg shadow-md hover:bg-muted focus-visible:ring-2 focus-visible:ring-primary border border-border disabled:opacity-50"
-      aria-label="Use my current location"
+      className="absolute top-20 right-3 z-[1000] bg-card text-foreground p-2.5 rounded-lg shadow-md hover:bg-muted focus-visible:ring-2 focus-visible:ring-primary border border-border disabled:opacity-50"
+      aria-label="Locate me"
     >
       <Locate className={`w-5 h-5 ${isLocating ? 'animate-pulse' : ''}`} aria-hidden="true" />
     </button>
@@ -470,8 +464,7 @@ export function CityMap({
           />
 
           <MapInteractionHandler onLocationSelect={onLocationSelect} mapRef={mapRef} />
-          <MapCenterButton center={bengaluruCenter} />
-          <UseMyLocationButton onLocationSelect={onLocationSelect} />
+          <UseMyLocationButton onLocationSelect={onLocationSelect} onCurrentLocation={setCurrentLocation} />
 
           {/* Ward boundaries */}
           {wardGeoJSON && (
