@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Marker, useMapEvents, useMap } from 'react-lea
 import L from 'leaflet';
 import { MapPin, Mic, MicOff, Navigation, ChevronDown, HardHat, Check, Building2, FileText } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useMapTiles } from '@/hooks/use-map-tiles';
 import { BENGALURU_ZONES, getWardsBySubCounty, getZonesByWard, reverseGeocodeToWard, Ward, Zone } from '@/lib/bengaluruAdminData';
 import { Badge } from '@/components/ui/badge';
 import { ComplaintIntent, LinkedProject } from './ComplaintIntentStep';
@@ -129,6 +130,7 @@ function UseMyLocationButton({
 }
 
 export function LocationStep({ location, onLocationChange, intent, linkedProject, onLinkedProjectChange }: LocationStepProps) {
+  const tileConfig = useMapTiles();
   const [isVoiceRecording, setIsVoiceRecording] = useState(false);
   const [voiceTranscript, setVoiceTranscript] = useState('');
   const [voiceError, setVoiceError] = useState<string | null>(null);
@@ -325,8 +327,10 @@ export function LocationStep({ location, onLocationChange, intent, linkedProject
             className="z-0"
           >
             <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              attribution={tileConfig.attribution}
+              url={tileConfig.url}
+              subdomains={tileConfig.subdomains}
+              maxZoom={tileConfig.maxZoom}
             />
             <MapClickHandler onLocationSelect={handleMapClick} />
             <UseMyLocationButton onLocationFound={handleMapClick} />

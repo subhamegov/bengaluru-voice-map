@@ -4,6 +4,7 @@ import L from 'leaflet';
 import { MapPin, Navigation, Mic, MicOff, AlertCircle, Locate, Car, Heart, Shield, Droplets, Trash2, Zap, LayoutGrid } from 'lucide-react';
 import { MapGuide } from './MapGuide';
 import { LocationCard } from './LocationCard';
+import { useMapTiles } from '@/hooks/use-map-tiles';
 import { Happening } from '@/types/happenings';
 import { happeningsApi } from '@/lib/happeningsApi';
 import 'leaflet/dist/leaflet.css';
@@ -242,6 +243,7 @@ export function CityMap({
   showHappenings = true,
   className 
 }: CityMapProps) {
+  const tileConfig = useMapTiles();
   const [isMapReady, setIsMapReady] = useState(false);
   const [showGuide, setShowGuide] = useState(true);
   const [happenings, setHappenings] = useState<Happening[]>([]);
@@ -376,8 +378,10 @@ export function CityMap({
           whenReady={() => setIsMapReady(true)}
         >
           <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution={tileConfig.attribution}
+            url={tileConfig.url}
+            subdomains={tileConfig.subdomains}
+            maxZoom={tileConfig.maxZoom}
           />
           
           <MapInteractionHandler 

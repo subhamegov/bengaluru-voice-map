@@ -3,6 +3,7 @@ import { MapPin, Check, AlertTriangle } from 'lucide-react';
 import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { useMapTiles } from '@/hooks/use-map-tiles';
 import {
   Dialog,
   DialogContent,
@@ -109,6 +110,7 @@ export const FloodHotspotSurveyModal: React.FC<FloodHotspotSurveyModalProps> = (
   onClose,
   onSubmit,
 }) => {
+  const tileConfig = useMapTiles();
   const [ward, setWard] = useState('westlands');
   const [pinLocation, setPinLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [description, setDescription] = useState('');
@@ -243,8 +245,10 @@ export const FloodHotspotSurveyModal: React.FC<FloodHotspotSurveyModalProps> = (
                 scrollWheelZoom={false}
               >
                 <TileLayer
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  attribution={tileConfig.attribution}
+                  url={tileConfig.url}
+                  subdomains={tileConfig.subdomains}
+                  maxZoom={tileConfig.maxZoom}
                 />
                 <MapClickHandler onLocationSelect={handleLocationSelect} />
                 {pinLocation && (
