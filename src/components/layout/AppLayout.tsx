@@ -1,9 +1,15 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { NavLink } from 'react-router-dom';
 import { MapPin, Menu, X, Home, Ticket, Phone, Mail, Globe, ClipboardList, FileText, BarChart3, GraduationCap, Building, ArrowRightLeft, Users, Search, Accessibility, Languages, User, ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { CITY } from '@/config/city';
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetClose,
+} from '@/components/ui/sheet';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -130,79 +136,71 @@ export function AppLayout({ children }: AppLayoutProps) {
         </nav>
       </header>
 
-      {/* Mobile Navigation */}
-      {mobileMenuOpen && ReactDOM.createPortal(
-        <>
-          <div
-            className="fixed inset-0 bg-black/60 z-[9998]"
-            onClick={() => setMobileMenuOpen(false)}
-            aria-hidden="true"
-          />
-          <nav
-            id="mobile-menu"
-            className="fixed top-0 right-0 bottom-0 z-[9999] w-[85vw] max-w-sm bg-background shadow-2xl overflow-y-auto"
-            aria-label="Mobile navigation"
-          >
-            <div className="py-4 px-5 space-y-1">
-              <div className="flex items-center justify-between mb-5 pb-3 border-b border-border">
-                <div className="flex items-center gap-2">
-                  <img src={CITY.emblemAsset} alt={CITY.emblemAlt} className="w-8 h-8 object-contain" />
-                  <span className="font-bold text-sm text-foreground">Menu</span>
-                </div>
+      {/* Mobile Navigation — Sheet/Drawer */}
+      <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+        <SheetContent
+          side="right"
+          className="w-[85vw] max-w-sm p-0 [&>button]:hidden"
+          style={{ backgroundColor: '#FFFFFF', zIndex: 9999 }}
+        >
+          <SheetHeader className="px-5 pt-4 pb-3 border-b border-border">
+            <div className="flex items-center justify-between">
+              <SheetTitle className="text-sm font-bold text-neutral-900">Menu</SheetTitle>
+              <SheetClose asChild>
                 <button
                   type="button"
-                  className="flex items-center justify-center w-10 h-10 rounded hover:bg-muted transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-center w-10 h-10 rounded hover:bg-neutral-100 transition-colors"
                   aria-label="Close menu"
                 >
-                  <X className="w-5 h-5" />
+                  <X className="w-5 h-5 text-neutral-700" />
                 </button>
-              </div>
-
-              {citizenNav.map((item) => (
-                <NavLink
-                  key={item.name}
-                  to={item.href}
-                  end={item.href === '/'}
-                  className={({ isActive }) =>
-                    cn(
-                      'flex items-center gap-3 px-3 py-3 rounded-lg text-foreground transition-all',
-                      isActive
-                        ? 'bg-primary/10 text-primary font-bold'
-                        : 'hover:bg-muted'
-                    )
-                  }
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <item.icon className="w-5 h-5 flex-shrink-0" aria-hidden="true" />
-                  <div className="min-w-0">
-                    <span className="block text-sm font-semibold">{item.name}</span>
-                    <span className="block text-xs text-muted-foreground">{item.description}</span>
-                  </div>
-                </NavLink>
-              ))}
-
-              <div className="border-t border-border my-3" />
-
-              {portalLinks.map((item) => (
-                <NavLink
-                  key={item.name}
-                  to={item.href}
-                  className="flex items-center gap-3 px-3 py-3 rounded-lg text-foreground hover:bg-muted transition-all"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <item.icon className="w-5 h-5 flex-shrink-0" aria-hidden="true" />
-                  <div>
-                    <span className="block text-sm font-semibold">{item.name}</span>
-                    <span className="block text-xs text-muted-foreground">{item.description}</span>
-                  </div>
-                </NavLink>
-              ))}
+              </SheetClose>
             </div>
+          </SheetHeader>
+
+          <nav className="py-2 px-5 space-y-1 overflow-y-auto" aria-label="Mobile navigation">
+            {citizenNav.map((item) => (
+              <NavLink
+                key={item.name}
+                to={item.href}
+                end={item.href === '/'}
+                className={({ isActive }) =>
+                  cn(
+                    'flex items-center gap-3 px-3 py-3 rounded-lg transition-all',
+                    isActive
+                      ? 'bg-primary/10 text-primary font-bold'
+                      : 'text-neutral-900 hover:bg-neutral-100'
+                  )
+                }
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <item.icon className="w-5 h-5 flex-shrink-0" aria-hidden="true" />
+                <div className="min-w-0">
+                  <span className="block text-sm font-semibold">{item.name}</span>
+                  <span className="block text-xs text-neutral-500">{item.description}</span>
+                </div>
+              </NavLink>
+            ))}
+
+            <div className="border-t border-neutral-200 my-3" />
+
+            {portalLinks.map((item) => (
+              <NavLink
+                key={item.name}
+                to={item.href}
+                className="flex items-center gap-3 px-3 py-3 rounded-lg text-neutral-900 hover:bg-neutral-100 transition-all"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <item.icon className="w-5 h-5 flex-shrink-0" aria-hidden="true" />
+                <div>
+                  <span className="block text-sm font-semibold">{item.name}</span>
+                  <span className="block text-xs text-neutral-500">{item.description}</span>
+                </div>
+              </NavLink>
+            ))}
           </nav>
-        </>,
-        document.body
-      )}
+        </SheetContent>
+      </Sheet>
 
       {/* Main Content */}
       <main id="main-content" className="flex-1 container py-6 md:py-8" tabIndex={-1}>
