@@ -13,6 +13,7 @@ import Data from "./pages/Data";
 import Training from "./pages/Training";
 import TrainingModule from "./pages/TrainingModule";
 import AboutMyCity from "./pages/AboutMyCity";
+import MyProposals from "./pages/MyProposals";
 import NotFound from "./pages/NotFound";
 import ResolverHome from "./pages/resolver/ResolverHome";
 import ResolverTasks from "./pages/resolver/ResolverTasks";
@@ -35,6 +36,7 @@ const App = () => (
           <Route path="/surveys" element={<Surveys />} />
           <Route path="/policy" element={<Policy />} />
           <Route path="/my-tickets" element={<MyTickets />} />
+          <Route path="/my-proposals" element={<MyProposals />} />
           <Route path="/data" element={<Data />} />
           <Route path="/training" element={<Training />} />
           <Route path="/training/:moduleId" element={<TrainingModule />} />
