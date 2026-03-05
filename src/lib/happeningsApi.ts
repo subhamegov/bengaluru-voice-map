@@ -157,8 +157,22 @@ const projectsAsHappenings: Happening[] = [
   { id: 'blr_tc1', wardCode: 'SADASHIVANAGAR', wardName: 'Sadashivanagar', title: 'ANPR Camera Installation – Palace Road', summary: 'Installation of Automatic Number Plate Recognition cameras at 8 junctions on Palace Road.', source: 'Bengaluru Traffic Police / Smart City (Ref: BTP/ANPR/2025/006)', date: '2026-02-20', type: 'NOTICE', lat: 13.0080, lng: 77.5810, isActive: true, projectDetails: generateProjectDetails('blr_tc1', 'ANPR Cameras – Palace Road') },
 
   // Community Events
-  { id: 'blr_ev1', wardCode: 'BASAVANAGUDI', wardName: 'Basavanagudi', title: 'Ward Sabha – South Zone', summary: 'Quarterly Ward Sabha for citizens of Basavanagudi, Jayanagar, and Hanumanthanagar wards.', source: 'BBMP Ward Committee / Corporator Office', date: '2026-03-10', type: 'EVENT', lat: 12.9440, lng: 77.5740, isActive: true },
-  { id: 'blr_ev2', wardCode: 'KORAMANGALA', wardName: 'Koramangala', title: 'Swachh Bengaluru Clean-up Drive', summary: 'Community cleanup drive at Koramangala 8th Block. Bring gloves; BBMP will provide waste bags.', source: 'BBMP SWM / RWA Koramangala', date: '2026-03-15', type: 'COMMUNITY', lat: 12.9340, lng: 77.6260, isActive: true },
+  { id: 'blr_ev1', wardCode: 'BASAVANAGUDI', wardName: 'Basavanagudi', title: 'Ward Sabha – South Zone', summary: 'Quarterly Ward Sabha for citizens of Basavanagudi, Jayanagar, and Hanumanthanagar wards.', source: 'BBMP Ward Committee / Corporator Office', date: '2026-03-10', type: 'EVENT', lat: 12.9440, lng: 77.5740, isActive: true, location: 'BBMP Head Office, Hudson Circle', agenda: [
+    { time: '10:00 AM', topic: 'Opening & Welcome Address', presenter: 'Ward Corporator' },
+    { time: '10:15 AM', topic: 'Review of Previous Ward Sabha Minutes', presenter: 'Ward Secretary' },
+    { time: '10:30 AM', topic: 'SWD & Road Works Progress Update', presenter: 'BBMP Executive Engineer' },
+    { time: '11:00 AM', topic: 'Citizen Grievances & Open Floor Discussion' },
+    { time: '11:30 AM', topic: 'New Proposals – Footpath & Streetlight Improvements', presenter: 'BBMP Planning Cell' },
+    { time: '12:00 PM', topic: 'Q&A and Closing Remarks', presenter: 'Ward Corporator' },
+  ] },
+  { id: 'blr_ev2', wardCode: 'KORAMANGALA', wardName: 'Koramangala', title: 'Swachh Bengaluru Clean-up Drive', summary: 'Community cleanup drive at Koramangala 8th Block. Bring gloves; BBMP will provide waste bags.', source: 'BBMP SWM / RWA Koramangala', date: '2026-03-15', type: 'COMMUNITY', lat: 12.9340, lng: 77.6260, isActive: true, location: 'Koramangala 8th Block Community Park', agenda: [
+    { time: '7:00 AM', topic: 'Registration & Kit Distribution' },
+    { time: '7:30 AM', topic: 'Briefing on Segregation & Safety', presenter: 'BBMP SWM Coordinator' },
+    { time: '8:00 AM', topic: 'Clean-up Drive – Zone A (Lanes & Drains)' },
+    { time: '9:30 AM', topic: 'Clean-up Drive – Zone B (Park & Lake Perimeter)' },
+    { time: '11:00 AM', topic: 'Refreshments & Feedback Session' },
+    { time: '11:30 AM', topic: 'Felicitation of Volunteers & Closing', presenter: 'RWA President' },
+  ] },
 
   // Service Notices
   { id: 'blr_sn1', wardCode: 'INDIRANAGAR', wardName: 'Indiranagar', title: 'Scheduled Water Supply Disruption – HAL Areas', summary: 'BWSSB scheduled maintenance on Cauvery pipeline. Indiranagar, HAL areas affected Wed 6 AM–6 PM.', source: 'BWSSB Public Notice', date: '2026-03-05', type: 'NOTICE', lat: 12.9770, lng: 77.6420, isActive: true },

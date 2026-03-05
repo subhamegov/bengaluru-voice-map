@@ -58,6 +58,12 @@ export interface ProjectEngagement {
   surveyResponses: number;
 }
 
+export interface AgendaItem {
+  time: string;
+  topic: string;
+  presenter?: string;
+}
+
 export interface ProjectDetails {
   status: ProjectStatus;
   budget?: string;
@@ -70,6 +76,7 @@ export interface ProjectDetails {
   publicUpdates?: PublicUpdate[];
   comments?: ProjectComment[];
   engagement?: ProjectEngagement;
+  agenda?: AgendaItem[];
 }
 
 export interface Happening {
@@ -86,8 +93,9 @@ export interface Happening {
   lng: number;
   link?: string;
   isActive: boolean;
-  // Extended project details
+  location?: string;
   projectDetails?: ProjectDetails;
+  agenda?: AgendaItem[];
 }
 
 export const HAPPENING_TYPE_LABELS: Record<HappeningType, string> = {
