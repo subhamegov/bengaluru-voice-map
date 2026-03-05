@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents, useMap, GeoJSON as GeoJSONLayer } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMapEvents, useMap, GeoJSON as GeoJSONLayer, Circle } from 'react-leaflet';
 import L from 'leaflet';
 import {
   MapPin, Navigation, Mic, MicOff, AlertCircle, Locate,
   Car, Droplets, Trash2, Zap, Lightbulb, Shield, Construction,
-  LayoutGrid, Search, Filter, Layers, ChevronDown
+  LayoutGrid, Search, Filter, Layers, ChevronDown, ExternalLink
 } from 'lucide-react';
 import { MapGuide } from './MapGuide';
 import { LocationCard } from './LocationCard';
@@ -195,6 +195,8 @@ interface CityMapProps {
   className?: string;
   /** Externally-set default ward to focus on */
   defaultWardId?: string | null;
+  /** Callback when a happening/project marker's "View Details" is clicked */
+  onHappeningClick?: (happening: Happening) => void;
 }
 
 export function CityMap({
@@ -204,6 +206,7 @@ export function CityMap({
   showHappenings = true,
   className,
   defaultWardId: externalDefaultWardId,
+  onHappeningClick,
 }: CityMapProps) {
   const [isMapReady, setIsMapReady] = useState(false);
   const [showGuide, setShowGuide] = useState(true);
@@ -216,6 +219,7 @@ export function CityMap({
   const [searchQuery, setSearchQuery] = useState('');
   const [showFilters, setShowFilters] = useState(false);
   const [wardGeoJSON, setWardGeoJSON] = useState<WardFeatureCollection | null>(null);
+  const [currentLocation, setCurrentLocation] = useState<{ lat: number; lng: number } | null>(null);
   const mapRef = useRef<L.Map | null>(null);
 
   // Resolve which ward to focus on
@@ -242,6 +246,17 @@ export function CityMap({
     fetchOSMWards().then(fc => {
       if (fc.features.length > 0) setWardGeoJSON(fc);
     });
+  }, []);
+
+  // Get user's current location
+  useEffect(() => {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => setCurrentLocation({ lat: pos.coords.latitude, lng: pos.coords.longitude }),
+        () => {}, // silently fail
+        { enableHighAccuracy: true, timeout: 10000 }
+      );
+    }
   }, []);
 
   // Fit map to selected ward when data is ready
@@ -488,24 +503,56 @@ export function CityMap({
                   <div className="max-w-[240px]">
                     <div className="flex items-center gap-1.5 mb-1">
                       <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: filterConfig.color }} />
-                      <span className="text-xs font-medium uppercase text-gray-500">{filterConfig.label}</span>
+                      <span className="text-xs font-medium uppercase text-muted-foreground">{filterConfig.label}</span>
                     </div>
-                    <p className="font-semibold text-sm leading-tight">{h.title}</p>
-                    <p className="text-xs text-gray-600 mt-1">{h.summary.slice(0, 100)}...</p>
+                    <p className="font-semibold text-sm leading-tight text-foreground">{h.title}</p>
+                    <p className="text-xs text-muted-foreground mt-1">{h.summary.slice(0, 100)}...</p>
                     <div className="flex items-center gap-2 mt-2 text-xs">
                       <span className={`px-1.5 py-0.5 rounded-full ${
                         statusLabel === 'Completed' ? 'bg-green-100 text-green-700' :
                         statusLabel === 'In Progress' ? 'bg-orange-100 text-orange-700' :
                         'bg-blue-100 text-blue-700'
                       }`}>{statusLabel}</span>
-                      <span className="text-gray-500">{extractAgency(h)}</span>
+                      <span className="text-muted-foreground">{extractAgency(h)}</span>
                     </div>
-                    <p className="text-xs text-gray-400 mt-1 italic">Source: {h.source.slice(0, 60)}...</p>
+                    {onHappeningClick && (
+                      <button
+                        type="button"
+                        onClick={(e) => { e.stopPropagation(); onHappeningClick(h); }}
+                        className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
+                      >
+                        View Details
+                        <ExternalLink className="w-3 h-3" />
+                      </button>
+                    )}
+                    <p className="text-xs text-muted-foreground/60 mt-1 italic">Source: {h.source.slice(0, 60)}...</p>
                   </div>
                 </Popup>
               </Marker>
             );
           })}
+
+          {/* Current location indicator */}
+          {currentLocation && (
+            <>
+              <Circle
+                center={[currentLocation.lat, currentLocation.lng]}
+                radius={80}
+                pathOptions={{ color: 'hsl(231, 48%, 48%)', fillColor: 'hsl(231, 48%, 48%)', fillOpacity: 0.25, weight: 2 }}
+              />
+              <Marker
+                position={[currentLocation.lat, currentLocation.lng]}
+                icon={new L.DivIcon({
+                  className: 'current-location-marker',
+                  html: `<div style="width:14px;height:14px;background:hsl(231,48%,48%);border:3px solid white;border-radius:50%;box-shadow:0 0 8px rgba(59,91,219,0.5);"></div>`,
+                  iconSize: [14, 14],
+                  iconAnchor: [7, 7],
+                })}
+              >
+                <Popup><strong>Your current location</strong></Popup>
+              </Marker>
+            </>
+          )}
         </MapContainer>
 
         {!isMapReady && (

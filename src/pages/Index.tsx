@@ -8,6 +8,8 @@ import { AppLayout } from '@/components/layout/AppLayout';
 import { CityMap } from '@/components/map/CityMap';
 import { HappeningsFeed } from '@/components/happenings/HappeningsFeed';
 import { ActiveSurveys } from '@/components/surveys/ActiveSurveys';
+import { ProjectDetailDrawer } from '@/components/happenings/ProjectDetailDrawer';
+import { Happening } from '@/types/happenings';
 
 import { findWardByCoords } from '@/lib/happeningsApi';
 import { WARDS } from '@/types/story';
@@ -25,6 +27,8 @@ const Index = () => {
   const [preferencesOpen, setPreferencesOpen] = useState(false);
   const [userPreferences, setUserPreferences] = useState<UserPreferences>(loadUserPreferences);
   const [defaultWardPref, setDefaultWardPref] = useState(loadDefaultWardPref);
+  const [mapSelectedHappening, setMapSelectedHappening] = useState<Happening | null>(null);
+  const [mapDrawerOpen, setMapDrawerOpen] = useState(false);
 
   const handleLocationSelect = useCallback((location: { lat: number; lng: number }) => {
     setSelectedLocation(location);
@@ -34,6 +38,11 @@ const Index = () => {
 
   const handleLocationDescriptionChange = useCallback((description: string) => {
     setLocationDescription(description);
+  }, []);
+
+  const handleMapHappeningClick = useCallback((happening: Happening) => {
+    setMapSelectedHappening(happening);
+    setMapDrawerOpen(true);
   }, []);
 
   const stats = getOverviewStats('30days', 'all');
@@ -195,6 +204,7 @@ const Index = () => {
           onLocationDescriptionChange={handleLocationDescriptionChange}
           showHappenings={true}
           defaultWardId={defaultWardPref.defaultWardId}
+          onHappeningClick={handleMapHappeningClick}
         />
       </section>
 
@@ -247,6 +257,13 @@ const Index = () => {
           setUserPreferences(prefs);
           setDefaultWardPref(loadDefaultWardPref());
         }}
+      />
+
+      {/* Map Project Detail Drawer */}
+      <ProjectDetailDrawer
+        happening={mapSelectedHappening}
+        open={mapDrawerOpen}
+        onOpenChange={setMapDrawerOpen}
       />
     </AppLayout>
   );
