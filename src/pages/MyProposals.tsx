@@ -1,8 +1,7 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useRef } from 'react';
 import { AppLayout } from '@/components/layout/AppLayout';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { Map, LayoutList, Plus } from 'lucide-react';
 import { ProposalMap } from '@/components/proposals/ProposalMap';
 import { ProposalTable } from '@/components/proposals/ProposalTable';
@@ -10,7 +9,7 @@ import { ProposalDetailModal } from '@/components/proposals/ProposalDetailModal'
 import { CreateProposalModal } from '@/components/proposals/CreateProposalModal';
 import { getProposals, supportProposal, createProposal } from '@/lib/proposalData';
 import { loadWardPref } from '@/services/wardPreferences';
-import { Proposal, PROPOSAL_CATEGORIES, getCategoryColor } from '@/types/proposal';
+import { Proposal, PROPOSAL_CATEGORIES } from '@/types/proposal';
 
 type FilterTab = 'ward' | 'created' | 'supported';
 
@@ -34,25 +33,35 @@ export default function MyProposals() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterTab, refreshKey]);
 
-  const handleView = useCallback((p: Proposal) => {
+  // Stable ref so map popup callbacks never cause ProposalMap re-render
+  const handleViewRef = useRef<(p: Proposal) => void>(() => {});
+  handleViewRef.current = (p: Proposal) => {
     setSelectedProposal(p);
     setDetailOpen(true);
-  }, []);
+  };
+  const stableHandleView = useCallback((p: Proposal) => handleViewRef.current(p), []);
 
-  const handleSupport = useCallback((id: string) => {
+  const handleSupportRef = useRef<(id: string) => void>(() => {});
+  handleSupportRef.current = (id: string) => {
     supportProposal(id);
-    setRefreshKey(k => k + 1);
-  }, []);
+    // Don't refresh the map proposals list — only refresh on tab/filter change
+  };
+  const stableHandleSupport = useCallback((id: string) => handleSupportRef.current(id), []);
 
   const handleCreate = useCallback((data: any) => {
     createProposal(data);
     setRefreshKey(k => k + 1);
   }, []);
 
+  // For table support, we do want a refresh
+  const handleTableSupport = useCallback((id: string) => {
+    supportProposal(id);
+    setRefreshKey(k => k + 1);
+  }, []);
+
   return (
     <AppLayout>
       <div className="space-y-6">
-        {/* Page header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <h1 className="text-2xl font-bold text-foreground">My Proposals</h1>
@@ -63,7 +72,6 @@ export default function MyProposals() {
           </Button>
         </div>
 
-        {/* Filter tabs + view toggle */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <Tabs value={filterTab} onValueChange={v => setFilterTab(v as FilterTab)}>
             <TabsList>
@@ -93,7 +101,6 @@ export default function MyProposals() {
           </div>
         </div>
 
-        {/* Category legend */}
         <div className="flex flex-wrap gap-2">
           {PROPOSAL_CATEGORIES.map(c => (
             <span key={c.id} className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
@@ -106,11 +113,10 @@ export default function MyProposals() {
           </span>
         </div>
 
-        {/* Content */}
         {viewMode === 'map' ? (
-          <ProposalMap proposals={proposals} onView={handleView} onSupport={handleSupport} />
+          <ProposalMap proposals={proposals} onView={stableHandleView} onSupport={stableHandleSupport} />
         ) : (
-          <ProposalTable proposals={proposals} onView={handleView} onSupport={handleSupport} />
+          <ProposalTable proposals={proposals} onView={stableHandleView} onSupport={handleTableSupport} />
         )}
       </div>
 
@@ -118,7 +124,7 @@ export default function MyProposals() {
         proposal={selectedProposal}
         open={detailOpen}
         onOpenChange={setDetailOpen}
-        onSupport={handleSupport}
+        onSupport={handleTableSupport}
       />
       <CreateProposalModal
         open={createOpen}
