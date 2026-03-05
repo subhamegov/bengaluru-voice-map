@@ -8,7 +8,7 @@ import karnatakaGovLogo from '@/assets/karnataka-gov-logo.png';
 
 export const CITY = {
   /** Full name of the governing authority */
-  authorityName: 'Bruhat Bengaluru Mahanagara Palike',
+  authorityName: 'Greater Bengaluru Authority',
 
   /** Citizen-facing portal title */
   portalCitizenTitle: 'Citizen Engagement Portal',
@@ -64,5 +64,5 @@ export const CITY = {
   footerTagline:
     'Building a smart, inclusive, and responsive city together.',
   copyright: (year: number) =>
-    `© ${year} Bruhat Bengaluru Mahanagara Palike. All rights reserved.`,
+    `© ${year} Greater Bengaluru Authority. All rights reserved.`,
 } as const;
