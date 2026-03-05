@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { MapGuide } from './MapGuide';
 import { LocationCard } from './LocationCard';
+import { useMapTiles } from '@/hooks/use-map-tiles';
 import { Happening } from '@/types/happenings';
 import { happeningsApi } from '@/lib/happeningsApi';
 import { Input } from '@/components/ui/input';
@@ -208,6 +209,7 @@ export function CityMap({
   defaultWardId: externalDefaultWardId,
   onHappeningClick,
 }: CityMapProps) {
+  const tileConfig = useMapTiles();
   const [isMapReady, setIsMapReady] = useState(false);
   const [showGuide, setShowGuide] = useState(true);
   const [happenings, setHappenings] = useState<Happening[]>([]);
@@ -461,8 +463,10 @@ export function CityMap({
           whenReady={() => setIsMapReady(true)}
         >
           <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution={tileConfig.attribution}
+            url={tileConfig.url}
+            subdomains={tileConfig.subdomains}
+            maxZoom={tileConfig.maxZoom}
           />
 
           <MapInteractionHandler onLocationSelect={onLocationSelect} mapRef={mapRef} />
