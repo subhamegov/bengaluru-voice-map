@@ -183,7 +183,8 @@ function UseMyLocationButton({
       type="button"
       onClick={handleLocate}
       disabled={isLocating}
-      className="absolute top-20 right-3 z-[1000] bg-card text-foreground p-2.5 rounded-lg shadow-md hover:bg-muted focus-visible:ring-2 focus-visible:ring-primary border border-border disabled:opacity-50"
+      className="absolute top-20 right-3 z-[9995] bg-card text-foreground p-3 rounded-lg shadow-lg hover:bg-muted focus-visible:ring-2 focus-visible:ring-primary border border-border disabled:opacity-50 pointer-events-auto"
+      style={{ opacity: 1 }}
       aria-label="Locate me"
     >
       <Locate className={`w-5 h-5 ${isLocating ? 'animate-pulse' : ''}`} aria-hidden="true" />
