@@ -289,7 +289,7 @@ export function LocationStep({ location, onLocationChange, intent, linkedProject
     }
   };
 
-  // Nairobi center coordinates
+  // Bengaluru center coordinates
   const BENGALURU_CENTER: [number, number] = [12.9716, 77.5946];
 
   return (

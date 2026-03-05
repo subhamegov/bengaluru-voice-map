@@ -23,13 +23,13 @@ export const mockSurveys: Survey[] = [
   {
     id: "survey_002",
     title: "Public Transport Route Feedback",
-    description: "Share your thoughts on Nairobi's ongoing bus and matatu route changes.",
+    description: "Share your thoughts on Bengaluru's ongoing bus and BMTC route changes.",
     responses: 156,
     daysLeft: 12,
     questions: [
       {
         id: "q1",
-        text: "Which of these changes would most improve your daily commute in Nairobi?",
+        text: "Which of these changes would most improve your daily commute in Bengaluru?",
         options: [
           { label: "Reopening direct matatu access to CBD zones (Railways, Kencom, GPO)", votes: 45 },
           { label: "Better safety and lighting at termini such as Green Park or Fig Tree", votes: 38 },
@@ -99,7 +99,7 @@ export const mockSurveys: Survey[] = [
   {
     id: "survey_006",
     title: "Market Facilities Upgrade",
-    description: "Share input on planned market infrastructure improvements across Nairobi.",
+    description: "Share input on planned market infrastructure improvements across Bengaluru.",
     responses: 87,
     daysLeft: 8,
     questions: [

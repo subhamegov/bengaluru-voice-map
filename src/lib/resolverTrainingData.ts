@@ -515,7 +515,7 @@ export const RESOLVER_DOWNLOADS: ResolverDownload[] = [
   {
     id: 'dl_service_charter',
     name: 'Service Charter Summary',
-    description: 'Key points from the Nairobi Citizen Service Charter 2025.',
+    description: 'Key points from the Bengaluru Citizen Service Charter 2025.',
     type: 'PDF',
     size: '650 KB',
     url: '#',

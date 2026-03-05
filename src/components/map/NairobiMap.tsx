@@ -169,7 +169,7 @@ function MapInteractionHandler({
     container.addEventListener('keydown', handleKeyDown);
     container.setAttribute('tabindex', '0');
     container.setAttribute('role', 'application');
-    container.setAttribute('aria-label', 'Interactive map of Nairobi. Click or tap to select a location, or press Enter to mark the center.');
+    container.setAttribute('aria-label', 'Interactive map of Bengaluru. Click or tap to select a location, or press Enter to mark the center.');
     
     return () => {
       container.removeEventListener('keydown', handleKeyDown);
@@ -191,7 +191,7 @@ function MapCenterButton({ center }: { center: [number, number] }) {
       type="button"
       onClick={handleCenter}
       className="absolute top-20 right-3 z-[1000] bg-card text-foreground p-2.5 rounded-lg shadow-md hover:bg-muted focus-visible:ring-2 focus-visible:ring-primary border border-border"
-      aria-label="Center map on Nairobi CBD"
+      aria-label="Center map on Bengaluru CBD"
     >
       <Navigation className="w-5 h-5" aria-hidden="true" />
     </button>
@@ -249,16 +249,16 @@ export function CityMap({
   const [voiceError, setVoiceError] = useState<string | null>(null);
   const [activeFilter, setActiveFilter] = useState<MapFilterId>('all');
   const [currentLocation, setCurrentLocation] = useState<{ lat: number; lng: number }>({ 
-    lat: -1.2921, 
-    lng: 36.8219 
-  }); // Upper Hill, Nairobi
+    lat: 12.9716, 
+    lng: 77.5946 
+  }); // Bengaluru center
   const mapRef = useRef<L.Map | null>(null);
   
-  // Upper Hill, Nairobi as default center
-  const nairobiCenter: [number, number] = [-1.2921, 36.8219];
+  // Bengaluru as default center
+  const bengaluruCenter: [number, number] = [12.9716, 77.5946];
 
   useEffect(() => {
-    const hasSeenGuide = localStorage.getItem('nairobi_map_guide_seen');
+    const hasSeenGuide = localStorage.getItem('bengaluru_map_guide_seen');
     if (hasSeenGuide) {
       setShowGuide(false);
     }
@@ -272,7 +272,7 @@ export function CityMap({
 
   const handleDismissGuide = () => {
     setShowGuide(false);
-    localStorage.setItem('nairobi_map_guide_seen', 'true');
+    localStorage.setItem('bengaluru_map_guide_seen', 'true');
   };
 
   const handleVoiceCommand = useCallback(async () => {
@@ -330,7 +330,7 @@ export function CityMap({
   return (
     <div className={className}>
       <div className="sr-only" id="map-description">
-        Interactive map of Nairobi County. You can select a location by clicking or tapping on the map,
+        Interactive map of Bengaluru. You can select a location by clicking or tapping on the map,
         pressing Enter to mark the center, using the location button, or voice commands by saying "Mark here."
         Government project locations are shown as orange markers.
       </div>
@@ -361,7 +361,7 @@ export function CityMap({
       <div 
         className="map-container relative h-[350px] md:h-[400px]"
         role="application"
-        aria-label="Map of Nairobi for selecting location"
+        aria-label="Map of Bengaluru for selecting location"
         aria-describedby="map-description"
       >
         {showGuide && !selectedLocation && (
@@ -369,7 +369,7 @@ export function CityMap({
         )}
 
         <MapContainer
-          center={nairobiCenter}
+          center={bengaluruCenter}
           zoom={13}
           scrollWheelZoom={true}
           style={{ height: '100%', width: '100%' }}
@@ -384,7 +384,7 @@ export function CityMap({
             onLocationSelect={onLocationSelect} 
             mapRef={mapRef}
           />
-          <MapCenterButton center={nairobiCenter} />
+          <MapCenterButton center={bengaluruCenter} />
           <UseMyLocationButton onLocationSelect={onLocationSelect} />
           
           {selectedLocation && (
@@ -414,7 +414,7 @@ export function CityMap({
                 <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse" />
                 <strong className="text-sm">You are here</strong>
               </div>
-              <p className="text-xs text-muted-foreground mt-1">Upper Hill, Nairobi</p>
+              <p className="text-xs text-muted-foreground mt-1">Bengaluru</p>
             </Popup>
           </CircleMarker>
           {/* Outer pulse ring for current location */}

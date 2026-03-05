@@ -178,7 +178,7 @@ export const WARD_COORDINATES: { [wardCode: string]: { lat: number; lng: number;
   SAHAKARNAGAR: { lat: 13.0600, lng: 77.5800, subCounty: "Yelahanka Zone" },
 };
 
-// Helper functions (same API as Nairobi version)
+// Helper functions
 export function getWardsBySubCounty(subCountyName: string): Ward[] {
   const subCounty = BENGALURU_ZONES.find(sc => sc.name === subCountyName);
   return subCounty?.wards || [];

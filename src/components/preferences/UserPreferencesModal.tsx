@@ -18,7 +18,7 @@ interface UserPreferencesModalProps {
   onSave?: (preferences: UserPreferences) => void;
 }
 
-const STORAGE_KEY = 'nairobi_citizen_preferences';
+const STORAGE_KEY = 'bengaluru_citizen_preferences';
 
 const TOPICS = ISSUE_CATEGORIES.map(cat => ({
   code: cat.code,

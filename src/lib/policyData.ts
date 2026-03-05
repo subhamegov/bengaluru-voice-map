@@ -5,7 +5,7 @@ export const MOCK_POLICIES: Policy[] = [
     id: 'POL-2025-ENV-001',
     title: 'Plastic Waste Management Policy',
     summary: 'Proposes a phased ban on single-use plastics in public areas, markets, and bus stations by 2026.',
-    fullDescription: `This draft Plastic Waste Management Policy proposes a comprehensive strategy to reduce plastic pollution across Nairobi County. The policy introduces a phased ban on single-use plastics in public markets, bus termini, and county-managed facilities starting January 2026.
+    fullDescription: `This draft Plastic Waste Management Policy proposes a comprehensive strategy to reduce plastic pollution across Bengaluru. The policy introduces a phased ban on single-use plastics in public markets, bus termini, and BBMP-managed facilities starting January 2026.. The policy introduces a phased ban on single-use plastics in public markets, bus termini, and county-managed facilities starting January 2026.
 
 Key provisions include:
 • Mandatory use of biodegradable packaging in all county markets
@@ -26,7 +26,7 @@ The policy aims to reduce plastic waste by 60% within three years of implementat
         id: 'clause-1',
         section: 'Section 1',
         title: 'Definitions and Scope',
-        content: 'This policy applies to all single-use plastic items including bags, straws, cutlery, and packaging materials used within Nairobi County. "Single-use plastic" refers to any plastic product designed to be used only once before disposal or recycling.'
+        content: 'This policy applies to all single-use plastic items including bags, straws, cutlery, and packaging materials used within Bengaluru. "Single-use plastic" refers to any plastic product designed to be used only once before disposal or recycling.'
       },
       {
         id: 'clause-2',
@@ -102,13 +102,13 @@ The policy aims to reduce plastic waste by 60% within three years of implementat
         id: 'c5',
         author: 'Environmental Activist - Lavington',
         authorType: 'community',
-        comment: 'Long overdue! I fully support this policy. We need to protect our rivers and environment from plastic pollution. Nairobi River is choking with plastic waste.',
+        comment: 'Long overdue! I fully support this policy. We need to protect our rivers and environment from plastic pollution. Vrishabhavathi River is choking with plastic waste.',
         timestamp: '2025-12-06T15:30:00Z',
         reactions: { helpful: 38, insightful: 22, concern: 0 }
       },
       {
         id: 'c6',
-        author: 'Student - University of Nairobi',
+        author: 'Student - Bangalore University',
         authorType: 'youth',
         comment: 'Can the county partner with universities for research on biodegradable alternatives? Students can contribute innovative solutions.',
         timestamp: '2025-12-05T11:00:00Z',
@@ -133,7 +133,7 @@ The policy aims to reduce plastic waste by 60% within three years of implementat
     id: 'POL-2025-TRN-002',
     title: 'Matatu Stage Improvement Guidelines',
     summary: 'New standards for matatu termini including safety requirements, passenger amenities, and traffic flow management.',
-    fullDescription: `The Matatu Stage Improvement Guidelines establish minimum standards for all public service vehicle termini within Nairobi County. This policy responds to citizen feedback about overcrowding, safety concerns, and poor facilities at major bus stages.
+    fullDescription: `The Matatu Stage Improvement Guidelines establish minimum standards for all public service vehicle termini within Bengaluru. This policy responds to citizen feedback about overcrowding, safety concerns, and poor facilities at major bus stages.. This policy responds to citizen feedback about overcrowding, safety concerns, and poor facilities at major bus stages.
 
 Key provisions include:
 • Mandatory shelter structures with seating at all designated stages
@@ -248,10 +248,10 @@ Implementation will begin with major termini (Railways, Kencom, Ngong Road) and 
     id: 'POL-2025-HSG-003',
     title: 'Affordable Housing Allocation Framework',
     summary: 'Criteria and process for allocating county-built affordable housing units to qualifying residents.',
-    fullDescription: `This framework establishes transparent criteria for the allocation of affordable housing units constructed under the Nairobi County Housing Program. The policy aims to ensure fair access to housing for low and middle-income residents.
+    fullDescription: `This framework establishes transparent criteria for the allocation of affordable housing units constructed under the Bengaluru Housing Program. The policy aims to ensure fair access to housing for low and middle-income residents.. The policy aims to ensure fair access to housing for low and middle-income residents.
 
 Allocation criteria include:
-• Residency requirement (minimum 5 years in Nairobi)
+• Residency requirement (minimum 5 years in Bengaluru)
 • Income threshold (household income below KES 100,000/month)
 • First-time homebuyer preference
 • Special consideration for persons with disabilities
@@ -270,7 +270,7 @@ The framework also establishes an appeals process and anti-corruption measures t
         id: 'hsg-clause-1',
         section: 'Section 1',
         title: 'Eligibility - Residency Requirement',
-        content: 'Applicants must demonstrate continuous residency in Nairobi County for a minimum of five (5) years. Proof includes: utility bills, tenancy agreements, employer letters, chief/ward administrator certificates, or affidavits from two witnesses known to county administration.'
+        content: 'Applicants must demonstrate continuous residency in Bengaluru for a minimum of five (5) years. Proof includes: utility bills, tenancy agreements, employer letters, ward administrator certificates, or affidavits from two witnesses known to BBMP administration.'
       },
       {
         id: 'hsg-clause-2',
@@ -324,7 +324,7 @@ The framework also establishes an appeals process and anti-corruption measures t
         id: 'c16',
         author: 'Youth Leader - Korogocho',
         authorType: 'youth',
-        comment: 'What about young people who were born here but parents don\'t have documents? We are Nairobians too and deserve consideration.',
+        comment: 'What about young people who were born here but parents don\'t have documents? We are Bengalureans too and deserve consideration.',
         timestamp: '2025-12-03T16:00:00Z',
         reactions: { helpful: 54, insightful: 31, concern: 0 }
       },
@@ -379,7 +379,7 @@ The framework also establishes an appeals process and anti-corruption measures t
     id: 'POL-2025-HLT-004',
     title: 'Community Health Worker Stipend Review',
     summary: 'Proposed increase in monthly stipends for community health volunteers serving in county facilities.',
-    fullDescription: `This policy review proposes adjustments to the monthly stipend for Community Health Workers (CHWs) serving in Nairobi County. CHWs play a critical role in primary healthcare delivery, especially in informal settlements and underserved areas.
+    fullDescription: `This policy review proposes adjustments to the monthly stipend for Community Health Workers (CHWs) serving in Bengaluru. CHWs play a critical role in primary healthcare delivery, especially in informal settlements and underserved areas.. CHWs play a critical role in primary healthcare delivery, especially in informal settlements and underserved areas.
 
 Proposed changes:
 • Increase base stipend from KES 2,500 to KES 5,000 per month
