@@ -152,19 +152,30 @@ function UseMyLocationButton({
 
   const handleLocate = () => {
     setIsLocating(true);
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          const loc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
-          map.setView([loc.lat, loc.lng], 15, { animate: true });
-          onLocationSelect(loc);
-          onCurrentLocation(loc);
-          setIsLocating(false);
-        },
-        () => setIsLocating(false),
-        { enableHighAccuracy: true, timeout: 10000 }
-      );
+    if (!('geolocation' in navigator)) {
+      console.warn('Geolocation not available');
+      setIsLocating(false);
+      return;
     }
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const loc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+        console.log('Got user location:', loc);
+        map.setView([loc.lat, loc.lng], 15, { animate: true });
+        onLocationSelect(loc);
+        onCurrentLocation(loc);
+        setIsLocating(false);
+      },
+      (error) => {
+        console.error('Geolocation error:', error.message);
+        // Fallback: use map center as demo location
+        const fallback = map.getCenter();
+        const loc = { lat: fallback.lat, lng: fallback.lng };
+        onCurrentLocation(loc);
+        setIsLocating(false);
+      },
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 }
+    );
   };
 
   return (
@@ -244,13 +255,18 @@ export function CityMap({
     });
   }, []);
 
-  // Get user's current location
+  // Get user's current location on mount (silently, no pan)
   useEffect(() => {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(
-        (pos) => setCurrentLocation({ lat: pos.coords.latitude, lng: pos.coords.longitude }),
-        () => {}, // silently fail
-        { enableHighAccuracy: true, timeout: 10000 }
+        (pos) => {
+          console.log('Initial geolocation success:', pos.coords.latitude, pos.coords.longitude);
+          setCurrentLocation({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+        },
+        (err) => {
+          console.warn('Initial geolocation failed:', err.message);
+        },
+        { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 }
       );
     }
   }, []);
