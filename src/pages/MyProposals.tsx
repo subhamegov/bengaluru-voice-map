@@ -1,8 +1,9 @@
 import React, { useState, useMemo, useCallback, useRef } from 'react';
 import { AppLayout } from '@/components/layout/AppLayout';
+import { UX4GPageHeader } from '@/components/layout/UX4GPageHeader';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
-import { Map, LayoutList, Plus } from 'lucide-react';
+import { Map, LayoutList, Plus, ScrollText } from 'lucide-react';
 import { ProposalMap } from '@/components/proposals/ProposalMap';
 import { ProposalTable } from '@/components/proposals/ProposalTable';
 import { ProposalDetailModal } from '@/components/proposals/ProposalDetailModal';
@@ -44,7 +45,6 @@ export default function MyProposals() {
   const handleSupportRef = useRef<(id: string) => void>(() => {});
   handleSupportRef.current = (id: string) => {
     supportProposal(id);
-    // Don't refresh the map proposals list — only refresh on tab/filter change
   };
   const stableHandleSupport = useCallback((id: string) => handleSupportRef.current(id), []);
 
@@ -53,7 +53,6 @@ export default function MyProposals() {
     setRefreshKey(k => k + 1);
   }, []);
 
-  // For table support, we do want a refresh
   const handleTableSupport = useCallback((id: string) => {
     supportProposal(id);
     setRefreshKey(k => k + 1);
@@ -61,17 +60,20 @@ export default function MyProposals() {
 
   return (
     <AppLayout>
-      <div className="space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <div>
-            <h1 className="text-2xl font-bold text-foreground">My Proposals</h1>
-            <p className="text-sm text-muted-foreground mt-1">View, create, and track civic proposals for your localities.</p>
-          </div>
-          <Button onClick={() => setCreateOpen(true)} className="gap-2 self-start">
-            <Plus className="w-4 h-4" /> Create Proposal
-          </Button>
-        </div>
+      <div className="space-y-5">
+        {/* Page header */}
+        <UX4GPageHeader
+          icon={ScrollText}
+          title="My Proposals"
+          description="View, create, and track civic proposals for your localities."
+          action={
+            <Button onClick={() => setCreateOpen(true)} className="gap-2">
+              <Plus className="w-4 h-4" /> Create Proposal
+            </Button>
+          }
+        />
 
+        {/* Filters + view toggle */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <Tabs value={filterTab} onValueChange={v => setFilterTab(v as FilterTab)}>
             <TabsList>
@@ -88,7 +90,7 @@ export default function MyProposals() {
                 viewMode === 'map' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'
               }`}
             >
-              <Map className="w-4 h-4" /> Map View
+              <Map className="w-4 h-4" /> Map
             </button>
             <button
               onClick={() => setViewMode('grid')}
@@ -96,23 +98,25 @@ export default function MyProposals() {
                 viewMode === 'grid' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'
               }`}
             >
-              <LayoutList className="w-4 h-4" /> Grid View
+              <LayoutList className="w-4 h-4" /> Grid
             </button>
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-2">
+        {/* Category legend + count */}
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
           {PROPOSAL_CATEGORIES.map(c => (
             <span key={c.id} className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
-              <span className="w-3 h-3 rounded-full inline-block" style={{ background: c.color }} />
+              <span className="w-2.5 h-2.5 rounded-full inline-block flex-shrink-0" style={{ background: c.color }} />
               {c.label}
             </span>
           ))}
-          <span className="text-xs text-muted-foreground ml-2">
+          <span className="text-xs font-medium text-muted-foreground ml-auto">
             {proposals.length} proposal{proposals.length !== 1 ? 's' : ''}
           </span>
         </div>
 
+        {/* Content */}
         {viewMode === 'map' ? (
           <ProposalMap proposals={proposals} onView={stableHandleView} onSupport={stableHandleSupport} />
         ) : (

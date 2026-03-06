@@ -1,8 +1,9 @@
-import React, { useMemo, useRef, useEffect, useCallback } from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import React, { useMemo, useRef, useState, useCallback } from 'react';
+import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
 import { useMapTiles } from '@/hooks/use-map-tiles';
 import { Proposal, getCategoryColor, getCategoryLabel } from '@/types/proposal';
+import { Crosshair } from 'lucide-react';
 import 'leaflet/dist/leaflet.css';
 
 interface Props {
@@ -11,17 +12,17 @@ interface Props {
   onSupport: (id: string) => void;
 }
 
-function createProposalIcon(color: string, size = 24) {
+function createProposalIcon(color: string, size = 22) {
   return new L.DivIcon({
     className: 'proposal-marker',
     html: `<div style="
       width:${size}px; height:${size}px; background:${color};
       border:3px solid white; border-radius:50%;
-      box-shadow:0 2px 8px rgba(0,0,0,0.3);
+      box-shadow:0 2px 6px rgba(0,0,0,0.25);
     "></div>`,
     iconSize: [size, size],
     iconAnchor: [size / 2, size / 2],
-    popupAnchor: [0, -(size / 2)],
+    popupAnchor: [0, -(size / 2 + 2)],
   });
 }
 
@@ -29,44 +30,121 @@ const STATUS_LABEL: Record<string, string> = {
   draft: 'Draft', open: 'Open', under_review: 'Under Review', approved: 'Approved', rejected: 'Rejected',
 };
 
-// Use refs for callbacks so Marker children don't re-render on parent state change
-function StablePopup({ proposal, onView, onSupport }: { proposal: Proposal; onView: (p: Proposal) => void; onSupport: (id: string) => void }) {
+/* ── Locate Me button (GPS) ── */
+function LocateMeButton() {
+  const map = useMap();
+  const btnRef = useRef<HTMLButtonElement>(null);
+
+  React.useEffect(() => {
+    if (btnRef.current) {
+      L.DomEvent.disableClickPropagation(btnRef.current);
+      L.DomEvent.disableScrollPropagation(btnRef.current);
+    }
+  }, []);
+
+  const handleClick = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!navigator.geolocation) return;
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const { latitude, longitude } = pos.coords;
+        map.flyTo([latitude, longitude], 14, { duration: 1 });
+      },
+      () => {
+        // Silently fail — user may have denied permission
+      }
+    );
+  }, [map]);
+
+  return (
+    <div className="leaflet-top leaflet-right" style={{ pointerEvents: 'auto', position: 'absolute', top: 10, right: 10, zIndex: 1000 }}>
+      <button
+        ref={btnRef}
+        type="button"
+        onClick={handleClick}
+        className="flex items-center justify-center w-9 h-9 bg-background border border-border rounded shadow-md hover:bg-muted transition-colors"
+        aria-label="Locate me"
+        title="Go to my GPS location"
+      >
+        <Crosshair className="w-4 h-4 text-foreground" />
+      </button>
+    </div>
+  );
+}
+
+/* ── Stable popup that won't re-render on parent state changes ── */
+function StablePopup({
+  proposal,
+  onView,
+  onSupport,
+}: {
+  proposal: Proposal;
+  onView: (p: Proposal) => void;
+  onSupport: (id: string) => void;
+}) {
   const onViewRef = useRef(onView);
   const onSupportRef = useRef(onSupport);
   onViewRef.current = onView;
   onSupportRef.current = onSupport;
 
   return (
-    <Popup maxWidth={280} autoPan={false}>
-      <div className="space-y-2 p-1">
-        <h4 className="font-semibold text-sm leading-tight">{proposal.title}</h4>
-        <div className="flex flex-wrap gap-1">
-          <span
-            className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium"
-            style={{ background: getCategoryColor(proposal.category), color: 'white' }}
-          >
+    <Popup maxWidth={260} minWidth={200} autoPan closeOnClick={false}>
+      <div style={{ minWidth: 180 }}>
+        <p style={{ fontWeight: 600, fontSize: 13, lineHeight: 1.3, margin: '0 0 6px 0' }}>
+          {proposal.title}
+        </p>
+        <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', marginBottom: 6 }}>
+          <span style={{
+            display: 'inline-block', padding: '2px 8px', borderRadius: 12,
+            fontSize: 11, fontWeight: 500, color: 'white',
+            background: getCategoryColor(proposal.category),
+          }}>
             {getCategoryLabel(proposal.category)}
           </span>
-          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-muted text-muted-foreground">
+          <span style={{
+            display: 'inline-block', padding: '2px 8px', borderRadius: 12,
+            fontSize: 11, fontWeight: 500, color: '#555',
+            background: '#f0f0f0',
+          }}>
             {STATUS_LABEL[proposal.status] ?? proposal.status}
           </span>
         </div>
-        <div className="flex items-center gap-3 text-xs text-muted-foreground">
-          <span>👍 {proposal.supportCount}</span>
-          <span>💬 {proposal.commentCount}</span>
-        </div>
-        <div className="flex gap-1 pt-1">
+        <p style={{ fontSize: 12, color: '#666', margin: '0 0 8px 0' }}>
+          👍 {proposal.supportCount} &nbsp; 💬 {proposal.commentCount}
+        </p>
+        <div style={{ display: 'flex', gap: 6 }}>
           <button
-            className="text-xs px-3 py-1.5 rounded font-medium text-primary-foreground"
-            style={{ background: 'hsl(231 48% 40%)' }}
-            onClick={(e) => { e.stopPropagation(); onViewRef.current(proposal); }}
+            style={{
+              fontSize: 12, padding: '5px 12px', borderRadius: 4, fontWeight: 600,
+              background: 'hsl(231 48% 40%)', color: 'white', border: 'none', cursor: 'pointer',
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+              // Close the popup first by finding the map
+              const popupEl = (e.target as HTMLElement).closest('.leaflet-popup');
+              if (popupEl) {
+                const closeBtn = popupEl.querySelector('.leaflet-popup-close-button') as HTMLElement;
+                closeBtn?.click();
+              }
+              // Delay opening dialog to let popup close cleanly
+              setTimeout(() => onViewRef.current(proposal), 50);
+            }}
           >
             View Details
           </button>
           <button
-            className="text-xs px-3 py-1.5 rounded border border-border text-foreground hover:bg-muted disabled:opacity-50"
-            onClick={(e) => { e.stopPropagation(); onSupportRef.current(proposal.id); }}
+            style={{
+              fontSize: 12, padding: '5px 12px', borderRadius: 4, fontWeight: 500,
+              background: 'white', color: '#333', border: '1px solid #ddd', cursor: 'pointer',
+              opacity: proposal.supportedByUser ? 0.5 : 1,
+            }}
             disabled={proposal.supportedByUser}
+            onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+              onSupportRef.current(proposal.id);
+            }}
           >
             {proposal.supportedByUser ? 'Supported' : 'Support'}
           </button>
@@ -87,20 +165,26 @@ export const ProposalMap = React.memo(function ProposalMap({ proposals, onView, 
   }, [proposals]);
 
   const icons = useMemo(() => {
-    const map = new Map<string, L.DivIcon>();
+    const m = new window.Map<string, L.DivIcon>();
     proposals.forEach(p => {
-      const key = p.category;
-      if (!map.has(key)) {
-        map.set(key, createProposalIcon(getCategoryColor(p.category)));
+      if (!m.has(p.category)) {
+        m.set(p.category, createProposalIcon(getCategoryColor(p.category)));
       }
     });
-    return map;
+    return m;
   }, [proposals]);
 
   return (
-    <div className="map-container" style={{ height: '500px' }}>
-      <MapContainer center={center} zoom={12} style={{ height: '100%', width: '100%' }} scrollWheelZoom>
+    <div className="rounded-lg border-2 border-border shadow-md overflow-hidden" style={{ height: 500 }}>
+      <MapContainer
+        center={center}
+        zoom={12}
+        style={{ height: '100%', width: '100%' }}
+        scrollWheelZoom
+        className="rounded-lg"
+      >
         <TileLayer url={tiles.url} attribution={tiles.attribution} subdomains={tiles.subdomains} maxZoom={tiles.maxZoom} />
+        <LocateMeButton />
         {proposals.map(p => (
           <Marker
             key={p.id}
