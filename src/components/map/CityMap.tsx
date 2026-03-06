@@ -112,12 +112,21 @@ const createCategoryIcon = (color: string) => new L.DivIcon({
 function MapInteractionHandler({
   onLocationSelect,
   mapRef,
+  pinDropMode,
 }: {
   onLocationSelect: (location: { lat: number; lng: number }) => void;
   mapRef: React.MutableRefObject<L.Map | null>;
+  pinDropMode: boolean;
 }) {
+  const pinDropRef = useRef(pinDropMode);
+  pinDropRef.current = pinDropMode;
+
   const map = useMapEvents({
-    click: (e) => onLocationSelect({ lat: e.latlng.lat, lng: e.latlng.lng }),
+    click: (e) => {
+      if (pinDropRef.current) {
+        onLocationSelect({ lat: e.latlng.lat, lng: e.latlng.lng });
+      }
+    },
   });
 
   useEffect(() => { mapRef.current = map; }, [map, mapRef]);
@@ -141,16 +150,28 @@ function MapInteractionHandler({
 }
 
 function UseMyLocationButton({ 
-  onLocationSelect,
-  onCurrentLocation 
+  onCurrentLocation,
+  onDisablePinDrop,
 }: { 
-  onLocationSelect: (loc: { lat: number; lng: number }) => void;
   onCurrentLocation: (loc: { lat: number; lng: number }) => void;
+  onDisablePinDrop: () => void;
 }) {
   const map = useMap();
   const [isLocating, setIsLocating] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
-  const handleLocate = () => {
+  // Prevent click propagation to map
+  useEffect(() => {
+    const el = buttonRef.current;
+    if (el) {
+      L.DomEvent.disableClickPropagation(el);
+      L.DomEvent.disableScrollPropagation(el);
+    }
+  }, []);
+
+  const handleLocate = (e: React.MouseEvent) => {
+    L.DomEvent.stop(e.nativeEvent as any);
+    onDisablePinDrop();
     setIsLocating(true);
     if (!('geolocation' in navigator)) {
       console.warn('Geolocation not available');
@@ -160,18 +181,14 @@ function UseMyLocationButton({
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         const loc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
-        console.log('Got user location:', loc);
         map.setView([loc.lat, loc.lng], 15, { animate: true });
-        onLocationSelect(loc);
         onCurrentLocation(loc);
         setIsLocating(false);
       },
       (error) => {
         console.error('Geolocation error:', error.message);
-        // Fallback: use map center as demo location
         const fallback = map.getCenter();
-        const loc = { lat: fallback.lat, lng: fallback.lng };
-        onCurrentLocation(loc);
+        onCurrentLocation({ lat: fallback.lat, lng: fallback.lng });
         setIsLocating(false);
       },
       { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 }
@@ -180,6 +197,7 @@ function UseMyLocationButton({
 
   return (
     <button
+      ref={buttonRef}
       type="button"
       onClick={handleLocate}
       disabled={isLocating}
@@ -230,6 +248,7 @@ export function CityMap({
   const [currentLocation, setCurrentLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [wardPref, setWardPref] = useState<WardPref>(() => loadWardPref());
   const [showSavedPins, setShowSavedPins] = useState(true);
+  const [pinDropMode, setPinDropMode] = useState(true);
   const mapRef = useRef<L.Map | null>(null);
 
   // Resolve which ward to focus on
@@ -550,8 +569,8 @@ export function CityMap({
             maxZoom={tileConfig.maxZoom}
           />
 
-          <MapInteractionHandler onLocationSelect={onLocationSelect} mapRef={mapRef} />
-          <UseMyLocationButton onLocationSelect={onLocationSelect} onCurrentLocation={setCurrentLocation} />
+          <MapInteractionHandler onLocationSelect={onLocationSelect} mapRef={mapRef} pinDropMode={pinDropMode} />
+          <UseMyLocationButton onCurrentLocation={setCurrentLocation} onDisablePinDrop={() => setPinDropMode(false)} />
 
           {/* Ward boundaries */}
           {wardGeoJSON && (
