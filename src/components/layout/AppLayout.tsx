@@ -84,25 +84,25 @@ export function AppLayout({ children }: AppLayoutProps) {
         <div className="container">
           {/* Top row: emblem + name + search + profile */}
           <div className="flex items-center justify-between h-16 md:h-[72px]">
-            <NavLink to="/" className="flex items-center gap-3 hover:opacity-90 transition-opacity flex-shrink-0">
+            <NavLink to="/" className="flex items-center gap-2 md:gap-3 hover:opacity-90 transition-opacity min-w-0 flex-1 mr-2">
               <img
                 src={CITY.stateEmblemAsset}
                 alt={CITY.stateEmblemAlt}
-                className="w-11 h-11 md:w-12 md:h-12 object-contain"
+                className="w-9 h-9 sm:w-11 sm:h-11 md:w-12 md:h-12 object-contain flex-shrink-0"
               />
               <img
                 src={CITY.emblemAsset}
                 alt={CITY.emblemAlt}
-                className="w-11 h-11 md:w-12 md:h-12 object-contain"
+                className="w-9 h-9 sm:w-11 sm:h-11 md:w-12 md:h-12 object-contain flex-shrink-0"
               />
-              <div className="min-w-0">
-                <p className="text-base md:text-lg font-bold leading-tight tracking-tight text-foreground truncate">
+              <div className="min-w-0 overflow-hidden">
+                <p className="text-sm sm:text-base md:text-lg font-bold leading-tight tracking-tight text-foreground truncate">
                   Greater Bengaluru Authority
                 </p>
-                <p className="text-[11px] md:text-xs text-muted-foreground font-medium">
+                <p className="text-[10px] sm:text-[11px] md:text-xs text-muted-foreground font-medium truncate">
                   {CITY.portalCitizenTitle}
                 </p>
-                <p className="text-[10px] md:text-[11px] text-muted-foreground/80 font-medium leading-tight">
+                <p className="hidden sm:block text-[10px] md:text-[11px] text-muted-foreground/80 font-medium leading-tight truncate">
                   {CITY.portalCitizenTitleKn}
                 </p>
               </div>
