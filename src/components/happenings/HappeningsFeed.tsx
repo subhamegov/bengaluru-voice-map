@@ -75,16 +75,16 @@ export function HappeningsFeed({ wardCode, lat, lng, radiusKm = 5, className }: 
   return (
     <div className={cn('space-y-4', className)}>
       {/* Header */}
-      <div className="flex items-center justify-between flex-wrap gap-4">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center">
-            <Bell className="w-5 h-5 text-secondary-foreground" aria-hidden="true" />
+      <div className="gov-section-header">
+        <div className="flex items-start gap-3 min-w-0 flex-1">
+          <div className="w-9 h-9 rounded-full bg-secondary/20 flex items-center justify-center shrink-0 mt-0.5">
+            <Bell className="w-4.5 h-4.5 text-secondary-foreground" aria-hidden="true" />
           </div>
-          <div>
-            <h2 className="text-xl font-bold text-foreground">
+          <div className="min-w-0">
+            <h2 className="text-lg font-bold text-foreground leading-tight">
               What's Happening Around You
             </h2>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-xs text-muted-foreground mt-0.5">
               {hasLocation 
                 ? 'Updates near your selected location'
                 : 'Local government and community updates'
@@ -93,22 +93,21 @@ export function HappeningsFeed({ wardCode, lat, lng, radiusKm = 5, className }: 
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 shrink-0">
           {happenings.length > 0 && (
             <button
               type="button"
               onClick={handleReadAllAloud}
               className={cn(
-                'btn-accessible text-sm',
+                'p-2 rounded-lg transition-colors',
                 isReadingAll
                   ? 'bg-secondary text-secondary-foreground'
-                  : 'btn-ghost'
+                  : 'text-muted-foreground hover:bg-muted hover:text-foreground'
               )}
               aria-label={isReadingAll ? 'Stop reading all updates' : 'Read all updates aloud'}
               aria-pressed={isReadingAll}
             >
-              <Volume2 className="w-5 h-5" aria-hidden="true" />
-              <span className="hidden sm:inline">{isReadingAll ? 'Stop' : 'Read all'}</span>
+              <Volume2 className="w-4.5 h-4.5" aria-hidden="true" />
             </button>
           )}
 
@@ -116,10 +115,10 @@ export function HappeningsFeed({ wardCode, lat, lng, radiusKm = 5, className }: 
             type="button"
             onClick={loadHappenings}
             disabled={isLoading}
-            className="btn-ghost"
+            className="p-2 rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground transition-colors disabled:opacity-50"
             aria-label="Refresh updates"
           >
-            <RefreshCw className={cn('w-5 h-5', isLoading && 'animate-spin')} aria-hidden="true" />
+            <RefreshCw className={cn('w-4.5 h-4.5', isLoading && 'animate-spin')} aria-hidden="true" />
           </button>
         </div>
       </div>
