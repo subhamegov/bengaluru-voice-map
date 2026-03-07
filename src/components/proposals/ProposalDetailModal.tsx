@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
@@ -7,6 +7,11 @@ import { Textarea } from '@/components/ui/textarea';
 import { Progress } from '@/components/ui/progress';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui/collapsible';
 import {
   ThumbsUp,
   ThumbsDown,
@@ -24,8 +29,14 @@ import {
   Check,
   X,
   ArrowRight,
-  BarChart3,
   AlertTriangle,
+  Share2,
+  Copy,
+  ExternalLink,
+  ChevronDown,
+  Globe,
+  Newspaper,
+  Users,
 } from 'lucide-react';
 import {
   Proposal,
@@ -58,6 +69,13 @@ const STATUS_CONFIG: Record<string, { label: string; className: string }> = {
   rejected: { label: 'Rejected', className: 'bg-destructive/15 text-destructive border-destructive/30' },
 };
 
+// Mock public discussion data
+const MOCK_DISCUSSIONS = [
+  { id: '1', snippet: '"The PHC upgrade will greatly benefit families in Indiranagar who currently travel to Domlur for diagnostics."', source: 'Platform', icon: Globe },
+  { id: '2', snippet: '"Ward 74 residents have been asking for maternal care facilities since 2023. This is a welcome move."', source: 'Social Media', icon: Users },
+  { id: '3', snippet: '"BBMP approves ₹5.4 Cr health centre upgrade for Indiranagar ward."', source: 'News', icon: Newspaper },
+];
+
 /* ---------- Civic Quality Meter ---------- */
 function getCivicQualityScore(text: string): { score: number; label: string; color: string; guidance: string } {
   const lower = text.toLowerCase();
@@ -86,16 +104,11 @@ function SentimentBar({ support, concern, neutral }: { support: number; concern:
   const np = (neutral / total) * 100;
 
   return (
-    <div className="space-y-2">
-      <div className="flex h-3 w-full rounded-full overflow-hidden">
-        <div className="bg-success transition-all" style={{ width: `${sp}%` }} title={`Support: ${support}`} />
-        <div className="bg-destructive/70 transition-all" style={{ width: `${cp}%` }} title={`Concern: ${concern}`} />
-        <div className="bg-muted-foreground/40 transition-all" style={{ width: `${np}%` }} title={`Neutral: ${neutral}`} />
-      </div>
-      <div className="flex justify-between text-xs text-muted-foreground">
-        <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-success inline-block" /> Support {support}</span>
-        <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-destructive/70 inline-block" /> Concern {concern}</span>
-        <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-muted-foreground/40 inline-block" /> Neutral {neutral}</span>
+    <div className="space-y-1.5">
+      <div className="flex h-2.5 w-full rounded-full overflow-hidden">
+        <div className="bg-success transition-all" style={{ width: `${sp}%` }} />
+        <div className="bg-destructive/70 transition-all" style={{ width: `${cp}%` }} />
+        <div className="bg-muted-foreground/40 transition-all" style={{ width: `${np}%` }} />
       </div>
     </div>
   );
@@ -122,37 +135,19 @@ function StatementCard({
     <div className="border rounded-lg p-3 space-y-2.5 bg-card">
       <p className="text-sm leading-relaxed text-foreground">"{statement.text}"</p>
       <p className="text-xs text-muted-foreground">— {statement.authorName} · {statement.createdAt}</p>
-
-      {/* Vote distribution bar */}
       <div className="flex h-1.5 w-full rounded-full overflow-hidden">
         <div className="bg-success transition-all" style={{ width: `${(statement.agree / total) * 100}%` }} />
         <div className="bg-destructive/70 transition-all" style={{ width: `${(statement.disagree / total) * 100}%` }} />
         <div className="bg-muted-foreground/30 transition-all" style={{ width: `${(statement.pass / total) * 100}%` }} />
       </div>
-
       <div className="flex gap-1.5">
-        <Button
-          variant={statement.userVote === 'agree' ? 'default' : 'outline'}
-          size="sm"
-          className="flex-1 h-8 text-xs"
-          onClick={() => handleVote('agree')}
-        >
+        <Button variant={statement.userVote === 'agree' ? 'default' : 'outline'} size="sm" className="flex-1 h-8 text-xs" onClick={() => handleVote('agree')}>
           <Check className="w-3 h-3 mr-1" /> Agree ({statement.agree})
         </Button>
-        <Button
-          variant={statement.userVote === 'disagree' ? 'destructive' : 'outline'}
-          size="sm"
-          className="flex-1 h-8 text-xs"
-          onClick={() => handleVote('disagree')}
-        >
+        <Button variant={statement.userVote === 'disagree' ? 'destructive' : 'outline'} size="sm" className="flex-1 h-8 text-xs" onClick={() => handleVote('disagree')}>
           <X className="w-3 h-3 mr-1" /> Disagree ({statement.disagree})
         </Button>
-        <Button
-          variant={statement.userVote === 'pass' ? 'secondary' : 'outline'}
-          size="sm"
-          className="flex-1 h-8 text-xs"
-          onClick={() => handleVote('pass')}
-        >
+        <Button variant={statement.userVote === 'pass' ? 'secondary' : 'outline'} size="sm" className="flex-1 h-8 text-xs" onClick={() => handleVote('pass')}>
           <Minus className="w-3 h-3 mr-1" /> Pass ({statement.pass})
         </Button>
       </div>
@@ -198,11 +193,81 @@ function CommentItem({ comment }: { comment: ProposalComment }) {
   );
 }
 
-/* ---------- Main Modal ---------- */
+/* ---------- Collapsible Admin Card ---------- */
+function AdminDetailCard({ icon: Icon, label, value, subtitle }: { icon: React.ElementType; label: string; value: string; subtitle?: string }) {
+  return (
+    <Collapsible>
+      <CollapsibleTrigger className="w-full flex items-center justify-between p-3 rounded-lg border bg-card hover:bg-muted/50 transition-colors text-left">
+        <div className="flex items-center gap-2.5">
+          <Icon className="w-4 h-4 text-primary flex-shrink-0" />
+          <span className="text-sm font-medium text-foreground">{label}</span>
+        </div>
+        <ChevronDown className="w-4 h-4 text-muted-foreground transition-transform [[data-state=open]>&]:rotate-180" />
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <div className="px-3 pb-3 pt-1.5 ml-6.5">
+          <p className="text-sm font-semibold text-foreground">{value}</p>
+          {subtitle && <p className="text-xs text-muted-foreground mt-0.5">{subtitle}</p>}
+        </div>
+      </CollapsibleContent>
+    </Collapsible>
+  );
+}
+
+/* ---------- Share Panel ---------- */
+function SharePanel({ proposal, onClose }: { proposal: Proposal; onClose: () => void }) {
+  const [copied, setCopied] = useState(false);
+  const shareUrl = `${window.location.origin}/my-proposals?id=${proposal.id}`;
+  const shareText = `${proposal.title} — Ward ${proposal.wardNumber ?? ''} ${proposal.wardName}, ${proposal.city}. ${proposal.reactions.support} supporters. Check it out:`;
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(shareUrl);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText + ' ' + shareUrl)}`;
+  const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
+  const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+
+  return (
+    <div className="bg-muted/50 border rounded-xl p-4 space-y-3">
+      <div className="flex items-center justify-between">
+        <h4 className="text-sm font-semibold text-foreground">Share this proposal</h4>
+        <button onClick={onClose} className="text-muted-foreground hover:text-foreground">
+          <X className="w-4 h-4" />
+        </button>
+      </div>
+      <div className="grid grid-cols-2 gap-2">
+        <a href={whatsappUrl} target="_blank" rel="noopener noreferrer"
+          className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg border bg-card text-sm font-medium text-foreground hover:bg-muted transition-colors">
+          <span className="text-base">💬</span> WhatsApp
+        </a>
+        <a href={twitterUrl} target="_blank" rel="noopener noreferrer"
+          className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg border bg-card text-sm font-medium text-foreground hover:bg-muted transition-colors">
+          <span className="text-base">𝕏</span> Post on X
+        </a>
+        <a href={facebookUrl} target="_blank" rel="noopener noreferrer"
+          className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg border bg-card text-sm font-medium text-foreground hover:bg-muted transition-colors">
+          <span className="text-base">📘</span> Facebook
+        </a>
+        <button onClick={handleCopy}
+          className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg border bg-card text-sm font-medium text-foreground hover:bg-muted transition-colors">
+          {copied ? <Check className="w-4 h-4 text-success" /> : <Copy className="w-4 h-4" />}
+          {copied ? 'Copied!' : 'Copy Link'}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/* ========== Main Modal ========== */
 export function ProposalDetailModal({ proposal, open, onOpenChange, onSupport }: Props) {
   const [refreshKey, setRefreshKey] = useState(0);
   const [newStatement, setNewStatement] = useState('');
   const [newComment, setNewComment] = useState('');
+  const [showFullDescription, setShowFullDescription] = useState(false);
+  const [showSharePanel, setShowSharePanel] = useState(false);
   const civicScore = useMemo(() => getCivicQualityScore(newComment), [newComment]);
 
   if (!proposal) return null;
@@ -210,6 +275,7 @@ export function ProposalDetailModal({ proposal, open, onOpenChange, onSupport }:
 
   const statusCfg = STATUS_CONFIG[p.status] ?? STATUS_CONFIG.draft;
   const totalReactions = p.reactions.support + p.reactions.concern + p.reactions.neutral;
+  const descriptionIsLong = p.description.length > 180;
 
   const handleReaction = (reaction: 'support' | 'concern' | 'neutral') => {
     reactToProposal(p.id, reaction);
@@ -242,160 +308,244 @@ export function ProposalDetailModal({ proposal, open, onOpenChange, onSupport }:
         onPointerDownOutside={(e) => e.preventDefault()}
       >
         <ScrollArea className="max-h-[90vh]">
-          <div className="p-5 sm:p-6 space-y-5">
+          <div className="space-y-0">
 
-            {/* ===== HEADER ===== */}
-            <div className="space-y-3">
-              <div className="flex flex-wrap gap-2 items-center">
-                <Badge
-                  variant="outline"
-                  style={{ borderColor: getCategoryColor(p.category), color: getCategoryColor(p.category) }}
+            {/* ===== 1. COMPACT HEADER ===== */}
+            <div className="p-4 sm:p-5 pb-3 space-y-2.5 bg-background">
+              {/* Chips row */}
+              <div className="flex items-center justify-between">
+                <div className="flex flex-wrap gap-1.5">
+                  <Badge
+                    variant="outline"
+                    style={{ borderColor: getCategoryColor(p.category), color: getCategoryColor(p.category) }}
+                    className="text-xs"
+                  >
+                    {getCategoryLabel(p.category)}
+                  </Badge>
+                  <Badge className={`${statusCfg.className} text-xs`} variant="outline">
+                    {statusCfg.label}
+                  </Badge>
+                </div>
+                <button
+                  onClick={() => setShowSharePanel(!showSharePanel)}
+                  className="p-2 rounded-lg hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
+                  aria-label="Share proposal"
                 >
-                  {getCategoryLabel(p.category)}
-                </Badge>
-                <Badge className={statusCfg.className} variant="outline">
-                  {statusCfg.label}
-                </Badge>
+                  <Share2 className="w-5 h-5" />
+                </button>
               </div>
 
-              <DialogHeader className="p-0">
-                <DialogTitle className="text-xl leading-snug pr-8">{p.title}</DialogTitle>
-              </DialogHeader>
+              {/* Title */}
+              <h2 className="text-lg sm:text-xl font-bold text-foreground leading-snug pr-6">
+                {p.title}
+              </h2>
 
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
-                <span className="flex items-center gap-1.5">
+              {/* Meta row */}
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
+                <span className="flex items-center gap-1">
                   <MapPin className="w-3.5 h-3.5" />
                   Ward {p.wardNumber ?? '—'} · {p.wardName}
                 </span>
-                <span className="flex items-center gap-1.5">
+                <span className="flex items-center gap-1">
                   <Building2 className="w-3.5 h-3.5" />
                   {p.city}
                 </span>
-                <span className="flex items-center gap-1.5">
+                <span className="flex items-center gap-1">
                   <Calendar className="w-3.5 h-3.5" />
                   {p.createdAt}
                 </span>
               </div>
             </div>
 
-            <Separator />
+            {/* ===== Share Panel (conditionally shown) ===== */}
+            {showSharePanel && (
+              <div className="px-4 sm:px-5 pb-3">
+                <SharePanel proposal={p} onClose={() => setShowSharePanel(false)} />
+              </div>
+            )}
 
-            {/* ===== PROPOSAL DETAILS ===== */}
-            <div className="space-y-3">
-              <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
-                <BarChart3 className="w-4 h-4 text-primary" />
-                Proposal Details
-              </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{p.description}</p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                {p.department && (
-                  <div className="flex items-start gap-2 p-2.5 rounded-lg bg-muted/50 text-sm">
-                    <Building2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                    <div>
-                      <p className="text-xs text-muted-foreground">Department</p>
-                      <p className="font-medium text-foreground">{p.department}</p>
-                    </div>
-                  </div>
-                )}
-                {p.estimatedBudget && (
-                  <div className="flex items-start gap-2 p-2.5 rounded-lg bg-muted/50 text-sm">
-                    <IndianRupee className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                    <div>
-                      <p className="text-xs text-muted-foreground">Estimated Budget</p>
-                      <p className="font-medium text-foreground">{p.estimatedBudget}</p>
-                    </div>
-                  </div>
-                )}
-                {p.targetTimeline && (
-                  <div className="flex items-start gap-2 p-2.5 rounded-lg bg-muted/50 text-sm">
-                    <Clock className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                    <div>
-                      <p className="text-xs text-muted-foreground">Target Timeline</p>
-                      <p className="font-medium text-foreground">{p.targetTimeline}</p>
-                    </div>
-                  </div>
-                )}
-                {p.representatives && p.representatives.length > 0 && (
-                  <div className="flex items-start gap-2 p-2.5 rounded-lg bg-muted/50 text-sm">
-                    <User className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                    <div>
-                      <p className="text-xs text-muted-foreground">Representative</p>
-                      <p className="font-medium text-foreground">{p.representatives[0].name}</p>
-                      <p className="text-xs text-muted-foreground">{p.representatives[0].role}</p>
-                    </div>
-                  </div>
-                )}
+            {/* ===== 2. SUPPORT INDICATOR ===== */}
+            <div className="px-4 sm:px-5 pb-2">
+              <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                <span className="flex items-center gap-1">
+                  <span className="w-2 h-2 rounded-full bg-success inline-block" />
+                  <strong className="text-foreground">{p.reactions.support}</strong> Support
+                </span>
+                <span className="flex items-center gap-1">
+                  <span className="w-2 h-2 rounded-full bg-destructive/70 inline-block" />
+                  <strong className="text-foreground">{p.reactions.concern}</strong> Concern
+                </span>
+                <span className="flex items-center gap-1">
+                  <MessageSquare className="w-3 h-3" />
+                  <strong className="text-foreground">{p.comments.length}</strong> Comments
+                </span>
+              </div>
+              <div className="mt-2">
+                <SentimentBar support={p.reactions.support} concern={p.reactions.concern} neutral={p.reactions.neutral} />
               </div>
             </div>
 
-            <Separator />
-
-            {/* ===== MAP CONTEXT ===== */}
-            <div className="rounded-lg border bg-muted/30 p-3 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                <MapPin className="w-5 h-5 text-primary" />
-              </div>
-              <div>
-                <p className="text-sm font-medium text-foreground">
-                  This proposal affects Ward {p.wardNumber ?? '—'} ({p.wardName}) residents.
-                </p>
-                <p className="text-xs text-muted-foreground">
-                  Location: {p.lat.toFixed(4)}°N, {p.lng.toFixed(4)}°E · {p.city}
-                </p>
-              </div>
-            </div>
-
-            <Separator />
-
-            {/* ===== CIVIC REACTIONS ===== */}
-            <div className="space-y-3">
-              <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
-                <BarChart3 className="w-4 h-4 text-primary" />
-                Civic Reaction · {totalReactions} responses
-              </h3>
-
-              <div className="flex gap-2">
+            {/* ===== 3. PARTICIPATION ACTION BAR ===== */}
+            <div className="px-4 sm:px-5 py-3 border-y border-border bg-muted/20">
+              <div className="grid grid-cols-4 gap-2">
                 <Button
                   variant={p.reactions.userReaction === 'support' ? 'default' : 'outline'}
                   size="sm"
-                  className="flex-1"
+                  className="h-10 text-xs flex-col gap-0.5 px-1"
                   onClick={() => handleReaction('support')}
                 >
-                  <ThumbsUp className="w-4 h-4 mr-1.5" />
+                  <ThumbsUp className="w-4 h-4" />
                   Support
                 </Button>
                 <Button
                   variant={p.reactions.userReaction === 'concern' ? 'destructive' : 'outline'}
                   size="sm"
-                  className="flex-1"
+                  className="h-10 text-xs flex-col gap-0.5 px-1"
                   onClick={() => handleReaction('concern')}
                 >
-                  <AlertTriangle className="w-4 h-4 mr-1.5" />
+                  <AlertTriangle className="w-4 h-4" />
                   Concern
                 </Button>
                 <Button
-                  variant={p.reactions.userReaction === 'neutral' ? 'secondary' : 'outline'}
+                  variant="outline"
                   size="sm"
-                  className="flex-1"
-                  onClick={() => handleReaction('neutral')}
+                  className="h-10 text-xs flex-col gap-0.5 px-1"
+                  onClick={() => {
+                    // Scroll to comment section
+                    document.getElementById('proposal-comment-section')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
                 >
-                  <Minus className="w-4 h-4 mr-1.5" />
-                  Neutral
+                  <MessageSquare className="w-4 h-4" />
+                  Comment
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="h-10 text-xs flex-col gap-0.5 px-1"
+                  onClick={() => setShowSharePanel(!showSharePanel)}
+                >
+                  <Share2 className="w-4 h-4" />
+                  Share
                 </Button>
               </div>
+            </div>
 
-              <SentimentBar
-                support={p.reactions.support}
-                concern={p.reactions.concern}
-                neutral={p.reactions.neutral}
-              />
+            {/* ===== 4. PROPOSAL DESCRIPTION ===== */}
+            <div className="px-4 sm:px-5 py-4 space-y-2">
+              <p className={`text-sm text-foreground leading-relaxed ${!showFullDescription && descriptionIsLong ? 'line-clamp-3' : ''}`}>
+                {p.description}
+              </p>
+              {descriptionIsLong && (
+                <button
+                  onClick={() => setShowFullDescription(!showFullDescription)}
+                  className="text-xs font-medium text-primary hover:underline"
+                >
+                  {showFullDescription ? 'Show less' : 'Read more'}
+                </button>
+              )}
             </div>
 
             <Separator />
 
-            {/* ===== DELIBERATION STATEMENTS ===== */}
-            <div className="space-y-3">
+            {/* ===== 5. OFFICIAL RESPONSES (pinned at top) ===== */}
+            {pinnedComments.length > 0 && (
+              <div className="px-4 sm:px-5 py-4 space-y-3">
+                <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
+                  <Shield className="w-4 h-4 text-primary" />
+                  Official Responses
+                </h3>
+                <div className="space-y-2">
+                  {pinnedComments.map(c => (
+                    <CommentItem key={c.id} comment={c} />
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {pinnedComments.length > 0 && <Separator />}
+
+            {/* ===== 6. WHAT PEOPLE ARE SAYING ===== */}
+            <div className="px-4 sm:px-5 py-4 space-y-3">
+              <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
+                <Users className="w-4 h-4 text-primary" />
+                What people are saying
+              </h3>
+              <p className="text-xs text-muted-foreground">{MOCK_DISCUSSIONS.length} public mentions</p>
+              <div className="space-y-2">
+                {MOCK_DISCUSSIONS.slice(0, 3).map(d => (
+                  <div key={d.id} className="border rounded-lg p-3 bg-card space-y-1.5">
+                    <p className="text-sm text-foreground leading-relaxed">{d.snippet}</p>
+                    <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                      <d.icon className="w-3 h-3" />
+                      {d.source}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <Button variant="ghost" size="sm" className="text-xs text-primary p-0 h-auto hover:bg-transparent hover:underline">
+                View all discussion <ExternalLink className="w-3 h-3 ml-1" />
+              </Button>
+            </div>
+
+            <Separator />
+
+            {/* ===== 7. ADMIN DETAILS (collapsible) ===== */}
+            <div className="px-4 sm:px-5 py-4 space-y-2">
+              <h3 className="text-sm font-semibold text-foreground mb-2">Project Details</h3>
+              {p.department && (
+                <AdminDetailCard icon={Building2} label="Department" value={p.department} />
+              )}
+              {p.estimatedBudget && (
+                <AdminDetailCard icon={IndianRupee} label="Estimated Budget" value={p.estimatedBudget} />
+              )}
+              {p.targetTimeline && (
+                <AdminDetailCard icon={Clock} label="Target Timeline" value={p.targetTimeline} />
+              )}
+              {p.representatives && p.representatives.length > 0 && (
+                <AdminDetailCard
+                  icon={User}
+                  label="Representative"
+                  value={p.representatives[0].name}
+                  subtitle={p.representatives[0].role}
+                />
+              )}
+
+              {/* Map section — collapsible */}
+              <Collapsible>
+                <CollapsibleTrigger className="w-full flex items-center justify-between p-3 rounded-lg border bg-card hover:bg-muted/50 transition-colors text-left">
+                  <div className="flex items-center gap-2.5">
+                    <MapPin className="w-4 h-4 text-primary flex-shrink-0" />
+                    <span className="text-sm font-medium text-foreground">Project Location</span>
+                  </div>
+                  <ChevronDown className="w-4 h-4 text-muted-foreground transition-transform [[data-state=open]>&]:rotate-180" />
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <div className="p-3 space-y-2">
+                    <div className="rounded-lg border bg-muted/30 p-3 flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <MapPin className="w-5 h-5 text-primary" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-foreground">
+                          Ward {p.wardNumber ?? '—'} ({p.wardName})
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          {p.lat.toFixed(4)}°N, {p.lng.toFixed(4)}°E · {p.city}
+                        </p>
+                      </div>
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      This proposal affects Ward {p.wardNumber ?? '—'} residents.
+                    </p>
+                  </div>
+                </CollapsibleContent>
+              </Collapsible>
+            </div>
+
+            <Separator />
+
+            {/* ===== 8. DELIBERATION STATEMENTS ===== */}
+            <div className="px-4 sm:px-5 py-4 space-y-3">
               <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
                 <MessageSquare className="w-4 h-4 text-primary" />
                 Deliberation · {p.statements.length} statement{p.statements.length !== 1 ? 's' : ''}
@@ -404,12 +554,11 @@ export function ProposalDetailModal({ proposal, open, onOpenChange, onSupport }:
                 Add a statement about this proposal. Others can agree, disagree, or pass.
               </p>
 
-              {/* Add statement */}
               <div className="flex gap-2">
                 <Input
                   value={newStatement}
                   onChange={e => setNewStatement(e.target.value)}
-                  placeholder="Add a statement about this proposal…"
+                  placeholder="Add a statement…"
                   className="flex-1"
                   maxLength={280}
                   onKeyDown={e => e.key === 'Enter' && handleAddStatement()}
@@ -419,7 +568,6 @@ export function ProposalDetailModal({ proposal, open, onOpenChange, onSupport }:
                 </Button>
               </div>
 
-              {/* Statement cards */}
               <div className="space-y-2">
                 {p.statements.map(s => (
                   <StatementCard
@@ -439,42 +587,22 @@ export function ProposalDetailModal({ proposal, open, onOpenChange, onSupport }:
 
             <Separator />
 
-            {/* ===== REPRESENTATIVE FEEDBACK ===== */}
-            {pinnedComments.length > 0 && (
-              <>
-                <div className="space-y-3">
-                  <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
-                    <Shield className="w-4 h-4 text-primary" />
-                    Official Responses
-                  </h3>
-                  <div className="space-y-2">
-                    {pinnedComments.map(c => (
-                      <CommentItem key={c.id} comment={c} />
-                    ))}
-                  </div>
-                </div>
-                <Separator />
-              </>
-            )}
-
-            {/* ===== COMMENTS ===== */}
-            <div className="space-y-3">
+            {/* ===== 9. COMMENTS ===== */}
+            <div id="proposal-comment-section" className="px-4 sm:px-5 py-4 space-y-3">
               <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
                 <MessageSquare className="w-4 h-4 text-primary" />
                 Comments · {p.comments.length}
               </h3>
 
-              {/* Comment input with moderation meter */}
               <div className="space-y-2">
                 <Textarea
                   value={newComment}
                   onChange={e => setNewComment(e.target.value)}
-                  placeholder="Share a constructive comment about this proposal…"
+                  placeholder="Share a constructive comment…"
                   rows={3}
                   maxLength={500}
                 />
 
-                {/* Civic Quality Meter */}
                 {newComment.length > 0 && (
                   <div className="space-y-1.5 p-3 rounded-lg border bg-muted/30">
                     <div className="flex items-center justify-between">
@@ -486,9 +614,7 @@ export function ProposalDetailModal({ proposal, open, onOpenChange, onSupport }:
                     <Progress
                       value={civicScore.score}
                       className="h-2"
-                      style={{
-                        ['--progress-color' as string]: civicScore.color,
-                      }}
+                      style={{ ['--progress-color' as string]: civicScore.color }}
                     />
                     <p className="text-xs text-muted-foreground">{civicScore.guidance}</p>
                   </div>
@@ -509,7 +635,6 @@ export function ProposalDetailModal({ proposal, open, onOpenChange, onSupport }:
                 </Button>
               </div>
 
-              {/* Comment list */}
               <div className="space-y-2">
                 {citizenComments.map(c => (
                   <CommentItem key={c.id} comment={c} />
@@ -522,10 +647,9 @@ export function ProposalDetailModal({ proposal, open, onOpenChange, onSupport }:
               </div>
             </div>
 
-            {/* ===== FOOTER ACTIONS ===== */}
-            <Separator />
-            <div className="flex flex-col sm:flex-row gap-2 pb-1">
-              <Button onClick={() => onOpenChange(false)} variant="outline" className="flex-1">
+            {/* ===== FOOTER ===== */}
+            <div className="px-4 sm:px-5 py-3 border-t border-border bg-muted/10">
+              <Button onClick={() => onOpenChange(false)} variant="outline" className="w-full">
                 Close
               </Button>
             </div>
