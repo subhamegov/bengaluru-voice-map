@@ -407,7 +407,8 @@
   line-height: var(--tap-target-min) !important;
 }
 
-.leaflet-popup-content-wrapper { @apply rounded shadow-lg; }
+.leaflet-popup-content-wrapper { @apply rounded shadow-lg; background: hsl(var(--card)) !important; color: hsl(var(--card-foreground)) !important; }
+.leaflet-popup-tip { background: hsl(var(--card)) !important; }
 .leaflet-popup-content { @apply text-base; }
 
 /* ── 3-state chip system (outside @layer for specificity) ── */
