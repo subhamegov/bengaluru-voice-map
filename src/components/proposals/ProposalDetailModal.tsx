@@ -203,14 +203,13 @@ export function ProposalDetailModal({ proposal, open, onOpenChange, onSupport }:
   const [refreshKey, setRefreshKey] = useState(0);
   const [newStatement, setNewStatement] = useState('');
   const [newComment, setNewComment] = useState('');
+  const civicScore = useMemo(() => getCivicQualityScore(newComment), [newComment]);
 
-  // Force re-read proposal data on interactions
+  if (!proposal) return null;
   const p = proposal;
-  if (!p) return null;
 
   const statusCfg = STATUS_CONFIG[p.status] ?? STATUS_CONFIG.draft;
   const totalReactions = p.reactions.support + p.reactions.concern + p.reactions.neutral;
-  const civicScore = useMemo(() => getCivicQualityScore(newComment), [newComment]);
 
   const handleReaction = (reaction: 'support' | 'concern' | 'neutral') => {
     reactToProposal(p.id, reaction);
