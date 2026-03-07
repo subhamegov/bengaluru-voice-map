@@ -12,7 +12,8 @@ import { LocationStep, LocationData } from '@/components/report/LocationStep';
 import { ComplaintIntentStep, ComplaintIntent, LinkedProject } from '@/components/report/ComplaintIntentStep';
 import { AppreciationStep, AppreciationData } from '@/components/report/AppreciationStep';
 import { apiClient } from '@/lib/apiClient';
-import { StorySubmission, IssueCategory, Department, CATEGORY_TO_DEPARTMENT, DEPARTMENTS, DepartmentSelectionSource } from '@/types/story';
+import { StorySubmission, IssueCategory, Department, CATEGORY_TO_DEPARTMENT, DEPARTMENTS, DepartmentSelectionSource, ISSUE_CATEGORIES } from '@/types/story';
+import { ISSUE_CATEGORY_ICONS, COMPLAINT_INTENT_ICONS } from '@/lib/iconMaps';
 import { cn } from '@/lib/utils';
 import { Building2, Info } from 'lucide-react';
 import {
