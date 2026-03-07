@@ -760,8 +760,8 @@ export function CityMap({
 
       {/* Legend */}
       <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
-        {(activeFilter !== 'all'
-          ? MAP_FILTERS.filter(f => f.id === activeFilter)
+        {(!activeFilters.has('all')
+          ? MAP_FILTERS.filter(f => activeFilters.has(f.id))
           : MAP_FILTERS.filter(f => f.id !== 'all')
         ).map(f => (
           <div key={f.id} className="flex items-center gap-1.5">
