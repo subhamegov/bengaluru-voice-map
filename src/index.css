@@ -407,9 +407,28 @@
   line-height: var(--tap-target-min) !important;
 }
 
-.leaflet-popup-content-wrapper { @apply rounded shadow-lg; background: hsl(var(--card)) !important; color: hsl(var(--card-foreground)) !important; }
-.leaflet-popup-tip { background: hsl(var(--card)) !important; }
-.leaflet-popup-content { @apply text-base; }
+.leaflet-popup-content-wrapper {
+  @apply rounded-lg shadow-xl border border-border;
+  background: hsl(var(--card)) !important;
+  color: hsl(var(--card-foreground)) !important;
+  opacity: 1 !important;
+}
+.leaflet-popup-tip {
+  background: hsl(var(--card)) !important;
+  opacity: 1 !important;
+}
+.leaflet-popup {
+  z-index: 1000 !important;
+}
+.leaflet-popup-content {
+  @apply text-sm;
+  margin: 12px 14px !important;
+}
+.leaflet-popup-close-button {
+  color: hsl(var(--muted-foreground)) !important;
+  font-size: 18px !important;
+  padding: 4px 6px !important;
+}
 
 /* ── 3-state chip system (outside @layer for specificity) ── */
 .chip-default {
