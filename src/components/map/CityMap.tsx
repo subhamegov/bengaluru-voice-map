@@ -253,6 +253,7 @@ export function CityMap({
   const [pinDropMode, setPinDropMode] = useState(true);
   const [usingLocateMe, setUsingLocateMe] = useState(false);
   const mapRef = useRef<L.Map | null>(null);
+  const initialViewSetRef = useRef(false);
 
   // Resolve which ward to focus on
   const effectiveDefaultWardId = externalDefaultWardId !== undefined
