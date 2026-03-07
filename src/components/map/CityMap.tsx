@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, Tooltip, useMapEvents, useMap, GeoJSON as GeoJSONLayer } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, Tooltip, Circle, useMapEvents, useMap, GeoJSON as GeoJSONLayer } from 'react-leaflet';
 import L from 'leaflet';
 import {
   MapPin, Mic, MicOff, AlertCircle, Locate, Eye, EyeOff,
@@ -152,9 +152,11 @@ function MapInteractionHandler({
 function UseMyLocationButton({ 
   onCurrentLocation,
   onDisablePinDrop,
+  onLocateMe,
 }: { 
   onCurrentLocation: (loc: { lat: number; lng: number }) => void;
   onDisablePinDrop: () => void;
+  onLocateMe: () => void;
 }) {
   const map = useMap();
   const [isLocating, setIsLocating] = useState(false);
@@ -181,14 +183,14 @@ function UseMyLocationButton({
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         const loc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
-        map.setView([loc.lat, loc.lng], 15, { animate: true });
+        map.setView([loc.lat, loc.lng], 14, { animate: true });
         onCurrentLocation(loc);
+        onLocateMe();
         setIsLocating(false);
       },
       (error) => {
         console.error('Geolocation error:', error.message);
-        const fallback = map.getCenter();
-        onCurrentLocation({ lat: fallback.lat, lng: fallback.lng });
+        // Keep current view unchanged on failure
         setIsLocating(false);
       },
       { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 }
@@ -249,6 +251,7 @@ export function CityMap({
   const [wardPref, setWardPref] = useState<WardPref>(() => loadWardPref());
   const [showSavedPins, setShowSavedPins] = useState(true);
   const [pinDropMode, setPinDropMode] = useState(true);
+  const [usingLocateMe, setUsingLocateMe] = useState(false);
   const mapRef = useRef<L.Map | null>(null);
 
   // Resolve which ward to focus on
@@ -285,17 +288,14 @@ export function CityMap({
     });
   }, []);
 
-  // Get user's current location on mount (silently, no pan)
+  // Silently get current location on mount (no pan, no radius)
   useEffect(() => {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(
         (pos) => {
-          console.log('Initial geolocation success:', pos.coords.latitude, pos.coords.longitude);
           setCurrentLocation({ lat: pos.coords.latitude, lng: pos.coords.longitude });
         },
-        (err) => {
-          console.warn('Initial geolocation failed:', err.message);
-        },
+        () => {},
         { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 }
       );
     }
@@ -588,7 +588,11 @@ export function CityMap({
           />
 
           <MapInteractionHandler onLocationSelect={onLocationSelect} mapRef={mapRef} pinDropMode={pinDropMode} />
-          <UseMyLocationButton onCurrentLocation={setCurrentLocation} onDisablePinDrop={() => setPinDropMode(false)} />
+          <UseMyLocationButton
+            onCurrentLocation={setCurrentLocation}
+            onDisablePinDrop={() => setPinDropMode(false)}
+            onLocateMe={() => setUsingLocateMe(true)}
+          />
 
           {/* Ward boundaries */}
           {wardGeoJSON && (
@@ -632,6 +636,43 @@ export function CityMap({
               </button>
             </div>
           )}
+
+          {/* 5km radius circle */}
+          {(() => {
+            // Priority: locate-me > ward centroid
+            if (usingLocateMe && currentLocation) {
+              return (
+                <Circle
+                  center={[currentLocation.lat, currentLocation.lng]}
+                  radius={5000}
+                  pathOptions={{
+                    color: 'hsl(231, 48%, 40%)',
+                    weight: 1.5,
+                    fillColor: 'hsl(231, 48%, 40%)',
+                    fillOpacity: 0.06,
+                    dashArray: '6 4',
+                  }}
+                />
+              );
+            }
+            const defaultCentroid = savedWardCentroids.find(w => w.isDefault);
+            if (defaultCentroid) {
+              return (
+                <Circle
+                  center={[defaultCentroid.lat, defaultCentroid.lng]}
+                  radius={5000}
+                  pathOptions={{
+                    color: 'hsl(231, 48%, 40%)',
+                    weight: 1.5,
+                    fillColor: 'hsl(231, 48%, 40%)',
+                    fillOpacity: 0.06,
+                    dashArray: '6 4',
+                  }}
+                />
+              );
+            }
+            return null;
+          })()}
 
           {selectedLocation && (
             <Marker position={[selectedLocation.lat, selectedLocation.lng]} icon={userMarkerIcon}>
