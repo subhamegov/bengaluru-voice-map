@@ -251,6 +251,7 @@ export function CityMap({
   const [wardPref, setWardPref] = useState<WardPref>(() => loadWardPref());
   const [showSavedPins, setShowSavedPins] = useState(true);
   const [pinDropMode, setPinDropMode] = useState(true);
+  const [usingLocateMe, setUsingLocateMe] = useState(false);
   const mapRef = useRef<L.Map | null>(null);
 
   // Resolve which ward to focus on
