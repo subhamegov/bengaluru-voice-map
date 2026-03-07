@@ -167,6 +167,7 @@ function StablePopup({
 
 export const ProposalMap = React.memo(function ProposalMap({ proposals, onView, onSupport }: Props) {
   const tiles = useMapTiles();
+  const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
 
   const center: [number, number] = useMemo(() => {
     if (proposals.length === 0) return [12.9716, 77.5946];
@@ -185,6 +186,10 @@ export const ProposalMap = React.memo(function ProposalMap({ proposals, onView, 
     return m;
   }, [proposals]);
 
+  const handleLocated = useCallback((loc: { lat: number; lng: number }) => {
+    setUserLocation(loc);
+  }, []);
+
   return (
     <div className="rounded-lg border-2 border-border shadow-md overflow-hidden" style={{ height: 500 }}>
       <MapContainer
@@ -195,7 +200,19 @@ export const ProposalMap = React.memo(function ProposalMap({ proposals, onView, 
         className="rounded-lg"
       >
         <TileLayer url={tiles.url} attribution={tiles.attribution} subdomains={tiles.subdomains} maxZoom={tiles.maxZoom} />
-        <LocateMeButton />
+        <LocateMeButton onLocated={handleLocated} />
+        {userLocation && (
+          <CircleMarker
+            center={[userLocation.lat, userLocation.lng]}
+            radius={10}
+            pathOptions={{ color: 'hsl(231 48% 48%)', fillColor: 'hsl(231 48% 48%)', fillOpacity: 0.9, weight: 3 }}
+            className="you-are-here-marker"
+          >
+            <Popup>
+              <span style={{ fontWeight: 600, fontSize: 13 }}>📍 You are here</span>
+            </Popup>
+          </CircleMarker>
+        )}
         {proposals.map(p => (
           <Marker
             key={p.id}
