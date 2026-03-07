@@ -637,6 +637,43 @@ export function CityMap({
             </div>
           )}
 
+          {/* 5km radius circle */}
+          {(() => {
+            // Priority: locate-me > ward centroid
+            if (usingLocateMe && currentLocation) {
+              return (
+                <Circle
+                  center={[currentLocation.lat, currentLocation.lng]}
+                  radius={5000}
+                  pathOptions={{
+                    color: 'hsl(231, 48%, 40%)',
+                    weight: 1.5,
+                    fillColor: 'hsl(231, 48%, 40%)',
+                    fillOpacity: 0.06,
+                    dashArray: '6 4',
+                  }}
+                />
+              );
+            }
+            const defaultCentroid = savedWardCentroids.find(w => w.isDefault);
+            if (defaultCentroid) {
+              return (
+                <Circle
+                  center={[defaultCentroid.lat, defaultCentroid.lng]}
+                  radius={5000}
+                  pathOptions={{
+                    color: 'hsl(231, 48%, 40%)',
+                    weight: 1.5,
+                    fillColor: 'hsl(231, 48%, 40%)',
+                    fillOpacity: 0.06,
+                    dashArray: '6 4',
+                  }}
+                />
+              );
+            }
+            return null;
+          })()}
+
           {selectedLocation && (
             <Marker position={[selectedLocation.lat, selectedLocation.lng]} icon={userMarkerIcon}>
               <Popup><strong>Your selected location</strong></Popup>
