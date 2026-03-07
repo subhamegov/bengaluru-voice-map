@@ -432,6 +432,35 @@ const Report = () => {
         {/* Standard Flow - Step 5: Details */}
         {!isAppreciationFlow && currentStep === 5 && (
           <div className="space-y-6">
+            {/* Selection Summary Banner */}
+            {(() => {
+              const categoryLabel = issueCategory 
+                ? (ISSUE_CATEGORIES.find(c => c.code === issueCategory)?.label || issueCategory)
+                : null;
+              const IconComponent = issueCategory ? ISSUE_CATEGORY_ICONS[issueCategory] : null;
+              return (
+                <div className="bg-muted/40 rounded-xl p-4 border border-border flex flex-wrap items-center gap-3 text-sm">
+                  {complaintIntent && (
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 text-primary font-medium">
+                      {(() => { const IntentIcon = COMPLAINT_INTENT_ICONS[complaintIntent]; return <IntentIcon className="w-3.5 h-3.5" />; })()}
+                      {complaintIntent === 'service' ? 'Service Issue' : complaintIntent === 'project' ? 'Project Feedback' : 'Suggestion'}
+                    </span>
+                  )}
+                  {categoryLabel && IconComponent && (
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-secondary/10 text-secondary-foreground font-medium border border-border">
+                      <IconComponent className="w-3.5 h-3.5 text-primary" />
+                      {categoryLabel}
+                    </span>
+                  )}
+                  {locationData.admin.ward && (
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-accent/50 text-accent-foreground font-medium border border-border">
+                      📍 {locationData.admin.ward}
+                    </span>
+                  )}
+                </div>
+              );
+            })()}
+
             <div>
               <label htmlFor="title" className="block text-lg font-semibold text-foreground mb-2">
                 Short title <span className="text-destructive">*</span>
