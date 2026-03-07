@@ -375,7 +375,7 @@ export function CityMap({
       }
       return true;
     });
-  }, [happenings, activeFilter, agencyFilter, statusFilter, searchQuery]);
+  }, [happenings, activeFilters, agencyFilter, statusFilter, searchQuery]);
 
   // Voice command
   const handleVoiceCommand = useCallback(async () => {
