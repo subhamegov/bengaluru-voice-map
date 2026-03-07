@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, Check, FileText, Mic, Heart, User, ChevronDown, Users, MessageSquarePlus, Home } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, FileText, Mic, Heart, User, ChevronDown, Users, MessageSquarePlus } from 'lucide-react';
 import { AppLayout } from '@/components/layout/AppLayout';
 import { UX4GPageHeader } from '@/components/layout/UX4GPageHeader';
 import { ReportStepper } from '@/components/report/ReportStepper';
