@@ -733,21 +733,12 @@ export function CityMap({
             );
           })}
 
-          {/* "You are here" pulsing location indicator */}
-          {currentLocation && (
+          {/* "You are here" pulsing location indicator — only after Locate Me */}
+          {usingLocateMe && currentLocation && (
             <Marker
               position={[currentLocation.lat, currentLocation.lng]}
-              icon={new L.DivIcon({
-                className: 'you-are-here-marker',
-                html: `
-                  <div class="you-are-here-wrapper">
-                    <div class="you-are-here-pulse"></div>
-                    <div class="you-are-here-dot"></div>
-                  </div>
-                `,
-                iconSize: [40, 40],
-                iconAnchor: [20, 20],
-              })}
+              icon={youAreHereIcon}
+              zIndexOffset={1000}
             >
               <Tooltip direction="top" offset={[0, -14]} permanent={false}>
                 You are here
