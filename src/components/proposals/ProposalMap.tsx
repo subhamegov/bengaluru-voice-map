@@ -1,9 +1,9 @@
-import React, { useMemo, useRef, useState, useCallback } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from 'react-leaflet';
+import React, { useMemo, useRef, useState, useCallback, useEffect } from 'react';
+import { MapContainer, TileLayer, Marker, Popup, useMap, CircleMarker } from 'react-leaflet';
 import L from 'leaflet';
 import { useMapTiles } from '@/hooks/use-map-tiles';
 import { Proposal, getCategoryColor, getCategoryLabel } from '@/types/proposal';
-import { Crosshair } from 'lucide-react';
+import { Locate } from 'lucide-react';
 import 'leaflet/dist/leaflet.css';
 
 interface Props {
@@ -30,45 +30,56 @@ const STATUS_LABEL: Record<string, string> = {
   draft: 'Draft', open: 'Open', under_review: 'Under Review', approved: 'Approved', rejected: 'Rejected',
 };
 
-/* ── Locate Me button (GPS) ── */
-function LocateMeButton() {
+/* ── Locate Me button (GPS) — matches CityMap behaviour ── */
+function LocateMeButton({ onLocated }: { onLocated: (loc: { lat: number; lng: number }) => void }) {
   const map = useMap();
-  const btnRef = useRef<HTMLButtonElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const [isLocating, setIsLocating] = useState(false);
 
-  React.useEffect(() => {
-    if (btnRef.current) {
-      L.DomEvent.disableClickPropagation(btnRef.current);
-      L.DomEvent.disableScrollPropagation(btnRef.current);
+  useEffect(() => {
+    const el = buttonRef.current;
+    if (el) {
+      L.DomEvent.disableClickPropagation(el);
+      L.DomEvent.disableScrollPropagation(el);
     }
   }, []);
 
-  const handleClick = useCallback((e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (!navigator.geolocation) return;
+  const handleLocate = useCallback((e: React.MouseEvent) => {
+    L.DomEvent.stop(e.nativeEvent as any);
+    setIsLocating(true);
+    if (!('geolocation' in navigator)) {
+      console.warn('Geolocation not available');
+      setIsLocating(false);
+      return;
+    }
     navigator.geolocation.getCurrentPosition(
       (pos) => {
-        const { latitude, longitude } = pos.coords;
-        map.flyTo([latitude, longitude], 14, { duration: 1 });
+        const loc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+        map.setView([loc.lat, loc.lng], 15, { animate: true });
+        onLocated(loc);
+        setIsLocating(false);
       },
-      () => {
-        // Silently fail — user may have denied permission
-      }
+      (error) => {
+        console.error('Geolocation error:', error.message);
+        setIsLocating(false);
+      },
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 }
     );
-  }, [map]);
+  }, [map, onLocated]);
 
   return (
-    <div className="leaflet-top leaflet-right" style={{ pointerEvents: 'auto', position: 'absolute', top: 10, right: 10, zIndex: 1000 }}>
-      <button
-        ref={btnRef}
-        type="button"
-        onClick={handleClick}
-        className="flex items-center justify-center w-9 h-9 bg-background border border-border rounded shadow-md hover:bg-muted transition-colors"
-        aria-label="Locate me"
-        title="Go to my GPS location"
-      >
-        <Crosshair className="w-4 h-4 text-foreground" />
-      </button>
-    </div>
+    <button
+      ref={buttonRef}
+      type="button"
+      onClick={handleLocate}
+      disabled={isLocating}
+      className="absolute top-20 right-3 z-[9995] bg-card text-foreground p-3 rounded-lg shadow-lg hover:bg-muted focus-visible:ring-2 focus-visible:ring-primary border border-border disabled:opacity-50 pointer-events-auto"
+      style={{ opacity: 1 }}
+      aria-label="Locate me"
+      title="Go to my GPS location"
+    >
+      <Locate className={`w-5 h-5 ${isLocating ? 'animate-pulse' : ''}`} aria-hidden="true" />
+    </button>
   );
 }
 
