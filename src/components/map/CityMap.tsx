@@ -486,11 +486,26 @@ export function CityMap({
       <div className="flex flex-wrap gap-2 mb-3" role="group" aria-label="Map category filters">
         {MAP_FILTERS.map((f) => {
           const Icon = f.icon;
-          const isActive = activeFilter === f.id;
+          const isActive = activeFilters.has(f.id);
           return (
             <button
               key={f.id}
-              onClick={() => setActiveFilter(f.id)}
+              onClick={() => {
+                setActiveFilters(prev => {
+                  const next = new Set(prev);
+                  if (f.id === 'all') {
+                    return new Set(['all']);
+                  }
+                  next.delete('all');
+                  if (next.has(f.id)) {
+                    next.delete(f.id);
+                    if (next.size === 0) return new Set(['all']);
+                  } else {
+                    next.add(f.id);
+                  }
+                  return next;
+                });
+              }}
               className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs transition-all border ${
                 isActive
                   ? 'bg-primary text-primary-foreground border-primary font-semibold shadow-sm'
