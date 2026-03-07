@@ -108,6 +108,14 @@ const createCategoryIcon = (color: string) => new L.DivIcon({
   popupAnchor: [0, -14],
 });
 
+// Memoized heartbeat icon for current location
+const youAreHereIcon = new L.DivIcon({
+  className: 'you-are-here-marker',
+  html: `<div class="you-are-here-wrapper"><div class="you-are-here-pulse"></div><div class="you-are-here-dot"></div></div>`,
+  iconSize: [40, 40],
+  iconAnchor: [20, 20],
+});
+
 // ── Sub-components ──
 
 function MapInteractionHandler({
@@ -184,7 +192,7 @@ function UseMyLocationButton({
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         const loc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
-        map.setView([loc.lat, loc.lng], 14, { animate: true });
+        map.flyTo([loc.lat, loc.lng], 14, { animate: true, duration: 1.8 });
         onCurrentLocation(loc);
         onLocateMe();
         setIsLocating(false);
@@ -290,18 +298,8 @@ export function CityMap({
     });
   }, []);
 
-  // Silently get current location on mount (no pan, no radius)
-  useEffect(() => {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          setCurrentLocation({ lat: pos.coords.latitude, lng: pos.coords.longitude });
-        },
-        () => {},
-        { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 }
-      );
-    }
-  }, []);
+  // Current location is only set when user explicitly clicks Locate Me
+  // (no silent geolocation on mount — marker only appears after user action)
 
   // Fit map to preferred ward on initial load only (never override Locate Me)
   useEffect(() => {
@@ -743,21 +741,12 @@ export function CityMap({
             );
           })}
 
-          {/* "You are here" pulsing location indicator */}
-          {currentLocation && (
+          {/* "You are here" pulsing location indicator — only after Locate Me */}
+          {usingLocateMe && currentLocation && (
             <Marker
               position={[currentLocation.lat, currentLocation.lng]}
-              icon={new L.DivIcon({
-                className: 'you-are-here-marker',
-                html: `
-                  <div class="you-are-here-wrapper">
-                    <div class="you-are-here-pulse"></div>
-                    <div class="you-are-here-dot"></div>
-                  </div>
-                `,
-                iconSize: [40, 40],
-                iconAnchor: [20, 20],
-              })}
+              icon={youAreHereIcon}
+              zIndexOffset={1000}
             >
               <Tooltip direction="top" offset={[0, -14]} permanent={false}>
                 You are here
