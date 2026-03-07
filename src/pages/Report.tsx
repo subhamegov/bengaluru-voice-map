@@ -147,12 +147,14 @@ const Report = () => {
   const handleNext = () => {
     if (currentStep < maxStep) {
       setCurrentStep(currentStep + 1);
+      window.scrollTo({ top: 0, behavior: 'instant' });
     }
   };
 
   const handleBack = () => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
+      window.scrollTo({ top: 0, behavior: 'instant' });
     }
   };
 
@@ -762,8 +764,8 @@ const Report = () => {
         )}
       </div>
 
-      {/* Navigation */}
-      <div className="flex justify-between">
+      {/* Navigation — sticky at bottom so it's always visible */}
+      <div className="sticky bottom-0 z-30 flex justify-between bg-background py-4 border-t border-border -mx-4 px-4 md:-mx-0 md:px-0 md:border-0 md:static md:bg-transparent md:py-0">
         <button
           onClick={handleBack}
           disabled={currentStep === 1}
