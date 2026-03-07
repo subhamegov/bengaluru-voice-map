@@ -108,6 +108,14 @@ const createCategoryIcon = (color: string) => new L.DivIcon({
   popupAnchor: [0, -14],
 });
 
+// Memoized heartbeat icon for current location
+const youAreHereIcon = new L.DivIcon({
+  className: 'you-are-here-marker',
+  html: `<div class="you-are-here-wrapper"><div class="you-are-here-pulse"></div><div class="you-are-here-dot"></div></div>`,
+  iconSize: [40, 40],
+  iconAnchor: [20, 20],
+});
+
 // ── Sub-components ──
 
 function MapInteractionHandler({
