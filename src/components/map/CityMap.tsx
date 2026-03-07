@@ -290,18 +290,8 @@ export function CityMap({
     });
   }, []);
 
-  // Silently get current location on mount (no pan, no radius)
-  useEffect(() => {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          setCurrentLocation({ lat: pos.coords.latitude, lng: pos.coords.longitude });
-        },
-        () => {},
-        { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 }
-      );
-    }
-  }, []);
+  // Current location is only set when user explicitly clicks Locate Me
+  // (no silent geolocation on mount — marker only appears after user action)
 
   // Fit map to preferred ward on initial load only (never override Locate Me)
   useEffect(() => {
