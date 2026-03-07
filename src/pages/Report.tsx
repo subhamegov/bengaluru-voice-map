@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, Check, FileText, Mic, Heart, User, ChevronDown, Users, MessageSquarePlus, Home } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, FileText, Mic, Heart, User, ChevronDown, Users, MessageSquarePlus } from 'lucide-react';
 import { AppLayout } from '@/components/layout/AppLayout';
 import { UX4GPageHeader } from '@/components/layout/UX4GPageHeader';
 import { ReportStepper } from '@/components/report/ReportStepper';
@@ -313,12 +313,6 @@ const Report = () => {
 
   return (
     <AppLayout>
-      <div className="mb-2">
-        <Link to="/" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors">
-          <Home className="w-4 h-4" />
-          <span>Home</span>
-        </Link>
-      </div>
       <UX4GPageHeader
         icon={MessageSquarePlus}
         title="Share Your Voice"
