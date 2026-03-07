@@ -288,17 +288,14 @@ export function CityMap({
     });
   }, []);
 
-  // Get user's current location on mount (silently, no pan)
+  // Silently get current location on mount (no pan, no radius)
   useEffect(() => {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(
         (pos) => {
-          console.log('Initial geolocation success:', pos.coords.latitude, pos.coords.longitude);
           setCurrentLocation({ lat: pos.coords.latitude, lng: pos.coords.longitude });
         },
-        (err) => {
-          console.warn('Initial geolocation failed:', err.message);
-        },
+        () => {},
         { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 }
       );
     }
