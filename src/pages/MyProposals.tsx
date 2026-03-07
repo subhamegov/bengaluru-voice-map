@@ -303,14 +303,16 @@ export default function MyProposals() {
         </div>
 
         {/* ── 2. Tabs ── */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-          <Tabs value={filterTab} onValueChange={v => setFilterTab(v as FilterTab)}>
-            <TabsList>
-              <TabsTrigger value="ward">Ward Proposals (My Area)</TabsTrigger>
-              <TabsTrigger value="created">Created by Me</TabsTrigger>
-              <TabsTrigger value="supported">Supported by Me</TabsTrigger>
-            </TabsList>
-          </Tabs>
+        <div className="flex flex-col gap-3">
+          <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
+            <Tabs value={filterTab} onValueChange={v => setFilterTab(v as FilterTab)}>
+              <TabsList className="w-max">
+                <TabsTrigger value="ward" className="text-xs sm:text-sm whitespace-nowrap">Ward Proposals (My Area)</TabsTrigger>
+                <TabsTrigger value="created" className="text-xs sm:text-sm whitespace-nowrap">Created by Me</TabsTrigger>
+                <TabsTrigger value="supported" className="text-xs sm:text-sm whitespace-nowrap">Supported by Me</TabsTrigger>
+              </TabsList>
+            </Tabs>
+          </div>
 
           {/* ── 3. View toggle with label ── */}
           <div className="flex items-center gap-2">
