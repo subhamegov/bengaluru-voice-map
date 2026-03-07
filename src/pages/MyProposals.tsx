@@ -91,8 +91,8 @@ function WardSelectorModal({
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent
         side="bottom"
-        className="p-0 rounded-t-2xl max-h-[85vh] flex flex-col"
-        style={{ backgroundColor: 'hsl(var(--background))', zIndex: 9999 }}
+        className="p-0 rounded-t-2xl max-h-[85vh] flex flex-col !bg-white dark:!bg-neutral-950"
+        style={{ zIndex: 99999 }}
       >
         <SheetHeader className="p-4 pb-3 border-b border-border">
           <SheetTitle className="text-base">Select Ward(s)</SheetTitle>
