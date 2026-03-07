@@ -488,11 +488,11 @@ export function CityMap({
             <button
               key={f.id}
               onClick={() => setActiveFilter(f.id)}
-              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all border
-                ${isActive
-                  ? 'chip-active'
-                  : 'chip-default'
-                }`}
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs transition-all border ${
+                isActive
+                  ? 'bg-primary text-primary-foreground border-primary font-semibold shadow-sm'
+                  : 'bg-card text-foreground border-border hover:bg-muted font-medium'
+              }`}
               aria-pressed={isActive}
             >
               <Icon className="w-3.5 h-3.5" aria-hidden="true" />
