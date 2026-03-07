@@ -588,7 +588,11 @@ export function CityMap({
           />
 
           <MapInteractionHandler onLocationSelect={onLocationSelect} mapRef={mapRef} pinDropMode={pinDropMode} />
-          <UseMyLocationButton onCurrentLocation={setCurrentLocation} onDisablePinDrop={() => setPinDropMode(false)} />
+          <UseMyLocationButton
+            onCurrentLocation={setCurrentLocation}
+            onDisablePinDrop={() => setPinDropMode(false)}
+            onLocateMe={() => setUsingLocateMe(true)}
+          />
 
           {/* Ward boundaries */}
           {wardGeoJSON && (
