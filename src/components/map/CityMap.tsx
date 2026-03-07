@@ -239,7 +239,7 @@ export function CityMap({
   const [happenings, setHappenings] = useState<Happening[]>([]);
   const [isVoiceListening, setIsVoiceListening] = useState(false);
   const [voiceError, setVoiceError] = useState<string | null>(null);
-  const [activeFilter, setActiveFilter] = useState<MapFilterId>('all');
+  const [activeFilters, setActiveFilters] = useState<Set<MapFilterId>>(new Set(['all']));
   const [agencyFilter, setAgencyFilter] = useState('all');
   const [statusFilter, setStatusFilter] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
@@ -358,7 +358,10 @@ export function CityMap({
   // Filter happenings
   const filteredHappenings = useMemo(() => {
     return happenings.filter(h => {
-      if (activeFilter !== 'all' && categoriseHappening(h) !== activeFilter) return false;
+      if (!activeFilters.has('all')) {
+        const cat = categoriseHappening(h);
+        if (!activeFilters.has(cat as MapFilterId)) return false;
+      }
       if (agencyFilter !== 'all' && extractAgency(h) !== agencyFilter) return false;
       if (statusFilter !== 'all') {
         const ps = h.projectDetails?.status;
@@ -372,7 +375,7 @@ export function CityMap({
       }
       return true;
     });
-  }, [happenings, activeFilter, agencyFilter, statusFilter, searchQuery]);
+  }, [happenings, activeFilters, agencyFilter, statusFilter, searchQuery]);
 
   // Voice command
   const handleVoiceCommand = useCallback(async () => {
@@ -483,11 +486,26 @@ export function CityMap({
       <div className="flex flex-wrap gap-2 mb-3" role="group" aria-label="Map category filters">
         {MAP_FILTERS.map((f) => {
           const Icon = f.icon;
-          const isActive = activeFilter === f.id;
+          const isActive = activeFilters.has(f.id);
           return (
             <button
               key={f.id}
-              onClick={() => setActiveFilter(f.id)}
+              onClick={() => {
+                setActiveFilters(prev => {
+                  const next = new Set(prev);
+                  if (f.id === 'all') {
+                    return new Set(['all']);
+                  }
+                  next.delete('all');
+                  if (next.has(f.id)) {
+                    next.delete(f.id);
+                    if (next.size === 0) return new Set(['all']);
+                  } else {
+                    next.add(f.id);
+                  }
+                  return next;
+                });
+              }}
               className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs transition-all border ${
                 isActive
                   ? 'bg-primary text-primary-foreground border-primary font-semibold shadow-sm'
@@ -742,8 +760,8 @@ export function CityMap({
 
       {/* Legend */}
       <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
-        {(activeFilter !== 'all'
-          ? MAP_FILTERS.filter(f => f.id === activeFilter)
+        {(!activeFilters.has('all')
+          ? MAP_FILTERS.filter(f => activeFilters.has(f.id))
           : MAP_FILTERS.filter(f => f.id !== 'all')
         ).map(f => (
           <div key={f.id} className="flex items-center gap-1.5">
