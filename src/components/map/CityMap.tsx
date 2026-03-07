@@ -152,9 +152,11 @@ function MapInteractionHandler({
 function UseMyLocationButton({ 
   onCurrentLocation,
   onDisablePinDrop,
+  onLocateMe,
 }: { 
   onCurrentLocation: (loc: { lat: number; lng: number }) => void;
   onDisablePinDrop: () => void;
+  onLocateMe: () => void;
 }) {
   const map = useMap();
   const [isLocating, setIsLocating] = useState(false);
@@ -181,14 +183,14 @@ function UseMyLocationButton({
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         const loc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
-        map.setView([loc.lat, loc.lng], 15, { animate: true });
+        map.setView([loc.lat, loc.lng], 14, { animate: true });
         onCurrentLocation(loc);
+        onLocateMe();
         setIsLocating(false);
       },
       (error) => {
         console.error('Geolocation error:', error.message);
-        const fallback = map.getCenter();
-        onCurrentLocation({ lat: fallback.lat, lng: fallback.lng });
+        // Keep current view unchanged on failure
         setIsLocating(false);
       },
       { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 }
