@@ -395,6 +395,9 @@
 .leaflet-container {
   font-family: 'Noto Sans', 'Inter', system-ui, sans-serif;
   @apply rounded;
+  isolation: isolate;
+  position: relative;
+  z-index: 0;
 }
 
 .leaflet-control-zoom a {
