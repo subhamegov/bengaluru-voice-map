@@ -244,8 +244,18 @@ export const UserPreferencesModal: React.FC<UserPreferencesModalProps> = ({
                     value={defaultWardSearch}
                     onChange={e => setDefaultWardSearch(e.target.value)}
                     placeholder="Search wards…"
-                    className="pl-9 h-9 text-sm"
+                    className="pl-9 pr-9 h-9 text-sm"
                   />
+                  {defaultWardSearch && (
+                    <button
+                      type="button"
+                      onClick={() => setDefaultWardSearch('')}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center rounded-full hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+                      aria-label="Clear search"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  )}
                 </div>
                 <div className="max-h-[220px] overflow-y-auto border border-border rounded-lg">
                   {filteredOsmWards.map(w => {
