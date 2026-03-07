@@ -358,7 +358,10 @@ export function CityMap({
   // Filter happenings
   const filteredHappenings = useMemo(() => {
     return happenings.filter(h => {
-      if (activeFilter !== 'all' && categoriseHappening(h) !== activeFilter) return false;
+      if (!activeFilters.has('all')) {
+        const cat = categoriseHappening(h);
+        if (!activeFilters.has(cat as MapFilterId)) return false;
+      }
       if (agencyFilter !== 'all' && extractAgency(h) !== agencyFilter) return false;
       if (statusFilter !== 'all') {
         const ps = h.projectDetails?.status;
