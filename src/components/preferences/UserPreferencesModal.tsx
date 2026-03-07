@@ -170,19 +170,19 @@ export const UserPreferencesModal: React.FC<UserPreferencesModalProps> = ({
   if (!open) return null;
 
   return ReactDOM.createPortal(
-    <div className="fixed inset-0" style={{ zIndex: 9990 }}>
+    <div className="fixed inset-0" style={{ zIndex: 99999 }}>
       {/* Scrim */}
       <div
-        className="fixed inset-0 bg-black/50"
-        style={{ zIndex: 9990 }}
+        className="fixed inset-0 bg-black/60"
+        style={{ zIndex: 99999 }}
         onClick={() => onOpenChange(false)}
         aria-hidden="true"
       />
 
       {/* Sheet */}
       <div
-        className="fixed inset-x-0 bottom-0 mx-auto flex flex-col bg-white rounded-t-2xl shadow-xl"
-        style={{ zIndex: 9991, maxWidth: 720, maxHeight: '85vh' }}
+        className="fixed inset-x-0 bottom-0 mx-auto flex flex-col rounded-t-2xl shadow-xl !bg-white dark:!bg-neutral-950"
+        style={{ zIndex: 100000, maxWidth: 720, maxHeight: '85vh' }}
         role="dialog"
         aria-modal="true"
         aria-label="My Preferences"
