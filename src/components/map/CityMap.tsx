@@ -184,7 +184,7 @@ function UseMyLocationButton({
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         const loc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
-        map.setView([loc.lat, loc.lng], 14, { animate: true });
+        map.flyTo([loc.lat, loc.lng], 14, { animate: true, duration: 1.8 });
         onCurrentLocation(loc);
         onLocateMe();
         setIsLocating(false);
