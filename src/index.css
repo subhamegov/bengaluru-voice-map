@@ -430,6 +430,13 @@
   padding: 4px 6px !important;
 }
 
+/* ── Project marker full opacity ── */
+.category-marker,
+.leaflet-marker-pane .category-marker,
+.leaflet-marker-pane .category-marker div {
+  opacity: 1 !important;
+}
+
 /* ── 3-state chip system (outside @layer for specificity) ── */
 .chip-default {
   background-color: hsl(var(--card));
