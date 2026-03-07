@@ -15,6 +15,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { fetchOSMWards, type WardFeatureCollection } from '@/services/osmWards';
 import { loadWardPref, type WardPref } from '@/services/wardPreferences';
+import { WARD_COORDINATES } from '@/lib/bengaluruAdminData';
 import 'leaflet/dist/leaflet.css';
 
 // Fix for default marker icons
