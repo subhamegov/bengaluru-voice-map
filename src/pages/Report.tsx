@@ -147,12 +147,14 @@ const Report = () => {
   const handleNext = () => {
     if (currentStep < maxStep) {
       setCurrentStep(currentStep + 1);
+      window.scrollTo({ top: 0, behavior: 'instant' });
     }
   };
 
   const handleBack = () => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
+      window.scrollTo({ top: 0, behavior: 'instant' });
     }
   };
 
