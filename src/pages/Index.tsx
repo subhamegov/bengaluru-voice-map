@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import {
   PenSquare, ArrowRight, Ticket, MapPin, Clock, Shield, Users,
-  Settings2, GraduationCap, BarChart3, ClipboardList, FileText, Navigation
+  Settings2, GraduationCap, BarChart3, ClipboardList, FileText, Navigation, ScrollText
 } from 'lucide-react';
 import { AppLayout } from '@/components/layout/AppLayout';
 import { CityMap } from '@/components/map/CityMap';
