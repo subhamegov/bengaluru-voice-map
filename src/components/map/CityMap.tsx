@@ -239,7 +239,7 @@ export function CityMap({
   const [happenings, setHappenings] = useState<Happening[]>([]);
   const [isVoiceListening, setIsVoiceListening] = useState(false);
   const [voiceError, setVoiceError] = useState<string | null>(null);
-  const [activeFilter, setActiveFilter] = useState<MapFilterId>('all');
+  const [activeFilters, setActiveFilters] = useState<Set<MapFilterId>>(new Set(['all']));
   const [agencyFilter, setAgencyFilter] = useState('all');
   const [statusFilter, setStatusFilter] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
