@@ -89,7 +89,7 @@ function WardSelectorModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-md p-0 gap-0 max-h-[80vh] overflow-hidden bg-background" style={{ zIndex: 10000 }}>
+      <DialogContent className="max-w-md p-0 gap-0 max-h-[80vh] overflow-hidden !bg-background" style={{ zIndex: 10000, backgroundColor: 'hsl(var(--background))' }}>
         <DialogHeader className="p-4 pb-3 border-b border-border">
           <DialogTitle className="text-base">Select Ward(s)</DialogTitle>
         </DialogHeader>
