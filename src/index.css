@@ -110,7 +110,7 @@
     @apply border-b shadow-sm relative;
     background-color: hsl(var(--background));
     border-color: hsl(var(--gov-header-border));
-    z-index: 50;
+    z-index: 1100;
     isolation: isolate;
   }
 
