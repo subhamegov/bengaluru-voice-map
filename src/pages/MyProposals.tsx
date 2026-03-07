@@ -6,11 +6,11 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from '@/components/ui/sheet';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Map, LayoutList, Plus, ScrollText, MapPin, Search, ChevronDown, X, Navigation } from 'lucide-react';
 import { ProposalMap } from '@/components/proposals/ProposalMap';
@@ -88,11 +88,15 @@ function WardSelectorModal({
   };
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-md p-0 gap-0 max-h-[80vh] overflow-hidden" style={{ zIndex: 10000 }}>
-        <DialogHeader className="p-4 pb-3 border-b border-border">
-          <DialogTitle className="text-base">Select Ward(s)</DialogTitle>
-        </DialogHeader>
+    <Sheet open={open} onOpenChange={onOpenChange}>
+      <SheetContent
+        side="bottom"
+        className="p-0 rounded-t-2xl max-h-[85vh] flex flex-col !bg-white dark:!bg-neutral-950"
+        style={{ zIndex: 99999 }}
+      >
+        <SheetHeader className="p-4 pb-3 border-b border-border">
+          <SheetTitle className="text-base">Select Ward(s)</SheetTitle>
+        </SheetHeader>
 
         <div className="p-4 pt-3 space-y-3">
           {/* Search */}
@@ -128,7 +132,6 @@ function WardSelectorModal({
               className="text-xs gap-1.5"
               onClick={() => {
                 if (navigator.geolocation) {
-                  // For now just clear to show all
                   handleSelectAll();
                 }
               }}
@@ -147,7 +150,7 @@ function WardSelectorModal({
         </div>
 
         {/* Ward list */}
-        <ScrollArea className="max-h-[40vh] border-t border-border">
+        <ScrollArea className="flex-1 border-t border-border">
           <div className="p-2 space-y-0.5">
             {filtered.map(w => {
               const isSelected = selected.some(s => s.code === w.code);
@@ -187,8 +190,8 @@ function WardSelectorModal({
             Apply {selected.length > 0 ? `(${selected.length})` : '(All)'}
           </Button>
         </div>
-      </DialogContent>
-    </Dialog>
+      </SheetContent>
+    </Sheet>
   );
 }
 

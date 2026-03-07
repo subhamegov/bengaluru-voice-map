@@ -191,7 +191,7 @@ export const ProposalMap = React.memo(function ProposalMap({ proposals, onView, 
   }, []);
 
   return (
-    <div className="rounded-lg border-2 border-border shadow-md overflow-hidden" style={{ height: 500 }}>
+    <div className="rounded-lg border-2 border-border shadow-md overflow-hidden relative" style={{ height: 500, zIndex: 0, isolation: 'isolate' }}>
       <MapContainer
         center={center}
         zoom={12}
