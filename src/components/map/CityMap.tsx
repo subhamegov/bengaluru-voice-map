@@ -302,22 +302,37 @@ export function CityMap({
     }
   }, []);
 
-  // Fit map to selected ward when data is ready
+  // Fit map to preferred ward on initial load only (never override Locate Me)
   useEffect(() => {
-    if (!mapRef.current || !wardGeoJSON || !effectiveDefaultWardId) return;
-    const feature = wardGeoJSON.features.find(
-      f => f.properties.ward_id === effectiveDefaultWardId
-    );
-    if (feature) {
-      try {
-        const layer = L.geoJSON(feature);
-        const bounds = layer.getBounds();
-        if (bounds.isValid()) {
-          mapRef.current.fitBounds(bounds, { padding: [40, 40], maxZoom: 15 });
-        }
-      } catch {}
+    if (initialViewSetRef.current) return;
+    if (!mapRef.current || !isMapReady || !effectiveDefaultWardId) return;
+    if (usingLocateMe) return;
+
+    // Try GeoJSON polygon first
+    if (wardGeoJSON) {
+      const feature = wardGeoJSON.features.find(
+        f => f.properties.ward_id === effectiveDefaultWardId
+      );
+      if (feature) {
+        try {
+          const layer = L.geoJSON(feature);
+          const bounds = layer.getBounds();
+          if (bounds.isValid()) {
+            mapRef.current.fitBounds(bounds, { padding: [40, 40], maxZoom: 15 });
+            initialViewSetRef.current = true;
+            return;
+          }
+        } catch {}
+      }
     }
-  }, [wardGeoJSON, effectiveDefaultWardId, isMapReady]);
+
+    // Fallback: use WARD_COORDINATES centroid
+    const coords = WARD_COORDINATES[effectiveDefaultWardId];
+    if (coords) {
+      mapRef.current.setView([coords.lat, coords.lng], 14, { animate: true });
+      initialViewSetRef.current = true;
+    }
+  }, [wardGeoJSON, effectiveDefaultWardId, isMapReady, usingLocateMe]);
 
   // Ward boundary style
   const wardStyle = useCallback((feature: any) => {
