@@ -608,7 +608,7 @@ export function CityMap({
           <UseMyLocationButton
             onCurrentLocation={setCurrentLocation}
             onDisablePinDrop={() => setPinDropMode(false)}
-            onLocateMe={() => setUsingLocateMe(true)}
+            onLocateMe={() => { setUsingLocateMe(true); initialViewSetRef.current = true; }}
           />
 
           {/* Ward boundaries */}
