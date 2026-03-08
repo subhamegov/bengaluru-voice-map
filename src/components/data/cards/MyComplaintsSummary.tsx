@@ -154,7 +154,7 @@ export function MyComplaintsSummary() {
             </div>
             <Link to="/report">
               <Button className="gap-2">
-                Report Issue
+                Share Your Voice
                 <ArrowRight className="w-4 h-4" />
               </Button>
             </Link>
