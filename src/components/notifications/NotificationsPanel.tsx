@@ -1,7 +1,8 @@
 import React from 'react';
-import { Bell, Calendar, FileText, AlertTriangle, Clock, X } from 'lucide-react';
+import { Bell, Calendar, FileText, AlertTriangle, Clock, Share2, CalendarPlus, ExternalLink } from 'lucide-react';
 import { loadUserPreferences } from '@/components/preferences/UserPreferencesModal';
 import { WARDS } from '@/types/story';
+import { Button } from '@/components/ui/button';
 
 interface Notification {
   id: string;
@@ -11,6 +12,9 @@ interface Notification {
   type: 'meeting' | 'proposal' | 'alert' | 'update';
   wardCode: string;
   unread: boolean;
+  isCivic?: boolean;
+  dateLabel?: string;
+  location?: string;
 }
 
 const TYPE_CONFIG: Record<Notification['type'], { icon: React.ElementType; bg: string; fg: string }> = {
@@ -34,6 +38,38 @@ const ALL_NOTIFICATIONS: Notification[] = [
   { id: '10', title: 'Traffic Signal Upgrade', description: 'Smart traffic signals being installed at Basavanagudi National College junction', time: '1d ago', type: 'update', wardCode: 'BASAVANAGUDI', unread: false },
 ];
 
+function buildCivicNotification(subscribedWards: string[]): Notification {
+  const wardCode = subscribedWards.length > 0 ? subscribedWards[0] : '';
+  const ward = wardCode ? WARDS.find(w => w.code === wardCode) : null;
+
+  const title = ward
+    ? `Ward Committee Meeting — ${ward.name}`
+    : 'City Ward Sabha Meeting';
+
+  const location = ward
+    ? `${ward.name} Ward Office or Community Hall`
+    : 'Nearest Ward Office or Community Hall';
+
+  return {
+    id: 'civic-fallback',
+    title,
+    description: 'Residents are invited to participate in local decision making.',
+    time: 'Upcoming',
+    type: 'meeting',
+    wardCode: wardCode || 'CITYWIDE',
+    unread: true,
+    isCivic: true,
+    dateLabel: '21 Dec 2024 • 3:00 PM – 5:00 PM',
+    location,
+  };
+}
+
+function hasCivicMeeting(notifications: Notification[]): boolean {
+  return notifications.some(
+    n => n.type === 'meeting' && /ward|sabha|committee|townhall|consultation/i.test(n.title + ' ' + n.description)
+  );
+}
+
 interface NotificationsPanelProps {
   className?: string;
 }
@@ -42,12 +78,43 @@ export const NotificationsPanel: React.FC<NotificationsPanelProps> = ({ classNam
   const prefs = loadUserPreferences();
   const subscribedWards = prefs.subscribedWards;
 
-  // Filter by user's ward preferences; if none selected, show all
-  const notifications = subscribedWards.length > 0
+  // Filter by user's ward preferences; if none selected, show a default set
+  let notifications: Notification[] = subscribedWards.length > 0
     ? ALL_NOTIFICATIONS.filter(n => subscribedWards.includes(n.wardCode))
     : ALL_NOTIFICATIONS.slice(0, 4);
 
-  const wardName = (code: string) => WARDS.find(w => w.code === code)?.name ?? code;
+  // Ensure at least one civic participation notification exists
+  if (!hasCivicMeeting(notifications)) {
+    const civic = buildCivicNotification(subscribedWards);
+    // Insert within the first 3 positions
+    const insertIdx = Math.min(2, notifications.length);
+    notifications = [
+      ...notifications.slice(0, insertIdx),
+      civic,
+      ...notifications.slice(insertIdx),
+    ];
+  }
+
+  const wardName = (code: string) => {
+    if (code === 'CITYWIDE') return 'Bengaluru';
+    return WARDS.find(w => w.code === code)?.name ?? code;
+  };
+
+  const handleShare = (n: Notification) => {
+    const text = `${n.title}\n${n.description}`;
+    if (navigator.share) {
+      navigator.share({ title: n.title, text }).catch(() => {});
+    } else {
+      navigator.clipboard.writeText(text);
+    }
+  };
+
+  const handleAddToCalendar = (n: Notification) => {
+    const title = encodeURIComponent(n.title);
+    const details = encodeURIComponent(n.description);
+    const calUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}`;
+    window.open(calUrl, '_blank');
+  };
 
   if (notifications.length === 0) return null;
 
@@ -83,12 +150,54 @@ export const NotificationsPanel: React.FC<NotificationsPanelProps> = ({ classNam
                   {n.unread && <span className="w-2 h-2 rounded-full bg-primary shrink-0" />}
                 </div>
                 <p className="text-sm text-muted-foreground mt-0.5">{n.description}</p>
+
+                {/* Civic meeting extra details */}
+                {n.isCivic && (
+                  <div className="mt-2 space-y-1">
+                    {n.dateLabel && (
+                      <p className="text-xs text-foreground/70 flex items-center gap-1">
+                        <Calendar className="w-3 h-3" /> {n.dateLabel}
+                      </p>
+                    )}
+                    {n.location && (
+                      <p className="text-xs text-foreground/70 flex items-center gap-1">
+                        📍 {n.location}
+                      </p>
+                    )}
+                  </div>
+                )}
+
                 <div className="flex items-center gap-3 mt-2">
                   <span className="text-xs text-muted-foreground flex items-center gap-1">
                     <Clock className="w-3 h-3" /> {n.time}
                   </span>
                   <span className="text-xs text-primary/70 font-medium">{wardName(n.wardCode)}</span>
                 </div>
+
+                {/* Action buttons for civic meeting cards */}
+                {n.isCivic && (
+                  <div className="flex items-center gap-2 mt-3">
+                    <Button variant="outline" size="sm" className="h-7 text-xs gap-1">
+                      <ExternalLink className="w-3 h-3" /> View Agenda
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="h-7 text-xs gap-1"
+                      onClick={() => handleAddToCalendar(n)}
+                    >
+                      <CalendarPlus className="w-3 h-3" /> Add to Calendar
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="h-7 text-xs gap-1"
+                      onClick={() => handleShare(n)}
+                    >
+                      <Share2 className="w-3 h-3" /> Share
+                    </Button>
+                  </div>
+                )}
               </div>
             </div>
           );
