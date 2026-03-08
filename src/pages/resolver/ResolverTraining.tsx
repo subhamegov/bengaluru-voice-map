@@ -338,9 +338,15 @@ function FaqItem({ faq, isExpanded, onToggle }: FaqItemProps) {
             ))}
           </div>
           <div className="flex items-center gap-2 mt-4 pt-4 border-t border-border">
-            <Button size="sm" variant="ghost" className="gap-2 text-xs">
-              <Volume2 className="w-3 h-3" />
-              Read Aloud
+            <Button
+              size="sm"
+              variant="ghost"
+              className="gap-2 text-xs"
+              onClick={() => toggleSpeech(faqSpeechId, `${faq.question}. ${faq.answer}`)}
+              aria-label={isFaqSpeaking(faqSpeechId) ? 'Stop reading' : 'Read aloud'}
+            >
+              {isFaqSpeaking(faqSpeechId) ? <VolumeX className="w-3 h-3" /> : <Volume2 className="w-3 h-3" />}
+              {isFaqSpeaking(faqSpeechId) ? 'Stop' : 'Read Aloud'}
             </Button>
             <Button size="sm" variant="ghost" className="gap-2 text-xs">
               <Bookmark className="w-3 h-3" />
