@@ -157,15 +157,15 @@ export function MyTicketsTab() {
 
       {/* Section 1 — Your Contribution */}
       <Card className="gov-card border-primary/20">
-        <CardHeader className="pb-3">
-          <div className="flex items-center justify-between">
+        <CardHeader className="pb-2 sm:pb-3 px-3 sm:px-6 pt-3 sm:pt-6">
+          <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2">
-              <Heart className="w-5 h-5 text-primary" />
-              <CardTitle className="text-lg">Your Contribution</CardTitle>
+              <Heart className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+              <CardTitle className="text-base sm:text-lg">Your Contribution</CardTitle>
             </div>
             <Link to="/my-tickets">
-              <Button variant="outline" size="sm" className="gap-2">
-                View All <ArrowRight className="w-4 h-4" />
+              <Button variant="outline" size="sm" className="gap-1.5 text-xs sm:text-sm h-8 sm:h-9 px-2.5 sm:px-3">
+                View All <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </Button>
             </Link>
           </div>
