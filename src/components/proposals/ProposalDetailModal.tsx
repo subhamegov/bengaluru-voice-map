@@ -303,7 +303,7 @@ export function ProposalDetailModal({ proposal, open, onOpenChange, onSupport }:
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
-        className="max-w-2xl p-0 gap-0 max-h-[90vh] overflow-hidden"
+        className="max-w-2xl p-0 gap-0 max-h-[90vh] overflow-hidden bg-background"
         style={{ zIndex: 10000 }}
         onPointerDownOutside={(e) => e.preventDefault()}
       >
