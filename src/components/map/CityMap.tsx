@@ -606,11 +606,13 @@ export function CityMap({
           />
 
           <MapInteractionHandler onLocationSelect={onLocationSelect} mapRef={mapRef} pinDropMode={pinDropMode} />
-          <UseMyLocationButton
-            onCurrentLocation={setCurrentLocation}
-            onDisablePinDrop={() => setPinDropMode(false)}
-            onLocateMe={() => { setUsingLocateMe(true); initialViewSetRef.current = true; }}
-          />
+          {!hideLocateMe && (
+            <UseMyLocationButton
+              onCurrentLocation={setCurrentLocation}
+              onDisablePinDrop={() => setPinDropMode(false)}
+              onLocateMe={() => { setUsingLocateMe(true); initialViewSetRef.current = true; }}
+            />
+          )}
 
           {/* Ward boundaries */}
           {wardGeoJSON && (
