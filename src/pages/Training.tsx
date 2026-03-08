@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Search, Clock, Users, BookOpen, Volume2, VolumeX, ArrowRight } from 'lucide-react';
+import WardGovernanceSection from '@/components/ward-governance/WardGovernanceSection';
 import { useSpeech } from '@/hooks/use-speech';
 import {
   mockTrainingModules,
