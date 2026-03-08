@@ -21,12 +21,17 @@ import { loadDefaultWardPref } from '@/services/wardPreferences';
 import bengaluruSkyline from '@/assets/bengaluru-skyline.png';
 
 const Index = () => {
+  const initialWardPref = loadDefaultWardPref();
   const [selectedLocation, setSelectedLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [locationDescription, setLocationDescription] = useState('');
-  const [selectedWard, setSelectedWard] = useState<{ code: string; name: string } | null>(null);
+  const [selectedWard, setSelectedWard] = useState<{ code: string; name: string } | null>(
+    initialWardPref.defaultWardId && initialWardPref.defaultWardName
+      ? { code: initialWardPref.defaultWardId, name: initialWardPref.defaultWardName }
+      : null
+  );
   const [preferencesOpen, setPreferencesOpen] = useState(false);
   const [userPreferences, setUserPreferences] = useState<UserPreferences>(loadUserPreferences);
-  const [defaultWardPref, setDefaultWardPref] = useState(loadDefaultWardPref);
+  const [defaultWardPref, setDefaultWardPref] = useState(initialWardPref);
   const [mapSelectedHappening, setMapSelectedHappening] = useState<Happening | null>(null);
   const [mapDrawerOpen, setMapDrawerOpen] = useState(false);
 
@@ -257,7 +262,11 @@ const Index = () => {
         onOpenChange={setPreferencesOpen}
         onSave={(prefs) => {
           setUserPreferences(prefs);
-          setDefaultWardPref(loadDefaultWardPref());
+          const newWardPref = loadDefaultWardPref();
+          setDefaultWardPref(newWardPref);
+          if (newWardPref.defaultWardId && newWardPref.defaultWardName) {
+            setSelectedWard({ code: newWardPref.defaultWardId, name: newWardPref.defaultWardName });
+          }
         }}
       />
 
