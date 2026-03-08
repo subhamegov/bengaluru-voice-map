@@ -3,6 +3,7 @@ import { Bell, Calendar, FileText, AlertTriangle, Clock, Share2, CalendarPlus, E
 import { loadUserPreferences } from '@/components/preferences/UserPreferencesModal';
 import { WARDS } from '@/types/story';
 import { Button } from '@/components/ui/button';
+import { downloadWardSabhaAgenda } from '@/lib/wardSabhaPdf';
 
 interface Notification {
   id: string;
