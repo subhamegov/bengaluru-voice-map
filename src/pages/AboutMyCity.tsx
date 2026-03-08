@@ -19,6 +19,7 @@ import { BENGALURU_ZONES } from '@/lib/bengaluruAdminData';
 import { AlertSubscriptionModal } from '@/components/preferences/AlertSubscriptionModal';
 import { useSpeech } from '@/hooks/use-speech';
 import { downloadWardSabhaAgenda, downloadWardSabhaSummary } from '@/lib/wardSabhaPdf';
+import WardGovernanceSection from '@/components/ward-governance/WardGovernanceSection';
 
 // Ward Sabha archive data
 const wardSabhaArchive = [

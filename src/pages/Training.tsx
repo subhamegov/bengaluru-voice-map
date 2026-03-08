@@ -175,6 +175,18 @@ export default function Training() {
             </div>
           )}
         </section>
+
+        {/* Ward Governance */}
+        <section className="space-y-4">
+          <h2 className="text-xl md:text-2xl font-bold font-display flex items-center gap-2">
+            <Users className="w-6 h-6 text-primary" aria-hidden="true" />
+            Ward Governance
+          </h2>
+          <p className="text-sm text-muted-foreground">
+            Learn how Ward Sabhas work and track meeting outcomes and decisions.
+          </p>
+          <WardGovernanceSection />
+        </section>
       </div>
     </AppLayout>
   );
