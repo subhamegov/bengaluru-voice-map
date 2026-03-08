@@ -18,6 +18,7 @@ import { Button } from '@/components/ui/button';
 import { getOverviewStats, getAverageSolutionTime } from '@/lib/serviceAnalyticsData';
 import { CITY } from '@/config/city';
 import { loadDefaultWardPref } from '@/services/wardPreferences';
+import { WARD_COORDINATES } from '@/lib/bengaluruAdminData';
 import bengaluruSkyline from '@/assets/bengaluru-skyline.png';
 
 const Index = () => {
