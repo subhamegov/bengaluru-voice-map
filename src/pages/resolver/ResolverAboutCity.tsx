@@ -22,7 +22,9 @@ import {
   Monitor,
   Filter,
   Volume2,
+  VolumeX,
 } from 'lucide-react';
+import { useSpeech } from '@/hooks/use-speech';
 import { ResolverLayout } from '@/components/layout/ResolverLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
