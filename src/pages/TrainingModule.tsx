@@ -258,9 +258,15 @@ export default function TrainingModulePage() {
               </h1>
               <p className="text-muted-foreground">{module.description}</p>
             </div>
-            <Button variant="outline" size="sm" className="gap-2" disabled>
-              <Volume2 className="w-4 h-4" />
-              Read Aloud
+            <Button
+              variant="outline"
+              size="sm"
+              className="gap-2"
+              onClick={() => toggle(`training-mod-${moduleId}`, `${module.title}. ${module.description}`)}
+              aria-label={isSpeaking(`training-mod-${moduleId}`) ? 'Stop reading' : 'Read aloud'}
+            >
+              {isSpeaking(`training-mod-${moduleId}`) ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+              {isSpeaking(`training-mod-${moduleId}`) ? 'Stop' : 'Read Aloud'}
             </Button>
           </div>
 
