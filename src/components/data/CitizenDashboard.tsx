@@ -39,7 +39,7 @@ export function CitizenDashboard() {
                 Filters:
               </div>
               <Select value={subCounty} onValueChange={setSubCounty}>
-                <SelectTrigger className="w-full sm:w-[160px]"><SelectValue placeholder="Ward" /></SelectTrigger>
+                <SelectTrigger className="w-[calc(50%-0.5rem)] sm:w-[160px] text-xs sm:text-sm"><SelectValue placeholder="Ward" /></SelectTrigger>
                 <SelectContent>
                   {SUB_COUNTIES.map((sc) => (
                     <SelectItem key={sc.value} value={sc.value}>{sc.label}</SelectItem>
