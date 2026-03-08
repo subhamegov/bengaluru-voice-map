@@ -232,7 +232,6 @@ export function ProjectDetailDrawer({ happening, open, onOpenChange }: ProjectDe
                   >
                     <SquareArrowOutUpRight className="w-5 h-5" />
                   </button>
-                  </button>
                 </div>
               </div>
               
