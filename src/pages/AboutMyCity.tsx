@@ -277,14 +277,10 @@ export default function AboutMyCity() {
   const [showPastEvents, setShowPastEvents] = useState(false);
   const [showAllServices, setShowAllServices] = useState(false);
   const [alertModalOpen, setAlertModalOpen] = useState(false);
+  const { toggle, isSpeaking } = useSpeech();
 
-  const speakText = (text: string) => {
-    if ('speechSynthesis' in window) {
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'en-IN';
-      utterance.rate = 0.9;
-      window.speechSynthesis.speak(utterance);
-    }
+  const handleSpeak = (id: string, text: string) => {
+    toggle(id, text);
   };
 
   const filteredFAQs = faqData.filter(
