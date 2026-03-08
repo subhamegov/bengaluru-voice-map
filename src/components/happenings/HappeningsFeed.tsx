@@ -49,22 +49,12 @@ export function HappeningsFeed({ wardCode, lat, lng, radiusKm = 5, className }: 
     loadHappenings();
   }, [wardCode, lat, lng, radiusKm]);
 
-  const handleReadAllAloud = async () => {
-    if (isReadingAll) {
-      stopSpeaking();
-      setIsReadingAll(false);
-      return;
-    }
-
+  const handleReadAllAloud = () => {
     if (happenings.length === 0) return;
-
     const allText = happenings
       .map((h, i) => `Update ${i + 1}: ${h.title}. ${h.summary}`)
       .join('. Next update: ');
-
-    setIsReadingAll(true);
-    await speakText(`Here's what's happening around you. ${allText}`);
-    setIsReadingAll(false);
+    toggle(speechId, `Here's what's happening around you. ${allText}`);
   };
 
   const handleCardClick = (happening: Happening) => {
