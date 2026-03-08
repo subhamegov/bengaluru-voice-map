@@ -59,7 +59,7 @@ export function EngagementSummary({
               : 'bg-background border border-border hover:bg-muted'
           )}
         >
-          {isFollowing ? <><Check className="w-4 h-4" /> Following</> : 'Follow Project'}
+          {isFollowing ? <><Check className="w-4 h-4 shrink-0" /> <span>Following</span></> : 'Follow Project'}
         </button>
       </div>
       
