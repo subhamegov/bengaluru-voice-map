@@ -177,7 +177,7 @@ export const PolicyDetailModal: React.FC<PolicyDetailModalProps> = ({
     >
       {/* Backdrop */}
       <div 
-        className="absolute inset-0 bg-background/80 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/60"
         onClick={onClose}
       />
 
