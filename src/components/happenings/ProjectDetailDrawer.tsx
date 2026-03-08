@@ -25,6 +25,7 @@ import { CommunityFeedback } from './CommunityFeedback';
 import { ShareModal } from './ShareModal';
 import { useSpeech, useStopSpeechOnUnmount } from '@/hooks/use-speech';
 import { cn } from '@/lib/utils';
+import { downloadWardSabhaAgenda } from '@/lib/wardSabhaPdf';
 
 interface ProjectDetailDrawerProps {
   happening: Happening | null;
