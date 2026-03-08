@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { WARDS } from '@/types/story';
 import { toast } from 'sonner';
+import { useSpeech } from '@/hooks/use-speech';
 
 const ALERT_TOPICS = [
   { code: 'power', label: 'Power Outages', description: 'BESCOM scheduled & unscheduled outages' },
