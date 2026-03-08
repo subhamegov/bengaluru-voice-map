@@ -283,13 +283,13 @@ export function MyTicketsTab() {
               {topIssues.map((issue) => {
                 const Icon = ISSUE_CATEGORY_ICONS[issue.category as keyof typeof ISSUE_CATEGORY_ICONS] || ISSUE_CATEGORY_ICONS.other;
                 return (
-                  <div key={issue.category} className="p-4 rounded-lg border border-border bg-muted/30">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Icon className="w-5 h-5 text-primary flex-shrink-0" aria-hidden="true" />
-                      <h4 className="font-semibold text-foreground text-sm">{issue.categoryLabel}</h4>
+                  <div key={issue.category} className="p-3 sm:p-4 rounded-lg border border-border bg-muted/30">
+                    <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
+                      <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" aria-hidden="true" />
+                      <h4 className="font-semibold text-foreground text-xs sm:text-sm leading-tight">{issue.categoryLabel}</h4>
                     </div>
-                    <p className="text-lg font-bold text-foreground">{issue.othersCount.toLocaleString()}</p>
-                    <p className="text-xs text-muted-foreground">reports citywide</p>
+                    <p className="text-base sm:text-lg font-bold text-foreground">{issue.othersCount.toLocaleString()}</p>
+                    <p className="text-[10px] sm:text-xs text-muted-foreground">reports citywide</p>
                   </div>
                 );
               })}
