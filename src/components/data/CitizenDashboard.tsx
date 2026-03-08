@@ -55,7 +55,7 @@ export function CitizenDashboard() {
                 </SelectContent>
               </Select>
               <Select value={category} onValueChange={setCategory}>
-                <SelectTrigger className="w-full sm:w-[160px]"><SelectValue placeholder="Category" /></SelectTrigger>
+                <SelectTrigger className="w-[calc(50%-0.5rem)] sm:w-[160px] text-xs sm:text-sm"><SelectValue placeholder="Category" /></SelectTrigger>
                 <SelectContent>
                   {CATEGORIES.map((cat) => (
                     <SelectItem key={cat.value} value={cat.value}>{cat.label}</SelectItem>
