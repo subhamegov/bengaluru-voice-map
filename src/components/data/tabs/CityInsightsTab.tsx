@@ -38,30 +38,30 @@ const OVERLAP_INSIGHTS = [
 
 export function CityInsightsTab({ timeRange, subCounty }: Props) {
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       {/* Section 1: Department Ratings */}
-      <section className="space-y-4">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center">
-            <Building2 className="w-5 h-5 text-secondary" />
+      <section className="space-y-3 sm:space-y-4">
+        <div className="flex items-center gap-2.5 sm:gap-3">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-secondary/10 flex items-center justify-center">
+            <Building2 className="w-4 h-4 sm:w-5 sm:h-5 text-secondary" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-foreground">Department Ratings</h2>
-            <p className="text-sm text-muted-foreground">Citizen feedback and performance ratings by department</p>
+            <h2 className="text-lg sm:text-xl font-bold text-foreground">Department Ratings</h2>
+            <p className="text-xs sm:text-sm text-muted-foreground">Citizen feedback and performance ratings by department</p>
           </div>
         </div>
         <DepartmentRatingsDetail />
       </section>
 
       {/* Section 2: City Service Performance */}
-      <section className="space-y-4">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-            <BarChart3 className="w-5 h-5 text-primary" />
+      <section className="space-y-3 sm:space-y-4">
+        <div className="flex items-center gap-2.5 sm:gap-3">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+            <BarChart3 className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-foreground">City Service Performance</h2>
-            <p className="text-sm text-muted-foreground">Overall complaint metrics across the city</p>
+            <h2 className="text-lg sm:text-xl font-bold text-foreground">City Service Performance</h2>
+            <p className="text-xs sm:text-sm text-muted-foreground">Overall complaint metrics across the city</p>
           </div>
         </div>
         <OverviewCards timeRange={timeRange} subCounty={subCounty} />
@@ -69,32 +69,32 @@ export function CityInsightsTab({ timeRange, subCounty }: Props) {
       </section>
 
       {/* Section 3: Ward Comparison */}
-      <section className="space-y-4">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center">
-            <TrendingUp className="w-5 h-5 text-amber-600" />
+      <section className="space-y-3 sm:space-y-4">
+        <div className="flex items-center gap-2.5 sm:gap-3">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-amber-500/10 flex items-center justify-center">
+            <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-amber-600" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-foreground">Ward Comparison</h2>
-            <p className="text-sm text-muted-foreground">Compare complaint data, resolution time, and types across wards</p>
+            <h2 className="text-lg sm:text-xl font-bold text-foreground">Ward Comparison</h2>
+            <p className="text-xs sm:text-sm text-muted-foreground">Compare complaint data, resolution time, and types across wards</p>
           </div>
         </div>
         <StatusByBoundaryTable />
       </section>
 
       {/* Section 4: Proactive vs Reactive Governance */}
-      <section className="space-y-4">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-success/10 flex items-center justify-center">
-            <Lightbulb className="w-5 h-5 text-success" />
+      <section className="space-y-3 sm:space-y-4">
+        <div className="flex items-center gap-2.5 sm:gap-3">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-success/10 flex items-center justify-center">
+            <Lightbulb className="w-4 h-4 sm:w-5 sm:h-5 text-success" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-foreground">City Action Insights</h2>
-            <p className="text-sm text-muted-foreground">Where complaints and citizen proposals intersect</p>
+            <h2 className="text-lg sm:text-xl font-bold text-foreground">City Action Insights</h2>
+            <p className="text-xs sm:text-sm text-muted-foreground">Where complaints and citizen proposals intersect</p>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
           {/* Reactive: Top Complaints */}
           <Card className="gov-card">
             <CardHeader className="pb-3">

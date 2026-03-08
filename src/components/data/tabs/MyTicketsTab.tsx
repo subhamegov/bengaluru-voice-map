@@ -143,35 +143,35 @@ export function MyTicketsTab() {
     : 0;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Section Header */}
-      <div className="flex items-center gap-3">
-        <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-          <Sparkles className="w-5 h-5 text-primary" />
+      <div className="flex items-center gap-2.5 sm:gap-3">
+        <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+          <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
         </div>
         <div>
-          <h2 className="text-xl font-bold text-foreground">Your Civic Impact</h2>
-          <p className="text-sm text-muted-foreground">How your participation helps improve your city.</p>
+          <h2 className="text-lg sm:text-xl font-bold text-foreground">Your Civic Impact</h2>
+          <p className="text-xs sm:text-sm text-muted-foreground">How your participation helps improve your city.</p>
         </div>
       </div>
 
       {/* Section 1 — Your Contribution */}
       <Card className="gov-card border-primary/20">
-        <CardHeader className="pb-3">
-          <div className="flex items-center justify-between">
+        <CardHeader className="pb-2 sm:pb-3 px-3 sm:px-6 pt-3 sm:pt-6">
+          <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2">
-              <Heart className="w-5 h-5 text-primary" />
-              <CardTitle className="text-lg">Your Contribution</CardTitle>
+              <Heart className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+              <CardTitle className="text-base sm:text-lg">Your Contribution</CardTitle>
             </div>
             <Link to="/my-tickets">
-              <Button variant="outline" size="sm" className="gap-2">
-                View All <ArrowRight className="w-4 h-4" />
+              <Button variant="outline" size="sm" className="gap-1.5 text-xs sm:text-sm h-8 sm:h-9 px-2.5 sm:px-3">
+                View All <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </Button>
             </Link>
           </div>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <CardContent className="space-y-3 sm:space-y-4 px-3 sm:px-6 pb-3 sm:pb-6">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
             <ContributionCard
               label="Complaints Reported"
               value={myStats.serviceComplaints + myStats.projectComplaints}
@@ -209,20 +209,20 @@ export function MyTicketsTab() {
 
       {/* Section 2 — Community Participation */}
       <Card className="gov-card">
-        <CardHeader className="pb-3">
+        <CardHeader className="pb-2 sm:pb-3 px-3 sm:px-6 pt-3 sm:pt-6">
           <div className="flex items-center gap-2">
-            <Users className="w-5 h-5 text-muted-foreground" />
-            <CardTitle className="text-lg">Community Participation</CardTitle>
+            <Users className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground" />
+            <CardTitle className="text-base sm:text-lg">Community Participation</CardTitle>
           </div>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="flex items-baseline justify-between text-sm">
-            <span className="text-muted-foreground">Residents in your ward submitted</span>
-            <span className="font-bold text-foreground">{wardStats.wardTotal.toLocaleString()} complaints this month</span>
+        <CardContent className="space-y-3 sm:space-y-4 px-3 sm:px-6 pb-3 sm:pb-6">
+          <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 text-sm">
+            <span className="text-muted-foreground text-xs sm:text-sm">Residents in your ward submitted</span>
+            <span className="font-bold text-foreground text-sm">{wardStats.wardTotal.toLocaleString()} complaints this month</span>
           </div>
-          <div className="flex items-baseline justify-between text-sm">
-            <span className="text-muted-foreground">You contributed</span>
-            <span className="font-bold text-primary">{wardStats.userCount} reports</span>
+          <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 text-sm">
+            <span className="text-muted-foreground text-xs sm:text-sm">You contributed</span>
+            <span className="font-bold text-primary text-sm">{wardStats.userCount} reports</span>
           </div>
           <Progress value={participationPercent} className="h-2" />
           <p className="text-xs text-muted-foreground italic">
@@ -233,14 +233,14 @@ export function MyTicketsTab() {
 
       {/* Section 3 — What Happened After Your Report */}
       <Card className="gov-card">
-        <CardHeader className="pb-3">
+        <CardHeader className="pb-2 sm:pb-3 px-3 sm:px-6 pt-3 sm:pt-6">
           <div className="flex items-center gap-2">
-            <Eye className="w-5 h-5 text-muted-foreground" />
-            <CardTitle className="text-lg">What Happened After Your Report</CardTitle>
+            <Eye className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground" />
+            <CardTitle className="text-base sm:text-lg">What Happened After Your Report</CardTitle>
           </div>
         </CardHeader>
-        <CardContent className="space-y-3">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <CardContent className="space-y-3 px-3 sm:px-6 pb-3 sm:pb-6">
+          <div className="grid grid-cols-3 gap-2 sm:gap-3">
             <OutcomeCard
               label="Issues being addressed"
               value={myStats.inProgress}
@@ -272,24 +272,24 @@ export function MyTicketsTab() {
       {/* Section 4 — Issues People Like You Are Reporting */}
       {topIssues.length > 0 && (
         <Card className="gov-card">
-          <CardHeader className="pb-3">
+          <CardHeader className="pb-2 sm:pb-3 px-3 sm:px-6 pt-3 sm:pt-6">
             <div className="flex items-center gap-2">
-              <Megaphone className="w-5 h-5 text-muted-foreground" />
-              <CardTitle className="text-lg">Issues People Like You Are Reporting</CardTitle>
+              <Megaphone className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground" />
+              <CardTitle className="text-base sm:text-lg">Issues People Like You Are Reporting</CardTitle>
             </div>
           </CardHeader>
-          <CardContent className="space-y-3">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <CardContent className="space-y-3 px-3 sm:px-6 pb-3 sm:pb-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
               {topIssues.map((issue) => {
                 const Icon = ISSUE_CATEGORY_ICONS[issue.category as keyof typeof ISSUE_CATEGORY_ICONS] || ISSUE_CATEGORY_ICONS.other;
                 return (
-                  <div key={issue.category} className="p-4 rounded-lg border border-border bg-muted/30">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Icon className="w-5 h-5 text-primary flex-shrink-0" aria-hidden="true" />
-                      <h4 className="font-semibold text-foreground text-sm">{issue.categoryLabel}</h4>
+                  <div key={issue.category} className="p-3 sm:p-4 rounded-lg border border-border bg-muted/30">
+                    <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
+                      <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" aria-hidden="true" />
+                      <h4 className="font-semibold text-foreground text-xs sm:text-sm leading-tight">{issue.categoryLabel}</h4>
                     </div>
-                    <p className="text-lg font-bold text-foreground">{issue.othersCount.toLocaleString()}</p>
-                    <p className="text-xs text-muted-foreground">reports citywide</p>
+                    <p className="text-base sm:text-lg font-bold text-foreground">{issue.othersCount.toLocaleString()}</p>
+                    <p className="text-[10px] sm:text-xs text-muted-foreground">reports citywide</p>
                   </div>
                 );
               })}
@@ -303,13 +303,13 @@ export function MyTicketsTab() {
 
       {/* Section 5 — Next Ways to Participate */}
       <Card className="gov-card border-primary/10">
-        <CardHeader className="pb-3">
+        <CardHeader className="pb-2 sm:pb-3 px-3 sm:px-6 pt-3 sm:pt-6">
           <div className="flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-primary" />
-            <CardTitle className="text-lg">Next Ways to Participate</CardTitle>
+            <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+            <CardTitle className="text-base sm:text-lg">Next Ways to Participate</CardTitle>
           </div>
         </CardHeader>
-        <CardContent>
+        <CardContent className="px-3 sm:px-6 pb-3 sm:pb-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <NextAction
               label="Support proposals addressing local problems"
@@ -342,12 +342,12 @@ function ContributionCard({ label, value, subtitle, icon, className }: {
   label: string; value: number; subtitle: string; icon: React.ReactNode; className?: string;
 }) {
   return (
-    <div className={cn('rounded-xl p-3 flex flex-col items-center justify-center min-h-[90px]', className)}>
-      <div className="flex items-center justify-center gap-1.5 mb-1">
+    <div className={cn('rounded-xl p-2.5 sm:p-3 flex flex-col items-center justify-center min-h-[80px] sm:min-h-[90px]', className)}>
+      <div className="flex items-center justify-center gap-1 sm:gap-1.5 mb-1">
         {icon}
-        <span className="text-2xl font-bold leading-none">{value}</span>
+        <span className="text-xl sm:text-2xl font-bold leading-none">{value}</span>
       </div>
-      <p className="text-xs font-medium text-center leading-tight">{label}</p>
+      <p className="text-[10px] sm:text-xs font-medium text-center leading-tight">{label}</p>
     </div>
   );
 }
@@ -356,25 +356,25 @@ function OutcomeCard({ label, value, subtitle, icon, className }: {
   label: string; value: number; subtitle: string; icon: React.ReactNode; className?: string;
 }) {
   return (
-    <div className={cn('rounded-xl p-4 flex flex-col min-h-[80px]', className)}>
-      <div className="flex items-center gap-2 mb-1">
+    <div className={cn('rounded-xl p-3 sm:p-4 flex flex-col min-h-[70px] sm:min-h-[80px]', className)}>
+      <div className="flex items-center gap-1.5 sm:gap-2 mb-1">
         {icon}
-        <span className="text-2xl font-bold leading-none">{value}</span>
+        <span className="text-xl sm:text-2xl font-bold leading-none">{value}</span>
       </div>
-      <p className="text-xs font-medium leading-tight">{label}</p>
-      <p className="text-[10px] opacity-75 mt-0.5">{subtitle}</p>
+      <p className="text-[10px] sm:text-xs font-medium leading-tight">{label}</p>
+      <p className="text-[9px] sm:text-[10px] opacity-75 mt-0.5">{subtitle}</p>
     </div>
   );
 }
 
 function NextAction({ label, link, icon }: { label: string; link: string; icon: React.ReactNode }) {
   return (
-    <Link to={link} className="flex items-center gap-3 p-3 rounded-lg border border-border hover:bg-muted/50 transition-colors group">
-      <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+    <Link to={link} className="flex items-center gap-2.5 sm:gap-3 p-2.5 sm:p-3 rounded-lg border border-border hover:bg-muted/50 transition-colors group">
+      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
         {icon}
       </div>
-      <span className="text-sm text-foreground group-hover:text-primary transition-colors">{label}</span>
-      <ArrowRight className="w-4 h-4 text-muted-foreground ml-auto flex-shrink-0" />
+      <span className="text-xs sm:text-sm text-foreground group-hover:text-primary transition-colors flex-1 min-w-0">{label}</span>
+      <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-muted-foreground flex-shrink-0" />
     </Link>
   );
 }

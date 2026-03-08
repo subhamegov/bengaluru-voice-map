@@ -17,7 +17,7 @@ export function UX4GPageHeader({ icon: Icon, title, description, action, classNa
 
   return (
     <header
-      className={cn('pt-8 pb-6 mb-6 max-w-[1100px]', className)}
+      className={cn('pt-5 sm:pt-8 pb-4 sm:pb-6 mb-4 sm:mb-6 max-w-[1100px]', className)}
       aria-labelledby="page-header-title"
     >
       {!isHome && (
@@ -32,8 +32,8 @@ export function UX4GPageHeader({ icon: Icon, title, description, action, classNa
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-3">
             {Icon && (
-              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                <Icon className="w-5 h-5 text-primary" aria-hidden="true" />
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-primary" aria-hidden="true" />
               </div>
             )}
             <h1
@@ -43,7 +43,7 @@ export function UX4GPageHeader({ icon: Icon, title, description, action, classNa
               {title}
             </h1>
           </div>
-          <p className="text-lg text-muted-foreground mt-2 max-w-2xl">
+          <p className="text-sm sm:text-lg text-muted-foreground mt-1.5 sm:mt-2 max-w-2xl">
             {description}
           </p>
         </div>

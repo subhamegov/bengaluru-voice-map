@@ -21,25 +21,25 @@ export function CitizenDashboard() {
   const [activeTab, setActiveTab] = useState('my-tickets');
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList className="w-full grid grid-cols-3">
-          <TabsTrigger value="my-tickets">My Tickets</TabsTrigger>
-          <TabsTrigger value="my-ward">My Ward Insights</TabsTrigger>
-          <TabsTrigger value="city">City Insights</TabsTrigger>
+        <TabsList className="w-full grid grid-cols-3 h-auto">
+          <TabsTrigger value="my-tickets" className="text-xs sm:text-sm px-2 py-2">My Tickets</TabsTrigger>
+          <TabsTrigger value="my-ward" className="text-xs sm:text-sm px-2 py-2">My Ward</TabsTrigger>
+          <TabsTrigger value="city" className="text-xs sm:text-sm px-2 py-2">City Insights</TabsTrigger>
         </TabsList>
 
         {/* Filters — shared across tabs */}
-        <Card className="gov-card mt-4">
-          <CardContent className="p-4">
-            <div className="flex flex-wrap items-center gap-3">
-              <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
-                <Filter className="w-4 h-4" />
+        <Card className="gov-card mt-3 sm:mt-4">
+          <CardContent className="p-3 sm:p-4">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+              <div className="flex items-center gap-1.5 text-xs sm:text-sm font-medium text-muted-foreground">
+                <Filter className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 Filters:
               </div>
               <Select value={subCounty} onValueChange={setSubCounty}>
-                <SelectTrigger className="w-full sm:w-[160px]"><SelectValue placeholder="Ward" /></SelectTrigger>
+                <SelectTrigger className="w-[calc(50%-0.5rem)] sm:w-[160px] text-xs sm:text-sm"><SelectValue placeholder="Ward" /></SelectTrigger>
                 <SelectContent>
                   {SUB_COUNTIES.map((sc) => (
                     <SelectItem key={sc.value} value={sc.value}>{sc.label}</SelectItem>
@@ -47,7 +47,7 @@ export function CitizenDashboard() {
                 </SelectContent>
               </Select>
               <Select value={timeRange} onValueChange={setTimeRange}>
-                <SelectTrigger className="w-full sm:w-[160px]"><SelectValue placeholder="Time Range" /></SelectTrigger>
+                <SelectTrigger className="w-[calc(50%-0.5rem)] sm:w-[160px] text-xs sm:text-sm"><SelectValue placeholder="Time Range" /></SelectTrigger>
                 <SelectContent>
                   {TIME_RANGES.map((tr) => (
                     <SelectItem key={tr.value} value={tr.value}>{tr.label}</SelectItem>
@@ -55,7 +55,7 @@ export function CitizenDashboard() {
                 </SelectContent>
               </Select>
               <Select value={category} onValueChange={setCategory}>
-                <SelectTrigger className="w-full sm:w-[160px]"><SelectValue placeholder="Category" /></SelectTrigger>
+                <SelectTrigger className="w-[calc(50%-0.5rem)] sm:w-[160px] text-xs sm:text-sm"><SelectValue placeholder="Category" /></SelectTrigger>
                 <SelectContent>
                   {CATEGORIES.map((cat) => (
                     <SelectItem key={cat.value} value={cat.value}>{cat.label}</SelectItem>
@@ -63,7 +63,7 @@ export function CitizenDashboard() {
                 </SelectContent>
               </Select>
               <Select value={source} onValueChange={setSource}>
-                <SelectTrigger className="w-full sm:w-[160px]"><SelectValue placeholder="Source" /></SelectTrigger>
+                <SelectTrigger className="w-[calc(50%-0.5rem)] sm:w-[160px] text-xs sm:text-sm"><SelectValue placeholder="Source" /></SelectTrigger>
                 <SelectContent>
                   {SOURCES.map((src) => (
                     <SelectItem key={src.value} value={src.value}>{src.label}</SelectItem>
@@ -74,15 +74,15 @@ export function CitizenDashboard() {
           </CardContent>
         </Card>
 
-        <TabsContent value="my-tickets" className="mt-6 space-y-6">
+        <TabsContent value="my-tickets" className="mt-4 sm:mt-6 space-y-4 sm:space-y-6">
           <MyTicketsTab />
         </TabsContent>
 
-        <TabsContent value="my-ward" className="mt-6 space-y-6">
+        <TabsContent value="my-ward" className="mt-4 sm:mt-6 space-y-4 sm:space-y-6">
           <MyWardInsightsTab timeRange={timeRange} subCounty={subCounty} />
         </TabsContent>
 
-        <TabsContent value="city" className="mt-6 space-y-6">
+        <TabsContent value="city" className="mt-4 sm:mt-6 space-y-4 sm:space-y-6">
           <CityInsightsTab timeRange={timeRange} subCounty={subCounty} />
         </TabsContent>
       </Tabs>
