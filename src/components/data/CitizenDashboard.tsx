@@ -74,7 +74,7 @@ export function CitizenDashboard() {
           </CardContent>
         </Card>
 
-        <TabsContent value="my-tickets" className="mt-6 space-y-6">
+        <TabsContent value="my-tickets" className="mt-4 sm:mt-6 space-y-4 sm:space-y-6">
           <MyTicketsTab />
         </TabsContent>
 
