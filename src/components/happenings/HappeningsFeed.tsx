@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Bell, MapPin, RefreshCw, Volume2 } from 'lucide-react';
+import { Bell, MapPin, RefreshCw, Volume2, VolumeX } from 'lucide-react';
 import { Happening } from '@/types/happenings';
 import { happeningsApi } from '@/lib/happeningsApi';
-import { speakText, stopSpeaking } from '@/lib/apiClient';
+import { useSpeech } from '@/hooks/use-speech';
 import { HappeningCard } from './HappeningCard';
 import { ProjectDetailDrawer } from './ProjectDetailDrawer';
 import { cn } from '@/lib/utils';
