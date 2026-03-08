@@ -32,6 +32,7 @@ import {
   RESOLVER_DOWNLOADS,
   type ResolverFAQ,
 } from '@/lib/resolverTrainingData';
+import { useSpeech } from '@/hooks/use-speech';
 
 export default function ResolverTraining() {
   const [searchQuery, setSearchQuery] = useState('');

@@ -108,9 +108,15 @@ export default function ResolverAboutCity() {
                 Quick reference guide to city services, responsibilities, and outcomes.
               </p>
             </div>
-            <Button variant="outline" size="sm" className="gap-2">
-              <Volume2 className="w-4 h-4" />
-              Read Aloud
+            <Button
+              variant="outline"
+              size="sm"
+              className="gap-2"
+              onClick={() => toggle('resolver-about-city', 'About My City. Quick reference guide to city services, responsibilities, and outcomes.')}
+              aria-label={isSpeaking('resolver-about-city') ? 'Stop reading' : 'Read aloud'}
+            >
+              {isSpeaking('resolver-about-city') ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+              {isSpeaking('resolver-about-city') ? 'Stop' : 'Read Aloud'}
             </Button>
           </div>
         </header>
