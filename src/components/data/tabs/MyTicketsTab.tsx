@@ -239,8 +239,8 @@ export function MyTicketsTab() {
             <CardTitle className="text-base sm:text-lg">What Happened After Your Report</CardTitle>
           </div>
         </CardHeader>
-        <CardContent className="space-y-3">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <CardContent className="space-y-3 px-3 sm:px-6 pb-3 sm:pb-6">
+          <div className="grid grid-cols-3 gap-2 sm:gap-3">
             <OutcomeCard
               label="Issues being addressed"
               value={myStats.inProgress}
