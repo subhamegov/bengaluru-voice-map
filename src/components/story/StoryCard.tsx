@@ -174,7 +174,7 @@ export function StoryCard({ story, className }: StoryCardProps) {
             aria-label={isReadingAloud ? 'Stop reading' : 'Read this story aloud'}
             aria-pressed={isReadingAloud}
           >
-            <Volume2 className="w-5 h-5" aria-hidden="true" />
+            {isReadingAloud ? <VolumeX className="w-5 h-5" aria-hidden="true" /> : <Volume2 className="w-5 h-5" aria-hidden="true" />}
             <span>{isReadingAloud ? 'Stop reading' : 'Read aloud'}</span>
           </button>
         )}

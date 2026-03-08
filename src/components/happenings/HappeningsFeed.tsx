@@ -99,7 +99,7 @@ export function HappeningsFeed({ wardCode, lat, lng, radiusKm = 5, className }: 
               aria-label={isReadingAll ? 'Stop reading all updates' : 'Read all updates aloud'}
               aria-pressed={isReadingAll}
             >
-              <Volume2 className="w-4.5 h-4.5" aria-hidden="true" />
+              {isReadingAll ? <VolumeX className="w-4.5 h-4.5" aria-hidden="true" /> : <Volume2 className="w-4.5 h-4.5" aria-hidden="true" />}
             </button>
           )}
 

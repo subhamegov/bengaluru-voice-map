@@ -426,7 +426,7 @@ export function ProjectDetailDrawer({ happening, open, onOpenChange }: ProjectDe
                         : 'bg-muted text-foreground hover:bg-muted/80'
                     )}
                   >
-                    <Volume2 className="w-4 h-4" />
+                    {isReading ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
                     {isReading ? 'Stop Reading' : 'Read Aloud'}
                   </button>
                   
