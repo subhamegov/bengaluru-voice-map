@@ -11,9 +11,11 @@ interface StoryCardProps {
 
 export function StoryCard({ story, className }: StoryCardProps) {
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
-  const [isReadingAloud, setIsReadingAloud] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const { toggle, isSpeaking, stop } = useSpeech();
+  const speechId = `story-read-${story.id}`;
+  const isReadingAloud = isSpeaking(speechId);
 
   const formatRelativeTime = (dateString: string): string => {
     const date = new Date(dateString);
