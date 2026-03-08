@@ -245,6 +245,7 @@ export function CityMap({
   className,
   defaultWardId: externalDefaultWardId,
   onHappeningClick,
+  hideLocateMe = false,
 }: CityMapProps) {
   const tileConfig = useMapTiles();
   const [isMapReady, setIsMapReady] = useState(false);
