@@ -69,6 +69,7 @@ export default function TrainingModulePage() {
   const [quizAnswers, setQuizAnswers] = useState<Record<string, number>>({});
   const [showQuizResults, setShowQuizResults] = useState(false);
   const [lastQuizScore, setLastQuizScore] = useState<number | null>(null);
+  const { toggle, isSpeaking } = useSpeech();
 
   const module = mockTrainingModules.find((m) => m.id === moduleId);
 
