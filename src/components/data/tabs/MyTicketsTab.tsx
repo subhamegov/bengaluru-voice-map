@@ -347,8 +347,8 @@ function ContributionCard({ label, value, subtitle, icon, className }: {
   );
 }
 
-function OutcomeCard({ label, value, subtitle, icon, className }: {
-  label: string; value: number; subtitle: string; icon: React.ReactNode; className?: string;
+function OutcomeCard({ label, value, icon, tooltip, className }: {
+  label: string; value: number; icon: React.ReactNode; tooltip: string; className?: string;
 }) {
   return (
     <div className={cn('rounded-xl p-3 sm:p-4 flex flex-col min-h-[70px] sm:min-h-[80px]', className)}>
@@ -356,8 +356,10 @@ function OutcomeCard({ label, value, subtitle, icon, className }: {
         {icon}
         <span className="text-xl sm:text-2xl font-bold leading-none">{value}</span>
       </div>
-      <p className="text-[10px] sm:text-xs font-medium leading-tight">{label}</p>
-      <p className="text-[9px] sm:text-[10px] opacity-75 mt-0.5">{subtitle}</p>
+      <div className="flex items-center gap-1">
+        <p className="text-[10px] sm:text-xs font-medium leading-tight">{label}</p>
+        <InfoTooltip definition={tooltip} />
+      </div>
     </div>
   );
 }
