@@ -78,7 +78,7 @@ export function CitizenDashboard() {
           <MyTicketsTab />
         </TabsContent>
 
-        <TabsContent value="my-ward" className="mt-6 space-y-6">
+        <TabsContent value="my-ward" className="mt-4 sm:mt-6 space-y-4 sm:space-y-6">
           <MyWardInsightsTab timeRange={timeRange} subCounty={subCounty} />
         </TabsContent>
 
