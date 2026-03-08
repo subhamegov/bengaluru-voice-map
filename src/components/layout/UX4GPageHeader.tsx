@@ -43,7 +43,7 @@ export function UX4GPageHeader({ icon: Icon, title, description, action, classNa
               {title}
             </h1>
           </div>
-          <p className="text-lg text-muted-foreground mt-2 max-w-2xl">
+          <p className="text-sm sm:text-lg text-muted-foreground mt-1.5 sm:mt-2 max-w-2xl">
             {description}
           </p>
         </div>
