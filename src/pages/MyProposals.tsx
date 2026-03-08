@@ -12,7 +12,7 @@ import {
   SheetTitle,
 } from '@/components/ui/sheet';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Map, LayoutList, Plus, ScrollText, MapPin, Search, ChevronDown, X, Navigation } from 'lucide-react';
+import { Map, LayoutList, Plus, ScrollText, MapPin, Search, ChevronDown, X, Navigation, Home } from 'lucide-react';
 import { ProposalMap } from '@/components/proposals/ProposalMap';
 import { ProposalTable } from '@/components/proposals/ProposalTable';
 import { ProposalDetailModal } from '@/components/proposals/ProposalDetailModal';
