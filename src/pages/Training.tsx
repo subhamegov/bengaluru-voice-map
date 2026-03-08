@@ -39,6 +39,7 @@ export default function Training() {
   const [selectedAudience, setSelectedAudience] = useState('all');
   const [selectedTopic, setSelectedTopic] = useState('all');
   const progress = getAllProgress();
+  const { toggle, isSpeaking } = useSpeech();
 
   const filteredModules = useMemo(() => {
     return mockTrainingModules.filter((module) => {
