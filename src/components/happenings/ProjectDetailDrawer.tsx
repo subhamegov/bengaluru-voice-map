@@ -23,7 +23,7 @@ import { ProjectTimeline } from './ProjectTimeline';
 import { EngagementSummary } from './EngagementSummary';
 import { CommunityFeedback } from './CommunityFeedback';
 import { ShareModal } from './ShareModal';
-import { speakText, stopSpeaking } from '@/lib/apiClient';
+import { useSpeech, useStopSpeechOnUnmount } from '@/hooks/use-speech';
 import { cn } from '@/lib/utils';
 
 interface ProjectDetailDrawerProps {
