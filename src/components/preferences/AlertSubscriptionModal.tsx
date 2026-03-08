@@ -75,14 +75,7 @@ export const AlertSubscriptionModal: React.FC<AlertSubscriptionModalProps> = ({ 
     setSelectedTopics(prev => prev.includes(topic) ? prev.filter(t => t !== topic) : [...prev, topic]);
   };
 
-  const speakText = (text: string) => {
-    if ('speechSynthesis' in window) {
-      const u = new SpeechSynthesisUtterance(text);
-      u.lang = 'en-IN';
-      u.rate = 0.9;
-      window.speechSynthesis.speak(u);
-    }
-  };
+  const { toggle, isSpeaking } = useSpeech();
 
   const handleSave = () => {
     const prefs: AlertPreferences = { subscribedWards: selectedWards, alertTopics: selectedTopics };
