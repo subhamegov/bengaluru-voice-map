@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { Bell, MapPin, Check, Volume2, Info, X } from 'lucide-react';
+import { Bell, MapPin, Check, Volume2, VolumeX, Info, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { WARDS } from '@/types/story';
