@@ -178,10 +178,10 @@ export const AlertSubscriptionModal: React.FC<AlertSubscriptionModalProps> = ({ 
               </div>
               <Button
                 size="sm" variant="ghost" className="shrink-0 h-7 px-2"
-                aria-label="Read ward help aloud"
-                onClick={() => speakText('Not sure which ward you belong to? Use the Dishaank app or visit gba.karnataka.gov.in to find your ward by location.')}
+                aria-label={isSpeaking('alert-ward-help') ? 'Stop reading' : 'Read ward help aloud'}
+                onClick={() => toggle('alert-ward-help', 'Not sure which ward you belong to? Use the Dishaank app or visit gba.karnataka.gov.in to find your ward by location.')}
               >
-                <Volume2 className="w-3.5 h-3.5" />
+                {isSpeaking('alert-ward-help') ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
               </Button>
             </div>
 

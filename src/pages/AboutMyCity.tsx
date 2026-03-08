@@ -673,8 +673,8 @@ export default function AboutMyCity() {
                     <AccordionContent>
                       <div className="pl-6 pr-2">
                         <p className="text-muted-foreground mb-3">{faq.answer}</p>
-                        <Button size="sm" variant="ghost" onClick={() => speakText(`${faq.question}. ${faq.answer}`)} aria-label="Read aloud">
-                          <Volume2 className="w-4 h-4 mr-1" /> Read Aloud
+                        <Button size="sm" variant="ghost" onClick={() => handleSpeak(`faq-${faq.question.slice(0,20)}`, `${faq.question}. ${faq.answer}`)} aria-label={isSpeaking(`faq-${faq.question.slice(0,20)}`) ? 'Stop reading' : 'Read aloud'}>
+                          {isSpeaking(`faq-${faq.question.slice(0,20)}`) ? <VolumeX className="w-4 h-4 mr-1" /> : <Volume2 className="w-4 h-4 mr-1" />} {isSpeaking(`faq-${faq.question.slice(0,20)}`) ? 'Stop' : 'Read Aloud'}
                         </Button>
                       </div>
                     </AccordionContent>
