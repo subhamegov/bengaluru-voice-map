@@ -543,6 +543,58 @@ export default function AboutMyCity() {
           </div>
         </section>
 
+        {/* ── Ward Sabha Meetings Archive ── */}
+        <section aria-labelledby="ward-sabha-heading">
+          <h2 id="ward-sabha-heading" className="text-xl md:text-2xl font-bold font-display flex items-center gap-2 mb-4">
+            <Users className="w-6 h-6 text-primary" aria-hidden="true" />
+            Ward Sabha Meetings
+          </h2>
+          <p className="text-sm text-muted-foreground mb-4">
+            Past Ward Sabha meetings and their outcomes. Download summaries for details.
+          </p>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {wardSabhaArchive.map((meeting) => (
+              <Card key={meeting.id} className="hover:shadow-md transition-shadow">
+                <CardContent className="p-4 md:p-5">
+                  <Badge variant="outline" className="mb-2 text-xs flex items-center gap-1 w-fit">
+                    <Calendar className="w-3.5 h-3.5" />
+                    meeting
+                  </Badge>
+                  <h3 className="font-semibold text-base mb-1">{meeting.title}</h3>
+                  <div className="space-y-1 text-sm text-muted-foreground mb-3">
+                    <p className="flex items-center gap-2">
+                      <Calendar className="w-4 h-4" /> {meeting.date}
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <Users className="w-4 h-4" /> Attendance: {meeting.attendance} residents
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <MapPin className="w-4 h-4" /> {meeting.wardName}
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5 mb-3">
+                    {meeting.topics.map((topic) => (
+                      <Badge key={topic} variant="secondary" className="text-xs">{topic}</Badge>
+                    ))}
+                  </div>
+                  <div className="text-xs text-muted-foreground mb-3 space-y-0.5">
+                    <p>Linked: {meeting.linkedData.potholeReports} road reports · {meeting.linkedData.garbageReports} garbage reports · {meeting.linkedData.proposals} proposals</p>
+                  </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full gap-1.5"
+                    onClick={() => downloadWardSabhaSummary(meeting.wardName, meeting.date, meeting.attendance)}
+                  >
+                    <FileText className="w-4 h-4" />
+                    Download Summary
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
+
         {/* ── Events ── */}
         <section aria-labelledby="events-heading">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
