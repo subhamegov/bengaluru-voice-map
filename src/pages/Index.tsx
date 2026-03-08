@@ -111,12 +111,12 @@ const Index = () => {
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
           {[
-            { icon: PenSquare, label: 'Share Your Voice', desc: 'Feedback, proposals, complaints & appreciations', href: '/report' },
-            { icon: ScrollText, label: 'Ward Proposals', desc: 'View & support civic proposals', href: '/my-proposals' },
-            { icon: Ticket, label: 'My Activity', desc: 'Track reports & discussions', href: '/my-tickets' },
+            { icon: PenSquare, label: 'Share Your Voice', desc: 'Complaints, feedback & appreciation', href: '/report' },
+            { icon: ScrollText, label: 'Ward Proposals', desc: 'Needs, wants & ideas', href: '/my-proposals' },
+            { icon: Ticket, label: 'My Activity', desc: 'Track issue progress', href: '/my-tickets' },
             { icon: GraduationCap, label: 'Training & Help', desc: 'Learn how to use portal', href: '/training' },
-            { icon: ClipboardList, label: 'Active Surveys', desc: 'Participate in surveys', href: '/surveys' },
-            { icon: FileText, label: 'Policy Feedback', desc: 'Share views on policies', href: '/policy' },
+            { icon: ClipboardList, label: 'Active Surveys', desc: 'Shape city decisions', href: '/surveys' },
+            { icon: FileText, label: 'Policy Feedback', desc: 'Improve city policies', href: '/policy' },
           ].map((tile) => (
             <Link
               key={tile.href}

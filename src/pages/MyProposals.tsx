@@ -282,7 +282,7 @@ export default function MyProposals() {
         <div className="flex items-start justify-between gap-3 pb-1">
           <div className="min-w-0">
             <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">My Proposals</h1>
-            <p className="text-sm text-muted-foreground mt-0.5 line-clamp-2">View, create, and track civic proposals for your localities.</p>
+            <p className="text-sm text-muted-foreground mt-0.5 line-clamp-2">Needs, wants & ideas</p>
           </div>
           <Button onClick={() => setCreateOpen(true)} className="gap-1.5 shrink-0 text-sm">
             <Plus className="w-4 h-4" /> Create Proposal

@@ -129,7 +129,7 @@ export function MyTicketsTab() {
             </div>
             <Link to="/report">
               <Button className="gap-2">
-                Report Issue <ArrowRight className="w-4 h-4" />
+                Share Your Voice <ArrowRight className="w-4 h-4" />
               </Button>
             </Link>
           </div>

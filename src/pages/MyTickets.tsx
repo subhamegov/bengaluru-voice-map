@@ -143,7 +143,7 @@ const MyTickets = () => {
       <UX4GPageHeader
         icon={Ticket}
         title="My Tickets"
-        description="Track, manage, and communicate on your submitted reports."
+        description="Track issue progress"
       />
 
       {/* Stats Cards */}

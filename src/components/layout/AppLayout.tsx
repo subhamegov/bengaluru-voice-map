@@ -31,13 +31,13 @@ interface AppLayoutProps {
 
 const citizenNav = [
   { name: 'Home', href: '/', icon: Home, description: 'Discover what is happening' },
-  { name: 'About My City', href: '/about-my-city', icon: Building, description: 'City info, events & FAQs' },
-  { name: 'Report Issue', href: '/report', icon: MapPin, description: 'Report an issue' },
-  { name: 'Active Surveys', href: '/surveys', icon: ClipboardList, description: 'Participate in surveys' },
-  { name: 'Policy Feedback', href: '/policy', icon: FileText, description: 'Share views on policies' },
-  { name: 'My Proposals', href: '/my-proposals', icon: ScrollText, description: 'Civic proposals & ideas' },
-  { name: 'My Tickets', href: '/my-tickets', icon: Ticket, description: 'Track your reports' },
-  { name: 'Data', href: '/data', icon: BarChart3, description: 'Service analytics' },
+  { name: 'About My City', href: '/about-my-city', icon: Building, description: 'How your city works' },
+  { name: 'Share Your Voice', href: '/report', icon: MapPin, description: 'Complaints, feedback & appreciation' },
+  { name: 'Active Surveys', href: '/surveys', icon: ClipboardList, description: 'Shape city decisions' },
+  { name: 'Policy Feedback', href: '/policy', icon: FileText, description: 'Improve city policies' },
+  { name: 'My Proposals', href: '/my-proposals', icon: ScrollText, description: 'Needs, wants & ideas' },
+  { name: 'My Tickets', href: '/my-tickets', icon: Ticket, description: 'Track issue progress' },
+  { name: 'Data', href: '/data', icon: BarChart3, description: 'Insights on city performance' },
   { name: 'Training & Help', href: '/training', icon: GraduationCap, description: 'Learn how to use the portal' },
 ];
 

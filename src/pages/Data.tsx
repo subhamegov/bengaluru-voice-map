@@ -10,8 +10,8 @@ export default function Data() {
       <div className="space-y-6">
         <UX4GPageHeader
           icon={BarChart3}
-          title="Civic Intelligence"
-          description="Understand how your ward is functioning, what residents are talking about, and where you can help."
+          title="Data"
+          description="Insights on city performance"
         />
         <CitizenDashboard />
       </div>
