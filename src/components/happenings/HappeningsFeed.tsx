@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Bell, MapPin, RefreshCw, Volume2 } from 'lucide-react';
+import { Bell, MapPin, RefreshCw, Volume2, VolumeX } from 'lucide-react';
 import { Happening } from '@/types/happenings';
 import { happeningsApi } from '@/lib/happeningsApi';
-import { speakText, stopSpeaking } from '@/lib/apiClient';
+import { useSpeech } from '@/hooks/use-speech';
 import { HappeningCard } from './HappeningCard';
 import { ProjectDetailDrawer } from './ProjectDetailDrawer';
 import { cn } from '@/lib/utils';
@@ -19,9 +19,11 @@ export function HappeningsFeed({ wardCode, lat, lng, radiusKm = 5, className }: 
   const [happenings, setHappenings] = useState<Happening[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [isReadingAll, setIsReadingAll] = useState(false);
   const [selectedHappening, setSelectedHappening] = useState<Happening | null>(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const { toggle, isSpeaking } = useSpeech();
+  const speechId = 'happenings-read-all';
+  const isReadingAll = isSpeaking(speechId);
 
   const loadHappenings = async () => {
     setIsLoading(true);
@@ -47,22 +49,12 @@ export function HappeningsFeed({ wardCode, lat, lng, radiusKm = 5, className }: 
     loadHappenings();
   }, [wardCode, lat, lng, radiusKm]);
 
-  const handleReadAllAloud = async () => {
-    if (isReadingAll) {
-      stopSpeaking();
-      setIsReadingAll(false);
-      return;
-    }
-
+  const handleReadAllAloud = () => {
     if (happenings.length === 0) return;
-
     const allText = happenings
       .map((h, i) => `Update ${i + 1}: ${h.title}. ${h.summary}`)
       .join('. Next update: ');
-
-    setIsReadingAll(true);
-    await speakText(`Here's what's happening around you. ${allText}`);
-    setIsReadingAll(false);
+    toggle(speechId, `Here's what's happening around you. ${allText}`);
   };
 
   const handleCardClick = (happening: Happening) => {
@@ -107,7 +99,7 @@ export function HappeningsFeed({ wardCode, lat, lng, radiusKm = 5, className }: 
               aria-label={isReadingAll ? 'Stop reading all updates' : 'Read all updates aloud'}
               aria-pressed={isReadingAll}
             >
-              <Volume2 className="w-4.5 h-4.5" aria-hidden="true" />
+              {isReadingAll ? <VolumeX className="w-4.5 h-4.5" aria-hidden="true" /> : <Volume2 className="w-4.5 h-4.5" aria-hidden="true" />}
             </button>
           )}
 

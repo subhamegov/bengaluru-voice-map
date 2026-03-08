@@ -22,7 +22,9 @@ import {
   Monitor,
   Filter,
   Volume2,
+  VolumeX,
 } from 'lucide-react';
+import { useSpeech } from '@/hooks/use-speech';
 import { ResolverLayout } from '@/components/layout/ResolverLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -82,6 +84,7 @@ export default function ResolverAboutCity() {
   const [selectedMetric, setSelectedMetric] = useState<CityMetric | null>(null);
   const [selectedDepartment, setSelectedDepartment] = useState<Department | null>(null);
   const [quickHelpSearch, setQuickHelpSearch] = useState('');
+  const { toggle, isSpeaking } = useSpeech();
 
   const filteredQuickHelp = quickHelpSearch
     ? QUICK_HELP.filter(
@@ -105,9 +108,15 @@ export default function ResolverAboutCity() {
                 Quick reference guide to city services, responsibilities, and outcomes.
               </p>
             </div>
-            <Button variant="outline" size="sm" className="gap-2">
-              <Volume2 className="w-4 h-4" />
-              Read Aloud
+            <Button
+              variant="outline"
+              size="sm"
+              className="gap-2"
+              onClick={() => toggle('resolver-about-city', 'About My City. Quick reference guide to city services, responsibilities, and outcomes.')}
+              aria-label={isSpeaking('resolver-about-city') ? 'Stop reading' : 'Read aloud'}
+            >
+              {isSpeaking('resolver-about-city') ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+              {isSpeaking('resolver-about-city') ? 'Stop' : 'Read Aloud'}
             </Button>
           </div>
         </header>

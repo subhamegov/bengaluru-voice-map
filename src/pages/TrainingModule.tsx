@@ -16,6 +16,7 @@ import {
   Search,
   ArrowLeft,
   Volume2,
+  VolumeX,
   Clock,
   Users,
   CheckCircle2,
@@ -45,6 +46,7 @@ import {
   type QuizQuestion,
 } from '@/lib/trainingData';
 import { toast } from '@/hooks/use-toast';
+import { useSpeech } from '@/hooks/use-speech';
 
 const statusLabels: Record<ModuleStatus, string> = {
   not_started: 'Not started',
@@ -67,6 +69,7 @@ export default function TrainingModulePage() {
   const [quizAnswers, setQuizAnswers] = useState<Record<string, number>>({});
   const [showQuizResults, setShowQuizResults] = useState(false);
   const [lastQuizScore, setLastQuizScore] = useState<number | null>(null);
+  const { toggle, isSpeaking } = useSpeech();
 
   const module = mockTrainingModules.find((m) => m.id === moduleId);
 
@@ -255,9 +258,15 @@ export default function TrainingModulePage() {
               </h1>
               <p className="text-muted-foreground">{module.description}</p>
             </div>
-            <Button variant="outline" size="sm" className="gap-2" disabled>
-              <Volume2 className="w-4 h-4" />
-              Read Aloud
+            <Button
+              variant="outline"
+              size="sm"
+              className="gap-2"
+              onClick={() => toggle(`training-mod-${moduleId}`, `${module.title}. ${module.description}`)}
+              aria-label={isSpeaking(`training-mod-${moduleId}`) ? 'Stop reading' : 'Read aloud'}
+            >
+              {isSpeaking(`training-mod-${moduleId}`) ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+              {isSpeaking(`training-mod-${moduleId}`) ? 'Stop' : 'Read Aloud'}
             </Button>
           </div>
 

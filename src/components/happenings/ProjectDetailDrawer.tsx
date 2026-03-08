@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { 
-  Calendar, MapPin, Building2, Banknote, Volume2, ExternalLink, 
+  Calendar, MapPin, Building2, Banknote, Volume2, VolumeX, ExternalLink, 
   MessageSquare, Ticket, ClipboardList, Share2, X, Check, CalendarPlus, FileText, Clock, SquareArrowOutUpRight
 } from 'lucide-react';
 import {
@@ -23,7 +23,7 @@ import { ProjectTimeline } from './ProjectTimeline';
 import { EngagementSummary } from './EngagementSummary';
 import { CommunityFeedback } from './CommunityFeedback';
 import { ShareModal } from './ShareModal';
-import { speakText, stopSpeaking } from '@/lib/apiClient';
+import { useSpeech, useStopSpeechOnUnmount } from '@/hooks/use-speech';
 import { cn } from '@/lib/utils';
 
 interface ProjectDetailDrawerProps {
@@ -67,10 +67,13 @@ function downloadICS(happening: Happening) {
 }
 
 export function ProjectDetailDrawer({ happening, open, onOpenChange }: ProjectDetailDrawerProps) {
-  const [isReading, setIsReading] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false);
   const [localComments, setLocalComments] = useState<ProjectComment[]>([]);
   const [shareOpen, setShareOpen] = useState(false);
+  const { toggle, isSpeaking } = useSpeech();
+  useStopSpeechOnUnmount();
+  const speechId = happening ? `project-${happening.id}` : '';
+  const isReading = isSpeaking(speechId);
 
   if (!happening) return null;
 
@@ -90,17 +93,9 @@ export function ProjectDetailDrawer({ happening, open, onOpenChange }: ProjectDe
     });
   };
 
-  const handleReadAloud = async () => {
-    if (isReading) {
-      stopSpeaking();
-      setIsReading(false);
-      return;
-    }
-
+  const handleReadAloud = () => {
     const textToRead = `${happening.title}. ${details?.fullDescription || happening.summary}. Project by ${happening.source} in ${happening.wardName} Ward.`;
-    setIsReading(true);
-    await speakText(textToRead);
-    setIsReading(false);
+    toggle(speechId, textToRead);
   };
 
   const handleFollowToggle = () => {
@@ -431,7 +426,7 @@ export function ProjectDetailDrawer({ happening, open, onOpenChange }: ProjectDe
                         : 'bg-muted text-foreground hover:bg-muted/80'
                     )}
                   >
-                    <Volume2 className="w-4 h-4" />
+                    {isReading ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
                     {isReading ? 'Stop Reading' : 'Read Aloud'}
                   </button>
                   

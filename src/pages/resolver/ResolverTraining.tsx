@@ -6,7 +6,8 @@ import {
   Download, 
   ChevronDown, 
   ChevronRight, 
-  Volume2, 
+  Volume2,
+  VolumeX,
   Play,
   FileText,
   Bookmark,
@@ -31,12 +32,14 @@ import {
   RESOLVER_DOWNLOADS,
   type ResolverFAQ,
 } from '@/lib/resolverTrainingData';
+import { useSpeech } from '@/hooks/use-speech';
 
 export default function ResolverTraining() {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeTab, setActiveTab] = useState('faqs');
   const [expandedFaqs, setExpandedFaqs] = useState<string[]>([]);
   const [expandedCategories, setExpandedCategories] = useState<string[]>(RESOLVER_FAQ_CATEGORIES);
+  const { toggle, isSpeaking } = useSpeech();
 
   // Filter FAQs based on search
   const filteredFaqs = useMemo(() => {
@@ -109,9 +112,15 @@ export default function ResolverTraining() {
                 Upskill yourself with structured, easy-to-follow training content designed for resolvers.
               </p>
             </div>
-            <Button variant="outline" size="sm" className="gap-2">
-              <Volume2 className="w-4 h-4" />
-              Read Aloud
+            <Button
+              variant="outline"
+              size="sm"
+              className="gap-2"
+              onClick={() => toggle('resolver-training-header', 'Training Module. Upskill yourself with structured, easy-to-follow training content designed for resolvers.')}
+              aria-label={isSpeaking('resolver-training-header') ? 'Stop reading' : 'Read aloud'}
+            >
+              {isSpeaking('resolver-training-header') ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+              {isSpeaking('resolver-training-header') ? 'Stop' : 'Read Aloud'}
             </Button>
           </div>
         </header>
@@ -293,6 +302,8 @@ interface FaqItemProps {
 }
 
 function FaqItem({ faq, isExpanded, onToggle }: FaqItemProps) {
+  const { toggle: toggleSpeech, isSpeaking: isFaqSpeaking } = useSpeech();
+  const faqSpeechId = `resolver-faq-${faq.id}`;
   return (
     <Collapsible open={isExpanded} onOpenChange={onToggle}>
       <CollapsibleTrigger asChild>
@@ -327,9 +338,15 @@ function FaqItem({ faq, isExpanded, onToggle }: FaqItemProps) {
             ))}
           </div>
           <div className="flex items-center gap-2 mt-4 pt-4 border-t border-border">
-            <Button size="sm" variant="ghost" className="gap-2 text-xs">
-              <Volume2 className="w-3 h-3" />
-              Read Aloud
+            <Button
+              size="sm"
+              variant="ghost"
+              className="gap-2 text-xs"
+              onClick={() => toggleSpeech(faqSpeechId, `${faq.question}. ${faq.answer}`)}
+              aria-label={isFaqSpeaking(faqSpeechId) ? 'Stop reading' : 'Read aloud'}
+            >
+              {isFaqSpeaking(faqSpeechId) ? <VolumeX className="w-3 h-3" /> : <Volume2 className="w-3 h-3" />}
+              {isFaqSpeaking(faqSpeechId) ? 'Stop' : 'Read Aloud'}
             </Button>
             <Button size="sm" variant="ghost" className="gap-2 text-xs">
               <Bookmark className="w-3 h-3" />

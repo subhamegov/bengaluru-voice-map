@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
-import { Play, Pause, Volume2, MapPin, Clock } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX, MapPin, Clock } from 'lucide-react';
 import { Story, CATEGORY_LABELS } from '@/types/story';
-import { speakText, stopSpeaking } from '@/lib/apiClient';
+import { useSpeech, useStopSpeechOnUnmount } from '@/hooks/use-speech';
 import { cn } from '@/lib/utils';
 
 interface StoryCardProps {
@@ -11,9 +11,11 @@ interface StoryCardProps {
 
 export function StoryCard({ story, className }: StoryCardProps) {
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
-  const [isReadingAloud, setIsReadingAloud] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const { toggle, isSpeaking, stop } = useSpeech();
+  const speechId = `story-read-${story.id}`;
+  const isReadingAloud = isSpeaking(speechId);
 
   const formatRelativeTime = (dateString: string): string => {
     const date = new Date(dateString);
@@ -54,17 +56,8 @@ export function StoryCard({ story, className }: StoryCardProps) {
     setIsPlayingAudio(true);
   };
 
-  const handleReadAloud = async () => {
-    if (isReadingAloud) {
-      stopSpeaking();
-      setIsReadingAloud(false);
-      return;
-    }
-
-    const textToRead = `${story.title}. ${story.description}`;
-    setIsReadingAloud(true);
-    await speakText(textToRead);
-    setIsReadingAloud(false);
+  const handleReadAloud = () => {
+    toggle(speechId, `${story.title}. ${story.description}`);
   };
 
   const getCategoryBadgeClass = () => {
@@ -181,7 +174,7 @@ export function StoryCard({ story, className }: StoryCardProps) {
             aria-label={isReadingAloud ? 'Stop reading' : 'Read this story aloud'}
             aria-pressed={isReadingAloud}
           >
-            <Volume2 className="w-5 h-5" aria-hidden="true" />
+            {isReadingAloud ? <VolumeX className="w-5 h-5" aria-hidden="true" /> : <Volume2 className="w-5 h-5" aria-hidden="true" />}
             <span>{isReadingAloud ? 'Stop reading' : 'Read aloud'}</span>
           </button>
         )}

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { Bell, MapPin, Check, Volume2, Info, X } from 'lucide-react';
+import { Bell, MapPin, Check, Volume2, VolumeX, Info, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { WARDS } from '@/types/story';
 import { toast } from 'sonner';
+import { useSpeech } from '@/hooks/use-speech';
 
 const ALERT_TOPICS = [
   { code: 'power', label: 'Power Outages', description: 'BESCOM scheduled & unscheduled outages' },
@@ -74,14 +75,7 @@ export const AlertSubscriptionModal: React.FC<AlertSubscriptionModalProps> = ({ 
     setSelectedTopics(prev => prev.includes(topic) ? prev.filter(t => t !== topic) : [...prev, topic]);
   };
 
-  const speakText = (text: string) => {
-    if ('speechSynthesis' in window) {
-      const u = new SpeechSynthesisUtterance(text);
-      u.lang = 'en-IN';
-      u.rate = 0.9;
-      window.speechSynthesis.speak(u);
-    }
-  };
+  const { toggle, isSpeaking } = useSpeech();
 
   const handleSave = () => {
     const prefs: AlertPreferences = { subscribedWards: selectedWards, alertTopics: selectedTopics };
@@ -184,10 +178,10 @@ export const AlertSubscriptionModal: React.FC<AlertSubscriptionModalProps> = ({ 
               </div>
               <Button
                 size="sm" variant="ghost" className="shrink-0 h-7 px-2"
-                aria-label="Read ward help aloud"
-                onClick={() => speakText('Not sure which ward you belong to? Use the Dishaank app or visit gba.karnataka.gov.in to find your ward by location.')}
+                aria-label={isSpeaking('alert-ward-help') ? 'Stop reading' : 'Read ward help aloud'}
+                onClick={() => toggle('alert-ward-help', 'Not sure which ward you belong to? Use the Dishaank app or visit gba.karnataka.gov.in to find your ward by location.')}
               >
-                <Volume2 className="w-3.5 h-3.5" />
+                {isSpeaking('alert-ward-help') ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
               </Button>
             </div>
 

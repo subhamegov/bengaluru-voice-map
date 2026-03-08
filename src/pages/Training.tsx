@@ -5,7 +5,8 @@ import { UX4GPageHeader } from '@/components/layout/UX4GPageHeader';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Search, Clock, Users, BookOpen, Volume2, ArrowRight } from 'lucide-react';
+import { Search, Clock, Users, BookOpen, Volume2, VolumeX, ArrowRight } from 'lucide-react';
+import { useSpeech } from '@/hooks/use-speech';
 import {
   mockTrainingModules,
   AUDIENCES,
@@ -38,6 +39,7 @@ export default function Training() {
   const [selectedAudience, setSelectedAudience] = useState('all');
   const [selectedTopic, setSelectedTopic] = useState('all');
   const progress = getAllProgress();
+  const { toggle, isSpeaking } = useSpeech();
 
   const filteredModules = useMemo(() => {
     return mockTrainingModules.filter((module) => {
@@ -76,9 +78,15 @@ export default function Training() {
           title="Training & Help Centre"
           description="Short modules to help citizens and staff use digital services with confidence."
           action={
-            <Button variant="outline" size="sm" className="gap-2 h-9" disabled>
-              <Volume2 className="w-4 h-4" />
-              Read Aloud
+            <Button
+              variant="outline"
+              size="sm"
+              className="gap-2 h-9"
+              onClick={() => toggle('training-header', 'Training and Help Centre. Short modules to help citizens and staff use digital services with confidence.')}
+              aria-label={isSpeaking('training-header') ? 'Stop reading' : 'Read aloud'}
+            >
+              {isSpeaking('training-header') ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+              {isSpeaking('training-header') ? 'Stop' : 'Read Aloud'}
             </Button>
           }
         />

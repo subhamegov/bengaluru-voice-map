@@ -10,13 +10,14 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { 
   Users, Building2, Clock, Droplets, Calendar, MapPin, ExternalLink, 
   Share2, CalendarPlus, AlertTriangle, Zap, Trash2, Search, Phone,
-  MessageCircle, Volume2, Mic, Info, ChevronRight, HelpCircle,
+  MessageCircle, Volume2, VolumeX, Mic, Info, ChevronRight, HelpCircle,
   Landmark, Globe, Smartphone, Link2, FileText, ScrollText,
   Shield, Map, Leaf, Eye, Briefcase, ArrowRight, Mail, Bell
 } from 'lucide-react';
 import { EVENT_TYPE_ICONS, StatusDot } from '@/lib/iconMaps';
 import { BENGALURU_ZONES } from '@/lib/bengaluruAdminData';
 import { AlertSubscriptionModal } from '@/components/preferences/AlertSubscriptionModal';
+import { useSpeech } from '@/hooks/use-speech';
 
 // GBA Officers data from bbmp.gov.in
 const gbaOfficers = [
@@ -276,14 +277,10 @@ export default function AboutMyCity() {
   const [showPastEvents, setShowPastEvents] = useState(false);
   const [showAllServices, setShowAllServices] = useState(false);
   const [alertModalOpen, setAlertModalOpen] = useState(false);
+  const { toggle, isSpeaking } = useSpeech();
 
-  const speakText = (text: string) => {
-    if ('speechSynthesis' in window) {
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'en-IN';
-      utterance.rate = 0.9;
-      window.speechSynthesis.speak(utterance);
-    }
+  const handleSpeak = (id: string, text: string) => {
+    toggle(id, text);
   };
 
   const filteredFAQs = faqData.filter(
@@ -306,11 +303,11 @@ export default function AboutMyCity() {
               variant="outline"
               size="sm"
               className="gap-2 h-9"
-              onClick={() => speakText('City at a Glance. Everything about Greater Bengaluru Authority.')}
-              aria-label="Read aloud"
+              onClick={() => handleSpeak('about-city-header', 'City at a Glance. Everything about Greater Bengaluru Authority.')}
+              aria-label={isSpeaking('about-city-header') ? 'Stop reading' : 'Read aloud'}
             >
-              <Volume2 className="w-4 h-4" />
-              Read Aloud
+              {isSpeaking('about-city-header') ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+              {isSpeaking('about-city-header') ? 'Stop' : 'Read Aloud'}
             </Button>
           }
         />
@@ -436,10 +433,10 @@ export default function AboutMyCity() {
                 size="sm"
                 variant="ghost"
                 className="shrink-0 h-7 px-2"
-                aria-label="Read zone help aloud"
-                onClick={() => speakText('Not sure which zone you belong to? With the new Greater Bengaluru Authority restructuring, ward and zone boundaries have changed. Visit gba.karnataka.gov.in to check your new city corporation and ward.')}
+                aria-label={isSpeaking('about-zone-help') ? 'Stop reading' : 'Read zone help aloud'}
+                onClick={() => handleSpeak('about-zone-help', 'Not sure which zone you belong to? With the new Greater Bengaluru Authority restructuring, ward and zone boundaries have changed. Visit gba.karnataka.gov.in to check your new city corporation and ward.')}
               >
-                <Volume2 className="w-3.5 h-3.5" />
+                {isSpeaking('about-zone-help') ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
               </Button>
             </div>
           </div>
@@ -676,8 +673,8 @@ export default function AboutMyCity() {
                     <AccordionContent>
                       <div className="pl-6 pr-2">
                         <p className="text-muted-foreground mb-3">{faq.answer}</p>
-                        <Button size="sm" variant="ghost" onClick={() => speakText(`${faq.question}. ${faq.answer}`)} aria-label="Read aloud">
-                          <Volume2 className="w-4 h-4 mr-1" /> Read Aloud
+                        <Button size="sm" variant="ghost" onClick={() => handleSpeak(`faq-${faq.question.slice(0,20)}`, `${faq.question}. ${faq.answer}`)} aria-label={isSpeaking(`faq-${faq.question.slice(0,20)}`) ? 'Stop reading' : 'Read aloud'}>
+                          {isSpeaking(`faq-${faq.question.slice(0,20)}`) ? <VolumeX className="w-4 h-4 mr-1" /> : <Volume2 className="w-4 h-4 mr-1" />} {isSpeaking(`faq-${faq.question.slice(0,20)}`) ? 'Stop' : 'Read Aloud'}
                         </Button>
                       </div>
                     </AccordionContent>

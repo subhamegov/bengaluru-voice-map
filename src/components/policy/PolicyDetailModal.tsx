@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { cn } from '@/lib/utils';
+import { useSpeech, useStopSpeechOnUnmount } from '@/hooks/use-speech';
 import { getDaysRemaining } from '@/lib/policyData';
 import { format, formatDistanceToNow } from 'date-fns';
 
@@ -33,7 +34,6 @@ export const PolicyDetailModal: React.FC<PolicyDetailModalProps> = ({
   onClose
 }) => {
   const [activeTab, setActiveTab] = useState('summary');
-  const [isReading, setIsReading] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [feedbackText, setFeedbackText] = useState('');
   const [authorType, setAuthorType] = useState('');
@@ -46,6 +46,11 @@ export const PolicyDetailModal: React.FC<PolicyDetailModalProps> = ({
   const [supportCount, setSupportCount] = useState(policy.engagement.supportCount);
   const [opposeCount, setOpposeCount] = useState(policy.engagement.opposeCount);
   const [userVote, setUserVote] = useState<'support' | 'oppose' | null>(null);
+
+  const { toggle, isSpeaking } = useSpeech();
+  useStopSpeechOnUnmount();
+  const speechId = `policy-${policy.id}`;
+  const isReading = isSpeaking(speechId);
 
   if (!isOpen) return null;
 
@@ -87,16 +92,7 @@ export const PolicyDetailModal: React.FC<PolicyDetailModalProps> = ({
   };
 
   const handleReadAloud = () => {
-    if (isReading) {
-      window.speechSynthesis.cancel();
-      setIsReading(false);
-    } else {
-      const utterance = new SpeechSynthesisUtterance(policy.fullDescription);
-      utterance.lang = 'en-KE';
-      utterance.onend = () => setIsReading(false);
-      window.speechSynthesis.speak(utterance);
-      setIsReading(true);
-    }
+    toggle(speechId, policy.fullDescription, 'en-IN');
   };
 
   const handleVoiceInput = () => {
