@@ -303,11 +303,11 @@ export default function AboutMyCity() {
               variant="outline"
               size="sm"
               className="gap-2 h-9"
-              onClick={() => speakText('City at a Glance. Everything about Greater Bengaluru Authority.')}
-              aria-label="Read aloud"
+              onClick={() => handleSpeak('about-city-header', 'City at a Glance. Everything about Greater Bengaluru Authority.')}
+              aria-label={isSpeaking('about-city-header') ? 'Stop reading' : 'Read aloud'}
             >
-              <Volume2 className="w-4 h-4" />
-              Read Aloud
+              {isSpeaking('about-city-header') ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+              {isSpeaking('about-city-header') ? 'Stop' : 'Read Aloud'}
             </Button>
           }
         />
