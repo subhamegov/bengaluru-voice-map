@@ -3,6 +3,7 @@ import { Bell, Calendar, FileText, AlertTriangle, Clock, Share2, CalendarPlus, E
 import { loadUserPreferences } from '@/components/preferences/UserPreferencesModal';
 import { WARDS } from '@/types/story';
 import { Button } from '@/components/ui/button';
+import { downloadWardSabhaAgenda } from '@/lib/wardSabhaPdf';
 
 interface Notification {
   id: string;
@@ -177,7 +178,12 @@ export const NotificationsPanel: React.FC<NotificationsPanelProps> = ({ classNam
                 {/* Action buttons for civic meeting cards */}
                 {n.isCivic && (
                   <div className="flex items-center gap-2 mt-3">
-                    <Button variant="outline" size="sm" className="h-7 text-xs gap-1">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="h-7 text-xs gap-1"
+                      onClick={() => downloadWardSabhaAgenda(wardName(n.wardCode))}
+                    >
                       <ExternalLink className="w-3 h-3" /> View Agenda
                     </Button>
                     <Button

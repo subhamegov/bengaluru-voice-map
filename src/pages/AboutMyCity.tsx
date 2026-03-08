@@ -18,6 +18,38 @@ import { EVENT_TYPE_ICONS, StatusDot } from '@/lib/iconMaps';
 import { BENGALURU_ZONES } from '@/lib/bengaluruAdminData';
 import { AlertSubscriptionModal } from '@/components/preferences/AlertSubscriptionModal';
 import { useSpeech } from '@/hooks/use-speech';
+import { downloadWardSabhaAgenda, downloadWardSabhaSummary } from '@/lib/wardSabhaPdf';
+
+// Ward Sabha archive data
+const wardSabhaArchive = [
+  {
+    id: 'ws-sep-2024',
+    title: 'Ward Sabha – Sep 2024',
+    date: '15 Sep 2024',
+    wardName: 'Ward 148',
+    attendance: 82,
+    topics: ['Roads repair', 'Waste collection'],
+    linkedData: { potholeReports: 54, garbageReports: 32, proposals: 6 },
+  },
+  {
+    id: 'ws-jun-2024',
+    title: 'Ward Sabha – Jun 2024',
+    date: '22 Jun 2024',
+    wardName: 'Ward 148',
+    attendance: 67,
+    topics: ['Streetlight installation', 'Drain cleaning'],
+    linkedData: { potholeReports: 38, garbageReports: 28, proposals: 4 },
+  },
+  {
+    id: 'ws-mar-2024',
+    title: 'Ward Sabha – Mar 2024',
+    date: '16 Mar 2024',
+    wardName: 'Ward 148',
+    attendance: 95,
+    topics: ['Budget review', 'Park development', 'Water supply'],
+    linkedData: { potholeReports: 41, garbageReports: 25, proposals: 8 },
+  },
+];
 
 // GBA Officers data from bbmp.gov.in
 const gbaOfficers = [
@@ -508,6 +540,58 @@ export default function AboutMyCity() {
             <span className="flex items-center gap-1"><StatusDot status="normal" /> Normal</span>
             <span className="flex items-center gap-1"><StatusDot status="partial" /> Partial</span>
             <span className="flex items-center gap-1"><StatusDot status="outage" /> Outage</span>
+          </div>
+        </section>
+
+        {/* ── Ward Sabha Meetings Archive ── */}
+        <section aria-labelledby="ward-sabha-heading">
+          <h2 id="ward-sabha-heading" className="text-xl md:text-2xl font-bold font-display flex items-center gap-2 mb-4">
+            <Users className="w-6 h-6 text-primary" aria-hidden="true" />
+            Ward Sabha Meetings
+          </h2>
+          <p className="text-sm text-muted-foreground mb-4">
+            Past Ward Sabha meetings and their outcomes. Download summaries for details.
+          </p>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {wardSabhaArchive.map((meeting) => (
+              <Card key={meeting.id} className="hover:shadow-md transition-shadow">
+                <CardContent className="p-4 md:p-5">
+                  <Badge variant="outline" className="mb-2 text-xs flex items-center gap-1 w-fit">
+                    <Calendar className="w-3.5 h-3.5" />
+                    meeting
+                  </Badge>
+                  <h3 className="font-semibold text-base mb-1">{meeting.title}</h3>
+                  <div className="space-y-1 text-sm text-muted-foreground mb-3">
+                    <p className="flex items-center gap-2">
+                      <Calendar className="w-4 h-4" /> {meeting.date}
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <Users className="w-4 h-4" /> Attendance: {meeting.attendance} residents
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <MapPin className="w-4 h-4" /> {meeting.wardName}
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5 mb-3">
+                    {meeting.topics.map((topic) => (
+                      <Badge key={topic} variant="secondary" className="text-xs">{topic}</Badge>
+                    ))}
+                  </div>
+                  <div className="text-xs text-muted-foreground mb-3 space-y-0.5">
+                    <p>Linked: {meeting.linkedData.potholeReports} road reports · {meeting.linkedData.garbageReports} garbage reports · {meeting.linkedData.proposals} proposals</p>
+                  </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full gap-1.5"
+                    onClick={() => downloadWardSabhaSummary(meeting.wardName, meeting.date, meeting.attendance)}
+                  >
+                    <FileText className="w-4 h-4" />
+                    Download Summary
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </section>
 

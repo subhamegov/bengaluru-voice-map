@@ -25,6 +25,7 @@ import { CommunityFeedback } from './CommunityFeedback';
 import { ShareModal } from './ShareModal';
 import { useSpeech, useStopSpeechOnUnmount } from '@/hooks/use-speech';
 import { cn } from '@/lib/utils';
+import { downloadWardSabhaAgenda } from '@/lib/wardSabhaPdf';
 
 interface ProjectDetailDrawerProps {
   happening: Happening | null;
@@ -188,17 +189,16 @@ export function ProjectDetailDrawer({ happening, open, onOpenChange }: ProjectDe
                 {/* Quick action bar: View Agenda | Add to Calendar | Share */}
                 <div className="flex items-center gap-0 mt-3 pt-3 border-t border-border">
                   {agenda.length > 0 && (
-                    <a
-                      href="#agenda-section"
+                    <button
                       className="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-primary hover:bg-muted rounded-lg transition-colors"
-                      onClick={(e) => {
-                        e.preventDefault();
+                      onClick={() => {
+                        downloadWardSabhaAgenda(happening.wardName || happening.wardCode);
                         document.getElementById('agenda-section')?.scrollIntoView({ behavior: 'smooth' });
                       }}
                     >
                       <ExternalLink className="w-4 h-4" />
                       View Agenda
-                    </a>
+                    </button>
                   )}
                   <button
                     onClick={() => downloadICS(happening)}
