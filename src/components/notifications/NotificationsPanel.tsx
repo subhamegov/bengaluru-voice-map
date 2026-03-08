@@ -71,6 +71,23 @@ function hasCivicMeeting(notifications: Notification[]): boolean {
   );
 }
 
+/** Compute the unread count exactly as the panel does (including civic fallback). */
+export function getUnreadNotificationCount(): number {
+  const prefs = loadUserPreferences();
+  const subscribedWards = prefs.subscribedWards;
+
+  let notifications: Notification[] = subscribedWards.length > 0
+    ? ALL_NOTIFICATIONS.filter(n => subscribedWards.includes(n.wardCode))
+    : ALL_NOTIFICATIONS.slice(0, 4);
+
+  if (!hasCivicMeeting(notifications)) {
+    const civic = buildCivicNotification(subscribedWards);
+    notifications = [...notifications, civic];
+  }
+
+  return notifications.filter(n => n.unread).length;
+}
+
 interface NotificationsPanelProps {
   className?: string;
 }

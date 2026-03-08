@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { MapPin, Menu, X, Home, Ticket, Phone, Mail, Globe, ClipboardList, FileText, BarChart3, GraduationCap, Building, ArrowRightLeft, Users, Search, Accessibility, Languages, User, ChevronDown, Bell, ScrollText } from 'lucide-react';
-import { NotificationsPanel } from '@/components/notifications/NotificationsPanel';
+import { NotificationsPanel, getUnreadNotificationCount } from '@/components/notifications/NotificationsPanel';
 import { loadUserPreferences } from '@/components/preferences/UserPreferencesModal';
 import {
   Popover,
@@ -119,24 +119,7 @@ export function AppLayout({ children }: AppLayoutProps) {
                   >
                     <Bell className="w-5 h-5" />
                     {(() => {
-                      const prefs = loadUserPreferences();
-                      const wards = prefs.subscribedWards;
-                      const allNotifs = [
-                        { wardCode: 'JAYANAGAR', unread: true },
-                        { wardCode: 'JAYANAGAR', unread: true },
-                        { wardCode: 'KORAMANGALA', unread: false },
-                        { wardCode: 'INDIRANAGAR', unread: false },
-                        { wardCode: 'WHITEFIELD', unread: true },
-                        { wardCode: 'MARATHAHALLI', unread: true },
-                        { wardCode: 'HSR_LAYOUT', unread: false },
-                        { wardCode: 'HEBBAL', unread: false },
-                        { wardCode: 'MALLESHWARAM', unread: true },
-                        { wardCode: 'BASAVANAGUDI', unread: false },
-                      ];
-                      const filtered = wards.length > 0
-                        ? allNotifs.filter(n => wards.includes(n.wardCode))
-                        : allNotifs.slice(0, 4);
-                      const unreadCount = filtered.filter(n => n.unread).length;
+                      const unreadCount = getUnreadNotificationCount();
                       return unreadCount > 0 ? (
                         <span className="absolute -top-0.5 -right-0.5 flex items-center justify-center min-w-[18px] h-[18px] rounded-full bg-destructive text-destructive-foreground text-[10px] font-bold px-1">
                           {unreadCount}
