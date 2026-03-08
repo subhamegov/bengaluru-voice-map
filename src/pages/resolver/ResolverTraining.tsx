@@ -112,9 +112,15 @@ export default function ResolverTraining() {
                 Upskill yourself with structured, easy-to-follow training content designed for resolvers.
               </p>
             </div>
-            <Button variant="outline" size="sm" className="gap-2">
-              <Volume2 className="w-4 h-4" />
-              Read Aloud
+            <Button
+              variant="outline"
+              size="sm"
+              className="gap-2"
+              onClick={() => toggle('resolver-training-header', 'Training Module. Upskill yourself with structured, easy-to-follow training content designed for resolvers.')}
+              aria-label={isSpeaking('resolver-training-header') ? 'Stop reading' : 'Read aloud'}
+            >
+              {isSpeaking('resolver-training-header') ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+              {isSpeaking('resolver-training-header') ? 'Stop' : 'Read Aloud'}
             </Button>
           </div>
         </header>
