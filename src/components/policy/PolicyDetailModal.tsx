@@ -166,7 +166,7 @@ export const PolicyDetailModal: React.FC<PolicyDetailModalProps> = ({
 
   return (
     <div 
-      className="fixed inset-0 z-[9990] flex items-end sm:items-center justify-center"
+      className="fixed inset-0 z-[10010] flex items-end sm:items-center justify-center"
       role="dialog"
       aria-modal="true"
       aria-labelledby="policy-title"
@@ -178,7 +178,7 @@ export const PolicyDetailModal: React.FC<PolicyDetailModalProps> = ({
       />
 
       {/* Modal */}
-      <div className="relative bg-card border border-border rounded-t-2xl sm:rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col shadow-xl" style={{ backgroundColor: 'hsl(var(--card, 0 0% 100%))', opacity: 1 }}>
+      <div className="relative bg-card border border-border rounded-t-2xl sm:rounded-2xl w-[calc(100%-1rem)] sm:w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col shadow-xl mx-auto" style={{ backgroundColor: 'hsl(var(--card, 0 0% 100%))', opacity: 1 }}>
         {/* Header */}
         <div className="flex-shrink-0 p-5 border-b border-border">
           <div className="flex items-start justify-between gap-4">
