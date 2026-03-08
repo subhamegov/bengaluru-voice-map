@@ -356,13 +356,13 @@ function OutcomeCard({ label, value, subtitle, icon, className }: {
   label: string; value: number; subtitle: string; icon: React.ReactNode; className?: string;
 }) {
   return (
-    <div className={cn('rounded-xl p-4 flex flex-col min-h-[80px]', className)}>
-      <div className="flex items-center gap-2 mb-1">
+    <div className={cn('rounded-xl p-3 sm:p-4 flex flex-col min-h-[70px] sm:min-h-[80px]', className)}>
+      <div className="flex items-center gap-1.5 sm:gap-2 mb-1">
         {icon}
-        <span className="text-2xl font-bold leading-none">{value}</span>
+        <span className="text-xl sm:text-2xl font-bold leading-none">{value}</span>
       </div>
-      <p className="text-xs font-medium leading-tight">{label}</p>
-      <p className="text-[10px] opacity-75 mt-0.5">{subtitle}</p>
+      <p className="text-[10px] sm:text-xs font-medium leading-tight">{label}</p>
+      <p className="text-[9px] sm:text-[10px] opacity-75 mt-0.5">{subtitle}</p>
     </div>
   );
 }
