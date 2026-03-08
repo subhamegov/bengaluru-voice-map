@@ -369,12 +369,12 @@ function OutcomeCard({ label, value, subtitle, icon, className }: {
 
 function NextAction({ label, link, icon }: { label: string; link: string; icon: React.ReactNode }) {
   return (
-    <Link to={link} className="flex items-center gap-3 p-3 rounded-lg border border-border hover:bg-muted/50 transition-colors group">
-      <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+    <Link to={link} className="flex items-center gap-2.5 sm:gap-3 p-2.5 sm:p-3 rounded-lg border border-border hover:bg-muted/50 transition-colors group">
+      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
         {icon}
       </div>
-      <span className="text-sm text-foreground group-hover:text-primary transition-colors">{label}</span>
-      <ArrowRight className="w-4 h-4 text-muted-foreground ml-auto flex-shrink-0" />
+      <span className="text-xs sm:text-sm text-foreground group-hover:text-primary transition-colors flex-1 min-w-0">{label}</span>
+      <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-muted-foreground flex-shrink-0" />
     </Link>
   );
 }
