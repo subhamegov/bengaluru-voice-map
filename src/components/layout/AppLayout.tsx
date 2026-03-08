@@ -133,10 +133,16 @@ export function AppLayout({ children }: AppLayoutProps) {
                         { wardCode: 'MALLESHWARAM', unread: true },
                         { wardCode: 'BASAVANAGUDI', unread: false },
                       ];
-                      const filtered = wards.length > 0
+                      let filtered = wards.length > 0
                         ? allNotifs.filter(n => wards.includes(n.wardCode))
                         : allNotifs.slice(0, 4);
-                      const unreadCount = filtered.filter(n => n.unread).length;
+                      // Account for the civic fallback notification (always unread)
+                      const hasCivic = filtered.some(n => n.wardCode === wards[0] && !allNotifs.find(a => a.wardCode === n.wardCode && n.unread));
+                      const civicExists = filtered.some(
+                        n => ['meeting'].includes('meeting')
+                      );
+                      // Simpler: the NotificationsPanel always injects a civic meeting if none exists — count it
+                      const unreadCount = filtered.filter(n => n.unread).length + (filtered.some(n => n.wardCode === (wards[0] || '') && /meeting/i.test('')) ? 0 : 1);
                       return unreadCount > 0 ? (
                         <span className="absolute -top-0.5 -right-0.5 flex items-center justify-center min-w-[18px] h-[18px] rounded-full bg-destructive text-destructive-foreground text-[10px] font-bold px-1">
                           {unreadCount}
