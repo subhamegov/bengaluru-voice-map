@@ -93,17 +93,9 @@ export function ProjectDetailDrawer({ happening, open, onOpenChange }: ProjectDe
     });
   };
 
-  const handleReadAloud = async () => {
-    if (isReading) {
-      stopSpeaking();
-      setIsReading(false);
-      return;
-    }
-
+  const handleReadAloud = () => {
     const textToRead = `${happening.title}. ${details?.fullDescription || happening.summary}. Project by ${happening.source} in ${happening.wardName} Ward.`;
-    setIsReading(true);
-    await speakText(textToRead);
-    setIsReading(false);
+    toggle(speechId, textToRead);
   };
 
   const handleFollowToggle = () => {
