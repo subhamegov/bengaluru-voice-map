@@ -342,12 +342,12 @@ function ContributionCard({ label, value, subtitle, icon, className }: {
   label: string; value: number; subtitle: string; icon: React.ReactNode; className?: string;
 }) {
   return (
-    <div className={cn('rounded-xl p-3 flex flex-col items-center justify-center min-h-[90px]', className)}>
-      <div className="flex items-center justify-center gap-1.5 mb-1">
+    <div className={cn('rounded-xl p-2.5 sm:p-3 flex flex-col items-center justify-center min-h-[80px] sm:min-h-[90px]', className)}>
+      <div className="flex items-center justify-center gap-1 sm:gap-1.5 mb-1">
         {icon}
-        <span className="text-2xl font-bold leading-none">{value}</span>
+        <span className="text-xl sm:text-2xl font-bold leading-none">{value}</span>
       </div>
-      <p className="text-xs font-medium text-center leading-tight">{label}</p>
+      <p className="text-[10px] sm:text-xs font-medium text-center leading-tight">{label}</p>
     </div>
   );
 }
