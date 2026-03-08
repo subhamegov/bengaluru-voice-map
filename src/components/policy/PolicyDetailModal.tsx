@@ -182,7 +182,7 @@ export const PolicyDetailModal: React.FC<PolicyDetailModalProps> = ({
       />
 
       {/* Modal */}
-      <div className="relative bg-card border border-border rounded-t-2xl sm:rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col shadow-xl">
+      <div className="relative bg-card border border-border rounded-t-2xl sm:rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col shadow-xl" style={{ backgroundColor: 'hsl(var(--card, 0 0% 100%))', opacity: 1 }}>
         {/* Header */}
         <div className="flex-shrink-0 p-5 border-b border-border">
           <div className="flex items-start justify-between gap-4">
