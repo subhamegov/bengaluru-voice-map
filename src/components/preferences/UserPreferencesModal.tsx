@@ -391,7 +391,8 @@ export const UserPreferencesModal: React.FC<UserPreferencesModalProps> = ({
               Cancel
             </Button>
             <Button className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground" onClick={handleSave}>
-              Save Preferences
+              Save &amp; Mark
+            </Button>
             </Button>
           </div>
           <p className="text-xs text-muted-foreground text-center mt-3">
