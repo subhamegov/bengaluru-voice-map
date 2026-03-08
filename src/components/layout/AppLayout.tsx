@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { MapPin, Menu, X, Home, Ticket, Phone, Mail, Globe, ClipboardList, FileText, BarChart3, GraduationCap, Building, ArrowRightLeft, Users, Search, Accessibility, Languages, User, ChevronDown, Bell, ScrollText } from 'lucide-react';
-import { NotificationsPanel } from '@/components/notifications/NotificationsPanel';
+import { NotificationsPanel, getUnreadNotificationCount } from '@/components/notifications/NotificationsPanel';
 import { loadUserPreferences } from '@/components/preferences/UserPreferencesModal';
 import {
   Popover,
