@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useCallback, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { AppLayout } from '@/components/layout/AppLayout';
-import { UX4GPageHeader } from '@/components/layout/UX4GPageHeader';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -12,7 +12,7 @@ import {
   SheetTitle,
 } from '@/components/ui/sheet';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Map, LayoutList, Plus, ScrollText, MapPin, Search, ChevronDown, X, Navigation } from 'lucide-react';
+import { Map, LayoutList, Plus, ScrollText, MapPin, Search, ChevronDown, X, Navigation, Home } from 'lucide-react';
 import { ProposalMap } from '@/components/proposals/ProposalMap';
 import { ProposalTable } from '@/components/proposals/ProposalTable';
 import { ProposalDetailModal } from '@/components/proposals/ProposalDetailModal';
@@ -267,91 +267,86 @@ export default function MyProposals() {
 
   return (
     <AppLayout>
-      <div className="space-y-5">
-        {/* Page header */}
-        <UX4GPageHeader
-          icon={ScrollText}
-          title="My Proposals"
-          description="View, create, and track civic proposals for your localities."
-          action={
-            <Button onClick={() => setCreateOpen(true)} className="gap-2">
-              <Plus className="w-4 h-4" /> Create Proposal
-            </Button>
-          }
-        />
+      <div className="space-y-3">
+        {/* Breadcrumb */}
+        <nav className="pt-4 text-sm text-muted-foreground flex items-center gap-1.5">
+          <Link to="/" className="hover:text-foreground transition-colors inline-flex items-center gap-1">
+            <Home className="w-3.5 h-3.5" />
+            Home
+          </Link>
+          <span>/</span>
+          <span className="text-foreground font-medium">My Proposals</span>
+        </nav>
 
-        {/* ── 1. Ward Context Bar ── */}
-        <div className="flex items-center justify-between gap-3 p-3 rounded-xl border border-border bg-muted/30">
-          <div className="flex items-center gap-2.5 min-w-0">
-            <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-              <MapPin className="w-4 h-4 text-primary" />
-            </div>
-            <div className="min-w-0">
-              <p className="text-xs text-muted-foreground">Viewing proposals for</p>
-              <p className="text-sm font-semibold text-foreground truncate">{wardContextText}</p>
-            </div>
+        {/* Compact page header */}
+        <div className="flex items-start justify-between gap-3 pb-1">
+          <div className="min-w-0">
+            <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">My Proposals</h1>
+            <p className="text-sm text-muted-foreground mt-0.5 line-clamp-2">View, create, and track civic proposals for your localities.</p>
           </div>
-          <Button
-            variant="outline"
-            size="sm"
-            className="text-xs gap-1.5 flex-shrink-0"
-            onClick={() => setWardSelectorOpen(true)}
-          >
-            Change Ward
-            <ChevronDown className="w-3.5 h-3.5" />
+          <Button onClick={() => setCreateOpen(true)} className="gap-1.5 shrink-0 text-sm">
+            <Plus className="w-4 h-4" /> Create Proposal
           </Button>
         </div>
 
-        {/* ── 2. Tabs ── */}
-        <div className="flex flex-col gap-3">
-          <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
+        {/* Slim ward context strip */}
+        <div className="flex items-center justify-between gap-2 px-3 py-2 rounded-lg border border-border bg-muted/30">
+          <p className="text-xs text-muted-foreground truncate">
+            Viewing proposals for: <span className="font-semibold text-foreground">{wardContextText}</span>
+          </p>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-xs gap-1 shrink-0 h-7 px-2"
+            onClick={() => setWardSelectorOpen(true)}
+          >
+            Change Ward
+            <ChevronDown className="w-3 h-3" />
+          </Button>
+        </div>
+
+        {/* Combined control row: tabs + view toggle */}
+        <div className="flex items-center justify-between gap-2">
+          <div className="overflow-x-auto -mx-1 px-1">
             <Tabs value={filterTab} onValueChange={v => setFilterTab(v as FilterTab)}>
-              <TabsList className="w-max">
-                <TabsTrigger value="ward" className="text-xs sm:text-sm whitespace-nowrap">Ward Proposals (My Area)</TabsTrigger>
-                <TabsTrigger value="created" className="text-xs sm:text-sm whitespace-nowrap">Created by Me</TabsTrigger>
-                <TabsTrigger value="supported" className="text-xs sm:text-sm whitespace-nowrap">Supported by Me</TabsTrigger>
+              <TabsList className="h-9">
+                <TabsTrigger value="ward" className="text-xs px-2.5 h-7">My Area</TabsTrigger>
+                <TabsTrigger value="created" className="text-xs px-2.5 h-7">Created by Me</TabsTrigger>
+                <TabsTrigger value="supported" className="text-xs px-2.5 h-7">Supported by Me</TabsTrigger>
               </TabsList>
             </Tabs>
           </div>
-
-          {/* ── 3. View toggle with label ── */}
-          <div className="flex items-center gap-2">
-            <span className="text-xs text-muted-foreground hidden sm:inline">View as</span>
-            <div className="flex items-center gap-1 bg-muted rounded-md p-1">
-              <button
-                onClick={() => setViewMode('map')}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-sm font-medium transition-colors ${
-                  viewMode === 'map' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                <Map className="w-4 h-4" /> Map
-              </button>
-              <button
-                onClick={() => setViewMode('grid')}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-sm font-medium transition-colors ${
-                  viewMode === 'grid' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                <LayoutList className="w-4 h-4" /> Grid
-              </button>
-            </div>
+          <div className="flex items-center gap-0.5 bg-muted rounded-md p-0.5 shrink-0">
+            <button
+              onClick={() => setViewMode('map')}
+              className={`inline-flex items-center gap-1 px-2.5 py-1 rounded text-xs font-medium transition-colors ${
+                viewMode === 'map' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              <Map className="w-3.5 h-3.5" /> Map
+            </button>
+            <button
+              onClick={() => setViewMode('grid')}
+              className={`inline-flex items-center gap-1 px-2.5 py-1 rounded text-xs font-medium transition-colors ${
+                viewMode === 'grid' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              <LayoutList className="w-3.5 h-3.5" /> Grid
+            </button>
           </div>
         </div>
 
-        {/* ── 4. Category Legend ── */}
-        <div className="space-y-1.5">
-          <p className="text-xs font-medium text-muted-foreground">Proposal Categories</p>
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-            {PROPOSAL_CATEGORIES.map(c => (
-              <span key={c.id} className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
-                <span className="w-2.5 h-2.5 rounded-full inline-block flex-shrink-0" style={{ background: c.color }} />
-                {c.label}
-              </span>
-            ))}
-            <span className="text-xs font-medium text-muted-foreground ml-auto">
-              {proposals.length} proposal{proposals.length !== 1 ? 's' : ''}
+        {/* Category legend */}
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+          {PROPOSAL_CATEGORIES.map(c => (
+            <span key={c.id} className="inline-flex items-center gap-1 text-[11px] text-muted-foreground">
+              <span className="w-2 h-2 rounded-full inline-block" style={{ background: c.color }} />
+              {c.label}
             </span>
-          </div>
+          ))}
+          <span className="text-[11px] font-medium text-muted-foreground ml-auto">
+            {proposals.length} proposal{proposals.length !== 1 ? 's' : ''}
+          </span>
         </div>
 
         {/* Content */}
