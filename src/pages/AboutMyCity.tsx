@@ -18,6 +18,38 @@ import { EVENT_TYPE_ICONS, StatusDot } from '@/lib/iconMaps';
 import { BENGALURU_ZONES } from '@/lib/bengaluruAdminData';
 import { AlertSubscriptionModal } from '@/components/preferences/AlertSubscriptionModal';
 import { useSpeech } from '@/hooks/use-speech';
+import { downloadWardSabhaAgenda, downloadWardSabhaSummary } from '@/lib/wardSabhaPdf';
+
+// Ward Sabha archive data
+const wardSabhaArchive = [
+  {
+    id: 'ws-sep-2024',
+    title: 'Ward Sabha – Sep 2024',
+    date: '15 Sep 2024',
+    wardName: 'Ward 148',
+    attendance: 82,
+    topics: ['Roads repair', 'Waste collection'],
+    linkedData: { potholeReports: 54, garbageReports: 32, proposals: 6 },
+  },
+  {
+    id: 'ws-jun-2024',
+    title: 'Ward Sabha – Jun 2024',
+    date: '22 Jun 2024',
+    wardName: 'Ward 148',
+    attendance: 67,
+    topics: ['Streetlight installation', 'Drain cleaning'],
+    linkedData: { potholeReports: 38, garbageReports: 28, proposals: 4 },
+  },
+  {
+    id: 'ws-mar-2024',
+    title: 'Ward Sabha – Mar 2024',
+    date: '16 Mar 2024',
+    wardName: 'Ward 148',
+    attendance: 95,
+    topics: ['Budget review', 'Park development', 'Water supply'],
+    linkedData: { potholeReports: 41, garbageReports: 25, proposals: 8 },
+  },
+];
 
 // GBA Officers data from bbmp.gov.in
 const gbaOfficers = [
