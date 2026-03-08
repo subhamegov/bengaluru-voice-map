@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { cn } from '@/lib/utils';
+import { useSpeech, useStopSpeechOnUnmount } from '@/hooks/use-speech';
 import { getDaysRemaining } from '@/lib/policyData';
 import { format, formatDistanceToNow } from 'date-fns';
 
