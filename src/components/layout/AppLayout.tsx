@@ -119,30 +119,7 @@ export function AppLayout({ children }: AppLayoutProps) {
                   >
                     <Bell className="w-5 h-5" />
                     {(() => {
-                      const prefs = loadUserPreferences();
-                      const wards = prefs.subscribedWards;
-                      const allNotifs = [
-                        { wardCode: 'JAYANAGAR', unread: true },
-                        { wardCode: 'JAYANAGAR', unread: true },
-                        { wardCode: 'KORAMANGALA', unread: false },
-                        { wardCode: 'INDIRANAGAR', unread: false },
-                        { wardCode: 'WHITEFIELD', unread: true },
-                        { wardCode: 'MARATHAHALLI', unread: true },
-                        { wardCode: 'HSR_LAYOUT', unread: false },
-                        { wardCode: 'HEBBAL', unread: false },
-                        { wardCode: 'MALLESHWARAM', unread: true },
-                        { wardCode: 'BASAVANAGUDI', unread: false },
-                      ];
-                      let filtered = wards.length > 0
-                        ? allNotifs.filter(n => wards.includes(n.wardCode))
-                        : allNotifs.slice(0, 4);
-                      // Account for the civic fallback notification (always unread)
-                      const hasCivic = filtered.some(n => n.wardCode === wards[0] && !allNotifs.find(a => a.wardCode === n.wardCode && n.unread));
-                      const civicExists = filtered.some(
-                        n => ['meeting'].includes('meeting')
-                      );
-                      // Simpler: the NotificationsPanel always injects a civic meeting if none exists — count it
-                      const unreadCount = filtered.filter(n => n.unread).length + (filtered.some(n => n.wardCode === (wards[0] || '') && /meeting/i.test('')) ? 0 : 1);
+                      const unreadCount = getUnreadNotificationCount();
                       return unreadCount > 0 ? (
                         <span className="absolute -top-0.5 -right-0.5 flex items-center justify-center min-w-[18px] h-[18px] rounded-full bg-destructive text-destructive-foreground text-[10px] font-bold px-1">
                           {unreadCount}
