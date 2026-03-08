@@ -11,19 +11,19 @@ interface Props {
 
 export function MyWardInsightsTab({ timeRange, subCounty }: Props) {
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       {/* Block 1: Ward Service Performance — reuse OperationalEfficiency */}
       <OperationalEfficiency timeRange={timeRange} subCounty={subCounty} />
 
       {/* Block 2: Top Local Issues */}
-      <section className="space-y-4">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center">
-            <MapPin className="w-5 h-5 text-secondary" />
+      <section className="space-y-3 sm:space-y-4">
+        <div className="flex items-center gap-2.5 sm:gap-3">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-secondary/10 flex items-center justify-center">
+            <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-secondary" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-foreground">Top Local Issues</h2>
-            <p className="text-sm text-muted-foreground">Most reported complaint types in your ward</p>
+            <h2 className="text-lg sm:text-xl font-bold text-foreground">Top Local Issues</h2>
+            <p className="text-xs sm:text-sm text-muted-foreground">Most reported complaint types in your ward</p>
           </div>
         </div>
         <TopComplaintsChart />
