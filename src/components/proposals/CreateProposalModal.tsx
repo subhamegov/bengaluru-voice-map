@@ -46,7 +46,7 @@ export function CreateProposalModal({ open, onOpenChange, onCreate }: Props) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-lg">
+      <DialogContent className="max-w-lg bg-background">
         <DialogHeader>
           <DialogTitle>Create Proposal</DialogTitle>
         </DialogHeader>
