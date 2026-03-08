@@ -233,6 +233,8 @@ interface CityMapProps {
   defaultWardId?: string | null;
   /** Callback when a happening/project marker's "View Details" is clicked */
   onHappeningClick?: (happening: Happening) => void;
+  /** Hide the Locate Me button */
+  hideLocateMe?: boolean;
 }
 
 export function CityMap({
@@ -243,6 +245,7 @@ export function CityMap({
   className,
   defaultWardId: externalDefaultWardId,
   onHappeningClick,
+  hideLocateMe = false,
 }: CityMapProps) {
   const tileConfig = useMapTiles();
   const [isMapReady, setIsMapReady] = useState(false);
@@ -603,11 +606,13 @@ export function CityMap({
           />
 
           <MapInteractionHandler onLocationSelect={onLocationSelect} mapRef={mapRef} pinDropMode={pinDropMode} />
-          <UseMyLocationButton
-            onCurrentLocation={setCurrentLocation}
-            onDisablePinDrop={() => setPinDropMode(false)}
-            onLocateMe={() => { setUsingLocateMe(true); initialViewSetRef.current = true; }}
-          />
+          {!hideLocateMe && (
+            <UseMyLocationButton
+              onCurrentLocation={setCurrentLocation}
+              onDisablePinDrop={() => setPinDropMode(false)}
+              onLocateMe={() => { setUsingLocateMe(true); initialViewSetRef.current = true; }}
+            />
+          )}
 
           {/* Ward boundaries */}
           {wardGeoJSON && (
