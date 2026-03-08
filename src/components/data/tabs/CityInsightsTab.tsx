@@ -54,14 +54,14 @@ export function CityInsightsTab({ timeRange, subCounty }: Props) {
       </section>
 
       {/* Section 2: City Service Performance */}
-      <section className="space-y-4">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-            <BarChart3 className="w-5 h-5 text-primary" />
+      <section className="space-y-3 sm:space-y-4">
+        <div className="flex items-center gap-2.5 sm:gap-3">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+            <BarChart3 className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-foreground">City Service Performance</h2>
-            <p className="text-sm text-muted-foreground">Overall complaint metrics across the city</p>
+            <h2 className="text-lg sm:text-xl font-bold text-foreground">City Service Performance</h2>
+            <p className="text-xs sm:text-sm text-muted-foreground">Overall complaint metrics across the city</p>
           </div>
         </div>
         <OverviewCards timeRange={timeRange} subCounty={subCounty} />
