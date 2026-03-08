@@ -433,10 +433,10 @@ export default function AboutMyCity() {
                 size="sm"
                 variant="ghost"
                 className="shrink-0 h-7 px-2"
-                aria-label="Read zone help aloud"
-                onClick={() => speakText('Not sure which zone you belong to? With the new Greater Bengaluru Authority restructuring, ward and zone boundaries have changed. Visit gba.karnataka.gov.in to check your new city corporation and ward.')}
+                aria-label={isSpeaking('about-zone-help') ? 'Stop reading' : 'Read zone help aloud'}
+                onClick={() => handleSpeak('about-zone-help', 'Not sure which zone you belong to? With the new Greater Bengaluru Authority restructuring, ward and zone boundaries have changed. Visit gba.karnataka.gov.in to check your new city corporation and ward.')}
               >
-                <Volume2 className="w-3.5 h-3.5" />
+                {isSpeaking('about-zone-help') ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
               </Button>
             </div>
           </div>
