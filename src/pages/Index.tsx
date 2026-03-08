@@ -265,8 +265,15 @@ const Index = () => {
           setUserPreferences(prefs);
           const newWardPref = loadDefaultWardPref();
           setDefaultWardPref(newWardPref);
-          if (newWardPref.defaultWardId && newWardPref.defaultWardName) {
-            setSelectedWard({ code: newWardPref.defaultWardId, name: newWardPref.defaultWardName });
+          // Use the first selected ward (or default) to place a pin
+          const pinWardId = newWardPref.selectedWardIds?.[0] ?? newWardPref.defaultWardId;
+          const pinWardName = newWardPref.selectedWardNames?.[0] ?? newWardPref.defaultWardName;
+          if (pinWardId && pinWardName) {
+            setSelectedWard({ code: pinWardId, name: pinWardName });
+            const coords = WARD_COORDINATES[pinWardId];
+            if (coords) {
+              setSelectedLocation({ lat: coords.lat, lng: coords.lng });
+            }
           }
         }}
       />
