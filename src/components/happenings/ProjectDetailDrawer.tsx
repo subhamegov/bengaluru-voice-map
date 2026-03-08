@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { 
   Calendar, MapPin, Building2, Banknote, Volume2, ExternalLink, 
-  MessageSquare, Ticket, ClipboardList, Share2, X, Check, CalendarPlus, FileText, Clock
+  MessageSquare, Ticket, ClipboardList, Share2, X, Check, CalendarPlus, FileText, Clock, SquareArrowOutUpRight
 } from 'lucide-react';
 import {
   Drawer,
