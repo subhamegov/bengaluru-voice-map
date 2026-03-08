@@ -206,6 +206,7 @@ const Index = () => {
           showHappenings={true}
           defaultWardId={defaultWardPref.defaultWardId}
           onHappeningClick={handleMapHappeningClick}
+          hideLocateMe
         />
       </section>
 
