@@ -75,7 +75,7 @@ export function MyTicketsTab() {
   // Ward participation stats (mock)
   const wardStats = useMemo(() => {
     const stats = getOverviewStats('30days', 'all');
-    return { wardTotal: stats.total, userCount: myStats.serviceComplaints + myStats.projectComplaints };
+    return { wardTotal: stats.totalComplaints, userCount: myStats.serviceComplaints + myStats.projectComplaints };
   }, [myStats]);
 
   // Similar complaints — simplified for "Issues People Like You Are Reporting"
