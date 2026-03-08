@@ -46,6 +46,7 @@ import {
   type QuizQuestion,
 } from '@/lib/trainingData';
 import { toast } from '@/hooks/use-toast';
+import { useSpeech } from '@/hooks/use-speech';
 
 const statusLabels: Record<ModuleStatus, string> = {
   not_started: 'Not started',
