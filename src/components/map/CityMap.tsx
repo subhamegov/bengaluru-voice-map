@@ -233,6 +233,8 @@ interface CityMapProps {
   defaultWardId?: string | null;
   /** Callback when a happening/project marker's "View Details" is clicked */
   onHappeningClick?: (happening: Happening) => void;
+  /** Hide the Locate Me button */
+  hideLocateMe?: boolean;
 }
 
 export function CityMap({
