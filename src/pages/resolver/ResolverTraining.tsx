@@ -39,6 +39,7 @@ export default function ResolverTraining() {
   const [activeTab, setActiveTab] = useState('faqs');
   const [expandedFaqs, setExpandedFaqs] = useState<string[]>([]);
   const [expandedCategories, setExpandedCategories] = useState<string[]>(RESOLVER_FAQ_CATEGORIES);
+  const { toggle, isSpeaking } = useSpeech();
 
   // Filter FAQs based on search
   const filteredFaqs = useMemo(() => {
