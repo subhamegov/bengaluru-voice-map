@@ -221,6 +221,18 @@ export function ProjectDetailDrawer({ happening, open, onOpenChange }: ProjectDe
                   >
                     <Share2 className="w-5 h-5" />
                   </button>
+                  <button
+                    onClick={() => {
+                      // Dummy: would open project detail in a new tab
+                      window.open(window.location.href, '_blank');
+                    }}
+                    className="inline-flex items-center justify-center w-10 h-10 rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+                    aria-label="Open in separate tab"
+                    title="Open in separate tab"
+                  >
+                    <SquareArrowOutUpRight className="w-5 h-5" />
+                  </button>
+                  </button>
                 </div>
               </div>
               
