@@ -47,7 +47,7 @@ export function CitizenDashboard() {
                 </SelectContent>
               </Select>
               <Select value={timeRange} onValueChange={setTimeRange}>
-                <SelectTrigger className="w-full sm:w-[160px]"><SelectValue placeholder="Time Range" /></SelectTrigger>
+                <SelectTrigger className="w-[calc(50%-0.5rem)] sm:w-[160px] text-xs sm:text-sm"><SelectValue placeholder="Time Range" /></SelectTrigger>
                 <SelectContent>
                   {TIME_RANGES.map((tr) => (
                     <SelectItem key={tr.value} value={tr.value}>{tr.label}</SelectItem>
