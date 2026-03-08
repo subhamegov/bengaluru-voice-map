@@ -170,8 +170,8 @@ export function MyTicketsTab() {
             </Link>
           </div>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <CardContent className="space-y-3 sm:space-y-4 px-3 sm:px-6 pb-3 sm:pb-6">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
             <ContributionCard
               label="Complaints Reported"
               value={myStats.serviceComplaints + myStats.projectComplaints}
