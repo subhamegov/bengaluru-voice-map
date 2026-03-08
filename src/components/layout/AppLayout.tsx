@@ -38,7 +38,7 @@ const citizenNav = [
   { name: 'My Proposals', href: '/my-proposals', icon: ScrollText, description: 'Needs, wants & ideas' },
   { name: 'My Tickets', href: '/my-tickets', icon: Ticket, description: 'Track issue progress' },
   { name: 'Data', href: '/data', icon: BarChart3, description: 'Insights on city performance' },
-  { name: 'Training & Help', href: '/training', icon: GraduationCap, description: 'Learn how to use the portal' },
+  { name: 'Training & Help', href: '/training', icon: GraduationCap, description: 'How the city works' },
 ];
 
 const portalLinks = [

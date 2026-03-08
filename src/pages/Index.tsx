@@ -114,7 +114,7 @@ const Index = () => {
             { icon: PenSquare, label: 'Share Your Voice', desc: 'Complaints, feedback & appreciation', href: '/report' },
             { icon: ScrollText, label: 'Ward Proposals', desc: 'Needs, wants & ideas', href: '/my-proposals' },
             { icon: Ticket, label: 'My Activity', desc: 'Track issue progress', href: '/my-tickets' },
-            { icon: GraduationCap, label: 'Training & Help', desc: 'Learn how to use portal', href: '/training' },
+            { icon: GraduationCap, label: 'Training & Help', desc: 'How the city works', href: '/training' },
             { icon: ClipboardList, label: 'Active Surveys', desc: 'Shape city decisions', href: '/surveys' },
             { icon: FileText, label: 'Policy Feedback', desc: 'Improve city policies', href: '/policy' },
           ].map((tile) => (
