@@ -92,16 +92,7 @@ export const PolicyDetailModal: React.FC<PolicyDetailModalProps> = ({
   };
 
   const handleReadAloud = () => {
-    if (isReading) {
-      window.speechSynthesis.cancel();
-      setIsReading(false);
-    } else {
-      const utterance = new SpeechSynthesisUtterance(policy.fullDescription);
-      utterance.lang = 'en-KE';
-      utterance.onend = () => setIsReading(false);
-      window.speechSynthesis.speak(utterance);
-      setIsReading(true);
-    }
+    toggle(speechId, policy.fullDescription, 'en-IN');
   };
 
   const handleVoiceInput = () => {
