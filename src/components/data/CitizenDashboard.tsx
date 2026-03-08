@@ -63,7 +63,7 @@ export function CitizenDashboard() {
                 </SelectContent>
               </Select>
               <Select value={source} onValueChange={setSource}>
-                <SelectTrigger className="w-full sm:w-[160px]"><SelectValue placeholder="Source" /></SelectTrigger>
+                <SelectTrigger className="w-[calc(50%-0.5rem)] sm:w-[160px] text-xs sm:text-sm"><SelectValue placeholder="Source" /></SelectTrigger>
                 <SelectContent>
                   {SOURCES.map((src) => (
                     <SelectItem key={src.value} value={src.value}>{src.label}</SelectItem>
