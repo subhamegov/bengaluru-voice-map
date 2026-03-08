@@ -303,13 +303,13 @@ export function MyTicketsTab() {
 
       {/* Section 5 — Next Ways to Participate */}
       <Card className="gov-card border-primary/10">
-        <CardHeader className="pb-3">
+        <CardHeader className="pb-2 sm:pb-3 px-3 sm:px-6 pt-3 sm:pt-6">
           <div className="flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-primary" />
-            <CardTitle className="text-lg">Next Ways to Participate</CardTitle>
+            <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+            <CardTitle className="text-base sm:text-lg">Next Ways to Participate</CardTitle>
           </div>
         </CardHeader>
-        <CardContent>
+        <CardContent className="px-3 sm:px-6 pb-3 sm:pb-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <NextAction
               label="Support proposals addressing local problems"
