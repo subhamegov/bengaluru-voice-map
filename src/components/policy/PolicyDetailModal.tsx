@@ -170,14 +170,14 @@ export const PolicyDetailModal: React.FC<PolicyDetailModalProps> = ({
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center"
+      className="fixed inset-0 z-[9990] flex items-end sm:items-center justify-center"
       role="dialog"
       aria-modal="true"
       aria-labelledby="policy-title"
     >
       {/* Backdrop */}
       <div 
-        className="absolute inset-0 bg-background/80 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/60"
         onClick={onClose}
       />
 
