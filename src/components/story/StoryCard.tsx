@@ -56,17 +56,8 @@ export function StoryCard({ story, className }: StoryCardProps) {
     setIsPlayingAudio(true);
   };
 
-  const handleReadAloud = async () => {
-    if (isReadingAloud) {
-      stopSpeaking();
-      setIsReadingAloud(false);
-      return;
-    }
-
-    const textToRead = `${story.title}. ${story.description}`;
-    setIsReadingAloud(true);
-    await speakText(textToRead);
-    setIsReadingAloud(false);
+  const handleReadAloud = () => {
+    toggle(speechId, `${story.title}. ${story.description}`);
   };
 
   const getCategoryBadgeClass = () => {
