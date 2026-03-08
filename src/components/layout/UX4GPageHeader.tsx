@@ -32,8 +32,8 @@ export function UX4GPageHeader({ icon: Icon, title, description, action, classNa
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-3">
             {Icon && (
-              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                <Icon className="w-5 h-5 text-primary" aria-hidden="true" />
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-primary" aria-hidden="true" />
               </div>
             )}
             <h1
