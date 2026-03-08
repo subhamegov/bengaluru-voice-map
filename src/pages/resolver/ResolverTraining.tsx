@@ -302,6 +302,8 @@ interface FaqItemProps {
 }
 
 function FaqItem({ faq, isExpanded, onToggle }: FaqItemProps) {
+  const { toggle: toggleSpeech, isSpeaking: isFaqSpeaking } = useSpeech();
+  const faqSpeechId = `resolver-faq-${faq.id}`;
   return (
     <Collapsible open={isExpanded} onOpenChange={onToggle}>
       <CollapsibleTrigger asChild>
