@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
-import { Play, Pause, Volume2, MapPin, Clock } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX, MapPin, Clock } from 'lucide-react';
 import { Story, CATEGORY_LABELS } from '@/types/story';
-import { speakText, stopSpeaking } from '@/lib/apiClient';
+import { useSpeech, useStopSpeechOnUnmount } from '@/hooks/use-speech';
 import { cn } from '@/lib/utils';
 
 interface StoryCardProps {
