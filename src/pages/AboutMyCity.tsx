@@ -10,7 +10,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { 
   Users, Building2, Clock, Droplets, Calendar, MapPin, ExternalLink, 
   Share2, CalendarPlus, AlertTriangle, Zap, Trash2, Search, Phone,
-  MessageCircle, Volume2, Mic, Info, ChevronRight, HelpCircle,
+  MessageCircle, Volume2, VolumeX, Mic, Info, ChevronRight, HelpCircle,
   Landmark, Globe, Smartphone, Link2, FileText, ScrollText,
   Shield, Map, Leaf, Eye, Briefcase, ArrowRight, Mail, Bell
 } from 'lucide-react';
