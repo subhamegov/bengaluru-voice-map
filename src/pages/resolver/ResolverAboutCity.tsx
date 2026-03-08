@@ -84,6 +84,7 @@ export default function ResolverAboutCity() {
   const [selectedMetric, setSelectedMetric] = useState<CityMetric | null>(null);
   const [selectedDepartment, setSelectedDepartment] = useState<Department | null>(null);
   const [quickHelpSearch, setQuickHelpSearch] = useState('');
+  const { toggle, isSpeaking } = useSpeech();
 
   const filteredQuickHelp = quickHelpSearch
     ? QUICK_HELP.filter(
