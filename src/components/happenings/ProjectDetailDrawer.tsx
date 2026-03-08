@@ -67,10 +67,13 @@ function downloadICS(happening: Happening) {
 }
 
 export function ProjectDetailDrawer({ happening, open, onOpenChange }: ProjectDetailDrawerProps) {
-  const [isReading, setIsReading] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false);
   const [localComments, setLocalComments] = useState<ProjectComment[]>([]);
   const [shareOpen, setShareOpen] = useState(false);
+  const { toggle, isSpeaking } = useSpeech();
+  useStopSpeechOnUnmount();
+  const speechId = happening ? `project-${happening.id}` : '';
+  const isReading = isSpeaking(speechId);
 
   if (!happening) return null;
 
