@@ -34,7 +34,6 @@ export const PolicyDetailModal: React.FC<PolicyDetailModalProps> = ({
   onClose
 }) => {
   const [activeTab, setActiveTab] = useState('summary');
-  const [isReading, setIsReading] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [feedbackText, setFeedbackText] = useState('');
   const [authorType, setAuthorType] = useState('');
@@ -47,6 +46,11 @@ export const PolicyDetailModal: React.FC<PolicyDetailModalProps> = ({
   const [supportCount, setSupportCount] = useState(policy.engagement.supportCount);
   const [opposeCount, setOpposeCount] = useState(policy.engagement.opposeCount);
   const [userVote, setUserVote] = useState<'support' | 'oppose' | null>(null);
+
+  const { toggle, isSpeaking } = useSpeech();
+  useStopSpeechOnUnmount();
+  const speechId = `policy-${policy.id}`;
+  const isReading = isSpeaking(speechId);
 
   if (!isOpen) return null;
 
