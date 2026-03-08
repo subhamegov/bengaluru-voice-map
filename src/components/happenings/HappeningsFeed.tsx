@@ -76,7 +76,7 @@ export function HappeningsFeed({ wardCode, lat, lng, radiusKm = 5, className }: 
         lng,
         radiusKm,
       });
-      setHappenings(result);
+      setHappenings(ensureCivicEntry(result, wardCode));
     } catch (err) {
       console.error('Error loading happenings:', err);
       setError('Could not load updates. Please try again.');
