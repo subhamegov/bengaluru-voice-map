@@ -273,10 +273,11 @@ export function MyTicketsTab() {
           <CardHeader className="pb-2 sm:pb-3 px-3 sm:px-6 pt-3 sm:pt-6">
             <div className="flex items-center gap-2">
               <Megaphone className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground" />
-              <CardTitle className="text-base sm:text-lg">Issues People Like You Are Reporting</CardTitle>
+              <CardTitle className="text-base sm:text-lg">Issues People Are Reporting</CardTitle>
+              <InfoTooltip definition="Most commonly reported issue categories across the city." />
             </div>
           </CardHeader>
-          <CardContent className="space-y-3 px-3 sm:px-6 pb-3 sm:pb-6">
+          <CardContent className="px-3 sm:px-6 pb-3 sm:pb-6">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
               {topIssues.map((issue) => {
                 const Icon = ISSUE_CATEGORY_ICONS[issue.category as keyof typeof ISSUE_CATEGORY_ICONS] || ISSUE_CATEGORY_ICONS.other;
@@ -287,14 +288,10 @@ export function MyTicketsTab() {
                       <h4 className="font-semibold text-foreground text-xs sm:text-sm leading-tight">{issue.categoryLabel}</h4>
                     </div>
                     <p className="text-base sm:text-lg font-bold text-foreground">{issue.othersCount.toLocaleString()}</p>
-                    <p className="text-[10px] sm:text-xs text-muted-foreground">reports citywide</p>
                   </div>
                 );
               })}
             </div>
-            <p className="text-xs text-muted-foreground italic border-t border-border pt-3">
-              These are the most common issues residents are reporting.
-            </p>
           </CardContent>
         </Card>
       )}
