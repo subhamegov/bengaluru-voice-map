@@ -220,9 +220,9 @@ export function MyTicketsTab() {
             <span className="text-muted-foreground text-xs sm:text-sm">Residents in your ward submitted</span>
             <span className="font-bold text-foreground text-sm">{wardStats.wardTotal.toLocaleString()} complaints this month</span>
           </div>
-          <div className="flex items-baseline justify-between text-sm">
-            <span className="text-muted-foreground">You contributed</span>
-            <span className="font-bold text-primary">{wardStats.userCount} reports</span>
+          <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 text-sm">
+            <span className="text-muted-foreground text-xs sm:text-sm">You contributed</span>
+            <span className="font-bold text-primary text-sm">{wardStats.userCount} reports</span>
           </div>
           <Progress value={participationPercent} className="h-2" />
           <p className="text-xs text-muted-foreground italic">
