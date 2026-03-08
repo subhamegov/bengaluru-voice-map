@@ -52,8 +52,8 @@ export function EngagementSummary({
         <button
           onClick={onFollowToggle}
           className={cn(
-            'px-3 py-1.5 rounded-lg text-sm font-medium transition-colors',
-            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
+            'px-3 py-1.5 rounded-lg text-sm font-medium transition-colors inline-flex items-center gap-1.5',
+            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary shrink-0',
             isFollowing
               ? 'bg-primary text-primary-foreground'
               : 'bg-background border border-border hover:bg-muted'
