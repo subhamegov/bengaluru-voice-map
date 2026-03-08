@@ -233,10 +233,10 @@ export function MyTicketsTab() {
 
       {/* Section 3 — What Happened After Your Report */}
       <Card className="gov-card">
-        <CardHeader className="pb-3">
+        <CardHeader className="pb-2 sm:pb-3 px-3 sm:px-6 pt-3 sm:pt-6">
           <div className="flex items-center gap-2">
-            <Eye className="w-5 h-5 text-muted-foreground" />
-            <CardTitle className="text-lg">What Happened After Your Report</CardTitle>
+            <Eye className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground" />
+            <CardTitle className="text-base sm:text-lg">What Happened After Your Report</CardTitle>
           </div>
         </CardHeader>
         <CardContent className="space-y-3">
