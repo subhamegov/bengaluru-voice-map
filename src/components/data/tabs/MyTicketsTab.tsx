@@ -215,10 +215,10 @@ export function MyTicketsTab() {
             <CardTitle className="text-base sm:text-lg">Community Participation</CardTitle>
           </div>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="flex items-baseline justify-between text-sm">
-            <span className="text-muted-foreground">Residents in your ward submitted</span>
-            <span className="font-bold text-foreground">{wardStats.wardTotal.toLocaleString()} complaints this month</span>
+        <CardContent className="space-y-3 sm:space-y-4 px-3 sm:px-6 pb-3 sm:pb-6">
+          <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 text-sm">
+            <span className="text-muted-foreground text-xs sm:text-sm">Residents in your ward submitted</span>
+            <span className="font-bold text-foreground text-sm">{wardStats.wardTotal.toLocaleString()} complaints this month</span>
           </div>
           <div className="flex items-baseline justify-between text-sm">
             <span className="text-muted-foreground">You contributed</span>
