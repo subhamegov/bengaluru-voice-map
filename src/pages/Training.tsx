@@ -5,7 +5,8 @@ import { UX4GPageHeader } from '@/components/layout/UX4GPageHeader';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Search, Clock, Users, BookOpen, Volume2, ArrowRight } from 'lucide-react';
+import { Search, Clock, Users, BookOpen, Volume2, VolumeX, ArrowRight } from 'lucide-react';
+import { useSpeech } from '@/hooks/use-speech';
 import {
   mockTrainingModules,
   AUDIENCES,
