@@ -17,7 +17,7 @@ export function UX4GPageHeader({ icon: Icon, title, description, action, classNa
 
   return (
     <header
-      className={cn('pt-8 pb-6 mb-6 max-w-[1100px]', className)}
+      className={cn('pt-5 sm:pt-8 pb-4 sm:pb-6 mb-4 sm:mb-6 max-w-[1100px]', className)}
       aria-labelledby="page-header-title"
     >
       {!isHome && (
