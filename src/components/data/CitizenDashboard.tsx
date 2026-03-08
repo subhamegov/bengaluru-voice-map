@@ -82,7 +82,7 @@ export function CitizenDashboard() {
           <MyWardInsightsTab timeRange={timeRange} subCounty={subCounty} />
         </TabsContent>
 
-        <TabsContent value="city" className="mt-6 space-y-6">
+        <TabsContent value="city" className="mt-4 sm:mt-6 space-y-4 sm:space-y-6">
           <CityInsightsTab timeRange={timeRange} subCounty={subCounty} />
         </TabsContent>
       </Tabs>
