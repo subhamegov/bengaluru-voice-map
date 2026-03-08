@@ -262,7 +262,11 @@ const Index = () => {
         onOpenChange={setPreferencesOpen}
         onSave={(prefs) => {
           setUserPreferences(prefs);
-          setDefaultWardPref(loadDefaultWardPref());
+          const newWardPref = loadDefaultWardPref();
+          setDefaultWardPref(newWardPref);
+          if (newWardPref.defaultWardId && newWardPref.defaultWardName) {
+            setSelectedWard({ code: newWardPref.defaultWardId, name: newWardPref.defaultWardName });
+          }
         }}
       />
 
