@@ -76,7 +76,7 @@ export default function Training() {
         <UX4GPageHeader
           icon={BookOpen}
           title="Training & Help Centre"
-          description="Short modules to help citizens and staff use digital services with confidence."
+          description="How the city works"
           action={
             <Button
               variant="outline"
