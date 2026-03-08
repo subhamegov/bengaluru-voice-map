@@ -237,35 +237,33 @@ export function MyTicketsTab() {
           <div className="flex items-center gap-2">
             <Eye className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground" />
             <CardTitle className="text-base sm:text-lg">What Happened After Your Report</CardTitle>
+            <InfoTooltip definition="Citizen reports help city teams identify and prioritise issues." />
           </div>
         </CardHeader>
-        <CardContent className="space-y-3 px-3 sm:px-6 pb-3 sm:pb-6">
+        <CardContent className="px-3 sm:px-6 pb-3 sm:pb-6">
           <div className="grid grid-cols-3 gap-2 sm:gap-3">
             <OutcomeCard
-              label="Issues being addressed"
+              label="Issues in progress"
               value={myStats.inProgress}
-              subtitle={`${myStats.inProgress} reports in progress`}
               icon={<TrendingUp className="w-4 h-4" />}
+              tooltip="Reports currently being addressed by city teams."
               className="bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300"
             />
             <OutcomeCard
-              label="Resolved issues"
+              label="Resolved"
               value={myStats.resolved}
-              subtitle={`${myStats.resolved} reports resolved`}
               icon={<CheckCircle2 className="w-4 h-4" />}
+              tooltip="Reports that have been successfully resolved."
               className="bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300"
             />
             <OutcomeCard
               label="Under review"
               value={myStats.new}
-              subtitle={`${myStats.new} reports awaiting action`}
               icon={<Clock className="w-4 h-4" />}
+              tooltip="Reports waiting for review or assignment."
               className="bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300"
             />
           </div>
-          <p className="text-xs text-muted-foreground italic border-t border-border pt-3">
-            City teams use citizen reports to prioritise service improvements.
-          </p>
         </CardContent>
       </Card>
 
