@@ -17,6 +17,7 @@ import {
 import { EVENT_TYPE_ICONS, StatusDot } from '@/lib/iconMaps';
 import { BENGALURU_ZONES } from '@/lib/bengaluruAdminData';
 import { AlertSubscriptionModal } from '@/components/preferences/AlertSubscriptionModal';
+import { useSpeech } from '@/hooks/use-speech';
 
 // GBA Officers data from bbmp.gov.in
 const gbaOfficers = [
