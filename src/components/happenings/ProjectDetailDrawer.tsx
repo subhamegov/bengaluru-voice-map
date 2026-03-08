@@ -135,7 +135,7 @@ export function ProjectDetailDrawer({ happening, open, onOpenChange }: ProjectDe
   return (
     <>
       <Drawer open={open} onOpenChange={onOpenChange}>
-        <DrawerContent className="max-h-[90vh] overflow-hidden flex flex-col">
+        <DrawerContent className="max-h-[90vh] overflow-hidden flex flex-col bg-background">
           <DrawerHeader className="border-b border-border pb-4">
             <div className="flex items-start justify-between gap-4">
               <div className="flex-1">
