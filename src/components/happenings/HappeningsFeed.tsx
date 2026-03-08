@@ -19,9 +19,11 @@ export function HappeningsFeed({ wardCode, lat, lng, radiusKm = 5, className }: 
   const [happenings, setHappenings] = useState<Happening[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [isReadingAll, setIsReadingAll] = useState(false);
   const [selectedHappening, setSelectedHappening] = useState<Happening | null>(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const { toggle, isSpeaking } = useSpeech();
+  const speechId = 'happenings-read-all';
+  const isReadingAll = isSpeaking(speechId);
 
   const loadHappenings = async () => {
     setIsLoading(true);
