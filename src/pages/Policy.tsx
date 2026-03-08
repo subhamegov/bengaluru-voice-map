@@ -9,8 +9,8 @@ const Policy = () => {
       <div className="max-w-4xl mx-auto">
         <UX4GPageHeader
           icon={FileText}
-          title="Provide Policy Feedback"
-          description="Share your views on draft laws, regulations, and city plans before they are finalized."
+          title="Policy Feedback"
+          description="Improve city policies"
         />
         <PolicyFeedbackSection />
       </div>

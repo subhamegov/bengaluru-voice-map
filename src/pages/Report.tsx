@@ -316,7 +316,7 @@ const Report = () => {
       <UX4GPageHeader
         icon={MessageSquarePlus}
         title="Share Your Voice"
-        description="Help us build a better city together by reporting issues or sharing feedback."
+        description="Complaints, feedback & appreciation"
       />
 
       {/* Stepper */}

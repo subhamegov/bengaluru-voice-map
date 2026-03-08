@@ -10,7 +10,7 @@ const Surveys = () => {
         <UX4GPageHeader
           icon={ClipboardList}
           title="Active Surveys"
-          description="Participate in surveys that shape city priorities and infrastructure planning. Your feedback directly influences service delivery."
+          description="Shape city decisions"
         />
         <ActiveSurveys />
       </div>

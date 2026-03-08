@@ -296,8 +296,8 @@ export default function AboutMyCity() {
       <div className="space-y-8 md:space-y-12">
         <UX4GPageHeader
           icon={Building2}
-          title="City at a Glance"
-          description="Everything about Greater Bengaluru Authority — officers, services, corporations, and more."
+          title="About My City"
+          description="How your city works"
           action={
             <Button
               variant="outline"
