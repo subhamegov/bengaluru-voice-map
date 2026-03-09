@@ -116,7 +116,7 @@ The policy aims to reduce plastic waste by 60% within three years of implementat
       },
       {
         id: 'c7',
-        author: 'Supermarket Manager - Karen',
+        author: 'Supermarket Manager - Whitefield',
         authorType: 'business',
         comment: 'We switched to reusable bags last year. Sales of cloth bags are growing. Customers adapt when given good alternatives.',
         timestamp: '2025-12-04T14:45:00Z',
