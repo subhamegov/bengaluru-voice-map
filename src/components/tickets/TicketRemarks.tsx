@@ -64,7 +64,7 @@ export function TicketRemarks({ remarks, onAddRemark, disabled }: TicketRemarksP
                     'text-xs px-1.5 py-0.5 rounded',
                     remark.byRole === 'citizen' ? 'bg-primary/10 text-primary' : 'bg-secondary/50 text-secondary-foreground'
                   )}>
-                    {remark.byRole === 'citizen' ? 'Citizen' : 'County Staff'}
+                    {remark.byRole === 'citizen' ? 'Citizen' : 'Grievance Redressal Staff'}
                   </span>
                   <span className="text-xs text-muted-foreground">
                     {format(parseISO(remark.timestamp), 'PPp')}

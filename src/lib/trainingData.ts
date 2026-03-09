@@ -36,7 +36,7 @@ export interface TrainingModule {
   id: string;
   title: string;
   description: string;
-  audience: ('Citizen' | 'County Staff' | 'Ward Leaders')[];
+  audience: ('Citizen' | 'Grievance Redressal Staff' | 'Ward Leaders')[];
   topic: 'Complaints' | 'Projects' | 'Dashboards' | 'Policy Feedback' | 'Accessibility';
   durationMinutes: number;
   faqs: TrainingFAQ[];
@@ -181,7 +181,7 @@ export function getAllProgress(): Record<string, ModuleProgress> {
 export const AUDIENCES = [
   { value: 'all', label: 'All' },
   { value: 'Citizen', label: 'Citizen' },
-  { value: 'County Staff', label: 'County Staff' },
+  { value: 'Grievance Redressal Staff', label: 'Grievance Redressal Staff' },
   { value: 'Ward Leaders', label: 'Ward Leaders' },
 ];
 
@@ -309,9 +309,9 @@ export const mockTrainingModules: TrainingModule[] = [
   },
   {
     id: 'module_staff_complaints',
-    title: 'Handling Complaints as a County Officer',
-    description: 'Complete guide for county staff on receiving, processing, and resolving citizen complaints.',
-    audience: ['County Staff'],
+    title: 'Handling Complaints as a Grievance Redressal Officer',
+    description: 'Complete guide for grievance redressal staff on receiving, processing, and resolving citizen complaints.',
+    audience: ['Grievance Redressal Staff'],
     topic: 'Complaints',
     durationMinutes: 25,
     faqs: [
@@ -360,21 +360,21 @@ export const mockTrainingModules: TrainingModule[] = [
         title: 'Officer Dashboard Overview',
         duration: '5:30',
         url: '#',
-        audience: ['County Staff'],
+        audience: ['Grievance Redressal Staff'],
       },
       {
         id: 'vid_2_2',
         title: 'Processing a Complaint End-to-End',
         duration: '8:15',
         url: '#',
-        audience: ['County Staff'],
+        audience: ['Grievance Redressal Staff'],
       },
       {
         id: 'vid_2_3',
         title: 'Handling Escalations Effectively',
         duration: '4:45',
         url: '#',
-        audience: ['County Staff'],
+        audience: ['Grievance Redressal Staff'],
       },
     ],
     downloads: [
@@ -403,7 +403,7 @@ export const mockTrainingModules: TrainingModule[] = [
     quiz: [
       {
         id: 'q2_1',
-        question: 'How are complaints assigned to county officers?',
+        question: 'How are complaints assigned to grievance redressal officers?',
         options: ['Random selection', 'Based on category and ward automatically', 'Citizens choose the officer', 'First-come-first-served'],
         correctIndex: 1,
         explanation: 'Complaints are automatically routed based on category and ward.',
@@ -429,7 +429,7 @@ export const mockTrainingModules: TrainingModule[] = [
     id: 'module_dashboards',
     title: 'Understanding the Public Dashboard',
     description: 'Learn how to read and interpret the service analytics dashboard showing complaint trends and department performance.',
-    audience: ['Citizen', 'County Staff'],
+    audience: ['Citizen', 'Grievance Redressal Staff'],
     topic: 'Dashboards',
     durationMinutes: 15,
     faqs: [
@@ -471,14 +471,14 @@ export const mockTrainingModules: TrainingModule[] = [
         title: 'Navigating the Analytics Dashboard',
         duration: '4:20',
         url: '#',
-        audience: ['Citizen', 'County Staff'],
+        audience: ['Citizen', 'Grievance Redressal Staff'],
       },
       {
         id: 'vid_3_2',
         title: 'Interpreting Trend Charts',
         duration: '3:55',
         url: '#',
-        audience: ['Citizen', 'County Staff'],
+        audience: ['Citizen', 'Grievance Redressal Staff'],
       },
     ],
     downloads: [
@@ -610,7 +610,7 @@ export const mockTrainingModules: TrainingModule[] = [
     id: 'module_accessibility',
     title: 'Accessibility & Voice Features',
     description: 'Learn about accessibility features including voice input, screen reader support, and high-contrast modes.',
-    audience: ['Citizen', 'County Staff', 'Ward Leaders'],
+    audience: ['Citizen', 'Grievance Redressal Staff', 'Ward Leaders'],
     topic: 'Accessibility',
     durationMinutes: 8,
     faqs: [
@@ -624,8 +624,8 @@ export const mockTrainingModules: TrainingModule[] = [
       {
         id: 'faq_5_2',
         category: 'Voice Features',
-        question: 'Is voice input available in Kiswahili?',
-        answer: 'Kiswahili language support is coming soon. Currently, voice input works best with English. We are working on expanding language support.',
+        question: 'Is voice input available in Kannada?',
+        answer: 'Kannada language support is coming soon. Currently, voice input works best with English. We are working on expanding language support.',
       },
       {
         id: 'faq_5_3',
@@ -659,7 +659,7 @@ export const mockTrainingModules: TrainingModule[] = [
         title: 'Keyboard Navigation Guide',
         duration: '3:10',
         url: '#',
-        audience: ['Citizen', 'County Staff'],
+        audience: ['Citizen', 'Grievance Redressal Staff'],
       },
     ],
     downloads: [

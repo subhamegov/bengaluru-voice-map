@@ -523,7 +523,7 @@ export const RESOLVER_DOWNLOADS: ResolverDownload[] = [
   {
     id: 'dl_behavior_guide',
     name: 'Professional Behavior Guidelines',
-    description: 'Expected conduct and interaction standards for county staff.',
+    description: 'Expected conduct and interaction standards for grievance redressal staff.',
     type: 'PDF',
     size: '380 KB',
     url: '#',
