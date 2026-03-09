@@ -86,7 +86,7 @@ The policy aims to reduce plastic waste by 60% within three years of implementat
         id: 'c3',
         author: 'Business Owner - Indiranagar',
         authorType: 'business',
-        comment: 'My restaurant already uses paper packaging. Happy to share our supplier contacts with other businesses. The county should create a database of approved eco-friendly suppliers.',
+        comment: 'My restaurant already uses paper packaging. Happy to share our supplier contacts with other businesses. BBMP should create a database of approved eco-friendly suppliers.',
         timestamp: '2025-12-08T11:30:00Z',
         reactions: { helpful: 31, insightful: 8, concern: 0 }
       },
