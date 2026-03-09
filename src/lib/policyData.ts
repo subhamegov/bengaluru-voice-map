@@ -146,8 +146,8 @@ Implementation will begin with major stops (Majestic, Shivajinagar, KR Market) a
     department: 'Transport & Infrastructure',
     status: 'open',
     deadline: '2026-01-15',
-    documentUrl: '/docs/matatu-stage-guidelines-2025.pdf',
-    documentName: 'Matatu Stage Improvement Guidelines',
+    documentUrl: '/docs/bus-stop-guidelines-2025.pdf',
+    documentName: 'BMTC Bus Stop Improvement Guidelines',
     documentSize: '1.8 MB',
     publishedDate: '2025-12-01',
     clauses: [
