@@ -295,7 +295,7 @@ export const UserPreferencesModal: React.FC<UserPreferencesModalProps> = ({
             )}
           </div>
 
-          {/* Ward Selection (existing sub-county wards) */}
+          {/* Ward Selection (existing zone wards) */}
           <div>
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">

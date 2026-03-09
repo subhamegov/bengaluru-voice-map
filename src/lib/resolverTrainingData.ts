@@ -44,7 +44,7 @@ export const RESOLVER_FAQS: ResolverFAQ[] = [
 
 1. **Read the Description Carefully**: Understand what the citizen is reporting. Look for keywords like "pothole", "garbage", "water leak", "broken light", etc.
 
-2. **Check the Location**: The ward and sub-county help determine which department should handle it.
+2. **Check the Location**: The ward and zonedetermine which department should handle it.
 
 3. **Select Primary Category**: Choose from: Environment (garbage, pollution), Water & Sewerage (leaks, blockages), Works (roads, drainage), Health (inspections, pests), or Mobility & ICT (traffic systems, digital services).
 
@@ -166,7 +166,7 @@ Example: A flooded road might need Works (drainage), Water (pipe check), and Env
 | 0-24 hours | Level 0 | Auto-reminder to resolver |
 | 24-48 hours | Level 1 | Team Lead notified |
 | 48-72 hours | Level 2 | Department Head notified |
-| 72+ hours | Level 3 | Director + County Coordinator |
+| 72+ hours | Level 3 | Director + County irdinator |
 
 **Escalation Matrix by Priority:**
 

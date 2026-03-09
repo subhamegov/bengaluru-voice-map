@@ -286,7 +286,7 @@ export const mockTrainingModules: TrainingModule[] = [
       {
         id: 'q1_1',
         question: 'What is the first step to report an issue?',
-        options: ['Call the county office', 'Select your location on the map', 'Create an account', 'Pay a fee'],
+        options: ['Call the BBMPice', 'Select your location on the map', 'Create an account', 'Pay a fee'],
         correctIndex: 1,
         explanation: 'You start by selecting your location on the map or using dropdown menus.',
       },
@@ -450,7 +450,7 @@ export const mockTrainingModules: TrainingModule[] = [
         id: 'faq_3_3',
         category: 'Using Filters',
         question: 'How do I filter data by location?',
-        answer: 'Use the Sub-county and Ward dropdown menus at the top of the dashboard. Select specific areas to see localized performance metrics.',
+        answer: 'Use the SuZoZonedropdown menus at the top of the dashboard. Select specific areas to see localized performance metrics.',
       },
       {
         id: 'faq_3_4',
@@ -462,7 +462,7 @@ export const mockTrainingModules: TrainingModule[] = [
         id: 'faq_3_5',
         category: 'Understanding Charts',
         question: 'What does the On-Time Resolution percentage mean?',
-        answer: 'On-Time Resolution shows the percentage of complaints resolved within their expected service time. A higher percentage indicates better service delivery. The county target is 85%.',
+        answer: 'On-Time Resolution shows the percentage of complaints resolved within their expected service time. A higher percentage indicates better service delivery. The county tait is 85%.',
       },
     ],
     videos: [
@@ -514,10 +514,10 @@ export const mockTrainingModules: TrainingModule[] = [
       },
       {
         id: 'q3_3',
-        question: 'What is the county on-time resolution target?',
+        question: 'What is the city on-time resolution target?',
         options: ['50%', '70%', '85%', '100%'],
         correctIndex: 2,
-        explanation: 'The county target is 85% on-time resolution.',
+        explanation: 'The city target is 85% on-time resolution.',
       },
     ],
     passingScore: 70,
@@ -540,7 +540,7 @@ export const mockTrainingModules: TrainingModule[] = [
         id: 'faq_4_2',
         category: 'Finding Policies',
         question: 'What types of policies are available for comment?',
-        answer: 'County budgets, development plans, by-laws, service delivery standards, and other governance documents may be posted for public input during their consultation periods.',
+        answer: 'City budgets, development plans, by-laws, service delivery standards, and other governance documents may be posted for public input during their consultation periods.',
         isUpdated: true,
       },
       {
@@ -560,7 +560,7 @@ export const mockTrainingModules: TrainingModule[] = [
         id: 'faq_4_5',
         category: 'After Submission',
         question: 'What happens to my feedback?',
-        answer: 'All feedback is compiled and reviewed by the relevant county department. Summary reports of public input may be published. Your individual comments are kept confidential unless you opt for public display.',
+        answer: 'All feedback is compiled and reviewed by the relevant BBMP department. Summary reports of public input may be published. Your individual comments are kept confidential unless you opt for public display.',
       },
     ],
     videos: [
@@ -773,7 +773,7 @@ export const mockTrainingModules: TrainingModule[] = [
       {
         id: 'q6_2',
         question: 'How do you follow a project?',
-        options: ['Email the county', 'Click "Follow Project" on the detail page', 'Call the contractor', 'Visit the site'],
+        options: ['Email BBMP', 'Click "Follow Project" on the detail page', 'Call the contractor', 'Visit the site'],
         correctIndex: 1,
         explanation: 'Click "Follow Project" on any project detail page to receive updates.',
       },

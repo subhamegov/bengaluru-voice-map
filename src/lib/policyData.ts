@@ -5,11 +5,11 @@ export const MOCK_POLICIES: Policy[] = [
     id: 'POL-2025-ENV-001',
     title: 'Plastic Waste Management Policy',
     summary: 'Proposes a phased ban on single-use plastics in public areas, markets, and bus stations by 2026.',
-    fullDescription: `This draft Plastic Waste Management Policy proposes a comprehensive strategy to reduce plastic pollution across Bengaluru. The policy introduces a phased ban on single-use plastics in public markets, bus termini, and BBMP-managed facilities starting January 2026.. The policy introduces a phased ban on single-use plastics in public markets, bus termini, and county-managed facilities starting January 2026.
+    fullDescription: `This draft Plastic Waste Management Policy proposes a comprehensive strategy to reduce plastic pollution across Bengaluru. The policy introduces a phased ban on single-use plastics in public markets, bus termini, and BBMP-managed facilities starting January 2026.
 
 Key provisions include:
-• Mandatory use of biodegradable packaging in all county markets
-• Establishment of plastic collection and recycling centers in each sub-county
+• Mandatory use of biodegradable packaging in all BBMP markets
+• Establishment of plastic collection and recycling centers in each zone
 • Incentives for businesses transitioning to sustainable packaging
 • Penalties for non-compliance after the transition period
 
@@ -32,25 +32,25 @@ The policy aims to reduce plastic waste by 60% within three years of implementat
         id: 'clause-2',
         section: 'Section 2',
         title: 'Phased Implementation Timeline',
-        content: 'Phase 1 (January 2026): Ban on plastic bags in all county markets and public facilities. Phase 2 (July 2026): Extension to bus termini and hawker zones. Phase 3 (January 2027): Full ban across all commercial establishments within the county.'
+        content: 'Phase 1 (January 2026): Ban on plastic bags in all BBMP markets and public facilities. Phase 2 (July 2026): Extension to bus termini and hawker zones. Phase 3 (January 2027): Full ban across all commercial establishments within the city.'
       },
       {
         id: 'clause-3',
         section: 'Section 3',
         title: 'Biodegradable Packaging Requirements',
-        content: 'All vendors operating in county markets shall transition to certified biodegradable or compostable packaging. The County shall maintain an approved list of certified suppliers and packaging materials that meet environmental standards.'
+        content: 'All vendors operating in BBMP markets shall transition to certified biodegradable or compostable packaging. BBMP shall maintain an approved list of certified suppliers and packaging materials that meet environmental standards.'
       },
       {
         id: 'clause-4',
         section: 'Section 4',
         title: 'Recycling Infrastructure',
-        content: 'The County shall establish at least one plastic collection and recycling center in each of the 17 sub-counties within 18 months of policy adoption. These centers shall operate in partnership with licensed private recyclers and community organizations.'
+        content: 'BBMP shall establish at least one plastic collection and recycling center in each of the 8 zones within 18 months of policy adoption. These centers shall operate in partnership with licensed private recyclers and community organizations.'
       },
       {
         id: 'clause-5',
         section: 'Section 5',
         title: 'Business Transition Incentives',
-        content: 'Small and medium enterprises transitioning to sustainable packaging shall be eligible for: (a) Tax rebates of up to 15% on eco-friendly packaging purchases, (b) Access to low-interest loans through the County Enterprise Fund, (c) Free training on sustainable business practices.'
+        content: 'Small and medium enterprises transitioning to sustainable packaging shall be eligible for: (a) Tax rebates of up to 15% on eco-friendly packaging purchases, (b) Access to low-interest loans through the BBMP Enterprise Fund, (c) Free training on sustainable business practices.'
       },
       {
         id: 'clause-6',
@@ -62,7 +62,7 @@ The policy aims to reduce plastic waste by 60% within three years of implementat
         id: 'clause-7',
         section: 'Section 7',
         title: 'Green Jobs Initiative',
-        content: 'The County commits to creating 5,000 green jobs through: recycling center employment, eco-packaging manufacturing, waste collection services, and environmental monitoring. Priority shall be given to youth and women groups in these opportunities.'
+        content: 'BBMP commits to creating 5,000 green jobs through: recycling center employment, eco-packaging manufacturing, waste collection services, and environmental monitoring. Priority shall be given to youth and women groups in these opportunities.'
       }
     ],
     comments: [
@@ -78,7 +78,7 @@ The policy aims to reduce plastic waste by 60% within three years of implementat
         id: 'c2',
         author: 'Koramangala Youth Network',
         authorType: 'community',
-        comment: 'Consider including recycling hubs in all sub-counties. Youth groups can partner with the county to run these facilities and create employment opportunities.',
+        comment: 'Consider including recycling hubs in all zones. Youth groups can partner with BBMP to run these facilities and create employment opportunities.',
         timestamp: '2025-12-10T09:45:00Z',
         reactions: { helpful: 24, insightful: 18, concern: 0 }
       },
@@ -86,7 +86,7 @@ The policy aims to reduce plastic waste by 60% within three years of implementat
         id: 'c3',
         author: 'Business Owner - Indiranagar',
         authorType: 'business',
-        comment: 'My restaurant already uses paper packaging. Happy to share our supplier contacts with other businesses. The county should create a database of approved eco-friendly suppliers.',
+        comment: 'My restaurant already uses paper packaging. Happy to share our supplier contacts with other businesses. BBMP should create a database of approved eco-friendly suppliers.',
         timestamp: '2025-12-08T11:30:00Z',
         reactions: { helpful: 31, insightful: 8, concern: 0 }
       },
@@ -110,7 +110,7 @@ The policy aims to reduce plastic waste by 60% within three years of implementat
         id: 'c6',
         author: 'Student - Bangalore University',
         authorType: 'youth',
-        comment: 'Can the county partner with universities for research on biodegradable alternatives? Students can contribute innovative solutions.',
+        comment: 'Can BBMP partner with universities for research on biodegradable alternatives? Students can contribute innovative solutions.',
         timestamp: '2025-12-05T11:00:00Z',
         reactions: { helpful: 19, insightful: 28, concern: 0 }
       },
@@ -173,7 +173,7 @@ Implementation will begin with major stops (Majestic, Shivajinagar, KR Market) a
         id: 'trn-clause-4',
         section: 'Section 4',
         title: 'Sanitation Facilities',
-        content: 'Public toilet facilities shall be available within 100 meters of all major stages. Facilities shall be gender-segregated, accessible to persons with disabilities, and maintained to hygiene standards set by the County Health Department.'
+        content: 'Public toilet facilities shall be available within 100 meters of all major stages. Facilities shall be gender-segregated, accessible to persons with disabilities, and maintained to hygiene standards set by the BBMP Health Department.'
       },
       {
         id: 'trn-clause-5',
@@ -247,7 +247,7 @@ Implementation will begin with major stops (Majestic, Shivajinagar, KR Market) a
   {
     id: 'POL-2025-HSG-003',
     title: 'Affordable Housing Allocation Framework',
-    summary: 'Criteria and process for allocating county-built affordable housing units to qualifying residents.',
+    summary: 'Criteria and process for allocating BBMP-built affordable housing units to qualifying residents.',
     fullDescription: `This framework establishes transparent criteria for the allocation of affordable housing units constructed under the Bengaluru Housing Program. The policy aims to ensure fair access to housing for low and middle-income residents.
 
 Allocation criteria include:
@@ -294,7 +294,7 @@ The framework also establishes an appeals process and anti-corruption measures t
         id: 'hsg-clause-5',
         section: 'Section 5',
         title: 'Appeals Process',
-        content: 'Unsuccessful applicants may appeal within 30 days of notification. Appeals reviewed by independent Housing Appeals Tribunal comprising: one county official, one civil society representative, and one community representative. Decisions final and binding.'
+        content: 'Unsuccessful applicants may appeal within 30 days of notification. Appeals reviewed by independent Housing Appeals Tribunal comprising: one BBMP official, one civil society representative, and one community representative. Decisions final and binding.'
       },
       {
         id: 'hsg-clause-6',
@@ -378,7 +378,7 @@ The framework also establishes an appeals process and anti-corruption measures t
   {
     id: 'POL-2025-HLT-004',
     title: 'Community Health Worker Stipend Review',
-    summary: 'Proposed increase in monthly stipends for community health volunteers serving in county facilities.',
+    summary: 'Proposed increase in monthly stipends for community health volunteers serving in BBMP facilities.',
     fullDescription: `This policy review proposes adjustments to the monthly stipend for Community Health Workers (CHWs) serving in Bengaluru. CHWs play a critical role in primary healthcare delivery, especially in informal settlements and underserved areas.. CHWs play a critical role in primary healthcare delivery, especially in informal settlements and underserved areas.
 
 Proposed changes:
@@ -413,13 +413,13 @@ The review responds to feedback from CHWs about inadequate compensation relative
         id: 'hlt-clause-3',
         section: 'Section 3',
         title: 'Medical Insurance Coverage',
-        content: 'All registered CHWs shall be enrolled in NHIF or equivalent medical insurance scheme. Premium payments covered by the County. Coverage extends to CHW only; dependents may be added at CHW cost. Enrollment within 60 days of registration.'
+        content: 'All registered CHWs shall be enrolled in Ayushman Bharat or equivalent medical insurance scheme. Premium payments covered by BBMP. Coverage extends to CHW only; dependents may be added at CHW cost. Enrollment within 60 days of registration.'
       },
       {
         id: 'hlt-clause-4',
         section: 'Section 4',
         title: 'Training and Certification',
-        content: 'The County shall provide: (a) Initial 2-week certification training for new CHWs, (b) Quarterly refresher trainings, (c) Specialized modules (maternal health, TB, HIV, nutrition), (d) Certificate recognized for healthcare employment pathways.'
+        content: 'BBMP shall provide: (a) Initial 2-week certification training for new CHWs, (b) Quarterly refresher trainings, (c) Specialized modules (maternal health, TB, HIV, nutrition), (d) Certificate recognized for healthcare employment pathways.'
       },
       {
         id: 'hlt-clause-5',

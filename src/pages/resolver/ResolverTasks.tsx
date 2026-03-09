@@ -47,7 +47,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
 import {
-  ALL_COUNTY_ISSUES,
+  ALL_CITY_ISSUES,
   CURRENT_RESOLVER,
   getMyAssignedIssues,
   getDepartmentIssues,

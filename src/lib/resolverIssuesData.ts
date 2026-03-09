@@ -48,7 +48,7 @@ export const CURRENT_RESOLVER = {
   team: 'Solid Waste Management Unit',
 };
 
-export const ALL_COUNTY_ISSUES: ResolverIssue[] = [
+export const ALL_CITY_ISSUES: ResolverIssue[] = [
   { id: 'BBMP-2026-0501', category: 'Garbage Collection', citizenTitle: 'Garbage not collected for 3 days', description: 'The garbage auto has not come for 3 days. Waste is piling up on the street.', subCounty: 'South Zone', ward: 'Jayanagar', zone: 'Jayanagar 4th Block', department: 'Environment', status: 'Assigned', priority: 'High', createdOn: '2026-03-01', createdAt: new Date('2026-03-01T08:30:00'), citizenName: 'Lakshmi Devi', citizenPhone: '+91 98XXX XXXXX', assignedTo: 'resolver_001', assignedDepartment: 'Environment', slaDeadline: '2026-03-02T08:30:00', slaHoursRemaining: 18, hasVoiceNote: true, hasImages: true, isReopened: false, reopenCount: 0 },
   { id: 'BBMP-2026-0498', category: 'Illegal Dumping', citizenTitle: 'Construction debris dumped on roadside', description: 'Someone has dumped construction debris near the park entrance.', subCounty: 'East Zone', ward: 'Indiranagar', zone: '100 Feet Road', department: 'Environment', status: 'In Progress', priority: 'Medium', createdOn: '2026-02-28', createdAt: new Date('2026-02-28T14:20:00'), citizenName: 'Suresh Reddy', assignedTo: 'resolver_001', assignedDepartment: 'Environment', slaDeadline: '2026-03-02T14:20:00', slaHoursRemaining: 42, hasVoiceNote: false, hasImages: true, isReopened: false, reopenCount: 0 },
   { id: 'BBMP-2026-0495', category: 'Street Cleaning', citizenTitle: 'Market area very dirty', description: 'The market area has not been cleaned. Food scraps and vegetable waste everywhere.', subCounty: 'North Zone', ward: 'Malleshwaram', zone: 'Sampige Road', department: 'Environment', status: 'Awaiting Response', priority: 'Medium', createdOn: '2026-02-27', createdAt: new Date('2026-02-27T09:15:00'), citizenName: 'Savitri Amma', assignedTo: 'resolver_001', assignedDepartment: 'Environment', slaDeadline: '2026-02-28T09:15:00', slaHoursRemaining: -6, hasVoiceNote: false, hasImages: false, isReopened: false, reopenCount: 0 },
@@ -67,27 +67,27 @@ export const ALL_COUNTY_ISSUES: ResolverIssue[] = [
 ];
 
 export function getMyAssignedIssues(): ResolverIssue[] {
-  return ALL_COUNTY_ISSUES.filter(i => i.assignedTo === CURRENT_RESOLVER.id && i.status !== 'Closed');
+  return ALL_CITY_ISSUES.filter(i => i.assignedTo === CURRENT_RESOLVER.id && i.status !== 'Closed');
 }
 
 export function getDepartmentIssues(): ResolverIssue[] {
-  return ALL_COUNTY_ISSUES.filter(i => i.assignedDepartment === CURRENT_RESOLVER.department && i.assignedTo !== CURRENT_RESOLVER.id && i.status !== 'Closed');
+  return ALL_CITY_ISSUES.filter(i => i.assignedDepartment === CURRENT_RESOLVER.department && i.assignedTo !== CURRENT_RESOLVER.id && i.status !== 'Closed');
 }
 
 export function getAwaitingResponseIssues(): ResolverIssue[] {
-  return ALL_COUNTY_ISSUES.filter(i => i.assignedTo === CURRENT_RESOLVER.id && i.status === 'Awaiting Response');
+  return ALL_CITY_ISSUES.filter(i => i.assignedTo === CURRENT_RESOLVER.id && i.status === 'Awaiting Response');
 }
 
 export function getReopenedIssues(): ResolverIssue[] {
-  return ALL_COUNTY_ISSUES.filter(i => i.assignedTo === CURRENT_RESOLVER.id && i.isReopened);
+  return ALL_CITY_ISSUES.filter(i => i.assignedTo === CURRENT_RESOLVER.id && i.isReopened);
 }
 
 export function getClosedByMeIssues(): ResolverIssue[] {
-  return ALL_COUNTY_ISSUES.filter(i => i.assignedTo === CURRENT_RESOLVER.id && i.status === 'Closed');
+  return ALL_CITY_ISSUES.filter(i => i.assignedTo === CURRENT_RESOLVER.id && i.status === 'Closed');
 }
 
 export function getTop100LatestIssues(): ResolverIssue[] {
-  return [...ALL_COUNTY_ISSUES].sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime()).slice(0, 100);
+  return [...ALL_CITY_ISSUES].sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime()).slice(0, 100);
 }
 
 export const DEPARTMENT_COLORS: Record<string, string> = {

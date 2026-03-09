@@ -238,7 +238,7 @@ const Report = () => {
           </p>
           <div className="bg-secondary/10 border border-secondary/30 rounded-xl p-4 mb-8">
             <p className="text-foreground">
-              Recognizing great service helps motivate better performance across all county departments.
+              Recognizing great service helps motivate better performance across all city departments.
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
