@@ -472,10 +472,10 @@ export function LocationStep({ location, onLocationChange, intent, linkedProject
               </option>
             ))}
           </select>
-          <p id="ward-help" className="text-xs text-muted-foreground mt-1">
+           <p id="ward-help" className="text-xs text-muted-foreground mt-1">
             {location.admin.subCounty 
               ? `Wards in ${location.admin.subCounty}` 
-              : 'First select a sub-county'}
+              : 'First select a zone'}
           </p>
         </div>
 
