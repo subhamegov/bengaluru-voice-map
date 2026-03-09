@@ -181,7 +181,7 @@ export function getAllProgress(): Record<string, ModuleProgress> {
 export const AUDIENCES = [
   { value: 'all', label: 'All' },
   { value: 'Citizen', label: 'Citizen' },
-  { value: 'County Staff', label: 'County Staff' },
+  { value: 'Grievance Redressal Staff', label: 'Grievance Redressal Staff' },
   { value: 'Ward Leaders', label: 'Ward Leaders' },
 ];
 
