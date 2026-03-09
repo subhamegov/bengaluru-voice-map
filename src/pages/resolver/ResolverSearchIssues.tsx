@@ -53,7 +53,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import {
-  ALL_COUNTY_ISSUES,
+  ALL_CITY_ISSUES,
   getTop100LatestIssues,
   getIssueAge,
   getSlaCountdown,
