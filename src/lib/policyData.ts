@@ -173,7 +173,7 @@ Implementation will begin with major stops (Majestic, Shivajinagar, KR Market) a
         id: 'trn-clause-4',
         section: 'Section 4',
         title: 'Sanitation Facilities',
-        content: 'Public toilet facilities shall be available within 100 meters of all major stages. Facilities shall be gender-segregated, accessible to persons with disabilities, and maintained to hygiene standards set by the County Health Department.'
+        content: 'Public toilet facilities shall be available within 100 meters of all major stages. Facilities shall be gender-segregated, accessible to persons with disabilities, and maintained to hygiene standards set by the BBMP Health Department.'
       },
       {
         id: 'trn-clause-5',
