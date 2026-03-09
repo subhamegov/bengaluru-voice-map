@@ -479,10 +479,10 @@ export function LocationStep({ location, onLocationChange, intent, linkedProject
           </p>
         </div>
 
-        {/* Zone dropdown (optional) */}
+        {/* Locality dropdown (optional) */}
         <div>
           <label htmlFor="zone-select" className="block text-sm font-medium text-foreground mb-1.5">
-            Zone / Local area <span className="text-muted-foreground text-xs">(optional)</span>
+            Locality <span className="text-muted-foreground text-xs">(optional)</span>
           </label>
           <select
             id="zone-select"
@@ -492,7 +492,7 @@ export function LocationStep({ location, onLocationChange, intent, linkedProject
             className="w-full px-4 py-3 rounded-lg border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed appearance-none"
             aria-describedby="zone-help"
           >
-            <option value="">Select zone (optional)...</option>
+            <option value="">Select locality (optional)...</option>
             {availableZones.map((zone) => (
               <option key={zone.name} value={zone.name}>
                 {zone.name}
@@ -501,7 +501,7 @@ export function LocationStep({ location, onLocationChange, intent, linkedProject
           </select>
           <p id="zone-help" className="text-xs text-muted-foreground mt-1">
             {location.admin.wardCode 
-              ? `Local areas in ${location.admin.ward}` 
+              ? `Localities in ${location.admin.ward}` 
               : 'First select a ward'}
           </p>
         </div>
