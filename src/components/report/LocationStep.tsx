@@ -425,13 +425,13 @@ export function LocationStep({ location, onLocationChange, intent, linkedProject
           Option 3: Select from list
         </h3>
         <p className="text-sm text-muted-foreground">
-          Choose your sub-county, ward, and optionally the local area.
+          Choose your zone, ward, and optionally the locality.
         </p>
 
-        {/* Sub-county dropdown */}
+        {/* Zone dropdown */}
         <div>
           <label htmlFor="subcounty-select" className="block text-sm font-medium text-foreground mb-1.5">
-            Sub-county <span className="text-destructive">*</span>
+            Zone <span className="text-destructive">*</span>
           </label>
           <select
             id="subcounty-select"
@@ -440,7 +440,7 @@ export function LocationStep({ location, onLocationChange, intent, linkedProject
             className="w-full px-4 py-3 rounded-lg border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary appearance-none"
             aria-describedby="subcounty-help"
           >
-            <option value="">Select sub-county...</option>
+            <option value="">Select zone...</option>
             {BENGALURU_ZONES.map((sc) => (
               <option key={sc.name} value={sc.name}>
                 {sc.name}
@@ -448,7 +448,7 @@ export function LocationStep({ location, onLocationChange, intent, linkedProject
             ))}
           </select>
           <p id="subcounty-help" className="text-xs text-muted-foreground mt-1">
-            The sub-county where the issue is located
+            The zone where the issue is located
           </p>
         </div>
 
@@ -472,17 +472,17 @@ export function LocationStep({ location, onLocationChange, intent, linkedProject
               </option>
             ))}
           </select>
-          <p id="ward-help" className="text-xs text-muted-foreground mt-1">
+           <p id="ward-help" className="text-xs text-muted-foreground mt-1">
             {location.admin.subCounty 
               ? `Wards in ${location.admin.subCounty}` 
-              : 'First select a sub-county'}
+              : 'First select a zone'}
           </p>
         </div>
 
-        {/* Zone dropdown (optional) */}
+        {/* Locality dropdown (optional) */}
         <div>
           <label htmlFor="zone-select" className="block text-sm font-medium text-foreground mb-1.5">
-            Zone / Local area <span className="text-muted-foreground text-xs">(optional)</span>
+            Locality <span className="text-muted-foreground text-xs">(optional)</span>
           </label>
           <select
             id="zone-select"
@@ -492,7 +492,7 @@ export function LocationStep({ location, onLocationChange, intent, linkedProject
             className="w-full px-4 py-3 rounded-lg border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed appearance-none"
             aria-describedby="zone-help"
           >
-            <option value="">Select zone (optional)...</option>
+            <option value="">Select locality (optional)...</option>
             {availableZones.map((zone) => (
               <option key={zone.name} value={zone.name}>
                 {zone.name}
@@ -501,7 +501,7 @@ export function LocationStep({ location, onLocationChange, intent, linkedProject
           </select>
           <p id="zone-help" className="text-xs text-muted-foreground mt-1">
             {location.admin.wardCode 
-              ? `Local areas in ${location.admin.ward}` 
+              ? `Localities in ${location.admin.ward}` 
               : 'First select a ward'}
           </p>
         </div>

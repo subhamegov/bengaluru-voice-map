@@ -43,7 +43,7 @@ export function ServiceAnalytics() {
             
             <Select value={subCounty} onValueChange={setSubCounty}>
               <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Location" />
+                <SelectValue placeholder="Zone" />
               </SelectTrigger>
               <SelectContent>
                 {SUB_COUNTIES.map((sc) => (
