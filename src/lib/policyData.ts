@@ -276,7 +276,7 @@ The framework also establishes an appeals process and anti-corruption measures t
         id: 'hsg-clause-2',
         section: 'Section 2',
         title: 'Eligibility - Income Threshold',
-        content: 'Household gross income shall not exceed KES 100,000 per month. Verification through: payslips, bank statements, tax returns, or sworn income declaration for informal sector workers. Joint applications shall combine both incomes.'
+        content: 'Household gross income shall not exceed ₹80,000 per month. Verification through: payslips, bank statements, tax returns, or sworn income declaration for informal sector workers. Joint applications shall combine both incomes.'
       },
       {
         id: 'hsg-clause-3',
