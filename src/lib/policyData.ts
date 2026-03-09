@@ -447,7 +447,7 @@ The review responds to feedback from CHWs about inadequate compensation relative
       },
       {
         id: 'c24',
-        author: 'Village Elder - Huruma',
+        author: 'Senior Citizen - Rajajinagar',
         authorType: 'community',
         comment: 'CHWs are the backbone of community health. They deserve proper pay. I support this policy fully.',
         timestamp: '2025-11-23T09:00:00Z',
