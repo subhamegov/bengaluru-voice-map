@@ -38,7 +38,7 @@ The policy aims to reduce plastic waste by 60% within three years of implementat
         id: 'clause-3',
         section: 'Section 3',
         title: 'Biodegradable Packaging Requirements',
-        content: 'All vendors operating in county markets shall transition to certified biodegradable or compostable packaging. The County shall maintain an approved list of certified suppliers and packaging materials that meet environmental standards.'
+        content: 'All vendors operating in BBMP markets shall transition to certified biodegradable or compostable packaging. BBMP shall maintain an approved list of certified suppliers and packaging materials that meet environmental standards.'
       },
       {
         id: 'clause-4',
