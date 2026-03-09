@@ -110,7 +110,7 @@ The policy aims to reduce plastic waste by 60% within three years of implementat
         id: 'c6',
         author: 'Student - Bangalore University',
         authorType: 'youth',
-        comment: 'Can the county partner with universities for research on biodegradable alternatives? Students can contribute innovative solutions.',
+        comment: 'Can BBMP partner with universities for research on biodegradable alternatives? Students can contribute innovative solutions.',
         timestamp: '2025-12-05T11:00:00Z',
         reactions: { helpful: 19, insightful: 28, concern: 0 }
       },
