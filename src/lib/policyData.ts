@@ -161,7 +161,7 @@ Implementation will begin with major stops (Majestic, Shivajinagar, KR Market) a
         id: 'trn-clause-2',
         section: 'Section 2',
         title: 'Security and Lighting Standards',
-        content: 'Each stage shall have adequate lighting (minimum 50 lux) operational from 6PM to 6AM. CCTV cameras shall be installed at all major termini covering boarding areas, with footage retained for 30 days. Security personnel presence required at major stages during peak hours.'
+        content: 'Each stop shall have adequate lighting (minimum 50 lux) operational from 6PM to 6AM. CCTV cameras shall be installed at all major stops covering boarding areas, with footage retained for 30 days. Security personnel presence required at major stops during peak hours.'
       },
       {
         id: 'trn-clause-3',
