@@ -5,11 +5,11 @@ export const MOCK_POLICIES: Policy[] = [
     id: 'POL-2025-ENV-001',
     title: 'Plastic Waste Management Policy',
     summary: 'Proposes a phased ban on single-use plastics in public areas, markets, and bus stations by 2026.',
-    fullDescription: `This draft Plastic Waste Management Policy proposes a comprehensive strategy to reduce plastic pollution across Bengaluru. The policy introduces a phased ban on single-use plastics in public markets, bus termini, and BBMP-managed facilities starting January 2026.. The policy introduces a phased ban on single-use plastics in public markets, bus termini, and county-managed facilities starting January 2026.
+    fullDescription: `This draft Plastic Waste Management Policy proposes a comprehensive strategy to reduce plastic pollution across Bengaluru. The policy introduces a phased ban on single-use plastics in public markets, bus termini, and BBMP-managed facilities starting January 2026.
 
 Key provisions include:
-• Mandatory use of biodegradable packaging in all county markets
-• Establishment of plastic collection and recycling centers in each sub-county
+• Mandatory use of biodegradable packaging in all BBMP markets
+• Establishment of plastic collection and recycling centers in each zone
 • Incentives for businesses transitioning to sustainable packaging
 • Penalties for non-compliance after the transition period
 
