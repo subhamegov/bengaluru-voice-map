@@ -429,7 +429,7 @@ export const mockTrainingModules: TrainingModule[] = [
     id: 'module_dashboards',
     title: 'Understanding the Public Dashboard',
     description: 'Learn how to read and interpret the service analytics dashboard showing complaint trends and department performance.',
-    audience: ['Citizen', 'County Staff'],
+    audience: ['Citizen', 'Grievance Redressal Staff'],
     topic: 'Dashboards',
     durationMinutes: 15,
     faqs: [
