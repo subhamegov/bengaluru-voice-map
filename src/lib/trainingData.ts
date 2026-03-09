@@ -560,7 +560,7 @@ export const mockTrainingModules: TrainingModule[] = [
         id: 'faq_4_5',
         category: 'After Submission',
         question: 'What happens to my feedback?',
-        answer: 'All feedback is compiled and reviewed by the relevant county department. Summary reports of public input may be published. Your individual comments are kept confidential unless you opt for public display.',
+        answer: 'All feedback is compiled and reviewed by the relevant BBMP department. Summary reports of public input may be published. Your individual comments are kept confidential unless you opt for public display.',
       },
     ],
     videos: [
