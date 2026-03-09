@@ -306,7 +306,7 @@ The framework also establishes an appeals process and anti-corruption measures t
     comments: [
       {
         id: 'c14',
-        author: 'Resident of Mathare',
+        author: 'Resident of JP Nagar',
         authorType: 'resident',
         comment: 'The 5-year residency requirement is fair. But how will you verify this? Many of us don\'t have formal documentation of our stay in informal settlements.',
         timestamp: '2025-12-05T10:20:00Z',
