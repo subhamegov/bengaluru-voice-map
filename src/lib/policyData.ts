@@ -76,7 +76,7 @@ The policy aims to reduce plastic waste by 60% within three years of implementat
       },
       {
         id: 'c2',
-        author: 'Kilimani Youth Network',
+        author: 'Koramangala Youth Network',
         authorType: 'community',
         comment: 'Consider including recycling hubs in all sub-counties. Youth groups can partner with the county to run these facilities and create employment opportunities.',
         timestamp: '2025-12-10T09:45:00Z',
