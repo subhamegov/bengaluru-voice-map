@@ -610,7 +610,7 @@ export const mockTrainingModules: TrainingModule[] = [
     id: 'module_accessibility',
     title: 'Accessibility & Voice Features',
     description: 'Learn about accessibility features including voice input, screen reader support, and high-contrast modes.',
-    audience: ['Citizen', 'County Staff', 'Ward Leaders'],
+    audience: ['Citizen', 'Grievance Redressal Staff', 'Ward Leaders'],
     topic: 'Accessibility',
     durationMinutes: 8,
     faqs: [
