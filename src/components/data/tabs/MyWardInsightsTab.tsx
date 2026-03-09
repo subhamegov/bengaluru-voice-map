@@ -1,6 +1,7 @@
 import React from 'react';
-import { Activity, MapPin, Heart, Map } from 'lucide-react';
+import { Activity, MapPin, Heart, Map, Users, MessageSquare, FileText, CheckCircle2 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
 import { OperationalEfficiency } from '../sections/OperationalEfficiency';
 import { TopComplaintsChart } from '../cards/TopComplaintsChart';
 import { CumulativeLineChart } from '../cards/CumulativeLineChart';
