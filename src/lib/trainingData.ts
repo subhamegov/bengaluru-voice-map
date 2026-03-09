@@ -471,7 +471,7 @@ export const mockTrainingModules: TrainingModule[] = [
         title: 'Navigating the Analytics Dashboard',
         duration: '4:20',
         url: '#',
-        audience: ['Citizen', 'County Staff'],
+        audience: ['Citizen', 'Grievance Redressal Staff'],
       },
       {
         id: 'vid_3_2',
