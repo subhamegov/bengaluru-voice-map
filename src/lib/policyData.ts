@@ -362,7 +362,7 @@ The framework also establishes an appeals process and anti-corruption measures t
       },
       {
         id: 'c21',
-        author: 'Healthcare Worker - Kenyatta Hospital',
+        author: 'Healthcare Worker - Victoria Hospital',
         authorType: 'resident',
         comment: 'Essential workers should get some priority. We serve the city but can\'t afford to live near our workplaces.',
         timestamp: '2025-11-28T07:00:00Z',
