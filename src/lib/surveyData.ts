@@ -23,7 +23,7 @@ export const mockSurveys: Survey[] = [
   {
     id: "survey_002",
     title: "Public Transport Route Feedback",
-    description: "Share your thoughts on Bengaluru's ongoing bus and BMTC route changes.",
+    description: "Share your thoughts on Bengaluru's BMTC bus and Namma Metro route changes.",
     responses: 156,
     daysLeft: 12,
     questions: [
@@ -31,10 +31,10 @@ export const mockSurveys: Survey[] = [
         id: "q1",
         text: "Which of these changes would most improve your daily commute in Bengaluru?",
         options: [
-          { label: "Reopening direct matatu access to CBD zones (Railways, Kencom, GPO)", votes: 45 },
-          { label: "Better safety and lighting at termini such as Green Park or Fig Tree", votes: 38 },
-          { label: "Introduction of dedicated BRT and express lanes on Thika and Jogoo roads", votes: 52 },
-          { label: "Reliable, frequent feeder routes from estates like Umoja, Kasarani, and Lang'ata", votes: 21 }
+          { label: "More direct BMTC routes to Majestic, KR Market, and Shivajinagar", votes: 45 },
+          { label: "Better safety and lighting at bus stops and metro stations", votes: 38 },
+          { label: "Dedicated bus lanes on Outer Ring Road and Hosur Road", votes: 52 },
+          { label: "Reliable feeder buses from areas like HSR Layout, Whitefield, and Yelahanka to metro stations", votes: 21 }
         ]
       }
     ]
