@@ -309,9 +309,9 @@ export const mockTrainingModules: TrainingModule[] = [
   },
   {
     id: 'module_staff_complaints',
-    title: 'Handling Complaints as a County Officer',
-    description: 'Complete guide for county staff on receiving, processing, and resolving citizen complaints.',
-    audience: ['County Staff'],
+    title: 'Handling Complaints as a Grievance Redressal Officer',
+    description: 'Complete guide for grievance redressal staff on receiving, processing, and resolving citizen complaints.',
+    audience: ['Grievance Redressal Staff'],
     topic: 'Complaints',
     durationMinutes: 25,
     faqs: [
