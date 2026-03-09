@@ -24,12 +24,12 @@ export function TopComplaintsChart() {
         </div>
       </CardHeader>
       <CardContent>
-        <div className="h-[350px]" aria-label="Horizontal bar chart showing top complaint types by volume">
+        <div className="h-[420px]" aria-label="Horizontal bar chart showing top complaint types by volume">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart
               data={data}
               layout="vertical"
-              margin={{ top: 5, right: 30, left: 120, bottom: 5 }}
+              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
             >
               <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
               <XAxis
@@ -40,9 +40,9 @@ export function TopComplaintsChart() {
               <YAxis
                 type="category"
                 dataKey="category"
-                tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
+                tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }}
                 tickLine={false}
-                width={110}
+                width={180}
               />
               <Tooltip
                 contentStyle={{
