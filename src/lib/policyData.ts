@@ -231,9 +231,9 @@ Implementation will begin with major stops (Majestic, Shivajinagar, KR Market) a
       },
       {
         id: 'c13',
-        author: 'Boda Boda Rider - Ngara',
+        author: 'Auto Driver - Malleshwaram',
         authorType: 'business',
-        comment: 'What about motorcycle parking areas near stages? We provide last-mile transport and need designated waiting zones too.',
+        comment: 'What about auto-rickshaw parking areas near stops? We provide last-mile transport and need designated waiting zones too.',
         timestamp: '2025-12-02T14:30:00Z',
         reactions: { helpful: 28, insightful: 18, concern: 2 }
       }
