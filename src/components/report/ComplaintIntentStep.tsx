@@ -162,23 +162,23 @@ export const ComplaintIntentStep: React.FC<ComplaintIntentStepProps> = ({
               role="button"
               aria-pressed={intent === option.id}
             >
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <IconComponent className="w-6 h-6 text-primary" aria-hidden="true" />
+              <div className="flex items-start gap-3 sm:gap-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 text-primary" aria-hidden="true" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <h3 className="font-semibold text-foreground text-lg">
+                    <h3 className="font-semibold text-foreground text-base sm:text-lg">
                       {option.title}
                     </h3>
                     {intent === option.id && (
                       <Check className="w-5 h-5 text-primary flex-shrink-0" />
                     )}
                   </div>
-                  <p className="text-muted-foreground mt-1">
+                  <p className="text-muted-foreground mt-1 text-sm">
                     {option.description}
                   </p>
-                  <p className="text-sm text-muted-foreground/70 mt-2 italic">
+                  <p className="text-xs sm:text-sm text-muted-foreground/70 mt-1 sm:mt-2 italic">
                     {option.examples}
                   </p>
                 </div>
