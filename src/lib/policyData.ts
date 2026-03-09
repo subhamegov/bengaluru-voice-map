@@ -439,7 +439,7 @@ The review responds to feedback from CHWs about inadequate compensation relative
       },
       {
         id: 'c23',
-        author: 'CHW Supervisor - Kawangware',
+        author: 'CHW Supervisor - Mahadevapura',
         authorType: 'community',
         comment: 'Insurance coverage is crucial. Many CHWs get sick from exposure during home visits but can\'t afford treatment.',
         timestamp: '2025-11-24T11:30:00Z',
