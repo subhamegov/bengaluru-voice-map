@@ -354,7 +354,7 @@ The framework also establishes an appeals process and anti-corruption measures t
       },
       {
         id: 'c20',
-        author: 'Elder - Pumwani',
+        author: 'Elder - Basavanagudi',
         authorType: 'resident',
         comment: 'Good policy but what about elderly citizens who have lived here all their lives? We need ground floor units due to mobility issues.',
         timestamp: '2025-11-29T10:30:00Z',
