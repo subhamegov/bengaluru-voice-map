@@ -155,7 +155,7 @@ Implementation will begin with major stops (Majestic, Shivajinagar, KR Market) a
         id: 'trn-clause-1',
         section: 'Section 1',
         title: 'Shelter and Seating Requirements',
-        content: 'All designated matatu stages shall have covered shelter structures capable of accommodating at least 50 passengers. Seating shall be provided for a minimum of 20 passengers, with priority seats clearly marked for elderly, pregnant women, and persons with disabilities.'
+        content: 'All designated BMTC bus stops shall have covered shelter structures capable of accommodating at least 50 passengers. Seating shall be provided for a minimum of 20 passengers, with priority seats clearly marked for elderly, pregnant women, and persons with disabilities.'
       },
       {
         id: 'trn-clause-2',
