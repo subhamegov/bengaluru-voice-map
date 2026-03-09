@@ -367,7 +367,7 @@ export const mockTrainingModules: TrainingModule[] = [
         title: 'Processing a Complaint End-to-End',
         duration: '8:15',
         url: '#',
-        audience: ['County Staff'],
+        audience: ['Grievance Redressal Staff'],
       },
       {
         id: 'vid_2_3',
