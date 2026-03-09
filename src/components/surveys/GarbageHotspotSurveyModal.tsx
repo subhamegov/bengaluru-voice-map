@@ -136,7 +136,7 @@ export const GarbageHotspotSurveyModal: React.FC<GarbageHotspotSurveyModalProps>
   // Reset state when modal opens
   useEffect(() => {
     if (open) {
-      setWard('westlands');
+      setWard('koramangala');
       setIssueType('');
       setPinLocation(null);
       setDescription('');

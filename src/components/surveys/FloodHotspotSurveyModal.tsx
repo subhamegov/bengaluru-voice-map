@@ -126,7 +126,7 @@ export const FloodHotspotSurveyModal: React.FC<FloodHotspotSurveyModalProps> = (
   // Reset state when modal opens
   useEffect(() => {
     if (open) {
-      setWard('westlands');
+      setWard('koramangala');
       setPinLocation(null);
       setDescription('');
       setIsSubmitted(false);

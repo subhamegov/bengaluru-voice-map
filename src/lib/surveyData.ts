@@ -107,7 +107,7 @@ export const mockSurveys: Survey[] = [
         id: "q1",
         text: "Which improvement would most benefit traders and customers in your market?",
         options: [
-          { label: "Reconstruction of fire-resistant stalls and roofing (Gikomba, Toi, Muthurwa)", votes: 32 },
+          { label: "Reconstruction of fire-resistant stalls and roofing (KR Market, Malleswaram Market, Yeshwanthpur)", votes: 32 },
           { label: "Improved drainage and flood control inside market lanes", votes: 24 },
           { label: "Installation of clean, functional toilets and handwashing stations", votes: 18 },
           { label: "Upgraded lighting and nighttime security patrols", votes: 8 },
