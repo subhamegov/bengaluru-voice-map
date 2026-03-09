@@ -191,9 +191,9 @@ Implementation will begin with major stops (Majestic, Shivajinagar, KR Market) a
     comments: [
       {
         id: 'c8',
-        author: 'Daily Commuter - Umoja',
+        author: 'Daily Commuter - HSR Layout',
         authorType: 'resident',
-        comment: 'Finally! The Eastlands stages are chaotic. Please prioritize Buruburu and Dandora stages. We need proper shelters especially during rainy season.',
+        comment: 'Finally! The Outer Ring Road stops are chaotic. Please prioritize Silk Board and Marathahalli stops. We need proper shelters especially during rainy season.',
         timestamp: '2025-12-07T07:15:00Z',
         reactions: { helpful: 45, insightful: 3, concern: 0 }
       },
