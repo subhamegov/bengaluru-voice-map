@@ -419,7 +419,7 @@ The review responds to feedback from CHWs about inadequate compensation relative
         id: 'hlt-clause-4',
         section: 'Section 4',
         title: 'Training and Certification',
-        content: 'The County shall provide: (a) Initial 2-week certification training for new CHWs, (b) Quarterly refresher trainings, (c) Specialized modules (maternal health, TB, HIV, nutrition), (d) Certificate recognized for healthcare employment pathways.'
+        content: 'BBMP shall provide: (a) Initial 2-week certification training for new CHWs, (b) Quarterly refresher trainings, (c) Specialized modules (maternal health, TB, HIV, nutrition), (d) Certificate recognized for healthcare employment pathways.'
       },
       {
         id: 'hlt-clause-5',

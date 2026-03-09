@@ -67,27 +67,27 @@ export const ALL_CITY_ISSUES: ResolverIssue[] = [
 ];
 
 export function getMyAssignedIssues(): ResolverIssue[] {
-  return ALL_COUNTY_ISSUES.filter(i => i.assignedTo === CURRENT_RESOLVER.id && i.status !== 'Closed');
+  return ALL_CITY_ISSUES.filter(i => i.assignedTo === CURRENT_RESOLVER.id && i.status !== 'Closed');
 }
 
 export function getDepartmentIssues(): ResolverIssue[] {
-  return ALL_COUNTY_ISSUES.filter(i => i.assignedDepartment === CURRENT_RESOLVER.department && i.assignedTo !== CURRENT_RESOLVER.id && i.status !== 'Closed');
+  return ALL_CITY_ISSUES.filter(i => i.assignedDepartment === CURRENT_RESOLVER.department && i.assignedTo !== CURRENT_RESOLVER.id && i.status !== 'Closed');
 }
 
 export function getAwaitingResponseIssues(): ResolverIssue[] {
-  return ALL_COUNTY_ISSUES.filter(i => i.assignedTo === CURRENT_RESOLVER.id && i.status === 'Awaiting Response');
+  return ALL_CITY_ISSUES.filter(i => i.assignedTo === CURRENT_RESOLVER.id && i.status === 'Awaiting Response');
 }
 
 export function getReopenedIssues(): ResolverIssue[] {
-  return ALL_COUNTY_ISSUES.filter(i => i.assignedTo === CURRENT_RESOLVER.id && i.isReopened);
+  return ALL_CITY_ISSUES.filter(i => i.assignedTo === CURRENT_RESOLVER.id && i.isReopened);
 }
 
 export function getClosedByMeIssues(): ResolverIssue[] {
-  return ALL_COUNTY_ISSUES.filter(i => i.assignedTo === CURRENT_RESOLVER.id && i.status === 'Closed');
+  return ALL_CITY_ISSUES.filter(i => i.assignedTo === CURRENT_RESOLVER.id && i.status === 'Closed');
 }
 
 export function getTop100LatestIssues(): ResolverIssue[] {
-  return [...ALL_COUNTY_ISSUES].sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime()).slice(0, 100);
+  return [...ALL_CITY_ISSUES].sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime()).slice(0, 100);
 }
 
 export const DEPARTMENT_COLORS: Record<string, string> = {

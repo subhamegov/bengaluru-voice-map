@@ -183,7 +183,7 @@ export const GarbageHotspotSurveyModal: React.FC<GarbageHotspotSurveyModalProps>
             <DialogHeader className="mb-4">
               <DialogTitle className="text-2xl">Thank You!</DialogTitle>
               <DialogDescription className="text-base mt-2">
-                Your garbage hotspot has been recorded. This helps the county improve waste collection services.
+                Your garbage hotspot has been recorded. This helps BBMP improve waste collection services.
               </DialogDescription>
             </DialogHeader>
             <p className="text-sm text-muted-foreground mb-6">

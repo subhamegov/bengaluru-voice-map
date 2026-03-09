@@ -773,7 +773,7 @@ export const mockTrainingModules: TrainingModule[] = [
       {
         id: 'q6_2',
         question: 'How do you follow a project?',
-        options: ['Email the county', 'Click "Follow Project" on the detail page', 'Call the contractor', 'Visit the site'],
+        options: ['Email BBMP', 'Click "Follow Project" on the detail page', 'Call the contractor', 'Visit the site'],
         correctIndex: 1,
         explanation: 'Click "Follow Project" on any project detail page to receive updates.',
       },
