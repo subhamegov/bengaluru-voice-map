@@ -248,11 +248,11 @@ Implementation will begin with major stops (Majestic, Shivajinagar, KR Market) a
     id: 'POL-2025-HSG-003',
     title: 'Affordable Housing Allocation Framework',
     summary: 'Criteria and process for allocating county-built affordable housing units to qualifying residents.',
-    fullDescription: `This framework establishes transparent criteria for the allocation of affordable housing units constructed under the Bengaluru Housing Program. The policy aims to ensure fair access to housing for low and middle-income residents.. The policy aims to ensure fair access to housing for low and middle-income residents.
+    fullDescription: `This framework establishes transparent criteria for the allocation of affordable housing units constructed under the Bengaluru Housing Program. The policy aims to ensure fair access to housing for low and middle-income residents.
 
 Allocation criteria include:
 • Residency requirement (minimum 5 years in Bengaluru)
-• Income threshold (household income below KES 100,000/month)
+• Income threshold (household income below ₹80,000/month)
 • First-time homebuyer preference
 • Special consideration for persons with disabilities
 • Points system based on family size and housing need
