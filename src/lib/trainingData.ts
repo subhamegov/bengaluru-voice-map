@@ -540,7 +540,7 @@ export const mockTrainingModules: TrainingModule[] = [
         id: 'faq_4_2',
         category: 'Finding Policies',
         question: 'What types of policies are available for comment?',
-        answer: 'County budgets, development plans, by-laws, service delivery standards, and other governance documents may be posted for public input during their consultation periods.',
+        answer: 'City budgets, development plans, by-laws, service delivery standards, and other governance documents may be posted for public input during their consultation periods.',
         isUpdated: true,
       },
       {
