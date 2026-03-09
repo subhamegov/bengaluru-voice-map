@@ -346,7 +346,7 @@ The framework also establishes an appeals process and anti-corruption measures t
       },
       {
         id: 'c19',
-        author: 'Teacher - Dandora',
+        author: 'Teacher - Yelahanka',
         authorType: 'resident',
         comment: 'Will civil servants like teachers qualify? Our salaries are known but housing is still unaffordable for us.',
         timestamp: '2025-11-30T14:00:00Z',
