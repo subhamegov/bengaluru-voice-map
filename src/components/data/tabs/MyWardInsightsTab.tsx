@@ -47,9 +47,103 @@ const ZONE_COMPLAINTS = [
   { zone: 'HSR Layout', count: 228, x: 55, y: 72 },
 ];
 
+const WARD_PARTICIPATION_OVERVIEW = [
+  { label: 'Citizen Voices', value: '1,120', icon: MessageSquare, color: 'bg-primary/10 text-primary' },
+  { label: 'Issues Under Review', value: '186', icon: FileText, color: 'bg-amber-500/10 text-amber-600' },
+  { label: 'Actions Taken', value: '94', icon: CheckCircle2, color: 'bg-success/10 text-success' },
+  { label: 'Residents Participating', value: '438', icon: Users, color: 'bg-secondary/10 text-secondary' },
+];
+
+const WARD_PARTICIPATION_BREAKDOWN = [
+  {
+    title: 'Citizen Voices',
+    items: [
+      { label: 'Complaints', value: 840 },
+      { label: 'Proposals', value: 92 },
+      { label: 'Survey responses', value: 146 },
+      { label: 'Policy feedback', value: 42 },
+    ],
+  },
+  {
+    title: 'Issues Under Review',
+    items: [
+      { label: 'Complaints in progress', value: 140 },
+      { label: 'Proposals under review', value: 28 },
+      { label: 'Policy consultations open', value: 18 },
+    ],
+  },
+  {
+    title: 'Actions Taken',
+    items: [
+      { label: 'Issues resolved', value: 61 },
+      { label: 'Proposals accepted', value: 19 },
+      { label: 'Ward decisions implemented', value: 14 },
+    ],
+  },
+  {
+    title: 'Residents Participating',
+    items: [
+      { label: 'Complaint reporters', value: 220 },
+      { label: 'Proposal authors/supporters', value: 61 },
+      { label: 'Survey participants', value: 109 },
+      { label: 'Policy respondents', value: 48 },
+    ],
+  },
+];
+
 export function MyWardInsightsTab({ timeRange, subCounty }: Props) {
   return (
     <div className="space-y-6 sm:space-y-8">
+      {/* Ward Participation Overview */}
+      <section className="space-y-3 sm:space-y-4">
+        <div className="flex items-center gap-2.5 sm:gap-3">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+            <Users className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+          </div>
+          <div>
+            <h2 className="text-lg sm:text-xl font-bold text-foreground">Ward Participation Overview</h2>
+            <p className="text-xs sm:text-sm text-muted-foreground">How people in your ward are engaging with local issues and decisions</p>
+          </div>
+        </div>
+
+        {/* Top-level KPIs */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+          {WARD_PARTICIPATION_OVERVIEW.map((item) => {
+            const Icon = item.icon;
+            return (
+              <Card key={item.label} className="gov-card">
+                <CardContent className="p-4 sm:p-5">
+                  <div className={cn('w-8 h-8 rounded-lg flex items-center justify-center mb-2', item.color)}>
+                    <Icon className="w-4 h-4" />
+                  </div>
+                  <p className="text-2xl sm:text-3xl font-bold text-foreground">{item.value}</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground">{item.label}</p>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+
+        {/* Breakdowns */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+          {WARD_PARTICIPATION_BREAKDOWN.map((group) => (
+            <Card key={group.title} className="gov-card">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm font-semibold">{group.title}</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-1.5">
+                {group.items.map((item) => (
+                  <div key={item.label} className="flex items-center justify-between text-sm">
+                    <span className="text-muted-foreground text-xs">{item.label}</span>
+                    <span className="font-semibold text-foreground">{item.value.toLocaleString()}</span>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </section>
+
       {/* Block 1: Ward Service Performance — reuse OperationalEfficiency */}
       <OperationalEfficiency timeRange={timeRange} subCounty={subCounty} />
 
