@@ -207,7 +207,7 @@ Implementation will begin with major stops (Majestic, Shivajinagar, KR Market) a
       },
       {
         id: 'c10',
-        author: 'Hawker - CBD',
+        author: 'Hawker - Majestic',
         authorType: 'trader',
         comment: 'Please consider us hawkers in the designated zones. We also need to earn a living. Include us in the planning.',
         timestamp: '2025-12-05T09:30:00Z',
