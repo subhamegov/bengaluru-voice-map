@@ -50,7 +50,7 @@ The policy aims to reduce plastic waste by 60% within three years of implementat
         id: 'clause-5',
         section: 'Section 5',
         title: 'Business Transition Incentives',
-        content: 'Small and medium enterprises transitioning to sustainable packaging shall be eligible for: (a) Tax rebates of up to 15% on eco-friendly packaging purchases, (b) Access to low-interest loans through the County Enterprise Fund, (c) Free training on sustainable business practices.'
+        content: 'Small and medium enterprises transitioning to sustainable packaging shall be eligible for: (a) Tax rebates of up to 15% on eco-friendly packaging purchases, (b) Access to low-interest loans through the BBMP Enterprise Fund, (c) Free training on sustainable business practices.'
       },
       {
         id: 'clause-6',
