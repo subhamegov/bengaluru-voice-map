@@ -64,8 +64,8 @@ export function MyTicketsTab() {
       serviceComplaints: serviceComplaints.length,
       projectComplaints: projectComplaints.length,
       feedbacks: feedbacks.length,
-      proposalsSupported: 4, // mock
-      surveysCompleted: getCompletedSurveys().length || 2, // fallback mock
+      proposalsSupported: 3,
+      surveysCompleted: getCompletedSurveys().length || 2,
       inProgress: complaints.filter(t => t.status === 'in_progress' || t.status === 'assigned').length,
       resolved: complaints.filter(t => t.status === 'resolved').length,
       new: complaints.filter(t => t.status === 'new').length,
