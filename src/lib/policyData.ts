@@ -401,7 +401,7 @@ The review responds to feedback from CHWs about inadequate compensation relative
         id: 'hlt-clause-1',
         section: 'Section 1',
         title: 'Base Stipend Increase',
-        content: 'The monthly base stipend for registered Community Health Workers shall be increased from KES 2,500 to KES 5,000, effective from the first month following policy adoption. Payment shall be made through mobile money or bank transfer by the 5th of each month.'
+        content: 'The monthly base stipend for registered Community Health Workers shall be increased from ₹2,500 to ₹5,000, effective from the first month following policy adoption. Payment shall be made through bank transfer by the 5th of each month.'
       },
       {
         id: 'hlt-clause-2',
