@@ -341,7 +341,7 @@ const SUPERVISORS = [
   { id: 'S001', name: 'Dr. Sarah Kimani', role: 'Department Head - Environment' },
   { id: 'S002', name: 'Eng. James Otieno', role: 'Department Head - Works' },
   { id: 'S003', name: 'Mr. Michael Wafula', role: 'Deputy Director' },
-  { id: 'S004', name: 'Ms. Catherine Nyambura', role: 'County Complaints Officer' },
+  { id: 'S004', name: 'Ms. Catherine Nyambura', role: 'Grievance Redressal Officer' },
 ];
 
 const DEPARTMENTS = [
