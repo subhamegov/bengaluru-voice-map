@@ -16,6 +16,7 @@ import TrainingModule from "./pages/TrainingModule";
 import AboutMyCity from "./pages/AboutMyCity";
 import MyProposals from "./pages/MyProposals";
 import NotFound from "./pages/NotFound";
+import AccessibilityPage from "./pages/Accessibility";
 import ResolverHome from "./pages/resolver/ResolverHome";
 import ResolverTasks from "./pages/resolver/ResolverTasks";
 import ResolverSearchIssues from "./pages/resolver/ResolverSearchIssues";
