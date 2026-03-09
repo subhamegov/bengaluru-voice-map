@@ -31,7 +31,7 @@ const statusLabels: Record<ModuleStatus, string> = {
 
 const audienceColors: Record<string, string> = {
   Citizen: 'bg-primary/10 text-primary',
-  'County Staff': 'bg-accent/20 text-accent-foreground',
+  'Grievance Redressal Staff': 'bg-accent/20 text-accent-foreground',
   'Ward Leaders': 'bg-secondary/20 text-secondary-foreground',
 };
 

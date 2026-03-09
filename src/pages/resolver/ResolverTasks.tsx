@@ -556,7 +556,7 @@ function IssueDetailDialog({ issue, onClose }: IssueDetailDialogProps) {
           <DialogHeader>
             <DialogTitle>Add Internal Notes</DialogTitle>
             <DialogDescription>
-              Add notes visible only to county staff for {issue.id}
+              Add notes visible only to grievance redressal staff for {issue.id}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 py-4">

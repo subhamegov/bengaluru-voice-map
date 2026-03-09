@@ -403,7 +403,7 @@ export const mockTrainingModules: TrainingModule[] = [
     quiz: [
       {
         id: 'q2_1',
-        question: 'How are complaints assigned to county officers?',
+        question: 'How are complaints assigned to grievance redressal officers?',
         options: ['Random selection', 'Based on category and ward automatically', 'Citizens choose the officer', 'First-come-first-served'],
         correctIndex: 1,
         explanation: 'Complaints are automatically routed based on category and ward.',
