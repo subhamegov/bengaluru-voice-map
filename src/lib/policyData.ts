@@ -131,18 +131,18 @@ The policy aims to reduce plastic waste by 60% within three years of implementat
   },
   {
     id: 'POL-2025-TRN-002',
-    title: 'Matatu Stage Improvement Guidelines',
-    summary: 'New standards for matatu termini including safety requirements, passenger amenities, and traffic flow management.',
-    fullDescription: `The Matatu Stage Improvement Guidelines establish minimum standards for all public service vehicle termini within Bengaluru. This policy responds to citizen feedback about overcrowding, safety concerns, and poor facilities at major bus stages.. This policy responds to citizen feedback about overcrowding, safety concerns, and poor facilities at major bus stages.
+    title: 'BMTC Bus Stop Improvement Guidelines',
+    summary: 'New standards for BMTC bus stops including safety requirements, passenger amenities, and traffic flow management.',
+    fullDescription: `The BMTC Bus Stop Improvement Guidelines establish minimum standards for all public service vehicle stops within Bengaluru. This policy responds to citizen feedback about overcrowding, safety concerns, and poor facilities at major bus stops.
 
 Key provisions include:
-• Mandatory shelter structures with seating at all designated stages
+• Mandatory shelter structures with seating at all designated stops
 • Proper lighting and CCTV coverage for security
 • Clear lane markings and traffic flow patterns
-• Public toilet facilities within 100 meters of major stages
+• Public toilet facilities within 100 meters of major stops
 • Designated hawking zones to reduce congestion
 
-Implementation will begin with major termini (Railways, Kencom, Ngong Road) and expand to all stages within 18 months.`,
+Implementation will begin with major stops (Majestic, Shivajinagar, KR Market) and expand to all stops within 18 months.`,
     department: 'Transport & Infrastructure',
     status: 'open',
     deadline: '2026-01-15',
