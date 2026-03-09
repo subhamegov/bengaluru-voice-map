@@ -174,7 +174,7 @@ export function getComplaintsByStatus(): StatusData[] {
 // Department data - totals: 6,250
 export function getComplaintsByDepartment(): DepartmentData[] {
   return [
-    { department: 'Environment', count: 2050, color: '#4C3D8F' },
+    { department: 'Environment and Solid Waste', count: 2050, color: '#4C3D8F' },
     { department: 'Water and Sewerage', count: 1650, color: '#7B68AE' },
     { department: 'Works', count: 1350, color: '#B4A7D6' },
     { department: 'Public Health', count: 750, color: '#E8A598' },

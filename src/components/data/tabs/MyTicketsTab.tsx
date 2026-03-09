@@ -18,7 +18,7 @@ import { getComplaintsByDepartment, getOverviewStats } from '@/lib/serviceAnalyt
 import { getCompletedSurveys } from '@/lib/surveyData';
 
 const CATEGORY_TO_DEPARTMENT: Record<string, string> = {
-  'WASTE': 'Environment',
+  'WASTE': 'Environment and Solid Waste',
   'WATER': 'Water and Sewerage',
   'ROADS': 'Works',
   'STREETLIGHTS': 'Mobility and ICT Infrastructure',
