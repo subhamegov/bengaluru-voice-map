@@ -323,7 +323,7 @@ const Report = () => {
       <ReportStepper steps={STEPS} currentStep={currentStep} className="mb-8" />
 
       {/* Step Content */}
-      <div className="bg-card rounded-2xl border border-border p-5 md:p-6 mb-6">
+      <div className="bg-card rounded-2xl border border-border p-4 sm:p-5 md:p-6 mb-6">
         {/* Step 1: Intent */}
         {currentStep === 1 && (
           <ComplaintIntentStep
