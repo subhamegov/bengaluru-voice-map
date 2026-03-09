@@ -42,6 +42,7 @@ function AppRoutes() {
           <Route path="/training" element={<Training />} />
           <Route path="/training/:moduleId" element={<TrainingModule />} />
           <Route path="/about-my-city" element={<AboutMyCity />} />
+          <Route path="/accessibility" element={<AccessibilityPage />} />
           {/* Resolver Portal Routes */}
           <Route path="/resolver" element={<ResolverHome />} />
           <Route path="/resolver/tasks" element={<ResolverTasks />} />
