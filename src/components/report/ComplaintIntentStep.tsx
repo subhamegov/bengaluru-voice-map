@@ -153,7 +153,7 @@ export const ComplaintIntentStep: React.FC<ComplaintIntentStepProps> = ({
                 }
               }}
               className={cn(
-                'w-full text-left p-5 rounded-xl border-2 transition-all',
+                'w-full text-left p-4 sm:p-5 rounded-xl border-2 transition-all',
                 'focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2',
                 intent === option.id
                   ? 'border-primary bg-primary/5'

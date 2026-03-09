@@ -761,9 +761,9 @@ const Report = () => {
             </h2>
             
             <div className="space-y-4 text-sm">
-              <div className="flex justify-between py-2 border-b border-border">
+              <div className="flex flex-col sm:flex-row sm:justify-between py-2 border-b border-border gap-1">
                 <span className="text-muted-foreground">Location</span>
-                <span className="text-foreground font-medium text-right max-w-[60%]">
+                <span className="text-foreground font-medium sm:text-right sm:max-w-[60%] break-words">
                   {locationData.coordinates 
                     ? `${locationData.coordinates.lat.toFixed(4)}, ${locationData.coordinates.lng.toFixed(4)}`
                     : locationData.admin.ward 
