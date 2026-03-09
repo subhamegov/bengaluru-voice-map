@@ -129,6 +129,98 @@ function UseMyLocationButton({
   );
 }
 
+// Fly-to helper
+function FlyToLocation({ coords }: { coords: [number, number] | null }) {
+  const map = useMap();
+  useEffect(() => {
+    if (coords) {
+      map.flyTo(coords, 16, { duration: 1.2 });
+    }
+  }, [coords]);
+  return null;
+}
+
+// Map search bar using Nominatim
+function MapSearchBar({ onResultSelect }: { onResultSelect: (lat: number, lng: number, displayName: string) => void }) {
+  const [query, setQuery] = useState('');
+  const [results, setResults] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const search = useCallback((q: string) => {
+    if (q.length < 3) { setResults([]); setOpen(false); return; }
+    setLoading(true);
+    fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q + ', Bengaluru')}&limit=5&addressdetails=1`)
+      .then(r => r.json())
+      .then(data => {
+        setResults(data);
+        setOpen(data.length > 0);
+      })
+      .catch(() => setResults([]))
+      .finally(() => setLoading(false));
+  }, []);
+
+  const handleChange = (val: string) => {
+    setQuery(val);
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(() => search(val), 400);
+  };
+
+  const handleSelect = (r: any) => {
+    onResultSelect(parseFloat(r.lat), parseFloat(r.lon), r.display_name);
+    setQuery(r.display_name.split(',')[0]);
+    setOpen(false);
+  };
+
+  return (
+    <div className="relative w-full">
+      <div className="relative">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+        <input
+          type="text"
+          value={query}
+          onChange={e => handleChange(e.target.value)}
+          placeholder="Search for a place or landmark…"
+          className="w-full pl-9 pr-9 py-2.5 rounded-lg border border-input bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+          aria-label="Search location"
+        />
+        {query && (
+          <button
+            type="button"
+            onClick={() => { setQuery(''); setResults([]); setOpen(false); }}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+            aria-label="Clear search"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        )}
+      </div>
+      {loading && (
+        <div className="absolute right-10 top-1/2 -translate-y-1/2">
+          <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />
+        </div>
+      )}
+      {open && results.length > 0 && (
+        <ul className="absolute z-[1100] mt-1 w-full bg-popover border border-border rounded-lg shadow-lg max-h-48 overflow-y-auto">
+          {results.map((r, i) => (
+            <li key={i}>
+              <button
+                type="button"
+                onClick={() => handleSelect(r)}
+                className="w-full text-left px-3 py-2.5 text-sm hover:bg-muted transition-colors border-b border-border last:border-0"
+              >
+                <span className="font-medium text-foreground">{r.display_name.split(',')[0]}</span>
+                <span className="block text-xs text-muted-foreground truncate">{r.display_name.split(',').slice(1, 3).join(',')}</span>
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
 export function LocationStep({ location, onLocationChange, intent, linkedProject, onLinkedProjectChange }: LocationStepProps) {
   const tileConfig = useMapTiles();
   const [isVoiceRecording, setIsVoiceRecording] = useState(false);
