@@ -404,8 +404,16 @@ export function LocationStep({ location, onLocationChange, intent, linkedProject
           Option 1: Tap on the map
         </h3>
         <p className="text-sm text-muted-foreground">
-          Tap on the map to drop a pin, or use your current location.
+          Search for a place, tap on the map, or use your current location.
         </p>
+
+        {/* Search bar */}
+        <MapSearchBar
+          onResultSelect={(lat, lng, _displayName) => {
+            handleMapClick(lat, lng);
+            setFlyTarget([lat, lng]);
+          }}
+        />
         
         <div 
           className="relative rounded-xl overflow-hidden border border-border"
@@ -426,6 +434,7 @@ export function LocationStep({ location, onLocationChange, intent, linkedProject
             />
             <MapClickHandler onLocationSelect={handleMapClick} />
             <UseMyLocationButton onLocationFound={handleMapClick} />
+            <FlyToLocation coords={flyTarget} />
             
             {location.coordinates && (
               <Marker 
@@ -446,8 +455,8 @@ export function LocationStep({ location, onLocationChange, intent, linkedProject
 
         {location.coordinates && (
           <div className="flex items-center gap-2 text-sm text-primary bg-primary/10 px-3 py-2 rounded-lg">
-            <MapPin className="w-4 h-4" />
-            <span>
+            <MapPin className="w-4 h-4 flex-shrink-0" />
+            <span className="truncate">
               Location selected: {location.coordinates.lat.toFixed(5)}, {location.coordinates.lng.toFixed(5)}
             </span>
           </div>
