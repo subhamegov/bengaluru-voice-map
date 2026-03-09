@@ -659,7 +659,7 @@ export const mockTrainingModules: TrainingModule[] = [
         title: 'Keyboard Navigation Guide',
         duration: '3:10',
         url: '#',
-        audience: ['Citizen', 'County Staff'],
+        audience: ['Citizen', 'Grievance Redressal Staff'],
       },
     ],
     downloads: [
