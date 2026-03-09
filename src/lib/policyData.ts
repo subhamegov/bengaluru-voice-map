@@ -314,7 +314,7 @@ The framework also establishes an appeals process and anti-corruption measures t
       },
       {
         id: 'c15',
-        author: 'Single Mother - Kibera',
+        author: 'Single Mother - BTM Layout',
         authorType: 'resident',
         comment: 'Please prioritize single mothers and widows. We struggle the most with housing. Our children deserve better living conditions.',
         timestamp: '2025-12-04T08:45:00Z',
