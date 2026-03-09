@@ -16,9 +16,9 @@ const DEPARTMENTS = [
 ];
 
 const WARDS = [
-  'Ward 1', 'Ward 2', 'Ward 3', 'Ward 4', 'Ward 5', 'Ward 6',
-  'Ward 7', 'Ward 8', 'Ward 9', 'Ward 10', 'Ward 11', 'Ward 12',
-  'Central',
+  'Jayanagar', 'Koramangala', 'Indiranagar', 'Malleshwaram', 'Whitefield',
+  'HSR Layout', 'BTM Layout', 'Rajajinagar', 'Basavanagudi', 'Hebbal',
+  'Yelahanka', 'Electronic City', 'Marathahalli',
 ];
 
 export interface AppreciationData {
