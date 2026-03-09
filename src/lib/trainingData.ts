@@ -286,7 +286,7 @@ export const mockTrainingModules: TrainingModule[] = [
       {
         id: 'q1_1',
         question: 'What is the first step to report an issue?',
-        options: ['Call the county office', 'Select your location on the map', 'Create an account', 'Pay a fee'],
+        options: ['Call the BBMP office', 'Select your location on the map', 'Create an account', 'Pay a fee'],
         correctIndex: 1,
         explanation: 'You start by selecting your location on the map or using dropdown menus.',
       },
