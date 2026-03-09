@@ -56,7 +56,7 @@ The policy aims to reduce plastic waste by 60% within three years of implementat
         id: 'clause-6',
         section: 'Section 6',
         title: 'Penalties and Enforcement',
-        content: 'After the transition period, violations shall attract: First offense - Written warning and 7-day compliance notice. Second offense - Fine of KES 10,000 for individuals, KES 50,000 for businesses. Third offense - Fine of KES 50,000 for individuals, KES 200,000 for businesses, potential license suspension.'
+        content: 'After the transition period, violations shall attract: First offense - Written warning and 7-day compliance notice. Second offense - Fine of ₹5,000 for individuals, ₹25,000 for businesses. Third offense - Fine of ₹25,000 for individuals, ₹1,00,000 for businesses, potential license suspension.'
       },
       {
         id: 'clause-7',
