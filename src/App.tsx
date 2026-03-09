@@ -23,17 +23,15 @@ import ResolverSearchIssues from "./pages/resolver/ResolverSearchIssues";
 import ResolverTraining from "./pages/resolver/ResolverTraining";
 import ResolverAboutCity from "./pages/resolver/ResolverAboutCity";
 
+import { useAccessibilityShortcut } from "./hooks/use-accessibility-shortcut";
+
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<Index />} />
+function AppRoutes() {
+  useAccessibilityShortcut();
+  return (
+    <Routes>
+      <Route path="/" element={<Index />} />
           <Route path="/report" element={<Report />} />
           <Route path="/stories" element={<Stories />} />
           <Route path="/surveys" element={<Surveys />} />
