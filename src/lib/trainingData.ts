@@ -514,10 +514,10 @@ export const mockTrainingModules: TrainingModule[] = [
       },
       {
         id: 'q3_3',
-        question: 'What is the county on-time resolution target?',
+        question: 'What is the city on-time resolution target?',
         options: ['50%', '70%', '85%', '100%'],
         correctIndex: 2,
-        explanation: 'The county target is 85% on-time resolution.',
+        explanation: 'The city target is 85% on-time resolution.',
       },
     ],
     passingScore: 70,
