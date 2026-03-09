@@ -413,7 +413,7 @@ The review responds to feedback from CHWs about inadequate compensation relative
         id: 'hlt-clause-3',
         section: 'Section 3',
         title: 'Medical Insurance Coverage',
-        content: 'All registered CHWs shall be enrolled in NHIF or equivalent medical insurance scheme. Premium payments covered by the County. Coverage extends to CHW only; dependents may be added at CHW cost. Enrollment within 60 days of registration.'
+        content: 'All registered CHWs shall be enrolled in Ayushman Bharat or equivalent medical insurance scheme. Premium payments covered by BBMP. Coverage extends to CHW only; dependents may be added at CHW cost. Enrollment within 60 days of registration.'
       },
       {
         id: 'hlt-clause-4',
