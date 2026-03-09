@@ -286,7 +286,7 @@ export const mockTrainingModules: TrainingModule[] = [
       {
         id: 'q1_1',
         question: 'What is the first step to report an issue?',
-        options: ['Call the BBMP office', 'Select your location on the map', 'Create an account', 'Pay a fee'],
+        options: ['Call the BBMPffice', 'Select your location on the map', 'Create an account', 'Pay a fee'],
         correctIndex: 1,
         explanation: 'You start by selecting your location on the map or using dropdown menus.',
       },
@@ -450,7 +450,7 @@ export const mockTrainingModules: TrainingModule[] = [
         id: 'faq_3_3',
         category: 'Using Filters',
         question: 'How do I filter data by location?',
-        answer: 'Use the Sub-county and Ward dropdown menus at the top of the dashboard. Select specific areas to see localized performance metrics.',
+        answer: 'Use the SuZonend Ward dropdown menus at the top of the dashboard. Select specific areas to see localized performance metrics.',
       },
       {
         id: 'faq_3_4',
