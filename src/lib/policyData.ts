@@ -62,7 +62,7 @@ The policy aims to reduce plastic waste by 60% within three years of implementat
         id: 'clause-7',
         section: 'Section 7',
         title: 'Green Jobs Initiative',
-        content: 'The County commits to creating 5,000 green jobs through: recycling center employment, eco-packaging manufacturing, waste collection services, and environmental monitoring. Priority shall be given to youth and women groups in these opportunities.'
+        content: 'BBMP commits to creating 5,000 green jobs through: recycling center employment, eco-packaging manufacturing, waste collection services, and environmental monitoring. Priority shall be given to youth and women groups in these opportunities.'
       }
     ],
     comments: [
