@@ -478,7 +478,7 @@ export const mockTrainingModules: TrainingModule[] = [
         title: 'Interpreting Trend Charts',
         duration: '3:55',
         url: '#',
-        audience: ['Citizen', 'County Staff'],
+        audience: ['Citizen', 'Grievance Redressal Staff'],
       },
     ],
     downloads: [
