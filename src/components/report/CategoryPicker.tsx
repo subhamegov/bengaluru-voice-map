@@ -24,10 +24,10 @@ export function CategoryPicker({ selected, onSelect, className }: CategoryPicker
                 key={cat.code}
                 className={cn(
                   'flex flex-col items-center p-4 rounded-xl border-2 cursor-pointer transition-all text-center',
-                  'hover:border-primary/50 focus-within:ring-2 focus-within:ring-primary',
+                  'focus-within:ring-2 focus-within:ring-primary',
                   selected === cat.code
-                    ? 'border-primary bg-primary/5'
-                    : 'border-border bg-card'
+                    ? 'border-primary bg-primary/10 shadow-md ring-1 ring-primary/30'
+                    : 'border-border bg-card hover:border-primary/60 hover:bg-primary/5 hover:shadow-sm'
                 )}
               >
                 <input
