@@ -36,7 +36,7 @@ export interface TrainingModule {
   id: string;
   title: string;
   description: string;
-  audience: ('Citizen' | 'County Staff' | 'Ward Leaders')[];
+  audience: ('Citizen' | 'Grievance Redressal Staff' | 'Ward Leaders')[];
   topic: 'Complaints' | 'Projects' | 'Dashboards' | 'Policy Feedback' | 'Accessibility';
   durationMinutes: number;
   faqs: TrainingFAQ[];
