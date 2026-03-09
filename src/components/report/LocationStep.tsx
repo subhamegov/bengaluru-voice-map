@@ -235,7 +235,7 @@ export function LocationStep({ location, onLocationChange, intent, linkedProject
     if (location.admin.subCounty) {
       const wards = getWardsBySubCounty(location.admin.subCounty);
       setAvailableWards(wards);
-      // Reset ward and zone if sub-county czone current ward not in new list
+      // Reset ward and locality if zone changed and current ward not in new list
       if (!wards.find(w => w.code === location.admin.wardCode)) {
         onLocationChange({
           ...location,
