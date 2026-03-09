@@ -338,7 +338,7 @@ The framework also establishes an appeals process and anti-corruption measures t
       },
       {
         id: 'c18',
-        author: 'Tenant - Eastleigh',
+        author: 'Tenant - Marathahalli',
         authorType: 'resident',
         comment: 'Income threshold is reasonable. But please verify carefully to prevent rich people from pretending to qualify.',
         timestamp: '2025-12-01T09:15:00Z',
