@@ -32,7 +32,7 @@ The policy aims to reduce plastic waste by 60% within three years of implementat
         id: 'clause-2',
         section: 'Section 2',
         title: 'Phased Implementation Timeline',
-        content: 'Phase 1 (January 2026): Ban on plastic bags in all county markets and public facilities. Phase 2 (July 2026): Extension to bus termini and hawker zones. Phase 3 (January 2027): Full ban across all commercial establishments within the county.'
+        content: 'Phase 1 (January 2026): Ban on plastic bags in all BBMP markets and public facilities. Phase 2 (July 2026): Extension to bus termini and hawker zones. Phase 3 (January 2027): Full ban across all commercial establishments within the city.'
       },
       {
         id: 'clause-3',
