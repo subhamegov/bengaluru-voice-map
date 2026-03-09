@@ -382,7 +382,7 @@ The framework also establishes an appeals process and anti-corruption measures t
     fullDescription: `This policy review proposes adjustments to the monthly stipend for Community Health Workers (CHWs) serving in Bengaluru. CHWs play a critical role in primary healthcare delivery, especially in informal settlements and underserved areas.. CHWs play a critical role in primary healthcare delivery, especially in informal settlements and underserved areas.
 
 Proposed changes:
-• Increase base stipend from KES 2,500 to KES 5,000 per month
+• Increase base stipend from ₹2,500 to ₹5,000 per month
 • Performance bonuses for immunization and referral targets
 • Medical insurance coverage for all registered CHWs
 • Training and certification pathways
