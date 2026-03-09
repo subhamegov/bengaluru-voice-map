@@ -602,7 +602,7 @@ function IssueDetailDialog({ issue, onClose }: IssueDetailDialogProps) {
                 <p className="text-sm font-medium">{issue.department}</p>
               </div>
               <div className="space-y-1">
-                <Label className="text-xs text-muted-foreground">Sub-County</Label>
+                <Label className="text-xs text-muted-foreground">Zone</Label>
                 <p className="text-sm font-medium">{issue.subCounty || 'South Zone'}</p>
               </div>
               <div className="space-y-1">
