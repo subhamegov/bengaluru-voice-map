@@ -322,7 +322,7 @@ The framework also establishes an appeals process and anti-corruption measures t
       },
       {
         id: 'c16',
-        author: 'Youth Leader - Korogocho',
+        author: 'Youth Leader - Electronic City',
         authorType: 'youth',
         comment: 'What about young people who were born here but parents don\'t have documents? We are Bengalureans too and deserve consideration.',
         timestamp: '2025-12-03T16:00:00Z',
