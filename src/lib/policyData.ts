@@ -215,7 +215,7 @@ Implementation will begin with major stops (Majestic, Shivajinagar, KR Market) a
       },
       {
         id: 'c11',
-        author: 'Woman Commuter - Kayole',
+        author: 'Woman Commuter - Whitefield',
         authorType: 'resident',
         comment: 'Security is my main concern. CCTV and proper lighting will help. Too many incidents happen at dark stages late evening.',
         timestamp: '2025-12-04T18:20:00Z',
