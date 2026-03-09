@@ -199,9 +199,9 @@ Implementation will begin with major stops (Majestic, Shivajinagar, KR Market) a
       },
       {
         id: 'c9',
-        author: 'Matatu Sacco Representative',
+        author: 'BMTC Depot Representative',
         authorType: 'business',
-        comment: 'We support this initiative. Request that saccos be consulted on lane markings and loading zones to ensure smooth operations.',
+        comment: 'We support this initiative. Request that BMTC depot staff be consulted on lane markings and loading zones to ensure smooth operations.',
         timestamp: '2025-12-06T16:00:00Z',
         reactions: { helpful: 18, insightful: 12, concern: 5 }
       },
