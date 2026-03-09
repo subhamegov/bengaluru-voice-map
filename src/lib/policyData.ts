@@ -44,7 +44,7 @@ The policy aims to reduce plastic waste by 60% within three years of implementat
         id: 'clause-4',
         section: 'Section 4',
         title: 'Recycling Infrastructure',
-        content: 'The County shall establish at least one plastic collection and recycling center in each of the 17 sub-counties within 18 months of policy adoption. These centers shall operate in partnership with licensed private recyclers and community organizations.'
+        content: 'BBMP shall establish at least one plastic collection and recycling center in each of the 8 zones within 18 months of policy adoption. These centers shall operate in partnership with licensed private recyclers and community organizations.'
       },
       {
         id: 'clause-5',
