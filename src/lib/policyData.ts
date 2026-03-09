@@ -185,7 +185,7 @@ Implementation will begin with major stops (Majestic, Shivajinagar, KR Market) a
         id: 'trn-clause-6',
         section: 'Section 6',
         title: 'Implementation Timeline',
-        content: 'Phase 1 (0-6 months): Major termini - Railways, Kencom, Ngong Road, Eastleigh. Phase 2 (6-12 months): Secondary stages - Buruburu, Kayole, Rongai, Kitengela. Phase 3 (12-18 months): All remaining designated stages.'
+        content: 'Phase 1 (0-6 months): Major stops - Majestic, Shivajinagar, KR Market, Yeshwanthpur. Phase 2 (6-12 months): Secondary stops - Koramangala, Whitefield, Electronic City, Yelahanka. Phase 3 (12-18 months): All remaining designated stops.'
       }
     ],
     comments: [
