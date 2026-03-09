@@ -294,7 +294,7 @@ The framework also establishes an appeals process and anti-corruption measures t
         id: 'hsg-clause-5',
         section: 'Section 5',
         title: 'Appeals Process',
-        content: 'Unsuccessful applicants may appeal within 30 days of notification. Appeals reviewed by independent Housing Appeals Tribunal comprising: one county official, one civil society representative, and one community representative. Decisions final and binding.'
+        content: 'Unsuccessful applicants may appeal within 30 days of notification. Appeals reviewed by independent Housing Appeals Tribunal comprising: one BBMP official, one civil society representative, and one community representative. Decisions final and binding.'
       },
       {
         id: 'hsg-clause-6',
