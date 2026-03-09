@@ -68,7 +68,7 @@ The policy aims to reduce plastic waste by 60% within three years of implementat
     comments: [
       {
         id: 'c1',
-        author: 'Resident of Lang\'ata',
+        author: 'Resident of Jayanagar',
         authorType: 'resident',
         comment: 'This is a good step, but the timeline is too short for small traders to adapt. Many kiosk owners rely on affordable plastic bags. Consider a longer transition period or subsidies for alternatives.',
         timestamp: '2025-12-09T14:10:00Z',
