@@ -455,7 +455,7 @@ The review responds to feedback from CHWs about inadequate compensation relative
       },
       {
         id: 'c25',
-        author: 'Mother - Kangemi',
+        author: 'Mother - Yelahanka',
         authorType: 'resident',
         comment: 'Our CHW saved my baby\'s life by referring us to hospital early. They deserve better pay for their dedication.',
         timestamp: '2025-11-22T14:15:00Z',
