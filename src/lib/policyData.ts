@@ -407,7 +407,7 @@ The review responds to feedback from CHWs about inadequate compensation relative
         id: 'hlt-clause-2',
         section: 'Section 2',
         title: 'Performance Bonuses',
-        content: 'CHWs meeting quarterly targets shall receive bonuses: (a) Immunization coverage above 90% - KES 2,000 bonus, (b) Successful referrals leading to treatment - KES 500 per case, (c) Community health education sessions - KES 300 per session (max 10/month).'
+        content: 'CHWs meeting quarterly targets shall receive bonuses: (a) Immunization coverage above 90% - ₹2,000 bonus, (b) Successful referrals leading to treatment - ₹500 per case, (c) Community health education sessions - ₹300 per session (max 10/month).'
       },
       {
         id: 'hlt-clause-3',
