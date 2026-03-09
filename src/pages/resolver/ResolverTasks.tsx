@@ -330,18 +330,18 @@ interface IssueDetailDialogProps {
 }
 
 const RESOLVERS = [
-  { id: 'R001', name: 'John Kamau', department: 'Environment' },
-  { id: 'R002', name: 'Mary Wanjiku', department: 'Water and Sewerage' },
-  { id: 'R003', name: 'Peter Ochieng', department: 'Works' },
-  { id: 'R004', name: 'Grace Muthoni', department: 'Public Health' },
-  { id: 'R005', name: 'David Kiprop', department: 'Mobility & ICT Infrastructure' },
+  { id: 'R001', name: 'Ramesh Kumar', department: 'Environment' },
+  { id: 'R002', name: 'Savitha Devi', department: 'Water and Sewerage' },
+  { id: 'R003', name: 'Venkatesh Gowda', department: 'Works' },
+  { id: 'R004', name: 'Meena Kumari', department: 'Public Health' },
+  { id: 'R005', name: 'Suresh Babu', department: 'Mobility & ICT Infrastructure' },
 ];
 
 const SUPERVISORS = [
-  { id: 'S001', name: 'Dr. Sarah Kimani', role: 'Department Head - Environment' },
-  { id: 'S002', name: 'Eng. James Otieno', role: 'Department Head - Works' },
-  { id: 'S003', name: 'Mr. Michael Wafula', role: 'Deputy Director' },
-  { id: 'S004', name: 'Ms. Catherine Nyambura', role: 'Grievance Redressal Officer' },
+  { id: 'S001', name: 'Dr. Padma Rao', role: 'Department Head - Environment' },
+  { id: 'S002', name: 'Eng. Nagaraj Shetty', role: 'Department Head - Works' },
+  { id: 'S003', name: 'Mr. Girish Karnad', role: 'Deputy Director' },
+  { id: 'S004', name: 'Ms. Anuradha Patil', role: 'Grievance Redressal Officer' },
 ];
 
 const DEPARTMENTS = [
