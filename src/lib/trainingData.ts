@@ -624,8 +624,8 @@ export const mockTrainingModules: TrainingModule[] = [
       {
         id: 'faq_5_2',
         category: 'Voice Features',
-        question: 'Is voice input available in Kiswahili?',
-        answer: 'Kiswahili language support is coming soon. Currently, voice input works best with English. We are working on expanding language support.',
+        question: 'Is voice input available in Kannada?',
+        answer: 'Kannada language support is coming soon. Currently, voice input works best with English. We are working on expanding language support.',
       },
       {
         id: 'faq_5_3',
