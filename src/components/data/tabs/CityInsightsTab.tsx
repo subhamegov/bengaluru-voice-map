@@ -1,5 +1,5 @@
 import React from 'react';
-import { Building2, BarChart3, TrendingUp, Lightbulb, AlertTriangle, FileText, ArrowRight } from 'lucide-react';
+import { Building2, BarChart3, TrendingUp, Lightbulb, AlertTriangle, FileText, ArrowRight, Users, MessageSquare, CheckCircle2 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -15,30 +15,119 @@ interface Props {
   subCounty: string;
 }
 
-// Mock data for proactive vs reactive insights
-const REACTIVE_TOP = [
-  { category: 'Road Repair', complaints: 512, trend: 'up' as const },
-  { category: 'Garbage Collection', complaints: 487, trend: 'up' as const },
-  { category: 'Water Supply', complaints: 342, trend: 'stable' as const },
-  { category: 'Street Lighting', complaints: 156, trend: 'down' as const },
+// City Participation Overview
+const PARTICIPATION_OVERVIEW = [
+  { label: 'Citizen Voices', value: '8,420', icon: MessageSquare, color: 'bg-primary/10 text-primary' },
+  { label: 'Issues Under Review', value: '1,120', icon: FileText, color: 'bg-amber-500/10 text-amber-600' },
+  { label: 'Actions Taken', value: '740', icon: CheckCircle2, color: 'bg-success/10 text-success' },
+  { label: 'Residents Participating', value: '3,200', icon: Users, color: 'bg-secondary/10 text-secondary' },
 ];
 
-const PROACTIVE_TOP = [
-  { title: 'Community road repair fund', supporters: 234, category: 'Road Repair' },
-  { title: 'Ward-level waste composting', supporters: 189, category: 'Garbage Collection' },
-  { title: 'Rainwater harvesting pilot', supporters: 156, category: 'Water Supply' },
-  { title: 'Park adoption programme', supporters: 98, category: 'Parks' },
+const PARTICIPATION_BREAKDOWN = [
+  {
+    title: 'Citizen Voices',
+    items: [
+      { label: 'Complaints', value: 6250 },
+      { label: 'Proposals', value: 740 },
+      { label: 'Survey responses', value: 1200 },
+      { label: 'Policy feedback', value: 230 },
+    ],
+  },
+  {
+    title: 'Issues Under Review',
+    items: [
+      { label: 'Complaints in progress', value: 840 },
+      { label: 'Proposals under review', value: 160 },
+      { label: 'Policy consultations open', value: 120 },
+    ],
+  },
+  {
+    title: 'Actions Taken',
+    items: [
+      { label: 'Issues resolved', value: 520 },
+      { label: 'Proposals accepted', value: 120 },
+      { label: 'Ward decisions implemented', value: 100 },
+    ],
+  },
+  {
+    title: 'Residents Participating',
+    items: [
+      { label: 'Complaint reporters', value: 1600 },
+      { label: 'Proposal authors/supporters', value: 420 },
+      { label: 'Survey participants', value: 900 },
+      { label: 'Policy respondents', value: 280 },
+    ],
+  },
+];
+
+// Proactive vs Reactive data — aligned with city complaint totals (6,250)
+const REACTIVE_TOP = [
+  { category: 'Roads & Potholes', complaints: 742, proposals: 18, trend: 'up' as const },
+  { category: 'Garbage Management', complaints: 568, proposals: 42, trend: 'up' as const },
+  { category: 'Water Supply', complaints: 621, proposals: 9, trend: 'stable' as const },
+  { category: 'Street Lighting', complaints: 285, proposals: 24, trend: 'down' as const },
 ];
 
 const OVERLAP_INSIGHTS = [
-  'Road repair is the top complaint category and also the most proposed community improvement.',
-  'Garbage collection complaints are rising, and a citizen-led composting proposal has 189 supporters.',
-  'Water supply complaints are steady — a rainwater harvesting pilot proposal is gaining traction.',
+  'Garbage management has both high complaint volume (568) and high community proposal activity (42 proposals).',
+  'Roads & potholes lead in complaints (742), with 18 citizen proposals for road resurfacing.',
+  'Water supply has 621 complaints, but only 9 proposals — an area where more citizen-led ideas could help.',
+  'Street lighting complaints are declining — community proposals for safety improvements have 24 active submissions.',
 ];
 
 export function CityInsightsTab({ timeRange, subCounty }: Props) {
   return (
     <div className="space-y-6 sm:space-y-8">
+      {/* Section 0: City Participation Overview */}
+      <section className="space-y-3 sm:space-y-4">
+        <div className="flex items-center gap-2.5 sm:gap-3">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+            <Users className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+          </div>
+          <div>
+            <h2 className="text-lg sm:text-xl font-bold text-foreground">City Participation Overview</h2>
+            <p className="text-xs sm:text-sm text-muted-foreground">How residents are engaging with civic processes</p>
+          </div>
+        </div>
+
+        {/* Top-level KPIs */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+          {PARTICIPATION_OVERVIEW.map((item) => {
+            const Icon = item.icon;
+            return (
+              <Card key={item.label} className="gov-card">
+                <CardContent className="p-4 sm:p-5">
+                  <div className={cn('w-8 h-8 rounded-lg flex items-center justify-center mb-2', item.color)}>
+                    <Icon className="w-4 h-4" />
+                  </div>
+                  <p className="text-2xl sm:text-3xl font-bold text-foreground">{item.value}</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground">{item.label}</p>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+
+        {/* Breakdowns */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+          {PARTICIPATION_BREAKDOWN.map((group) => (
+            <Card key={group.title} className="gov-card">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm font-semibold">{group.title}</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-1.5">
+                {group.items.map((item) => (
+                  <div key={item.label} className="flex items-center justify-between text-sm">
+                    <span className="text-muted-foreground text-xs">{item.label}</span>
+                    <span className="font-semibold text-foreground">{item.value.toLocaleString()}</span>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </section>
+
       {/* Section 1: Department Ratings */}
       <section className="space-y-3 sm:space-y-4">
         <div className="flex items-center gap-2.5 sm:gap-3">
@@ -82,74 +171,51 @@ export function CityInsightsTab({ timeRange, subCounty }: Props) {
         <StatusByBoundaryTable />
       </section>
 
-      {/* Section 4: Proactive vs Reactive Governance */}
+      {/* Section 4: Complaints and Community Proposals */}
       <section className="space-y-3 sm:space-y-4">
         <div className="flex items-center gap-2.5 sm:gap-3">
           <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-success/10 flex items-center justify-center">
             <Lightbulb className="w-4 h-4 sm:w-5 sm:h-5 text-success" />
           </div>
           <div>
-            <h2 className="text-lg sm:text-xl font-bold text-foreground">City Action Insights</h2>
+            <h2 className="text-lg sm:text-xl font-bold text-foreground">Complaints and Community Proposals</h2>
             <p className="text-xs sm:text-sm text-muted-foreground">Where complaints and citizen proposals intersect</p>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-          {/* Reactive: Top Complaints */}
-          <Card className="gov-card">
-            <CardHeader className="pb-3">
-              <div className="flex items-center gap-2">
-                <AlertTriangle className="w-5 h-5 text-destructive" />
-                <CardTitle className="text-base">Reactive — Top Complaint Categories</CardTitle>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-3">
+        <Card className="gov-card">
+          <CardContent className="p-4 sm:p-6">
+            <div className="space-y-3">
               {REACTIVE_TOP.map((item) => (
                 <div key={item.category} className="flex items-center justify-between p-3 rounded-lg bg-muted/30">
-                  <div>
-                    <p className="font-semibold text-foreground text-sm">{item.category}</p>
-                    <p className="text-xs text-muted-foreground">{item.complaints.toLocaleString()} complaints</p>
-                  </div>
-                  <Badge
-                    className={cn(
-                      'text-xs border-0',
-                      item.trend === 'up' ? 'bg-destructive/10 text-destructive' :
-                      item.trend === 'down' ? 'bg-success/10 text-success' :
-                      'bg-muted text-muted-foreground'
-                    )}
-                  >
-                    {item.trend === 'up' ? '↑ Rising' : item.trend === 'down' ? '↓ Declining' : '→ Stable'}
-                  </Badge>
-                </div>
-              ))}
-            </CardContent>
-          </Card>
-
-          {/* Proactive: Top Proposals */}
-          <Card className="gov-card">
-            <CardHeader className="pb-3">
-              <div className="flex items-center gap-2">
-                <Lightbulb className="w-5 h-5 text-success" />
-                <CardTitle className="text-base">Proactive — Top Citizen Proposals</CardTitle>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              {PROACTIVE_TOP.map((item) => (
-                <div key={item.title} className="flex items-center justify-between p-3 rounded-lg bg-muted/30">
                   <div className="flex-1 min-w-0 mr-3">
-                    <p className="font-semibold text-foreground text-sm truncate">{item.title}</p>
-                    <p className="text-xs text-muted-foreground">{item.supporters} supporters • {item.category}</p>
+                    <p className="font-semibold text-foreground text-sm">{item.category}</p>
+                    <p className="text-xs text-muted-foreground">
+                      {item.complaints.toLocaleString()} complaints · {item.proposals} proposals
+                    </p>
                   </div>
-                  <Link to="/proposals">
-                    <Button variant="ghost" size="sm" className="gap-1 text-xs shrink-0">
-                      View <ArrowRight className="w-3 h-3" />
-                    </Button>
-                  </Link>
+                  <div className="flex items-center gap-2">
+                    <Badge
+                      className={cn(
+                        'text-xs border-0',
+                        item.trend === 'up' ? 'bg-destructive/10 text-destructive' :
+                        item.trend === 'down' ? 'bg-success/10 text-success' :
+                        'bg-muted text-muted-foreground'
+                      )}
+                    >
+                      {item.trend === 'up' ? '↑ Rising' : item.trend === 'down' ? '↓ Declining' : '→ Stable'}
+                    </Badge>
+                    <Link to="/proposals">
+                      <Button variant="ghost" size="sm" className="gap-1 text-xs shrink-0">
+                        View <ArrowRight className="w-3 h-3" />
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
               ))}
-            </CardContent>
-          </Card>
-        </div>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Overlap Insights */}
         <Card className="gov-card border-primary/20 bg-primary/5">

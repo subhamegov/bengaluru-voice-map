@@ -111,7 +111,7 @@ export const FloodHotspotSurveyModal: React.FC<FloodHotspotSurveyModalProps> = (
   onSubmit,
 }) => {
   const tileConfig = useMapTiles();
-  const [ward, setWard] = useState('westlands');
+  const [ward, setWard] = useState('koramangala');
   const [pinLocation, setPinLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [description, setDescription] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -121,12 +121,12 @@ export const FloodHotspotSurveyModal: React.FC<FloodHotspotSurveyModalProps> = (
   const selectedWard = WARDS.find(w => w.code === ward);
   const mapCenter: [number, number] = selectedWard 
     ? [selectedWard.center.lat, selectedWard.center.lng] 
-    : [-1.2864, 36.8172];
+    : [12.9716, 77.5946];
 
   // Reset state when modal opens
   useEffect(() => {
     if (open) {
-      setWard('westlands');
+      setWard('koramangala');
       setPinLocation(null);
       setDescription('');
       setIsSubmitted(false);

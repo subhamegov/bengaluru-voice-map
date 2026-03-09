@@ -33,7 +33,7 @@ export interface DepartmentData {
 // Enhanced mock data
 const DEPARTMENT_DATA: DepartmentData[] = [
   {
-    name: 'Environment',
+    name: 'Environment and Solid Waste',
     rating: 4.2,
     totalFeedback: 156,
     appreciations: 48,

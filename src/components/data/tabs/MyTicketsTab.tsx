@@ -18,7 +18,7 @@ import { getComplaintsByDepartment, getOverviewStats } from '@/lib/serviceAnalyt
 import { getCompletedSurveys } from '@/lib/surveyData';
 
 const CATEGORY_TO_DEPARTMENT: Record<string, string> = {
-  'WASTE': 'Environment',
+  'WASTE': 'Environment and Solid Waste',
   'WATER': 'Water and Sewerage',
   'ROADS': 'Works',
   'STREETLIGHTS': 'Mobility and ICT Infrastructure',
@@ -64,8 +64,8 @@ export function MyTicketsTab() {
       serviceComplaints: serviceComplaints.length,
       projectComplaints: projectComplaints.length,
       feedbacks: feedbacks.length,
-      proposalsSupported: 4, // mock
-      surveysCompleted: getCompletedSurveys().length || 2, // fallback mock
+      proposalsSupported: 3,
+      surveysCompleted: getCompletedSurveys().length || 2,
       inProgress: complaints.filter(t => t.status === 'in_progress' || t.status === 'assigned').length,
       resolved: complaints.filter(t => t.status === 'resolved').length,
       new: complaints.filter(t => t.status === 'new').length,
@@ -267,34 +267,90 @@ export function MyTicketsTab() {
         </CardContent>
       </Card>
 
-      {/* Section 4 — Issues People Like You Are Reporting */}
-      {topIssues.length > 0 && (
-        <Card className="gov-card">
-          <CardHeader className="pb-2 sm:pb-3 px-3 sm:px-6 pt-3 sm:pt-6">
-            <div className="flex items-center gap-2">
-              <Megaphone className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground" />
-              <CardTitle className="text-base sm:text-lg">Issues People Are Reporting</CardTitle>
-              <InfoTooltip definition="Most commonly reported issue categories across the city." />
-            </div>
-          </CardHeader>
-          <CardContent className="px-3 sm:px-6 pb-3 sm:pb-6">
+      {/* Section 4 — Similar Activity from Others */}
+      <Card className="gov-card">
+        <CardHeader className="pb-2 sm:pb-3 px-3 sm:px-6 pt-3 sm:pt-6">
+          <div className="flex items-center gap-2">
+            <Megaphone className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground" />
+            <CardTitle className="text-base sm:text-lg">Similar Activity from Others</CardTitle>
+          </div>
+        </CardHeader>
+        <CardContent className="px-3 sm:px-6 pb-3 sm:pb-6 space-y-4">
+          {/* Similar complaint bundles */}
+          <div>
+            <p className="text-xs font-semibold text-muted-foreground mb-2 uppercase tracking-wide">Similar Complaint Bundles</p>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
-              {topIssues.map((issue) => {
-                const Icon = ISSUE_CATEGORY_ICONS[issue.category as keyof typeof ISSUE_CATEGORY_ICONS] || ISSUE_CATEGORY_ICONS.other;
-                return (
-                  <div key={issue.category} className="p-3 sm:p-4 rounded-lg border border-border bg-muted/30">
-                    <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
-                      <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" aria-hidden="true" />
-                      <h4 className="font-semibold text-foreground text-xs sm:text-sm leading-tight">{issue.categoryLabel}</h4>
-                    </div>
-                    <p className="text-base sm:text-lg font-bold text-foreground">{issue.othersCount.toLocaleString()}</p>
-                  </div>
-                );
-              })}
+              {[
+                { label: 'Roads & Potholes', count: 598 },
+                { label: 'Water / Sewerage / Drainage', count: 435 },
+                { label: 'Streetlights', count: 285 },
+                { label: 'Garbage / Solid Waste', count: 197 },
+              ].map(item => (
+                <div key={item.label} className="p-3 rounded-lg border border-border bg-muted/30">
+                  <p className="text-xs sm:text-sm font-medium text-foreground leading-tight mb-1">{item.label}</p>
+                  <p className="text-lg font-bold text-foreground">{item.count.toLocaleString()}</p>
+                  <p className="text-[10px] text-muted-foreground">complaints</p>
+                </div>
+              ))}
             </div>
-          </CardContent>
-        </Card>
-      )}
+          </div>
+
+          {/* Similar proposals */}
+          <div>
+            <p className="text-xs font-semibold text-muted-foreground mb-2 uppercase tracking-wide">Similar Proposals</p>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
+              {[
+                { label: 'Road resurfacing', count: 72 },
+                { label: 'Waste management', count: 42 },
+                { label: 'Street safety', count: 24 },
+                { label: 'Water supply improvement', count: 18 },
+              ].map(item => (
+                <div key={item.label} className="p-3 rounded-lg border border-border bg-muted/30">
+                  <p className="text-xs sm:text-sm font-medium text-foreground leading-tight mb-1">{item.label}</p>
+                  <p className="text-lg font-bold text-foreground">{item.count}</p>
+                  <p className="text-[10px] text-muted-foreground">proposals</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Similar policy feedback */}
+          <div>
+            <p className="text-xs font-semibold text-muted-foreground mb-2 uppercase tracking-wide">Similar Policy Feedback</p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
+              {[
+                { label: 'Waste segregation policy', count: 312 },
+                { label: 'Water conservation bylaw', count: 224 },
+                { label: 'Parking regulation feedback', count: 186 },
+              ].map(item => (
+                <div key={item.label} className="p-3 rounded-lg border border-border bg-muted/30">
+                  <p className="text-xs sm:text-sm font-medium text-foreground leading-tight mb-1">{item.label}</p>
+                  <p className="text-lg font-bold text-foreground">{item.count.toLocaleString()}</p>
+                  <p className="text-[10px] text-muted-foreground">responses</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Similar survey responses */}
+          <div>
+            <p className="text-xs font-semibold text-muted-foreground mb-2 uppercase tracking-wide">Similar Survey Responses</p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
+              {[
+                { label: 'Urban mobility survey', count: 1482, detail: 'public transport responses' },
+                { label: 'Waste collection survey', count: 943, detail: 'daily collection responses' },
+                { label: 'Safety survey', count: 611, detail: 'streetlight improvement responses' },
+              ].map(item => (
+                <div key={item.label} className="p-3 rounded-lg border border-border bg-muted/30">
+                  <p className="text-xs sm:text-sm font-medium text-foreground leading-tight mb-1">{item.label}</p>
+                  <p className="text-lg font-bold text-foreground">{item.count.toLocaleString()}</p>
+                  <p className="text-[10px] text-muted-foreground">{item.detail}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Section 5 — Next Ways to Participate */}
       <Card className="gov-card border-primary/10">

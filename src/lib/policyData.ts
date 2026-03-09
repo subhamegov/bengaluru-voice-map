@@ -56,7 +56,7 @@ The policy aims to reduce plastic waste by 60% within three years of implementat
         id: 'clause-6',
         section: 'Section 6',
         title: 'Penalties and Enforcement',
-        content: 'After the transition period, violations shall attract: First offense - Written warning and 7-day compliance notice. Second offense - Fine of KES 10,000 for individuals, KES 50,000 for businesses. Third offense - Fine of KES 50,000 for individuals, KES 200,000 for businesses, potential license suspension.'
+        content: 'After the transition period, violations shall attract: First offense - Written warning and 7-day compliance notice. Second offense - Fine of ₹5,000 for individuals, ₹25,000 for businesses. Third offense - Fine of ₹25,000 for individuals, ₹1,00,000 for businesses, potential license suspension.'
       },
       {
         id: 'clause-7',
@@ -68,7 +68,7 @@ The policy aims to reduce plastic waste by 60% within three years of implementat
     comments: [
       {
         id: 'c1',
-        author: 'Resident of Lang\'ata',
+        author: 'Resident of Jayanagar',
         authorType: 'resident',
         comment: 'This is a good step, but the timeline is too short for small traders to adapt. Many kiosk owners rely on affordable plastic bags. Consider a longer transition period or subsidies for alternatives.',
         timestamp: '2025-12-09T14:10:00Z',
@@ -76,7 +76,7 @@ The policy aims to reduce plastic waste by 60% within three years of implementat
       },
       {
         id: 'c2',
-        author: 'Kilimani Youth Network',
+        author: 'Koramangala Youth Network',
         authorType: 'community',
         comment: 'Consider including recycling hubs in all sub-counties. Youth groups can partner with the county to run these facilities and create employment opportunities.',
         timestamp: '2025-12-10T09:45:00Z',
@@ -84,7 +84,7 @@ The policy aims to reduce plastic waste by 60% within three years of implementat
       },
       {
         id: 'c3',
-        author: 'Business Owner - Westlands',
+        author: 'Business Owner - Indiranagar',
         authorType: 'business',
         comment: 'My restaurant already uses paper packaging. Happy to share our supplier contacts with other businesses. The county should create a database of approved eco-friendly suppliers.',
         timestamp: '2025-12-08T11:30:00Z',
@@ -92,7 +92,7 @@ The policy aims to reduce plastic waste by 60% within three years of implementat
       },
       {
         id: 'c4',
-        author: 'Mama Mboga - Gikomba Market',
+        author: 'Vendor - KR Market',
         authorType: 'trader',
         comment: 'We need affordable alternatives before banning plastics. Paper bags tear easily and cost more. Please provide subsidies for small traders like us.',
         timestamp: '2025-12-07T08:20:00Z',
@@ -100,9 +100,9 @@ The policy aims to reduce plastic waste by 60% within three years of implementat
       },
       {
         id: 'c5',
-        author: 'Environmental Activist - Lavington',
+        author: 'Environmental Activist - HSR Layout',
         authorType: 'community',
-        comment: 'Long overdue! I fully support this policy. We need to protect our rivers and environment from plastic pollution. Vrishabhavathi River is choking with plastic waste.',
+        comment: 'Long overdue! I fully support this policy. We need to protect our lakes and environment from plastic pollution. Bellandur Lake is choking with plastic waste.',
         timestamp: '2025-12-06T15:30:00Z',
         reactions: { helpful: 38, insightful: 22, concern: 0 }
       },
@@ -116,7 +116,7 @@ The policy aims to reduce plastic waste by 60% within three years of implementat
       },
       {
         id: 'c7',
-        author: 'Supermarket Manager - Karen',
+        author: 'Supermarket Manager - Whitefield',
         authorType: 'business',
         comment: 'We switched to reusable bags last year. Sales of cloth bags are growing. Customers adapt when given good alternatives.',
         timestamp: '2025-12-04T14:45:00Z',
@@ -131,23 +131,23 @@ The policy aims to reduce plastic waste by 60% within three years of implementat
   },
   {
     id: 'POL-2025-TRN-002',
-    title: 'Matatu Stage Improvement Guidelines',
-    summary: 'New standards for matatu termini including safety requirements, passenger amenities, and traffic flow management.',
-    fullDescription: `The Matatu Stage Improvement Guidelines establish minimum standards for all public service vehicle termini within Bengaluru. This policy responds to citizen feedback about overcrowding, safety concerns, and poor facilities at major bus stages.. This policy responds to citizen feedback about overcrowding, safety concerns, and poor facilities at major bus stages.
+    title: 'BMTC Bus Stop Improvement Guidelines',
+    summary: 'New standards for BMTC bus stops including safety requirements, passenger amenities, and traffic flow management.',
+    fullDescription: `The BMTC Bus Stop Improvement Guidelines establish minimum standards for all public service vehicle stops within Bengaluru. This policy responds to citizen feedback about overcrowding, safety concerns, and poor facilities at major bus stops.
 
 Key provisions include:
-• Mandatory shelter structures with seating at all designated stages
+• Mandatory shelter structures with seating at all designated stops
 • Proper lighting and CCTV coverage for security
 • Clear lane markings and traffic flow patterns
-• Public toilet facilities within 100 meters of major stages
+• Public toilet facilities within 100 meters of major stops
 • Designated hawking zones to reduce congestion
 
-Implementation will begin with major termini (Railways, Kencom, Ngong Road) and expand to all stages within 18 months.`,
+Implementation will begin with major stops (Majestic, Shivajinagar, KR Market) and expand to all stops within 18 months.`,
     department: 'Transport & Infrastructure',
     status: 'open',
     deadline: '2026-01-15',
-    documentUrl: '/docs/matatu-stage-guidelines-2025.pdf',
-    documentName: 'Matatu Stage Improvement Guidelines',
+    documentUrl: '/docs/bus-stop-guidelines-2025.pdf',
+    documentName: 'BMTC Bus Stop Improvement Guidelines',
     documentSize: '1.8 MB',
     publishedDate: '2025-12-01',
     clauses: [
@@ -155,13 +155,13 @@ Implementation will begin with major termini (Railways, Kencom, Ngong Road) and 
         id: 'trn-clause-1',
         section: 'Section 1',
         title: 'Shelter and Seating Requirements',
-        content: 'All designated matatu stages shall have covered shelter structures capable of accommodating at least 50 passengers. Seating shall be provided for a minimum of 20 passengers, with priority seats clearly marked for elderly, pregnant women, and persons with disabilities.'
+        content: 'All designated BMTC bus stops shall have covered shelter structures capable of accommodating at least 50 passengers. Seating shall be provided for a minimum of 20 passengers, with priority seats clearly marked for elderly, pregnant women, and persons with disabilities.'
       },
       {
         id: 'trn-clause-2',
         section: 'Section 2',
         title: 'Security and Lighting Standards',
-        content: 'Each stage shall have adequate lighting (minimum 50 lux) operational from 6PM to 6AM. CCTV cameras shall be installed at all major termini covering boarding areas, with footage retained for 30 days. Security personnel presence required at major stages during peak hours.'
+        content: 'Each stop shall have adequate lighting (minimum 50 lux) operational from 6PM to 6AM. CCTV cameras shall be installed at all major stops covering boarding areas, with footage retained for 30 days. Security personnel presence required at major stops during peak hours.'
       },
       {
         id: 'trn-clause-3',
@@ -185,29 +185,29 @@ Implementation will begin with major termini (Railways, Kencom, Ngong Road) and 
         id: 'trn-clause-6',
         section: 'Section 6',
         title: 'Implementation Timeline',
-        content: 'Phase 1 (0-6 months): Major termini - Railways, Kencom, Ngong Road, Eastleigh. Phase 2 (6-12 months): Secondary stages - Buruburu, Kayole, Rongai, Kitengela. Phase 3 (12-18 months): All remaining designated stages.'
+        content: 'Phase 1 (0-6 months): Major stops - Majestic, Shivajinagar, KR Market, Yeshwanthpur. Phase 2 (6-12 months): Secondary stops - Koramangala, Whitefield, Electronic City, Yelahanka. Phase 3 (12-18 months): All remaining designated stops.'
       }
     ],
     comments: [
       {
         id: 'c8',
-        author: 'Daily Commuter - Umoja',
+        author: 'Daily Commuter - HSR Layout',
         authorType: 'resident',
-        comment: 'Finally! The Eastlands stages are chaotic. Please prioritize Buruburu and Dandora stages. We need proper shelters especially during rainy season.',
+        comment: 'Finally! The Outer Ring Road stops are chaotic. Please prioritize Silk Board and Marathahalli stops. We need proper shelters especially during rainy season.',
         timestamp: '2025-12-07T07:15:00Z',
         reactions: { helpful: 45, insightful: 3, concern: 0 }
       },
       {
         id: 'c9',
-        author: 'Matatu Sacco Representative',
+        author: 'BMTC Depot Representative',
         authorType: 'business',
-        comment: 'We support this initiative. Request that saccos be consulted on lane markings and loading zones to ensure smooth operations.',
+        comment: 'We support this initiative. Request that BMTC depot staff be consulted on lane markings and loading zones to ensure smooth operations.',
         timestamp: '2025-12-06T16:00:00Z',
         reactions: { helpful: 18, insightful: 12, concern: 5 }
       },
       {
         id: 'c10',
-        author: 'Hawker - CBD',
+        author: 'Hawker - Majestic',
         authorType: 'trader',
         comment: 'Please consider us hawkers in the designated zones. We also need to earn a living. Include us in the planning.',
         timestamp: '2025-12-05T09:30:00Z',
@@ -215,7 +215,7 @@ Implementation will begin with major termini (Railways, Kencom, Ngong Road) and 
       },
       {
         id: 'c11',
-        author: 'Woman Commuter - Kayole',
+        author: 'Woman Commuter - Whitefield',
         authorType: 'resident',
         comment: 'Security is my main concern. CCTV and proper lighting will help. Too many incidents happen at dark stages late evening.',
         timestamp: '2025-12-04T18:20:00Z',
@@ -231,9 +231,9 @@ Implementation will begin with major termini (Railways, Kencom, Ngong Road) and 
       },
       {
         id: 'c13',
-        author: 'Boda Boda Rider - Ngara',
+        author: 'Auto Driver - Malleshwaram',
         authorType: 'business',
-        comment: 'What about motorcycle parking areas near stages? We provide last-mile transport and need designated waiting zones too.',
+        comment: 'What about auto-rickshaw parking areas near stops? We provide last-mile transport and need designated waiting zones too.',
         timestamp: '2025-12-02T14:30:00Z',
         reactions: { helpful: 28, insightful: 18, concern: 2 }
       }
@@ -248,11 +248,11 @@ Implementation will begin with major termini (Railways, Kencom, Ngong Road) and 
     id: 'POL-2025-HSG-003',
     title: 'Affordable Housing Allocation Framework',
     summary: 'Criteria and process for allocating county-built affordable housing units to qualifying residents.',
-    fullDescription: `This framework establishes transparent criteria for the allocation of affordable housing units constructed under the Bengaluru Housing Program. The policy aims to ensure fair access to housing for low and middle-income residents.. The policy aims to ensure fair access to housing for low and middle-income residents.
+    fullDescription: `This framework establishes transparent criteria for the allocation of affordable housing units constructed under the Bengaluru Housing Program. The policy aims to ensure fair access to housing for low and middle-income residents.
 
 Allocation criteria include:
 • Residency requirement (minimum 5 years in Bengaluru)
-• Income threshold (household income below KES 100,000/month)
+• Income threshold (household income below ₹80,000/month)
 • First-time homebuyer preference
 • Special consideration for persons with disabilities
 • Points system based on family size and housing need
@@ -276,7 +276,7 @@ The framework also establishes an appeals process and anti-corruption measures t
         id: 'hsg-clause-2',
         section: 'Section 2',
         title: 'Eligibility - Income Threshold',
-        content: 'Household gross income shall not exceed KES 100,000 per month. Verification through: payslips, bank statements, tax returns, or sworn income declaration for informal sector workers. Joint applications shall combine both incomes.'
+        content: 'Household gross income shall not exceed ₹80,000 per month. Verification through: payslips, bank statements, tax returns, or sworn income declaration for informal sector workers. Joint applications shall combine both incomes.'
       },
       {
         id: 'hsg-clause-3',
@@ -306,7 +306,7 @@ The framework also establishes an appeals process and anti-corruption measures t
     comments: [
       {
         id: 'c14',
-        author: 'Resident of Mathare',
+        author: 'Resident of JP Nagar',
         authorType: 'resident',
         comment: 'The 5-year residency requirement is fair. But how will you verify this? Many of us don\'t have formal documentation of our stay in informal settlements.',
         timestamp: '2025-12-05T10:20:00Z',
@@ -314,7 +314,7 @@ The framework also establishes an appeals process and anti-corruption measures t
       },
       {
         id: 'c15',
-        author: 'Single Mother - Kibera',
+        author: 'Single Mother - BTM Layout',
         authorType: 'resident',
         comment: 'Please prioritize single mothers and widows. We struggle the most with housing. Our children deserve better living conditions.',
         timestamp: '2025-12-04T08:45:00Z',
@@ -322,7 +322,7 @@ The framework also establishes an appeals process and anti-corruption measures t
       },
       {
         id: 'c16',
-        author: 'Youth Leader - Korogocho',
+        author: 'Youth Leader - Electronic City',
         authorType: 'youth',
         comment: 'What about young people who were born here but parents don\'t have documents? We are Bengalureans too and deserve consideration.',
         timestamp: '2025-12-03T16:00:00Z',
@@ -338,7 +338,7 @@ The framework also establishes an appeals process and anti-corruption measures t
       },
       {
         id: 'c18',
-        author: 'Tenant - Eastleigh',
+        author: 'Tenant - Marathahalli',
         authorType: 'resident',
         comment: 'Income threshold is reasonable. But please verify carefully to prevent rich people from pretending to qualify.',
         timestamp: '2025-12-01T09:15:00Z',
@@ -346,7 +346,7 @@ The framework also establishes an appeals process and anti-corruption measures t
       },
       {
         id: 'c19',
-        author: 'Teacher - Dandora',
+        author: 'Teacher - Yelahanka',
         authorType: 'resident',
         comment: 'Will civil servants like teachers qualify? Our salaries are known but housing is still unaffordable for us.',
         timestamp: '2025-11-30T14:00:00Z',
@@ -354,7 +354,7 @@ The framework also establishes an appeals process and anti-corruption measures t
       },
       {
         id: 'c20',
-        author: 'Elder - Pumwani',
+        author: 'Elder - Basavanagudi',
         authorType: 'resident',
         comment: 'Good policy but what about elderly citizens who have lived here all their lives? We need ground floor units due to mobility issues.',
         timestamp: '2025-11-29T10:30:00Z',
@@ -362,7 +362,7 @@ The framework also establishes an appeals process and anti-corruption measures t
       },
       {
         id: 'c21',
-        author: 'Healthcare Worker - Kenyatta Hospital',
+        author: 'Healthcare Worker - Victoria Hospital',
         authorType: 'resident',
         comment: 'Essential workers should get some priority. We serve the city but can\'t afford to live near our workplaces.',
         timestamp: '2025-11-28T07:00:00Z',
@@ -382,7 +382,7 @@ The framework also establishes an appeals process and anti-corruption measures t
     fullDescription: `This policy review proposes adjustments to the monthly stipend for Community Health Workers (CHWs) serving in Bengaluru. CHWs play a critical role in primary healthcare delivery, especially in informal settlements and underserved areas.. CHWs play a critical role in primary healthcare delivery, especially in informal settlements and underserved areas.
 
 Proposed changes:
-• Increase base stipend from KES 2,500 to KES 5,000 per month
+• Increase base stipend from ₹2,500 to ₹5,000 per month
 • Performance bonuses for immunization and referral targets
 • Medical insurance coverage for all registered CHWs
 • Training and certification pathways
@@ -401,13 +401,13 @@ The review responds to feedback from CHWs about inadequate compensation relative
         id: 'hlt-clause-1',
         section: 'Section 1',
         title: 'Base Stipend Increase',
-        content: 'The monthly base stipend for registered Community Health Workers shall be increased from KES 2,500 to KES 5,000, effective from the first month following policy adoption. Payment shall be made through mobile money or bank transfer by the 5th of each month.'
+        content: 'The monthly base stipend for registered Community Health Workers shall be increased from ₹2,500 to ₹5,000, effective from the first month following policy adoption. Payment shall be made through bank transfer by the 5th of each month.'
       },
       {
         id: 'hlt-clause-2',
         section: 'Section 2',
         title: 'Performance Bonuses',
-        content: 'CHWs meeting quarterly targets shall receive bonuses: (a) Immunization coverage above 90% - KES 2,000 bonus, (b) Successful referrals leading to treatment - KES 500 per case, (c) Community health education sessions - KES 300 per session (max 10/month).'
+        content: 'CHWs meeting quarterly targets shall receive bonuses: (a) Immunization coverage above 90% - ₹2,000 bonus, (b) Successful referrals leading to treatment - ₹500 per case, (c) Community health education sessions - ₹300 per session (max 10/month).'
       },
       {
         id: 'hlt-clause-3',
@@ -431,7 +431,7 @@ The review responds to feedback from CHWs about inadequate compensation relative
     comments: [
       {
         id: 'c22',
-        author: 'Community Health Worker - Mukuru',
+        author: 'Community Health Worker - Rajarajeshwari Nagar',
         authorType: 'resident',
         comment: 'Thank you for listening to us. The current stipend is too low for the work we do. We visit dozens of homes daily.',
         timestamp: '2025-11-25T08:00:00Z',
@@ -439,7 +439,7 @@ The review responds to feedback from CHWs about inadequate compensation relative
       },
       {
         id: 'c23',
-        author: 'CHW Supervisor - Kawangware',
+        author: 'CHW Supervisor - Mahadevapura',
         authorType: 'community',
         comment: 'Insurance coverage is crucial. Many CHWs get sick from exposure during home visits but can\'t afford treatment.',
         timestamp: '2025-11-24T11:30:00Z',
@@ -447,7 +447,7 @@ The review responds to feedback from CHWs about inadequate compensation relative
       },
       {
         id: 'c24',
-        author: 'Village Elder - Huruma',
+        author: 'Senior Citizen - Rajajinagar',
         authorType: 'community',
         comment: 'CHWs are the backbone of community health. They deserve proper pay. I support this policy fully.',
         timestamp: '2025-11-23T09:00:00Z',
@@ -455,7 +455,7 @@ The review responds to feedback from CHWs about inadequate compensation relative
       },
       {
         id: 'c25',
-        author: 'Mother - Kangemi',
+        author: 'Mother - Yelahanka',
         authorType: 'resident',
         comment: 'Our CHW saved my baby\'s life by referring us to hospital early. They deserve better pay for their dedication.',
         timestamp: '2025-11-22T14:15:00Z',
