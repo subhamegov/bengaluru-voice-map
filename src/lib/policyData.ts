@@ -100,9 +100,9 @@ The policy aims to reduce plastic waste by 60% within three years of implementat
       },
       {
         id: 'c5',
-        author: 'Environmental Activist - Lavington',
+        author: 'Environmental Activist - HSR Layout',
         authorType: 'community',
-        comment: 'Long overdue! I fully support this policy. We need to protect our rivers and environment from plastic pollution. Vrishabhavathi River is choking with plastic waste.',
+        comment: 'Long overdue! I fully support this policy. We need to protect our lakes and environment from plastic pollution. Bellandur Lake is choking with plastic waste.',
         timestamp: '2025-12-06T15:30:00Z',
         reactions: { helpful: 38, insightful: 22, concern: 0 }
       },
