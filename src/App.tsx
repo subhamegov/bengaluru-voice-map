@@ -16,23 +16,22 @@ import TrainingModule from "./pages/TrainingModule";
 import AboutMyCity from "./pages/AboutMyCity";
 import MyProposals from "./pages/MyProposals";
 import NotFound from "./pages/NotFound";
+import AccessibilityPage from "./pages/Accessibility";
 import ResolverHome from "./pages/resolver/ResolverHome";
 import ResolverTasks from "./pages/resolver/ResolverTasks";
 import ResolverSearchIssues from "./pages/resolver/ResolverSearchIssues";
 import ResolverTraining from "./pages/resolver/ResolverTraining";
 import ResolverAboutCity from "./pages/resolver/ResolverAboutCity";
 
+import { useAccessibilityShortcut } from "./hooks/use-accessibility-shortcut";
+
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<Index />} />
+function AppRoutes() {
+  useAccessibilityShortcut();
+  return (
+    <Routes>
+      <Route path="/" element={<Index />} />
           <Route path="/report" element={<Report />} />
           <Route path="/stories" element={<Stories />} />
           <Route path="/surveys" element={<Surveys />} />
@@ -43,6 +42,7 @@ const App = () => (
           <Route path="/training" element={<Training />} />
           <Route path="/training/:moduleId" element={<TrainingModule />} />
           <Route path="/about-my-city" element={<AboutMyCity />} />
+          <Route path="/accessibility" element={<AccessibilityPage />} />
           {/* Resolver Portal Routes */}
           <Route path="/resolver" element={<ResolverHome />} />
           <Route path="/resolver/tasks" element={<ResolverTasks />} />
@@ -53,6 +53,17 @@ const App = () => (
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+  );
+}
+
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      <BrowserRouter>
+        <ScrollToTop />
+        <AppRoutes />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

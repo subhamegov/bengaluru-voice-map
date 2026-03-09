@@ -69,9 +69,9 @@ export function AppLayout({ children }: AppLayoutProps) {
               <Languages className="w-4 h-4" />
               <span className="hidden sm:inline text-xs">English</span>
             </button>
-            <button className="mygov-utility-btn" aria-label="Accessibility options" title="Accessibility">
+            <NavLink to="/accessibility" className="mygov-utility-btn" aria-label="Accessibility options" title="Accessibility">
               <Accessibility className="w-4 h-4" />
-            </button>
+            </NavLink>
           </div>
         </div>
       </div>
