@@ -228,11 +228,10 @@ export function LocationStep({ location, onLocationChange, intent, linkedProject
   const [voiceError, setVoiceError] = useState<string | null>(null);
   const recognitionRef = useRef<any>(null);
   
-  // Available wards based on selected zone
-  const [availableWards, setAvailableWards] = useState<Ward[]>([]);
+  // Available wards based on selected zonest [availableWards, setAvailableWards] = useState<Ward[]>([]);
   const [availableZones, setAvailableZones] = useState<Zone[]>([]);
   const [flyTarget, setFlyTarget] = useState<[number, number] | null>(null);
-  // Update available wards when sub-county changes
+  // Update available wards when sub-cozonees
   useEffect(() => {
     if (location.admin.subCounty) {
       const wards = getWardsBySubCounty(location.admin.subCounty);
