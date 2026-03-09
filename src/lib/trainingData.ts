@@ -374,7 +374,7 @@ export const mockTrainingModules: TrainingModule[] = [
         title: 'Handling Escalations Effectively',
         duration: '4:45',
         url: '#',
-        audience: ['County Staff'],
+        audience: ['Grievance Redressal Staff'],
       },
     ],
     downloads: [
