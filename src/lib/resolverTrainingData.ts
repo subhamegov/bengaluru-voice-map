@@ -44,7 +44,7 @@ export const RESOLVER_FAQS: ResolverFAQ[] = [
 
 1. **Read the Description Carefully**: Understand what the citizen is reporting. Look for keywords like "pothole", "garbage", "water leak", "broken light", etc.
 
-2. **Check the Location**: The ward and sub-county help determine which department should handle it.
+2. **Check the Location**: The ward and zone help determine which department should handle it.
 
 3. **Select Primary Category**: Choose from: Environment (garbage, pollution), Water & Sewerage (leaks, blockages), Works (roads, drainage), Health (inspections, pests), or Mobility & ICT (traffic systems, digital services).
 
