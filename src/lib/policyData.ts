@@ -378,7 +378,7 @@ The framework also establishes an appeals process and anti-corruption measures t
   {
     id: 'POL-2025-HLT-004',
     title: 'Community Health Worker Stipend Review',
-    summary: 'Proposed increase in monthly stipends for community health volunteers serving in county facilities.',
+    summary: 'Proposed increase in monthly stipends for community health volunteers serving in BBMP facilities.',
     fullDescription: `This policy review proposes adjustments to the monthly stipend for Community Health Workers (CHWs) serving in Bengaluru. CHWs play a critical role in primary healthcare delivery, especially in informal settlements and underserved areas.. CHWs play a critical role in primary healthcare delivery, especially in informal settlements and underserved areas.
 
 Proposed changes:
