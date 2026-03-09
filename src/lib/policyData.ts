@@ -92,7 +92,7 @@ The policy aims to reduce plastic waste by 60% within three years of implementat
       },
       {
         id: 'c4',
-        author: 'Mama Mboga - Gikomba Market',
+        author: 'Vendor - KR Market',
         authorType: 'trader',
         comment: 'We need affordable alternatives before banning plastics. Paper bags tear easily and cost more. Please provide subsidies for small traders like us.',
         timestamp: '2025-12-07T08:20:00Z',
