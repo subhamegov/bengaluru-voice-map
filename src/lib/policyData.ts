@@ -431,7 +431,7 @@ The review responds to feedback from CHWs about inadequate compensation relative
     comments: [
       {
         id: 'c22',
-        author: 'Community Health Worker - Mukuru',
+        author: 'Community Health Worker - Rajarajeshwari Nagar',
         authorType: 'resident',
         comment: 'Thank you for listening to us. The current stipend is too low for the work we do. We visit dozens of homes daily.',
         timestamp: '2025-11-25T08:00:00Z',
