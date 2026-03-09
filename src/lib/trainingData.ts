@@ -360,7 +360,7 @@ export const mockTrainingModules: TrainingModule[] = [
         title: 'Officer Dashboard Overview',
         duration: '5:30',
         url: '#',
-        audience: ['County Staff'],
+        audience: ['Grievance Redressal Staff'],
       },
       {
         id: 'vid_2_2',
