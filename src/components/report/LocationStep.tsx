@@ -231,7 +231,7 @@ export function LocationStep({ location, onLocationChange, intent, linkedProject
   // Available wards based on selected sub-county
   const [availableWards, setAvailableWards] = useState<Ward[]>([]);
   const [availableZones, setAvailableZones] = useState<Zone[]>([]);
-
+  const [flyTarget, setFlyTarget] = useState<[number, number] | null>(null);
   // Update available wards when sub-county changes
   useEffect(() => {
     if (location.admin.subCounty) {
